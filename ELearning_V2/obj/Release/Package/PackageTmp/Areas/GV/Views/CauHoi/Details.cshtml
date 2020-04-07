@@ -1,0 +1,81 @@
+﻿@model ELearning_V2.common.CauHoiModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <div>
+        <h2>Chi tiết câu hỏi</h2>
+        <p>
+            @Html.ActionLink("Chỉnh sửa", "Update", new { id = Model.MaCauHoi })
+        </p>
+
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <label><b>Mã câu hỏi: </b>@Model.MaCauHoi</label>
+                <br />
+                <label><b>Nội dung: </b>@Model.NoiDung <br /> \(@Model.BieuThuc\)</label>
+                <br />
+                <label><b>Chương: </b>@Model.TenChuong</label>
+                <br />
+                @{
+                    switch (Model.DoKho)
+                    {
+                        case 1:<label><b>Mức độ: </b>Nhận biết</label>
+                            break;
+                        case 2:<label><b>Mức độ: </b>Thông hiểu</label>
+                            break;
+                        case 3:<label><b>Mức độ: </b>Vận dụng</label>
+                            break;
+                        case 4:<label><b>Mức độ: </b>Nâng cao</label>
+                            break;
+                    }
+                }
+                <br />
+                <label><b>Created by: </b>@Model.TenGV</label>
+                <br />
+                <label><b>Ngày tạo: </b>@Model.NgayTao</label>
+                <br />
+            </div>
+            <div class="col-md-6">
+                <label><b>Đáp án A: </b>@Model.CauA \(@Model.BieuThucA\)</label>
+                <br />
+                <label><b>Đáp án B: </b>@Model.CauB \(@Model.BieuThucB\)</label>
+                <br />
+                <label><b>Đáp án C: </b>@Model.CauC \(@Model.BieuThucC\)</label>
+                <br />
+                <label><b>Đáp án D: </b>@Model.CauD \(@Model.BieuThucD\)</label>
+                <br />
+                @{
+                    switch (Model.DapAn)
+                    {
+                        case 1:<label><b>Đáp án đúng: A</b></label>
+                            break;
+                        case 2:<label><b>Đáp án đúng: B</b></label>
+                            break;
+                        case 3:<label><b>Đáp án đúng: C</b></label>
+                            break;
+                        case 4:<label><b>Đáp án đúng: A</b></label>
+                            break;
+                    }
+
+
+                }
+                <br />
+                <label><b>Ngày sửa: </b>@Model.NgaySua</label>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<p>
+    @Html.ActionLink("Trở về danh sách", "CauHoi", new { id = Model.MaMonHoc })
+</p>
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>

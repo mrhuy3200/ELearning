@@ -1,0 +1,53 @@
+﻿@model ELearning_V2.Areas.GV.Models.LopModel
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    string message = (string)TempData["Error"] ?? string.Empty;
+
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Chi tiết Lớp @Model.TenLop</h3>
+        @Html.ActionLink("Quay lại", "DanhSachLopHoc")
+        <br />
+        <table class="table">
+            <tr>
+                <td>
+                    <div>
+                        <label><b>Mã lớp học: </b>@Model.MaLop</label>
+                        <br />
+                        <label><b>Tên lớp: </b>@Model.TenLop</label>
+                        <br />
+                        <label><b>Môn học:</b>@Model.TenMonHoc</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label><b>Ngày bắt đầu: </b>@Model.NgayBatDau</label>
+                        <br />
+                        <label><b>Giáo viên: </b>@Model.HoTenGV</label>
+                        <br />
+                        <label><b>Sĩ số: </b>@Model.SiSo</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p>@Model.MoTa</p>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-success" href="@Url.Action("DangKy","Lop",new {id=Model.MaLop })">
+            Đăng ký
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var message = "@message";
+    if (message) alert(message);
+</script>

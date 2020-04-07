@@ -1,0 +1,328 @@
+﻿
+@{
+    ViewBag.Title = "CauHoi";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+<div class="container" ng-app="CauHoiModule" ng-controller="CauHoiController" ng-init="MaMon('@ViewBag.MaMon')">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3> === Ngân hàng câu hỏi môn @(ViewBag.TenMon) ===</h3>
+        </div>
+        <hr />
+        <div class="panel-body">
+            @*<button type="button" class="btn btn-info"
+                        data-target="#AddNew" data-toggle="modal">
+                    Thêm mới
+                </button>*@
+            <a href="#" class="btn btn-info" onclick="location.href='@Url.Action("TaoMoi","CauHoi", new { id = ViewBag.MaMonHoc})'">Thêm mới</a>
+            <br />
+        </div>
+        @*Employee Records*@
+        <table class="table table-bordered table-striped">
+            <thead style="background-color:lightblue;">
+                <tr>
+                    <th></th>
+                    <th> Mã câu hỏi</th>
+                    <th style="width:250px"> Nội dung</th>
+                    <th style="width:250px"> Chương </th>
+                    <th> Độ khó</th>
+                    <th> Trạng Thái</th>
+                    <th> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ch in CauHois">
+                    <td>
+                        <a href="" title="Remove"
+                           data-toggle="modal"
+                           data-target="#deleteDialog"
+                           ng-click="getForDelete(ch)">
+                            <em class="fa fa-remove" style="color:red"></em>
+                        </a>
+                    </td>
+                    <td>{{ch.MaCauHoi}} </td>
+                    <td>{{ch.NoiDung}}<br /><latex>{{ch.BieuThuc}}</latex></td>
+                    <td>{{ch.TenChuong}}</td>
+                    <td ng-if="ch.DoKho == 1">Nhận biết</td>
+                    <td ng-if="ch.DoKho == 2">Thông hiểu</td>
+                    <td ng-if="ch.DoKho == 3">Vân dụng</td>
+                    <td ng-if="ch.DoKho == 4">Nâng cao</td>
+                    <td ng-show="ch.TrangThai">Mở</td>
+                    <td ng-hide="ch.TrangThai">Đóng</td>
+                    <td>
+                        <a href=""
+                           class="btn btn-primary"
+                           style="width:90px"
+                           data-ng-href="@Url.Action("Details", "CauHoi")/{{ch.MaCauHoi}}">
+                            Chi tiết
+                        </a>
+                        @*<a href=""
+                               class="btn btn-info"
+                               data-toggle="modal"
+                               data-target="#Update"
+                               ng-click="Details(ch)">
+                                Update
+                            </a>*@
+                        @*<a href=""
+                               class="btn btn-info"
+                               style="width:90px"
+                               data-ng-href="@Url.Action("Update", "CauHoi")/{{ch.MaCauHoi}}">
+                                Cập nhật
+                            </a>*@
+                        @*<a href=""
+                               class="btn btn-danger"
+                               id="btnDelete"
+                               style="width:90px"
+                               data-toggle="modal"
+                               data-target="#deleteDialog"
+                               ng-click="getForDelete(ch)">
+                                Xóa
+                            </a>*@
+                        <a href=""
+                           class="btn btn-success"
+                           style="width:90px"
+                           data-toggle="modal"
+                           data-target="#publishDialog"
+                           ng-click="getForPublish(ch)"
+                           ng-hide="ch.TrangThai">
+                            Mở
+                        </a>
+                        <a href=""
+                           class="btn btn-warning"
+                           style="width:90px"
+                           data-toggle="modal"
+                           data-target="#privateDialog"
+                           ng-click="getForPrivate(ch)"
+                           ng-show="ch.TrangThai">
+                            Đóng
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @*New record Modal addition..*@
+    <div class="modal" id="AddNew" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm cau hoi</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    @*Add New Employee form starts here...*@
+                    <form class="form-horizontal" name="AddNewForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" name="StuNo" ng-model="MaCauHoi" type="hidden" placeholder="Student Number" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Nội dung</label>
+                            <textarea id="NoiDung" class="form-control" name="NoiDung" ng-model="NoiDung" placeholder="Nội dung câu hỏi"></textarea>
+                            <p math-jax-bind="NoiDung"></p>
+                            <script src="~/Assets/Plugin/ckeditor/ckeditor.js"></script>
+                            <script>
+
+                                CKEDITOR.replace("NoiDung");
+
+                            </script>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Điểm: {{Diem}}</label>
+                            <input class="form-control" name="Diem" ng-model="Diem" type="range" min="1" max="5" placeholder="Điểm" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Độ khó: {{DoKho}}</label>
+                            <input class="form-control" name="DoKho" ng-model="DoKho" type="range" min="1" max="5" placeholder="Độ khó" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Đáp án A</label>
+                            <input class="form-control" name="Lop" ng-model="CauA" type="text" placeholder="Đáp án A" />
+                            <p math-jax-bind="CauA"></p>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Đáp án B</label>
+                            <input class="form-control" name="Lop" ng-model="CauB" type="text" placeholder="Đáp án B" />
+                            <p math-jax-bind="CauB"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Đáp án C</label>
+                            <input class="form-control" name="Lop" ng-model="CauC" type="text" placeholder="Đáp án C" />
+                            <p math-jax-bind="CauC"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Đáp án D</label>
+                            <input class="form-control" name="Lop" ng-model="CauD" type="text" placeholder="\( Nhập đáp án theo cấu trúc này \)" />
+                            <p math-jax-bind="CauD"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Đáp án</label><br />
+                            <label>
+                                <input type="radio" ng-model="DapAn" value="1" checked />
+                                A
+                            </label><br />
+                            <label>
+                                <input type="radio" ng-model="DapAn" value="2" />
+                                B
+                            </label><br />
+                            <label>
+                                <input type="radio" ng-model="DapAn" value="3" />
+                                C
+                            </label><br />
+                            <label>
+                                <input type="radio" ng-model="DapAn" value="4" />
+                                D
+                            </label><br />
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="save()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetSave()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Upadate *@
+    <div class="modal" id="Update" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Cập nhật câu hỏi</h3>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    @*Update Employee form starts here...*@
+                    <form class="form-horizontal" name="UpdateEmployeeForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" name="StuNo" ng-model="DetailsMaCauHoi" type="hidden" placeholder="Employee Number" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Nội dung</label>
+                            <textarea class="form-control" name="NoiDung" ng-model="DetailsNoiDung" placeholder="Nội dung câu hỏi"></textarea>
+                            <p math-jax-bind="DetailsNoiDung"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Điểm</label>
+                            <input class="form-control" name="DetailsDiem" ng-model="DetailsDiem" type="text" placeholder="Họ đệm" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Độ khó </label>
+                            <input class="form-control" name="DetailsDoKho" ng-model="DetailsDoKho" type="text" placeholder="Tên" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Đáp án A</label>
+                            <input class="form-control" name="Lop" ng-model="DetailsCauA" type="text" placeholder="Lớp" />
+                            <p math-jax-bind="DetailsCauA"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Đáp án B</label>
+                            <input class="form-control" name="Lop" ng-model="DetailsCauB" type="text" placeholder="Lớp" />
+                            <p math-jax-bind="DetailsCauB"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Đáp án C</label>
+                            <input class="form-control" name="Lop" ng-model="DetailsCauC" type="text" placeholder="Lớp" />
+                            <p math-jax-bind="DetailsCauC"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Đáp án D</label>
+                            <input class="form-control" name="Lop" ng-model="DetailsCauD" type="text" placeholder="Lớp" />
+                            <p math-jax-bind="DetailsCauD"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info"> Đáp án</label>
+                            <input class="form-control" name="Lop" ng-model="DetailsDapAn" type="text" placeholder="Lớp" />
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate" data-dismiss="modal" ng-click="update()">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Delete *@
+    <div class="modal" role="dialog" id="deleteDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận xóa câu hỏi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(DetailsMaCauHoi)">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Publish*@
+    <div class="modal" role="dialog" id="publishDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận mở câu hỏi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="publish()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" role="dialog" id="privateDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận đóng câu hỏi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="private()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="~/Scripts/angular.js"></script>
+@*<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">
+    </script>*@
+
+<script src="~/Areas/GV/AngularJS/CauHoi/CauHoiModule.js"></script>
+<script src="~/Areas/GV/AngularJS/CauHoi/CauHoiService.js"></script>
+<script src="~/Areas/GV/AngularJS/CauHoi/CauHoiController.js"></script>
+
+@*<script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>*@
+
+@*<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>*@
+@*<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script>
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>*@
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+    }
+    });
+</script>
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

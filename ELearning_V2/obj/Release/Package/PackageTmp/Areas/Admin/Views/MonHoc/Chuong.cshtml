@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ELearning_V2.Models.Chuong>
+
+@{
+    ViewBag.Title = "Chuong";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+
+<h2>CHƯƠNG</h2>
+<br />
+<div ng-app="ChuongModule" ng-controller="ChuongController" ng-init="MaMon('@ViewBag.MaMonHoc')">
+    <form name="AddNewForm">
+        <label>Tên chương:</label>
+        <input class="form-control" name="Name" ng-model="Name" type="text" style="width:400px; display:inline-block" ng-required="true" />
+        <input type="button" value="Thêm" id="Save" class="btn btn-default" style="display:inline-block" ng-disabled="AddNewForm.$invalid" ng-click="Create()" />
+    </form>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <label>Tên chương</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Quay Lại", "DanhSachMonHoc")
+</p>
+
+<script src="~/Scripts/angular.js"></script>
+<script type="text/javascript">
+    var myapp = angular.module('ChuongModule', [])
+
+    myapp.factory('ChuongService', ['$http', function ($http) {
+        var ChuongService = {};
+        ChuongService.create = function (chuong) {
+            var request = $http({
+                method: 'post',
+                url: '/Admin/MonHoc/CreateChuong',
+                data: chuong
+            });
+            return request;
+        };
+        return ChuongService;
+    }]);
+
+    myapp.controller('ChuongController', function ($scope,$window, ChuongService) {
+        $scope.MaMon = function (id) {
+            $scope.id = id;
+        }
+
+        $scope.Create = function () {
+            var Chuong = {
+                Name: $scope.Name,
+                MaMonHoc: $scope.id
+            };
+            var re = ChuongService.create(Chuong);
+            re.then(function (d) {
+                if (d.data.success === true) {
+                    $window.location.reload();
+                    alert("Thêm thành công");
+                }
+                else { alert("Lỗi."); }
+            },
+            function () {
+                alert("Xảy ra lỗi trong quá trình thêm.");
+            });
+        }
+    });
+</script>

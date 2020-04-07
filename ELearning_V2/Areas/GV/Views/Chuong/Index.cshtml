@@ -1,0 +1,16 @@
+﻿@model IEnumerable<ELearning_V2.Models.MonHoc>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách môn học</h2>
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <button class="btn btn-info" style="width:100px" value="Toán" onclick="location.href='@Url.Action("Chuong", "Chuong", new {id = item.MaMonHoc })'">@item.TenMonHoc</button>
+    </div>
+}

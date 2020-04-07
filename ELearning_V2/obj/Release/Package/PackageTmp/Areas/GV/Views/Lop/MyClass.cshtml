@@ -1,0 +1,236 @@
+﻿
+@{
+    ViewBag.Title = "MyClass";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="container col-md-10" ng-app="LopModule" ng-controller="LopController">
+        <div>
+            <h2>My Class ({{Lops.length}}/5)</h2>
+        </div>
+        <div>
+            <button type="button" class="btn btn-success"
+                    data-target="#AddNew" data-toggle="modal">
+                +Thêm mới
+            </button>
+        </div>
+        <br />
+        <div>
+            <table class="table table-bordered">
+                <tr ng-repeat="l in Lops" style="border:2px solid;border-radius:8px;">
+                    <td>
+                        <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
+                            <img src="~/Assets/Image/{{l.Image}}" class="img-thumbnail" style="width:125px;height:152px" />
+                        </a>
+                    </td>
+                    <td>
+                        <div>
+                            <div>
+                                <h3 style="display:inline-block">
+                                    <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
+                                        {{l.TenLop}}
+                                    </a>
+                                </h3>
+                                <div class="text-muted" style="font-size:12px;">
+                                    <ul class="list-unstyled list-inline">
+                                        <li style="display:inline-block;">
+                                            <em class="fa fa-clock-o">
+                                                &nbsp;
+                                            </em>
+                                            Ngày bắt đầu: {{l.NgayBatDau}}
+                                            &nbsp;&nbsp;&nbsp;
+                                        </li>
+                                        <li style="display:inline-block;">
+                                            <em class="fa fa-user">
+                                                &nbsp;
+                                            </em>
+                                            Sĩ số: {{l.SiSo}}
+                                            &nbsp;&nbsp;&nbsp;
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p style="font-size:16px;height:100px;width:500px;overflow:hidden;">
+                                {{l.MoTa}}
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+
+                        <div style="margin-top:0px;">
+                            <em class="fa fa-pencil">
+                                <a href="" data-toggle="modal" data-target="#Update" ng-click="getForUpdate(l)"><u>Chỉnh sửa</u></a>
+                            </em>
+                            |
+                            <em class="fa fa-trash">
+                                <a href="" data-toggle="modal" data-target="#deleteDialog" ng-click="getForDelete(l)"><u>Xóa</u></a>
+                            </em>
+                            <br />
+                            <em class="fa fa-lock">
+                                &nbsp;
+                                Trạng thái:
+                                <a ng-hide="l.TrangThai" href="" title="Nhấn để mở " ng-click="publish(l)"><u>Đóng</u></a>
+                                <a ng-show="l.TrangThai" href="" title="Nhấn để đóng " ng-click="private(l)"><u>Mở</u></a>
+                            </em>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+            <br />
+        </div>
+
+        @*insert*@
+        <style>
+            .error-msg {
+                font-size: 90%;
+                font-style: italic;
+                color: red;
+            }
+        </style>
+        <div class="modal" id="AddNew" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Thêm Lớp</h3>
+                        <button type="button" class="close" data-dismiss="modal" style="text-align: left" ng-click="resetSave()">x</button>
+                    </div>
+                    <div class="modal-body" style="margin-left:20px">
+                        <form class="form-horizontal" name="AddNewForm">
+                            <div class="form-group">
+                                <input class="form-control" readonly="readonly" ng-model="MaLop" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Tên lớp </label>
+                                <input class="form-control" name="TenLop" ng-model="TenLop" type="text" placeholder="Tên lớp học" ng-required="true" />
+                                <span ng-show="AddNewForm.TenLop.$invalid" class="error-msg">Vui lòng nhập tên lớp</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Mô Tả</label>
+                                <textarea class="form-control" name="MoTa" ng-model="MoTa" placeholder="Mô tả lớp học" ng-required="true"></textarea>
+                                <span ng-show="AddNewForm.MoTa.$invalid" class="error-msg">Vui lòng nhập mô tả lớp học</span>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Ngày bắt đầu</label>
+                                <input type="date" ng-model="date" ng-required="true" name="date">
+                                <br />
+                                <span ng-show="AddNewForm.date.$invalid" class="error-msg">Vui lòng chọn ngày bắt đầu</span>
+
+                                <label>{{date|date:'dd/MM/yyyy' }}</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" ngf-select="UploadFiles($files)" />
+                                <hr />
+                                <ul><li ng-repeat="file in SelectedFiles">{{file.name}}</li></ul>
+                                <div id="dvProgress" class="progress" ng-show="Progress >= 0"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Môn học</label>
+                                <select name="MaMonHoc" ng-model="MaMonHoc" ng-required="true">
+
+                                    <option value="">--Select--</option>
+                                    <option ng-repeat="mh in MonHocs" value="{{mh.MaMonHoc}}">{{mh.TenMonHoc}}</option>
+                                </select>
+                                <span ng-show="AddNewForm.MaMonHoc.$invalid" class="error-msg">Vui lòng chọn môn học</span>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="save()" ng-disabled="AddNewForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetSave()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Update*@
+        <div class="modal" id="Update" data-keyboard="false" data-backdrop="static" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Cập nhật lớp</h3>
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                    </div>
+                    <div class="modal-body" style="margin-left:20px">
+                        @*Cập nhật lớp...*@
+                        <form class="form-horizontal" name="Updateform">
+                            <div class="form-group">
+                                <input class="form-control" readonly="readonly" ng-model="UpdateMaLop" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Tên lớp </label>
+                                <input class="form-control" name="UpdateTenLop" ng-model="UpdateTenLop" type="text" placeholder="Tên lớp học" maxlength="50" required/>
+                                <span ng-show="Updateform.UpdateTenLop.$error.required" class="error-msg">Vui lòng nhập tên lớp</span>
+                                <span ng-show="Updateform.UpdateTenLop.$error.maxlength" class="error-msg">Tối đa 50 ký tự</span>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Mô Tả</label>
+                                <textarea class="form-control" name="UpdateMoTa" ng-model="UpdateMoTa" placeholder="Mô tả lớp học" maxlength="250" required></textarea>
+                                <span ng-show="Updateform.UpdateMoTa.$error.required" class="error-msg">Vui lòng nhập mô tả</span>
+                                <span ng-show="Updateform.UpdateMoTa.$error.maxlength" class="error-msg">Tối đa 250 ký tự</span>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Ngày bắt đầu</label>
+                                <input type="date" name="Updatedate" ng-model="Updatedate" required>
+                                <span ng-show="Updateform.Updatedate.$error.required" class="error-msg">Vui lòng chọn ngày bắt đầu</span>
+
+                                <label>{{NgayBatDau|date:'dd/MM/yyyy' }}</label>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Ảnh lớp</label>
+                                <input type="file" ngf-select="UploadFiles($files)" />
+                                <hr />
+                                <ul><li ng-repeat="file in SelectedFiles">{{file.name}}</li></ul>
+                                <div id="dvProgress" class="progress" ng-show="Progress >= 0"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Môn học</label>
+                                <select name="UpdateMaMonHoc" ng-model="UpdateMaMonHoc" required>
+                                    <option value="">--Select--</option>
+                                    <option ng-repeat="mh in MonHocs" value="{{mh.MaMonHoc}}">{{mh.TenMonHoc}}</option>
+                                </select>
+                                <span ng-show="Updateform.UpdateMaMonHoc.$error.required" class="error-msg">Vui lòng chọn ngày bắt đầu</span>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnUpdate" data-dismiss="modal" ng-disabled="Updateform.$invalid" ng-click="update()">
+                            Update
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*Delete*@
+        <div class="modal" role="dialog" id="deleteDialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Xác nhận xóa lớp?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(DeleteMaLop)">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="~/Scripts/angular.js"></script>
+        <script src="~/Scripts/ng-file-upload-bower-12.2.12/ng-file-upload.js"></script>
+        <script src="~/Areas/GV/AngularJS/Lop/LopModule.js"></script>
+        <script src="~/Areas/GV/AngularJS/Lop/LopService.js"></script>
+        <script src="~/Areas/GV/AngularJS/Lop/LopController.js"></script>
+
+    </div>
+
+</div>

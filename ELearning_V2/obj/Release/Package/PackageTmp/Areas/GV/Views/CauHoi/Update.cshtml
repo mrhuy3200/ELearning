@@ -1,0 +1,169 @@
+﻿@model ELearning_V2.common.CauHoiModel
+
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa câu hỏi</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.MaCauHoi, new { @hidden = "true" })
+                @Html.TextBoxFor(model => model.MaMonHoc, new { @hidden = "true" })
+            </div>
+
+            <div class="form-group">
+                <label class="control-label"> Nội dung</label>
+                <br />
+                @Html.TextAreaFor(model => model.NoiDung, new {@class= "form-control", id = "NoiDung", @rows = "3", @cols = "40", @tabindex = "1", @autofocus = "autofocus" })
+                <label class="text-danger">@Html.ValidationMessageFor(model => model.NoiDung)</label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label"> Biểu thức</label>
+                <br />
+                @Html.TextAreaFor(model => model.BieuThuc, new { @class = "form-control", id = "BieuThuc", @rows = "3", @cols = "40", @tabindex = "2" })
+                <label class="text-danger">@Html.ValidationMessageFor(model => model.BieuThuc)</label>
+                <br />
+                <img id="equation1" /><br />
+
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label"> Chương</label>
+                    @Html.DropDownListFor(x => x.ChuongID, new SelectList(ViewBag.Chuong, "ID", "Name"))
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label class="control-label"> Độ khó</label>
+                    @Html.TextBoxFor(model => model.DoKho, new { @class = "form-control", @type = "number", @max = 5, @min = 1, @tabindex = "3" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.DoKho)</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Đáp án A</label>
+                    @Html.TextBoxFor(model => model.CauA, new { @class = "form-control", @id = "CauA", @placeholder = "Đáp án A", @tabindex = "4" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.CauA)</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Biểu thức A</label>
+                    @Html.TextBoxFor(model => model.BieuThucA, new { @class = "form-control", @id = "BieuThucA", @placeholder = "", @tabindex = "5" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.BieuThucA)</label>
+                    <br />
+                    <img id="equation2" /><br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Đáp án B</label>
+                    @Html.TextBoxFor(model => model.CauB, new { @class = "form-control", @id = "CauB", @placeholder = "Đáp án B", @tabindex = "6" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.CauB)</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Biểu thức B</label>
+                    @Html.TextBoxFor(model => model.BieuThucB, new { @class = "form-control", @id = "BieuThucB", @placeholder = "", @tabindex = "7" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.BieuThucB)</label>
+                    <br />
+                    <img id="equation3" /><br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Đáp án C</label>
+                    @Html.TextBoxFor(model => model.CauC, new { @class = "form-control", @id = "CauC", @placeholder = "Đáp án C", @tabindex = "8" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.CauC)</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Biểu thức C</label>
+                    @Html.TextBoxFor(model => model.BieuThucC, new { @class = "form-control", @id = "BieuThucC", @placeholder = "", @tabindex = "9" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.BieuThucC)</label>
+                    <br />
+                    <img id="equation4" /><br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Đáp án D</label>
+                    @Html.TextBoxFor(model => model.CauD, new { @class = "form-control", @id = "CauD", @placeholder = "Đáp án D", @tabindex = "10" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.CauD)</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label"> Biểu thức D</label>
+                    @Html.TextBoxFor(model => model.BieuThucD, new { @class = "form-control", @id = "BieuThucD", @placeholder = "", @tabindex = "11" })
+                    <label class="text-danger">@Html.ValidationMessageFor(model => model.BieuThucD)</label>
+                    <br />
+                    <img id="equation5" /><br />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Đáp án</label>
+                <br />
+                <label>
+                    @Html.RadioButtonFor(model => model.DapAn, 1, new { @checked = "checked" })
+                    A
+                </label>
+                <br />
+                <label>
+                    @Html.RadioButtonFor(model => model.DapAn, 2)
+                    B
+                </label>
+                <br />
+                <label>
+                    @Html.RadioButtonFor(model => model.DapAn, 3)
+                    C
+                </label>
+                <br />
+                <label>
+                    @Html.RadioButtonFor(model => model.DapAn, 4)
+                    D
+                </label>
+                <br />
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Lưu" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="tool">
+                <div style="border:2px solid" id="toolbar"></div>
+            </div>
+            <style type="text/css">
+                tool.fixed {
+                    position: fixed;
+                    top: 20px;
+                }
+            </style>
+        </div>
+        <br />
+        <div>
+            <a href="#" onclick="location.href='@Url.Action("CauHoi","CauHoi", new { id = Model.MaMonHoc})'">Quay lại</a>
+        </div>
+        <script type="text/javascript">
+            EqEditor.embed('toolbar');
+            EqEditor.add(new EqTextArea('equation1', 'BieuThuc'), false);
+            EqEditor.add(new EqTextArea('equation2', 'BieuThucA'), false);
+            EqEditor.add(new EqTextArea('equation3', 'BieuThucB'), false);
+            EqEditor.add(new EqTextArea('equation4', 'BieuThucC'), false);
+            EqEditor.add(new EqTextArea('equation5', 'BieuThucD'), false);
+
+        </script>
+
+    </div>
+}

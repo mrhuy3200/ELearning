@@ -1,0 +1,331 @@
+﻿
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .custom-scrollbar-js,
+.custom-scrollbar-css {
+  height: 200px;
+}
+
+
+/* Custom Scrollbar using CSS */
+.custom-scrollbar-css {
+  overflow-y: scroll;
+}
+
+/* scrollbar width */
+.custom-scrollbar-css::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* scrollbar track */
+.custom-scrollbar-css::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* scrollbar handle */
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #00d2ff;
+  background-image: linear-gradient(to top, #00d2ff 0%, #3a7bd5 100%);
+}
+</style>
+
+<div ng-app="DetailsModule" ng-controller="DetailsController" ng-init="MaLop('@ViewBag.LopID')">
+    <div class="row">
+
+        @*Chi tiết lớp học*@
+        <div class="col-md-6">
+            <h3>Chi tiết Lớp {{Details.TenLop}}</h3>
+            @Html.ActionLink("Quay lại", "MyClass")
+            <br />
+            <table class="table">
+                <tr>
+                    <td>
+                        <div>
+                            <label><b>Mã lớp học: </b>{{Details.MaLop}}</label>
+                            <br />
+                            <label><b>Tên lớp: </b>{{Details.TenLop}}</label>
+                            <br />
+                            <label><b>Môn học:</b>{{Details.TenMonHoc}}</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label><b>Ngày bắt đầu: </b>{{Details.NgayBatDau}}</label>
+                            <br />
+                            <label><b>Giáo viên: </b>{{Details.HoTenGV}}</label>
+                            <br />
+                            <label><b>Sĩ số: </b>{{Details.SiSo}}</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <p>{{Details.MoTa}}</p>
+        </div>
+        @*Danh sách học sinh của lớp*@
+        <div class="col-md-3" style="overflow: hidden;">
+            <h3>Danh sách học sinh</h3>
+            <a href="" data-toggle="modal" data-target="#AddNew">+Add</a>
+            <br />
+            <div class="custom-scrollbar-css p-2" style="height:300px; overflow-y:scroll; ">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Họ tên</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sv in SVs">
+                            <td>{{sv.ID}}</td>
+                            <td>{{sv.HoVaTen}} <a href="" title="Remove" ng-click="removeSV(sv.ID,id)"><em class="fa fa-remove"></em></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        @*Danh sách bài giảng*@
+        <div class="col-md-3" style="overflow-y:hidden">
+            <h3>Danh sách bài giảng</h3>
+            <a href="" data-toggle="modal" data-target="#AddNewBG" ng-click="GetAllBaiGiang(id)">+Add</a>
+            <br />
+            <div class="custom-scrollbar-css p-2" style="height:300px; overflow-y:scroll">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td><b style="color:black">Tên bài giảng</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="bg in BGs">
+                            <td><a href="" title="Remove" ng-click="removeBG(bg.MaBaiGiang, id)"><em class="fa fa-remove" style="color:red"></em></a></td>
+                            <td><a href="" data-ng-href="@Url.Action("Details", "BaiGiang")/{{bg.MaBaiGiang}}"><u style="color:black">{{bg.TenBaiGiang}}</u></a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @*Thêm bài giảng*@
+    <div class="modal" id="AddNewBG" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm bài giảng</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddNewBG">
+                        <div class="form-group">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td><b style="color:black">Tên bài giảng</b></td>
+                                        <td><b style="color:black">Trạng thái</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="baiGiang in BaiGiangs">
+                                        <td><a href="" title="Add" ng-click="AddBaiGiang(baiGiang.MaBaiGiang, id)"><em class="fa fa-plus-circle" style="color:blue"></em></a></td>
+                                        <td><a href="@Url.Action("Details", "BaiGiang")/{{baiGiang.MaBaiGiang}}" target="_blank"><u style="color:black">{{baiGiang.TenBaiGiang}}</u></a> </td>
+                                        <td ng-if="baiGiang.TrangThai == true">Mở</td>
+                                        <td ng-if="baiGiang.TrangThai == false">Đóng</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    @*Thêm học sinh vào lớp*@
+    <div class="modal" id="AddNew" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm học sinh</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="resetID()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddHS">
+                        <div class="form-group">
+                            <label class="control-label"> ID </label>
+                            <input class="form-control" name="ID" ng-model="HSID" type="number" min="1" placeholder="Mã học sinh" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="AddHS.$invalid" ng-click="AddNewHS()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetID()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*add new comment*@
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <form name="AddNewCMT">
+                    <label>Thảo luận</label>
+                    <br />
+                    <textarea ng-model="NewComment" style="width:100%;" rows="3" name="NewCmt" ng-required="true"></textarea>
+
+                </form>
+            </div>
+            <div>
+                <button href="" ng-click="AddNewCmt()" style="float:right" ng-disabled="AddNewCMT.$invalid" class="btn btn-info">Gửi</button>
+            </div>
+            <br />
+            <hr />
+            @*comment*@
+            <div>
+                <ul>
+                    <li ng-repeat="com in Coms">
+                        <div style="margin-top:5px">
+                            <div class="repName row" style="font-size:16px">
+                                <b class="col-md-11">{{com.HoTen}}</b>
+                                <div class="col-md-1" style="background-color:#f1f9ff;border:none;-webkit-appearance: none;">
+                                    <a href="" title="Xóa bình luận" ng-click="removeCmt(com.ID)"><em class="fa fa-trash"></em></a>
+                                    @*<a href="" title="Ẩn bình luận" ng-click="hideCmt(com.ID)"><em class="fa fa-eye-slash"></em></a>*@
+                                </div>
+                            </div>
+                            <div style="margin-left:5px">
+                                <div class="repNoiDung">
+                                    {{com.NoiDung}}
+                                </div>
+                                <div class="repDate">
+                                    <a href="" ng-click="repComment(com.ID)">Trả lời</a>
+                                    &nbsp;&nbsp;
+                                    <label style="color:#9b9ea0;font-size:12px">{{com.CreateDate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="rep" ng-repeat="rep in com.Reps">
+                                <div style="display: block;
+                                            position: relative;
+                                            margin: 2px 0 0 0;
+                                            padding: 10px 15px 0 20px;
+                                            clear: both;
+                                            font-size: 14px;
+                                            line-height: 24px;
+                                            background: #dcf8f1;
+                                            border: 1px solid #bbcec9;">
+                                    <div style="border-bottom:1px solid #bbcec9;">
+                                        <div class="repName row" style="font-size:16px">
+                                            <b class="col-md-11">{{rep.HoTen}}</b>
+                                            <div class="col-md-1" style="background-color:#dcf8f1;border:none;-webkit-appearance: none;">
+                                                <a href="" title="Xóa bình luận" ng-click="removeRep(rep.ID)"><em class="fa fa-trash"></em></a>
+                                                @*<a href="" title="Ẩn bình luận" ng-click="hideRep(rep.ID)"><em class="fa fa-eye-slash"></em></a>*@
+                                            </div>
+                                        </div>
+                                        <div style="margin-left:5px">
+                                            <div class="repNoiDung">
+                                                {{rep.NoiDung}}
+                                            </div>
+                                            <div class="repDate">
+                                                <a href="" ng-click="repReply(com.ID)">Trả lời</a>
+                                                &nbsp;&nbsp;
+                                                <label style="color:#9b9ea0;font-size:12px">{{rep.CreateDate}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div ng-show="ShowForm">
+                    <form name="AddRep">
+                        <label>Bình luận</label>
+                        <br />
+                        <textarea ng-show="ShowForm" show-focus="ShowForm" ng-model="NewRep" name="rep" style="width:100%;" rows="3" required></textarea>
+                    </form>
+                    <div>
+                        <button href="" ng-click="AddNewRep()" style="float:right" ng-disabled="AddRep.$invalid" class="btn btn-primary">Gửi</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="" ng-click="cancelRep()" style="float:right" class="btn btn-warning">Hủy</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4">
+            <h3> Thông báo</h3>
+            @*<a href="" data-ng-href="@Url.Action("Create", "BaiGiang")/{{Details.MaLop}}">+Add</a>*@
+            <a href="" data-toggle="modal" data-target="#AddNewTB">+Add</a>
+
+            <br />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><b style="color:black">Nội dung</b></td>
+                        <td><b style="color:black">Ngày tạo</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tb in TBs">
+                        <td><a href="" title="Remove" ng-click="RemoveTB(tb.ID)"><em class="fa fa-remove" style="color:red"></em></a></td>
+                        <td><p>{{tb.NoiDung}}</p></td>
+                        <td><p>{{tb.NgayTao}}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    @*Thêm thông báo*@
+    <div class="modal" id="AddNewTB" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thông báo mới</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="resetTB()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddNewTBForm">
+                        <div class="form-group">
+                            <label class="control-label"> Nội dung </label>
+                            <textarea class="form-control" name="NoiDung" ng-model="NoiDungTB" required></textarea>
+                            @*<input class="form-control" name="ID" ng-model="ID" type="text" placeholder="Mã học sinh" />*@
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="AddNewTBForm.$invalid" ng-click="AddTB()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetTB()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="/Scripts/angular.js"></script>
+<script src="/Areas/GV/AngularJS/Lop/DetailsModule.js"></script>
+<script src="/Areas/GV/AngularJS/Lop/DetailsService.js"></script>
+<script src="/Areas/GV/AngularJS/Lop/DetailsController.js"></script>
+@*<script src="/Assets/Plugin/ckeditor/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-ckeditor/0.2.1/ng-ckeditor.min.js"></script>*@
+
+
+
+

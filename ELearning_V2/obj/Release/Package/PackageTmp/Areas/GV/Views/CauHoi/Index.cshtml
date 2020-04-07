@@ -1,0 +1,48 @@
+﻿@model List<ELearning_V2.Models.MonHoc>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row align-items-center">
+    <div class="col-lg-5 about-right">
+        <h1>
+            Tổng Hợp <br> Các Môn Học
+        </h1>
+        <div class="wow fadeIn" data-wow-duration="1s">
+            <p>
+                Lựa chọn môn học bạn muốn tạo đề thi.
+            </p>
+        </div>
+    </div>
+    <div class="offset-lg-1 col-lg-6">
+        <div class="courses-right">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <ul class="courses-list">
+                        @for (int i = 0; i < Model.Count() / 2; i++)
+                        {
+                            <li>
+                                <a class="wow fadeInLeft" href="#" onclick="location.href='@Url.Action("CauHoi", "CauHoi", new {id = Model[i].MaMonHoc })'" data-wow-duration="1s" data-wow-delay=".1s">
+                                    <i class="fa fa-book"></i> @Model[i].TenMonHoc
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <ul class="courses-list">
+                        @for (int i = Model.Count() / 2; i < Model.Count(); i++)
+                        {
+                            <li>
+                                <a class="wow fadeInLeft" href="#" onclick="location.href='@Url.Action("CauHoi", "CauHoi", new {id = Model[i].MaMonHoc })'" data-wow-duration="1s" data-wow-delay=".1s">
+                                    <i class="fa fa-book"></i> @Model[i].TenMonHoc
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+﻿@model ELearning_V2.common.ImportExcel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+
+<h2>Quản Lý Người Dùng </h2>
+<br />
+<div ng-app="AccountModule" ng-controller="AccountController">
+
+    <div class="row">
+        <form name="AddNewForm">
+            <table class="col-md-5">
+                <tr>
+                    <th>
+                        <label>Username</label>
+                    </th>
+                    <th>
+                        <input class="form-control" name="Name" ng-model="Username" type="text" style="width:300px;" ng-required="true" />
+                    </th>
+                    <th>
+                        <input type="button" value="Thêm" id="Save" class="btn btn-default" style="display:inline-block" ng-disabled="AddNewForm.$invalid" ng-click="Create()" />
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <label>Loại</label>
+                    </th>
+                    <th>
+                        <select class="form-control" ng-model="Role" ng-required="true" style="width:300px;">
+                            <option value="">--Chọn loại người dùng--</option>
+                            <option value="2">Giáo viên</option>
+                            <option value="3">Học viên</option>
+                        </select>
+                    </th>
+                </tr>
+            </table>
+        </form>
+        <div class="col-md-5">
+            @using (Html.BeginForm("Import", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.TextBoxFor(m => m.file, new { type = "file" })
+                <button class="btn btn-default" id="submitButton" type="submit">Submit</button>
+                @Html.ValidationMessageFor(model => model.file)
+            }
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-hover" style="width:960px">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width:50px">
+                    <label>ID</label>
+                </th>
+                <th style="width:130px">
+                    <label>Username</label>
+                </th>
+                <th style="width:100px">
+                    <label>Loại</label>
+                </th>
+                <th style="width:200px">
+                    <label>Họ tên</label>
+                </th>
+                <th style="width:280px">
+                    <label>Email</label>
+                </th>
+                <th style="width:120px">
+                    <label>Trạng Thái</label>
+                </th>
+                <th>
+                    <label>Action</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="acc in Accounts">
+                <td>
+                    {{acc.ID}}
+                </td>
+                <td>
+                    {{acc.Username}}
+                </td>
+                <td ng-if="acc.Role == 2">
+                    Giáo viên
+                </td>
+                <td ng-if="acc.Role == 3">
+                    Học viên
+                </td>
+                <td ng-if="acc.Role == 1">
+                    Admin
+                </td>
+                <td>
+                    {{acc.HoVaTen}}
+                </td>
+                <td>
+                    {{acc.Email}}
+                </td>
+                <td ng-if="acc.TrangThai == false">
+                    Khóa
+                </td>
+                <td ng-if="acc.TrangThai == true">
+                    Mở
+                </td>
+                <td ng-if="acc.TrangThai == true">
+                    <a href="" ng-click="Lock(acc.ID)"><em class="fa fa-lock"></em></a>
+                </td>
+                <td ng-if="acc.TrangThai == false">
+                    <a href="" ng-click="UnLock(acc.ID)"><em class="fa fa-unlock"></em></a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    <p>
+        @Html.ActionLink("Quay Lại", "Index", "Home")
+    </p>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Areas/Admin/AngularJS/Account/AccountModule.js"></script>
+<script src="~/Areas/Admin/AngularJS/Account/AccountService.js"></script>
+<script src="~/Areas/Admin/AngularJS/Account/AccountController.js"></script>

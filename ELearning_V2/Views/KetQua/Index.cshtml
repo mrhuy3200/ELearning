@@ -1,0 +1,51 @@
+﻿@using ELearning_V2.Areas.GV.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ListTest = Model as List<KetQuaModel>;
+
+}
+<style type="text/css">
+    .content {
+        position: relative;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        margin-bottom: 5px !important;
+        height: auto;
+        min-height: 505px;
+        padding: 10px 20px;
+        background: white;
+    }
+
+    .dashboard-inner-item {
+        display: inline-block;
+        width: 100%;
+        border: 1.5px solid #02796e;
+        border-radius: 10px;
+    }
+
+    .title {
+        height: 100%;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 0;
+        margin: 5px 20px;
+    }
+</style>
+<h2 style="font-family:Arial">Kết quả học tập</h2>
+<hr />
+<div class="row">
+    @foreach (var item in ListTest)
+    {
+        <div class="col-md-4">
+            <div class="dashboard-inner-item" style="padding: 10px;">
+                <span class="title">Môn: <b>@item.TenMonHoc</b></span><br />
+                <span class="title">Mã đề: <b>@item.MaDeThi</b></span><br />
+                <span class="title">Kỳ thi: <b>@item.TenDeThi</b></span><br />
+                <span class="title">Ngày thi: <b>@item.NgayLam</b></span><br />
+                <span class="title">Điểm: <b>@item.Diem</b></span><br />
+            </div>
+        </div>
+    }
+</div>
+

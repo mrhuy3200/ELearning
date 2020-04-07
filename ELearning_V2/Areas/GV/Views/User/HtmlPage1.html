@@ -1,0 +1,43 @@
+﻿<div class="container" ng-controller="UserController" ng-init="textboxStatus=true">
+    <h2>Đây là trang thông tin ng dùng</h2>
+    @*<div>
+        <label> ID: {{u.ID}} </label>
+        <label> Họ tên: {{u.HoDem + " " + u.Ten}} </label>
+        <label> Email: {{u.Email}} </label>
+    </div>*@
+    <div>
+        <a href="#"
+           class="btn btn-info"
+           data-toggle="modal"
+           data-target="#Update"
+           ng-click="getForUpdate(u)">
+            Update
+        </a>
+    </div>
+    <form class="form-horizontal" name="UpdateEmployeeForm">
+        <div class="form-group">
+            <input class="form-control" ng-readonly="textboxStatus" name="StuNo" ng-model="u.ID" type="hidden" placeholder="Employee Number" />
+        </div>
+        <div class="form-group">
+            <label class="text-info"> Họ Đệm</label>
+            <input class="form-control" ng-readonly="textboxStatus" name="HoDem" ng-model="u.HoDem" type="text" placeholder="Họ đệm" />
+        </div>
+        <div class="form-group">
+            <label class="text-info"> Tên </label>
+            <input class="form-control" ng-readonly="textboxStatus" name="Ten" ng-model="u.Ten" type="text" placeholder="Tên" />
+        </div>
+        <div class="form-group">
+            <label class="text-info"> Email</label>
+            <input class="form-control" ng-readonly="textboxStatus" name="Lop" ng-model="u.Email" type="text" placeholder="Lớp" />
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnUpdate" data-dismiss="modal" ng-click="update()">
+            Save
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+
+
+
+</div>

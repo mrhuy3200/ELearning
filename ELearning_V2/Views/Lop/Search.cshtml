@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ELearning_V2.Areas.GV.Models.LopModel>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+
+<h2>Kết quả tìm kiếm</h2>
+<hr />
+<br />
+<div class="row">
+    <table class="table table-bordered col-md-8">
+        @foreach (var item in Model)
+            {
+            <tr style="border:2px solid;border-radius:8px;">
+                <td>
+                    <a href="#" onclick="location.href='@Url.Action("ViewDetails","Lop",new {id=item.MaLop })'">
+                        <img src="~/Assets/LopIMG/@item.Image" class="img-thumbnail" style="width:125px;height:152px" />
+                    </a>
+                </td>
+                <td>
+                    <div>
+                        <div>
+                            <h3 style="display:inline-block">
+                                <a href="#" onclick="location.href='@Url.Action("ViewDetails","Lop",new {id=item.MaLop })'">
+                                    @item.TenLop
+                                </a>
+                            </h3>
+                            <div class="text-muted" style="font-size:12px;">
+                                <ul class="list-unstyled list-inline">
+                                    <li style="display:inline-block;">
+                                        <em class="fa fa-clock-o">
+                                            &nbsp;
+                                        </em>
+                                        Ngày bắt đầu: @item.NgayBatDau
+                                        &nbsp;&nbsp;&nbsp;
+                                    </li>
+                                    <li style="display:inline-block;">
+                                        <em class="fa fa-user">
+                                            &nbsp;
+                                        </em>
+                                        Sĩ số: @item.SiSo
+                                        &nbsp;&nbsp;&nbsp;
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p style="font-size:16px;height:100px;width:500px;overflow:hidden;">
+                            @item.MoTa
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+</div>

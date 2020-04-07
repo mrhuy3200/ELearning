@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ELearning_V2.Models.MonHoc>
+    @{
+        ViewBag.Title = "DanhSachMonHoc";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+    }
+
+
+
+    <h2>MÔN HỌC</h2>
+    <br />
+    <div ng-app="MonHocModule" ng-controller="MonHocController">
+        <form name="AddNewForm">
+            <label>Tên môn học:</label>
+            <input class="form-control" name="Name" ng-model="Name" type="text" style="width:400px; display:inline-block" ng-required="true" />
+            <input type="button" value="Thêm" id="Save" class="btn btn-default" style="display:inline-block" ng-disabled="AddNewForm.$invalid" ng-click="Create()" />
+        </form>
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                <label>Tên môn học</label>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.TenMonHoc, "Chuong", new {id = item.MaMonHoc })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Quay Lại", "Index", "Home")
+    </p>
+
+<script src="~/Scripts/angular.js"></script>
+<script type="text/javascript">
+    var myapp = angular.module('MonHocModule', [])
+
+    myapp.factory('MonHocService', ['$http', function ($http) {
+        var MonHocService = {};
+        MonHocService.create = function (monhoc) {
+            var request = $http({
+                method: 'post',
+                url: '/Admin/MonHoc/Create',
+                data: monhoc
+            });
+            return request;
+        };
+        return MonHocService;
+    }]);
+
+    myapp.controller('MonHocController', function ($scope, $window, MonHocService) {
+
+        $scope.Create = function () {
+            var MonHoc = {
+                TenMonHoc: $scope.Name
+            };
+            var re = MonHocService.create(MonHoc);
+            re.then(function (d) {
+                if (d.data.success === true) {
+                    $window.location.reload();
+                    alert("Thêm thành công");
+                }
+                else { alert("Lỗi."); }
+            },
+            function () {
+                alert("Xảy ra lỗi trong quá trình thêm.");
+            });
+        }
+    });
+</script>

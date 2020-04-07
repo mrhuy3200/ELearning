@@ -1,0 +1,205 @@
+﻿
+@{
+    ViewBag.Title = "ClassDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="ClassDetailsModule" ng-controller="ClassDetailsController" ng-init="MaLop('@ViewBag.LopID')">
+    <div class="row">
+
+        @*Chi tiết lớp học*@
+        <div class="col-md-8">
+            <h3>Chi tiết Lớp {{Details.TenLop}}</h3>
+            @Html.ActionLink("Quay lại", "MyClass")
+            <br />
+            <table class="table">
+                <tr>
+                    <td>
+                        <div>
+                            <label><b>Mã lớp học: </b>{{Details.MaLop}}</label>
+                            <br />
+                            <label><b>Tên lớp: </b>{{Details.TenLop}}</label>
+                            <br />
+                            <label><b>Môn học:</b>{{Details.TenMonHoc}}</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label><b>Ngày bắt đầu: </b>{{Details.NgayBatDau}}</label>
+                            <br />
+                            <label><b>Giáo viên: </b>{{Details.HoTenGV}}</label>
+                            <br />
+                            <label><b>Sĩ số: </b>{{Details.SiSo}}</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <p>{{Details.MoTa}}</p>
+        </div>
+        @*Danh sách bài giảng*@
+        <div class="col-md-3">
+            <h3>Danh sách bài giảng</h3>
+            <br />
+            <div class="custom-scrollbar-css p-2" style="height:300px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td><b style="color:black">Tên bài giảng</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="baigiang in BaiGiangs">
+                            <td><a href="" data-ng-href="@Url.Action("Details", "BaiGiang")/{{baigiang.MaBaiGiang}}"><u style="color:black">{{baigiang.TenBaiGiang}}</u></a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            @*add new comment*@
+            <div class="addNewCmt">
+                <div ng-form="AddCmt">
+                    <label>Bình luận</label>
+                    <br />
+                    <textarea ng-model="NewComment" style="width:100%;" rows="3" required></textarea>
+                </div>
+                <div>
+                    <button href="" ng-click="AddNewCmt()" style="float:right" ng-disabled="AddCmt.$invalid" class="btn btn-primary">Gửi</button>
+                </div>
+
+            </div>
+            <br />
+            <hr />
+            @*comment*@
+            <div class="cmt">
+                <ul>
+                    <li ng-repeat="com in Coms">
+                        <div style="margin-top:5px">
+                            <div class="repName row" style="font-size:16px">
+                                <b class="col-md-11">{{com.HoTen}}</b>
+                                @*<div class="col-md-1" style="background-color:#f1f9ff;border:none;-webkit-appearance: none;">
+                                    <a href="" title="Ẩn bình luận" ng-click="hideCmt(com.ID)"><em class="fa fa-eye-slash"></em></a>
+                                </div>*@
+                            </div>
+                            <div style="margin-left:5px">
+                                <div class="repNoiDung">
+                                    {{com.NoiDung}}
+                                </div>
+                                <div class="repDate">
+                                    <a href="" ng-click="repComment(com.ID)">Trả lời</a>
+                                    &nbsp;&nbsp;
+                                    <label style="color:#9b9ea0;font-size:12px">{{com.CreateDate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="rep" ng-repeat="rep in com.Reps">
+                                <div style="display: block;
+                                            position: relative;
+                                            margin: 2px 0 0 0;
+                                            padding: 10px 15px 0 20px;
+                                            clear: both;
+                                            font-size: 14px;
+                                            line-height: 24px;
+                                            background: #dcf8f1;
+                                            border: 1px solid #bbcec9;">
+                                    <div style="border-bottom:1px solid #bbcec9;">
+                                        <div class="repName row" style="font-size:16px">
+                                            <b class="col-md-11">{{rep.HoTen}}</b>
+                                            @*<div class="col-md-1" style="background-color:#dcf8f1;border:none;-webkit-appearance: none;">
+                                                <a href="" title="Ẩn bình luận" ng-click="hideRep(rep.ID)"><em class="fa fa-eye-slash"></em></a>
+                                            </div>*@
+                                        </div>
+                                        <div style="margin-left:5px">
+                                            <div class="repNoiDung">
+                                                {{rep.NoiDung}}
+                                            </div>
+                                            <div class="repDate">
+                                                <a href="" ng-click="repReply(com.ID)">Trả lời</a>
+                                                &nbsp;&nbsp;
+                                                <label style="color:#9b9ea0;font-size:12px">{{rep.CreateDate}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div ng-show="ShowForm">
+                    <div ng-form="AddRep">
+                        <label>Bình luận</label>
+                        <br />
+                        <textarea ng-show="ShowForm" show-focus="ShowForm" ng-model="NewRep" style="width:100%;" rows="3" required></textarea>
+                    </div>
+                    <div>
+                        <button href="" ng-click="AddNewRep()" style="float:right" ng-disabled="AddRep.$invalid" class="btn btn-primary">Gửi</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="" ng-click="cancelRep()" style="float:right" class="btn btn-warning">Hủy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3>Danh sách thông báo</h3>
+            <br />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td><b style="color:black">Nội dung</b></td>
+                        <td><b style="color:black">Ngày tạo</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tb in TBs">
+                        <td><p>{{tb.NoiDung}}</p></td>
+                        <td><p>{{tb.NgayTao}}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script src="/Scripts/angular.js"></script>
+<script src="~/Scripts/ClassDetails/DetailsModule.js"></script>
+<script src="~/Scripts/ClassDetails/DetailsService.js"></script>
+<script src="~/Scripts/ClassDetails/DetailsController.js"></script>
+@*<script src="/Assets/Plugin/ckeditor/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-ckeditor/0.2.1/ng-ckeditor.min.js"></script>*@
+<style type="text/css">
+    .custom-scrollbar-js,
+    .custom-scrollbar-css {
+        height: 200px;
+    }
+
+
+    /* Custom Scrollbar using CSS */
+    .custom-scrollbar-css {
+        overflow-y: scroll;
+    }
+
+        /* scrollbar width */
+        .custom-scrollbar-css::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* scrollbar track */
+        .custom-scrollbar-css::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        /* scrollbar handle */
+        .custom-scrollbar-css::-webkit-scrollbar-thumb {
+            border-radius: 1rem;
+            background-color: #00d2ff;
+            background-image: linear-gradient(to top, #00d2ff 0%, #3a7bd5 100%);
+        }
+</style>

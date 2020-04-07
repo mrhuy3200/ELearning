@@ -1,0 +1,361 @@
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\ApplicationInsights.config
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\System.Collections.Immutable.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\System.Reflection.Metadata.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe.config
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll.config
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.pdb
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.Web.Infrastructure.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Razor.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\WebGrease.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Razor.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.pdb
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.pdb
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.xml
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csprojResolveAssemblyReference.cache
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\ApplicationInsights.config
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\System.Collections.Immutable.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\System.Reflection.Metadata.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe.config
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll.config
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\ELearning_V2.pdb
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\EntityFramework.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.Web.Infrastructure.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Http.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Razor.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Vereyon.Web.FlashMessage.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\WebGrease.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\EntityFramework.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Razor.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.pdb
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Http.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.xml
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csprojAssemblyReference.cache
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csproj.CoreCompileInputs.cache
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csproj.CopyComplete
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.dll
+D:\Công nghệ mới\ELearning\New folder\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.pdb
+T:\ELearning_V2\ELearning_V2\bin\ApplicationInsights.config
+T:\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CSharp.Core.targets
+T:\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+T:\ELearning_V2\ELearning_V2\bin\roslyn\System.Collections.Immutable.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\System.Reflection.Metadata.dll
+T:\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe
+T:\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe
+T:\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe.config
+T:\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll.config
+T:\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll
+T:\ELearning_V2\ELearning_V2\bin\ELearning_V2.pdb
+T:\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.dll
+T:\ELearning_V2\ELearning_V2\bin\EntityFramework.dll
+T:\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.dll
+T:\ELearning_V2\ELearning_V2\bin\LinqToExcel.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Agent.Intercept.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.PerfCounterCollector.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.Web.Infrastructure.dll
+T:\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.dll
+T:\ELearning_V2\ELearning_V2\bin\Remotion.Data.Linq.dll
+T:\ELearning_V2\ELearning_V2\bin\Remotion.dll
+T:\ELearning_V2\ELearning_V2\bin\Remotion.Interfaces.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Http.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Razor.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.dll
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.dll
+T:\ELearning_V2\ELearning_V2\bin\Vereyon.Web.FlashMessage.dll
+T:\ELearning_V2\ELearning_V2\bin\WebGrease.dll
+T:\ELearning_V2\ELearning_V2\bin\EntityFramework.xml
+T:\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.xml
+T:\ELearning_V2\ELearning_V2\bin\LinqToExcel.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.xml
+T:\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Razor.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.xml
+T:\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.pdb
+T:\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Http.xml
+T:\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.xml
+T:\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csprojResolveAssemblyReference.cache
+T:\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.dll
+T:\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.pdb
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\LinqToExcel.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.Data.Linq.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.Interfaces.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\Vereyon.Web.FlashMessage.dll
+D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\bin\LinqToExcel.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\ApplicationInsights.config
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\System.Collections.Immutable.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\System.Reflection.Metadata.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe.config
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll.config
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\ELearning_V2.pdb
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\LinqToExcel.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Agent.Intercept.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.Web.Infrastructure.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.Data.Linq.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Remotion.Interfaces.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Razor.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Vereyon.Web.FlashMessage.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\WebGrease.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\LinqToExcel.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Razor.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.pdb
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.xml
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.dll
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.pdb
+D:\HocTap\Đồ án 2\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csprojResolveAssemblyReference.cache
+D:\Learning\ELearning_V2\ELearning_V2\bin\ApplicationInsights.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csc.exe.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csc.rsp
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csi.exe
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csi.exe.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\csi.rsp
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Buffers.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Collections.Immutable.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Memory.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Numerics.Vectors.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Reflection.Metadata.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\vbc.exe.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\vbc.rsp
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe
+D:\Learning\ELearning_V2\ELearning_V2\bin\roslyn\VBCSCompiler.exe.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll.config
+D:\Learning\ELearning_V2\ELearning_V2\bin\ELearning_V2.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\ELearning_V2.pdb
+D:\Learning\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\EntityFramework.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\LinqToExcel.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.Web.Infrastructure.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Remotion.Data.Linq.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Remotion.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Remotion.Interfaces.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Http.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Razor.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\Vereyon.Web.FlashMessage.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\WebGrease.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\EntityFramework.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\LinqToExcel.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.DependencyCollector.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.Web.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.AI.WindowsServer.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.ApplicationInsights.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Helpers.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Mvc.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Optimization.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Razor.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Deployment.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.WebPages.Razor.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\Antlr3.Runtime.pdb
+D:\Learning\ELearning_V2\ELearning_V2\bin\Newtonsoft.Json.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Net.Http.Formatting.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Http.xml
+D:\Learning\ELearning_V2\ELearning_V2\bin\System.Web.Http.WebHost.xml
+D:\Learning\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csproj.CopyComplete
+D:\Learning\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.dll
+D:\Learning\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.pdb
+D:\Learning\ELearning_V2\ELearning_V2\obj\Debug\ELearning_V2.csprojAssemblyReference.cache
+D:\Learning\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.dll
+D:\Learning\ELearning_V2\ELearning_V2\bin\EntityFramework.SqlServer.xml

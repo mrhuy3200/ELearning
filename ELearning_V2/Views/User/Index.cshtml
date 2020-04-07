@@ -1,0 +1,176 @@
+﻿@model ELearning_V2.Models.HocVien
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" ng-app="UserModule" ng-controller="UserController" ng-init="textboxStatus=true; textboxPass=true">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Thông tin người dùng</h2>
+
+            <div>
+                <a href=""
+                   class="btn btn-info"
+                   ng-click="getForUpdate(u)"
+                   data-target="#Update"
+                   data-toggle="modal">
+                    Update
+                </a>
+                <a href=""
+                   class="btn btn-info"
+                   ng-click="getForUpdate(u)"
+                   ng-if="textboxStatus == false">
+                    Cancel
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="text-info"> Họ và tên</label>
+                        <p>{{u.HoVaTen}}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-info">Giới tính</label>
+                        <p ng-show="u.GioiTinh">Nam</p>
+                        <p ng-hide="u.GioiTinh">Nữ</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-info"> Ngày Sinh</label>
+                        <p>{{u.BirthDate}}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-info"> Số điện thoại</label>
+                        <p>{{u.SDT}}</p>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="text-info"> Ảnh đại diện</label>
+                        <br />
+                        <img src="~/Assets/Image/{{u.Image}}" class="img-thumbnail" style="width:125px;height:152px" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-info"> Email</label>
+                        <p>{{u.Email}}</p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Mật khẩu</h2>
+            <a href=""
+               class="btn btn-info"
+               ng-click="ChangePass()"
+               ng-show="textboxPass">
+                Đổi mật khẩu
+            </a>
+            <a href=""
+               class="btn btn-info"
+               ng-click="CancelChangePass()"
+               ng-if="textboxPass == false">
+                Cancel
+            </a>
+            <form name="ChangePassForm">
+                <div class="form-group" ng-hide="textboxPass">
+                    <label class="text-info"> Mật khẩu cũ</label>
+                    <input class="form-control" name="OldPass" ng-model="OldPass" type="text" placeholder="Mật khẩu cũ" ng-required="true" />
+                    <span ng-show="ChangePassForm.OldPass.$invalid" class="error-msg">Không được để trống</span>
+
+                </div>
+                <div class="form-group" ng-hide="textboxPass">
+                    <label class="text-info"> Mật khẩu mới</label>
+                    <input class="form-control" name="NewPass" ng-model="NewPass" type="text" placeholder="Mật khẩu mới" ng-required="true" />
+                    <span ng-show="ChangePassForm.NewPass.$invalid" class="error-msg">Không được để trống</span>
+
+                </div>
+                <div class="form-group" ng-hide="textboxPass">
+                    <label class="text-info"> Xác nhận mật khẩu</label>
+                    <input class="form-control" name="Confirm" ng-model="Confirm" type="text" placeholder="Xác nhận mật khẩu" ng-required="true" />
+                    <span ng-show="ChangePassForm.Confirm.$invalid" class="error-msg">Không được để trống</span>
+                    <br />
+                    <span ng-show="Confirm != NewPass" class="error-msg">Xác nhận mật khẩu không đúng</span>
+
+                </div>
+                <br />
+            </form>
+            <button class="btn btn-info" ng-disabled="ChangePassForm.$invalid || Confirm != NewPass" ng-hide="textboxPass" ng-click="savePass()">Xác nhận</button>
+
+        </div>
+    </div>
+    <style>
+        .error-msg {
+            font-size: 90%;
+            font-style: italic;
+            color: red;
+        }
+    </style>
+    <div class="modal" id="Update" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Cập nhật</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align: left" ng-click="resetSave()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddNewForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" ng-model="ID" type="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Email </label>
+                            <input class="form-control" name="Email" ng-model="Email" type="email" placeholder="Email" required />
+                            <span ng-show="AddNewForm.Email.$error.required" class="error-msg">Vui lòng nhập email</span>
+                            <span ng-show="AddNewForm.Email.$error.email" class="error-msg">Email không đúng định dạng</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Số điện thoại</label>
+                            <input class="form-control" name="SoDienThoai" ng-model="SDT" placeholder="Mô tả lớp học" required />
+                            <span ng-show="AddNewForm.SoDienThoai.$error.required" class="error-msg">Vui lòng nhập số điện thoại</span>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="file" ngf-select="UploadFiles($files)" name="file" />
+                            <br />
+                            @*<span ng-show="SelectedFiles[0].name==null" class="error-msg">Vui lòng chọn ảnh đại diện</span>*@
+
+                            <hr />
+                            <ul><li ng-repeat="file in SelectedFiles">{{file.name}}</li></ul>
+                            <div id="dvProgress" class="progress" ng-show="Progress >= 0"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Ngày Sinh: {{NgaySinh}}</label>
+                            <br />
+                            <input type="date" name="NgaySinh" ng-model="NgaySinh" required/>
+                            <span ng-show="AddNewForm.NgaySinh.$invalid" class="error-msg">Vui lòng chọn ngày sinh</span>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="save()" ng-disabled="AddNewForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetSave()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/ng-file-upload-bower-12.2.12/ng-file-upload.js"></script>
+    <script src="~/Scripts/User/UserModule.js"></script>
+    <script src="~/Scripts/User/UserService.js"></script>
+    <script src="~/Scripts/User/UserController.js"></script>
+
+
+</div>

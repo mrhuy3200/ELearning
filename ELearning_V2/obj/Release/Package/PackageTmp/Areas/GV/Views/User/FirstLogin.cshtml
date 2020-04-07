@@ -1,0 +1,82 @@
+﻿@model ELearning_V2.Areas.GV.Models.GiangVienModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Cập nhật thông tin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-9 personal-info">
+            <h3>Thông tin người dùng</h3>
+            @Html.AntiForgeryToken()
+            @Html.ValidationMessage("error")
+            <form class="form-horizontal" role="form">
+                @Html.HiddenFor(model => model.ID)
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Họ tên:</label>
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(model => model.HoVaTen, new { @class = "form-control" })
+                        <label class="text-danger">@Html.ValidationMessageFor(model => model.HoVaTen)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Giới tính:</label>
+                    <div class="col-lg-8">
+                        @Html.RadioButtonFor(model => model.GioiTinh, true)
+                        Nam
+                        <br />
+                        @Html.RadioButtonFor(model => model.GioiTinh, false)
+                        Nữ
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email:</label>
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        <label class="text-danger">@Html.ValidationMessageFor(model => model.Email)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Số điện thoại:</label>
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(model => model.SDT, new { @class = "form-control" })
+                        <label class="text-danger">@Html.ValidationMessageFor(model => model.SDT)</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Bộ môn:</label>
+                    <div class="col-lg-8">
+                        @Html.DropDownListFor(model => model.MaMonHoc, (IEnumerable<SelectListItem>)ViewBag.ListMonHoc, "Chọn bộ môn", new { @class = "form-control" })
+                        <label class="text-danger">@Html.ValidationMessageFor(model => model.MaMonHoc)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Password:</label>
+                    <div class="col-md-8">
+                        @Html.PasswordFor(model => model.NewPass, new { @class = "form-control" })
+                        <label class="text-danger">@Html.ValidationMessageFor(model => model.NewPass)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+
+
+</body>
+</html>

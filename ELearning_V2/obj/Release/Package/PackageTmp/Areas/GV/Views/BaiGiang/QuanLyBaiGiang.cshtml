@@ -1,0 +1,53 @@
+﻿@using ELearning_V2.Areas.GV.Models
+@{
+    ViewBag.Title = "QuanLyBaiGiang";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+    var ListBaiGiang = Model as List<BaiGiangModel>;
+}
+
+<h2>Danh sách bài giảng</h2>
+
+<div class="panel-body">
+    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Create", "BaiGiang")'">
+        Thêm mới
+    </button>
+    <hr />
+</div>
+@Html.Raw(TempData["error"])
+<table class="table table-bordered">
+    <thead style="background-color:lightblue;">
+        <tr>
+            <th> STT</th>
+            <th> Tên bài giảng</th>
+            <th> Trạng thái</th>
+            <th style="width:200px;"> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ListBaiGiang)
+            {
+            <tr>
+                <td>@item.MaBaiGiang</td>
+                <td>
+                    <a href="@Url.Action("Details", "BaiGiang", new { id=item.MaBaiGiang} )" title="Nhấn để đóng" target="_blank">@item.TenBaiGiang</a>
+                </td>
+                @if (item.TrangThai)
+                {
+                    <td>
+                        <a href="@Url.Action("ChangeStatus", "BaiGiang", new { id=item.MaBaiGiang} )" title="Nhấn để đóng">Mở</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="@Url.Action("ChangeStatus", "BaiGiang", new { id=item.MaBaiGiang} )" title="Nhấn để mở">Đóng</a>
+                    </td>
+                }
+                <td>
+                    <a href="@Url.Action("Edit", "BaiGiang", new { id=item.MaBaiGiang} )" >Chỉnh sửa</a>|
+                    <a href="@Url.Action("Delete", "BaiGiang", new { id=item.MaBaiGiang})" >Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,20 @@
+﻿@model ELearning_V2.Areas.GV.Models.BaiGiangModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @*<a href="@Url.Action("QuanLyBaiGiang","BaiGiang")">Quay lại</a>&nbsp;|*@
+    <a href="@Url.Action("Edit","BaiGiang", new {id=Model.MaBaiGiang })">Edit</a>
+    <hr />
+    <h3 style="text-align:center">@Model.TenBaiGiang</h3>
+    <br />
+    <div>
+        @Html.Raw(Model.NoiDung)
+    </div>
+    <div>
+        <iframe width="560" height="315" src=@Model.URL frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+

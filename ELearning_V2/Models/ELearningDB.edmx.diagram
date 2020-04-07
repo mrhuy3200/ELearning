@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="001376f055bb409b83d79823ebde506a" Name="Diagram1">
+        <EntityTypeShape EntityType="ELearningModel.BaiGiang" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.BaiLam" Width="1.5" PointX="15" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.CauHoi" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.Chuong" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.Comment" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.DeThi" Width="1.5" PointX="10.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.GiangVien" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.HocVien" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.KeyAPI" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.Lop" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.LopKiemTra" Width="1.5" PointX="12.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.MonHoc" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.NguoiDung" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.Reply" Width="1.5" PointX="12" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.ThongBao" Width="1.5" PointX="12.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningModel.TrangThaiHeThong" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="ELearningModel.FK_BaiGiang_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_BaiLam_HocVien1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_BaiLam_LopKiemTra" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_CauHoi_Chuong" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_CauHoi_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Chuong_MonHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Comment_Lop" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Comment_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Reply_Comment1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_DeThi_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_DeThi_MonHoc1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_LopKiemTra_DeThi" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_GiangVien_MonHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_GiangVien_TaiKhoan1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Lop_GiangVien1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_ThongBao_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_HocVien_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Lop_MonHoc1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_ThongBao_Lop" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_LopKiemTra_MonHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_NguoiDung_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.FK_Reply_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.ChiTietDeThi" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.ChiTietLop" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.HocVienKT" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningModel.LopBaiGiang" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

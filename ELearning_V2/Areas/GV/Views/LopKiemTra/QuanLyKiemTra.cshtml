@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "QuanLyKiemTra";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="LopKTModule" ng-controller="LopKTController">
+    <a href="" class="btn btn-info" data-target="#AddNew" data-toggle="modal" ng-click="add()">Thêm mới</a>
+    <br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td></td>
+                <td><b>STT</b></td>
+                <td><b>Tên lớp</b></td>
+                <td><b>Ngày kiểm tra</b></td>
+                <td><b>Thời gian thi</b></td>
+                <td><b>Action</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="l in Lops">
+                <td>
+                    <a href="" title="Remove"
+                       data-toggle="modal"
+                       data-target="#deleteDialog"
+                       ng-click="getForDelete(l)">
+                        <em class="fa fa-remove" style="color:red"></em>
+                    </a>
+                </td>
+                <td>{{$index + 1}}</td>
+                <td>{{l.Name}}</td>
+                <td>{{l.TestDate}}</td>
+                <td>{{l.ThoiGianThi}} phút</td>
+                <td>
+                    <a href="" title="Chi tiết"
+                       data-toggle="modal"
+                       data-target="#Details"
+                       ng-click="ClassDetails(l)">
+                        Quản lý lớp
+                    </a>
+                    <hr />
+                    <a href="" title="Chi tiết"
+                       data-toggle="modal"
+                       data-target="#Update"
+                       ng-click="getForUpdate(l)">
+                        Cập nhật thông tin lớp
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <style>
+        .error-msg {
+            font-size: 90%;
+            font-style: italic;
+            color: red;
+        }
+    </style>
+    <div class="modal" id="AddNew" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm Lớp</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align: left" ng-click="reset()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddNewForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" ng-model="MaLop" type="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Tên lớp </label>
+                            <input class="form-control" name="Name" ng-model="Name" type="text" placeholder="Tên lớp" ng-required="true" maxlength="100" />
+                            <span ng-show="AddNewForm.Name.$error.required" class="error-msg">Vui lòng nhập tên lớp</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Ngày kiểm tra</label>
+                            <input type="date" ng-model="NgayKT" ng-required="true" name="NgayKT">
+                            <br />
+                            <span ng-show="AddNewForm.NgayKT.$invalid" class="error-msg">Vui lòng chọn ngày kiểm tra</span>
+
+                            <label>{{TestDate|date:'dd/MM/yyyy' }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Thời gian thi </label>
+                            <input class="form-control" name="ThoiGianThi" ng-model="ThoiGianThi" type="number" placeholder="Thời gian thi" ng-required="true" min="15" max="180" />
+                            <span ng-show="AddNewForm.ThoiGianThi.$error.required" class="error-msg">Vui lòng nhập thời gian thi</span>
+                            <span ng-show="AddNewForm.ThoiGianThi.$error.min" class="error-msg">Tối thiểu 15 phút</span>
+                            <span ng-show="AddNewForm.ThoiGianThi.$error.max" class="error-msg">Tối đa 180 phút</span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"> Môn học</label>
+                            <select name="MonHocID" ng-model="MonHocID" ng-required="true">
+
+                                <option value="">--Select--</option>
+                                <option ng-repeat="mh in MonHocs" value="{{mh.MaMonHoc}}">{{mh.TenMonHoc}}</option>
+                            </select>
+                            <span ng-show="AddNewForm.MonHocID.$invalid" class="error-msg">Vui lòng chọn môn học</span>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="save()" ng-disabled="AddNewForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" role="dialog" id="deleteDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận xóa?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(DetailsMaCauHoi)">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetdel()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="Details" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Chi tiết lớp</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align: left" ng-click="reset()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <div>
+                        <label class="control-label"> Đề Thi: {{TenDeThiHienTai}}</label>
+                        <select name="MaDeThi" ng-model="MaDeThi" ng-change="UpdateDeThi(MaDeThi,MaLop)">
+                            <option value="">--Select--</option>
+                            <option ng-repeat="dt in DeThis" value="{{dt.MaDeThi}}">{{dt.TenDeThi}}</option>
+                        </select>
+
+                    </div>
+                    <hr />
+                    <div>
+                        <div ng-form="addHSform" class="row">
+                            <div class="col-md-8">
+                                <input type="number" name="MaHS" class="form-control" min="1" ng-model="MaHS" required />
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-info" ng-click="AddnewHS(MaHS,MaLop)" ng-disabled="addHSform.$invalid">Thêm</button>
+                            </div>
+                        </div>
+                        <br />
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Mã học sinh</td>
+                                    <td>Họ và tên</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="hv in HVs">
+                                    <td><a href="" title="Remove" ng-click="removeSV(hv.ID,MaLop)"><em class="fa fa-remove"></em></a></td>
+                                    <td>{{hv.ID}}</td>
+                                    <td>{{hv.HoVaTen}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="Update" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Cập nhật</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align: left" ng-click="reset()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="UpdateForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" ng-model="UpdateMaLop" type="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Tên lớp </label>
+                            <input class="form-control" name="UpdateName" ng-model="UpdateName" type="text" placeholder="Tên lớp" ng-required="true" maxlength="100" />
+                            <span ng-show="UpdateForm.UpdateName.$error.required" class="error-msg">Vui lòng nhập tên lớp</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Ngày kiểm tra</label>
+                            <input type="date" ng-model="UpdateNgayKT" ng-required="true" name="UpdateNgayKT">
+                            <br />
+                            <span ng-show="UpdateForm.UpdateNgayKT.$invalid" class="error-msg">Vui lòng chọn ngày kiểm tra</span>
+
+                            <label>{{TestDate|date:'dd/MM/yyyy' }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Thời gian thi </label>
+                            <input class="form-control" name="UpdateThoiGianThi" ng-model="UpdateThoiGianThi" type="number" placeholder="Thời gian thi" ng-required="true" min="20" max="180" />
+                            <span ng-show="UpdateForm.UpdateThoiGianThi.$error.required" class="error-msg">Vui lòng nhập thời gian thi</span>
+                            <span ng-show="UpdateForm.UpdateThoiGianThi.$error.min" class="error-msg">Tối thiểu 20 phút</span>
+                            <span ng-show="UpdateForm.UpdateThoiGianThi.$error.max" class="error-msg">Tối đa 180 phút</span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"> Môn học</label>
+                            <select name="UpdateMonHocID" ng-model="UpdateMonHocID" ng-required="true">
+
+                                <option value="">--Select--</option>
+                                <option ng-repeat="mh in MonHocs" value="{{mh.MaMonHoc}}">{{mh.TenMonHoc}}</option>
+                            </select>
+                            <span ng-show="UpdateForm.UpdateMonHocID.$invalid" class="error-msg">Vui lòng chọn môn học</span>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="update()" ng-disabled="UpdateForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Areas/GV/AngularJS/LopKT/LopKTModule.js"></script>
+<script src="~/Areas/GV/AngularJS/LopKT/LopKTService.js"></script>
+<script src="~/Areas/GV/AngularJS/LopKT/LopKTController.js"></script>

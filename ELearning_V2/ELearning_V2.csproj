@@ -1,0 +1,2100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5F7BD0C2-6D53-4703-9226-AEBD8FA8BCD9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ELearning_V2</RootNamespace>
+    <AssemblyName>ELearning_V2</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Vereyon.Web.FlashMessage, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vereyon.Web.FlashMessage.1.0.1\lib\net40\Vereyon.Web.FlashMessage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MonHocController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrangThaiController.cs" />
+    <Compile Include="Areas\Admin\Models\ChuongModel.cs" />
+    <Compile Include="Areas\Admin\Models\MonHocModel.cs" />
+    <Compile Include="Areas\Admin\Models\NguoiDungModel.cs" />
+    <Compile Include="Areas\GV\Controllers\BaiGiangController.cs" />
+    <Compile Include="Areas\GV\Controllers\BaseController.cs" />
+    <Compile Include="Areas\GV\Controllers\CauHoiController.cs" />
+    <Compile Include="Areas\GV\Controllers\ChuongController.cs" />
+    <Compile Include="Areas\GV\Controllers\CommentController.cs" />
+    <Compile Include="Areas\GV\Controllers\DeThiController.cs" />
+    <Compile Include="Areas\GV\Controllers\HocVienController.cs" />
+    <Compile Include="Areas\GV\Controllers\HomeGVController.cs" />
+    <Compile Include="Areas\GV\Controllers\LopController.cs" />
+    <Compile Include="Areas\GV\Controllers\LopKiemTraController.cs" />
+    <Compile Include="Areas\GV\Controllers\ThongBaoController.cs" />
+    <Compile Include="Areas\GV\Controllers\UploadController.cs" />
+    <Compile Include="Areas\GV\Controllers\UserController.cs" />
+    <Compile Include="Areas\GV\GVAreaRegistration.cs" />
+    <Compile Include="Areas\GV\Models\AddNewHS_LOPModel.cs" />
+    <Compile Include="Areas\GV\Models\BaiGiangModel.cs" />
+    <Compile Include="Areas\GV\Models\CauHoiDeThiModel.cs" />
+    <Compile Include="Areas\GV\Models\ChuongModel.cs" />
+    <Compile Include="Areas\GV\Models\RegisterModel.cs" />
+    <Compile Include="Areas\GV\Models\CommentModel.cs" />
+    <Compile Include="Areas\GV\Models\DeThiModel.cs" />
+    <Compile Include="Areas\GV\Models\GiangVienModel.cs" />
+    <Compile Include="Areas\GV\Models\HocVienModel.cs" />
+    <Compile Include="Areas\GV\Models\KetQuaModel.cs" />
+    <Compile Include="Areas\GV\Models\LoginModel.cs" />
+    <Compile Include="Areas\GV\Models\LopKTModel.cs" />
+    <Compile Include="Areas\GV\Models\LopModel.cs" />
+    <Compile Include="Areas\GV\Models\MonHocModel.cs" />
+    <Compile Include="Areas\GV\Models\PasswordModel.cs" />
+    <Compile Include="Areas\GV\Models\RemoveSVModel.cs" />
+    <Compile Include="Areas\GV\Models\ThongBaoModel.cs" />
+    <Compile Include="common\API Model\TaiKhoanModel.cs" />
+    <Compile Include="common\CauHoiModel.cs" />
+    <Compile Include="common\CommonConstants.cs" />
+    <Compile Include="common\Encryptor.cs" />
+    <Compile Include="common\FileExt.cs" />
+    <Compile Include="common\GVModel.cs" />
+    <Compile Include="common\ImportExcel.cs" />
+    <Compile Include="common\TaiKhoanLogin.cs" />
+    <Compile Include="Controllers\AppAPIController.cs" />
+    <Compile Include="Controllers\BaiGiangController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KetQuaController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LopController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaiGiang.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaiLam.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CauHoi.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chuong.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeThi.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ELearningDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ELearningDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ELearningDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ELearningDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ELearningDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiangVien.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HocVien.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KeyAPI.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lop.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LopKiemTra.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MonHoc.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reply.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaiKhoan.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThongBao.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrangThaiHeThong.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\AngularJS\Account\AccountController.js" />
+    <Content Include="Areas\Admin\AngularJS\Account\AccountModule.js" />
+    <Content Include="Areas\Admin\AngularJS\Account\AccountService.js" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\CauHoiController.js" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\CauHoiModule.js" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\CauHoiService.js" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\polyfill.min.js" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\StyleSheet1.css" />
+    <Content Include="Areas\GV\AngularJS\CauHoi\tex-mml-chtml.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DetailsController.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DetailsModule.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DetailsService.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DeThiController.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DeThiModule.js" />
+    <Content Include="Areas\GV\AngularJS\DeThi\DeThiService.js" />
+    <Content Include="Areas\GV\AngularJS\LopKT\LopKTController.js" />
+    <Content Include="Areas\GV\AngularJS\LopKT\LopKTModule.js" />
+    <Content Include="Areas\GV\AngularJS\LopKT\LopKTService.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\DetailsController.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\DetailsModule.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\DetailsService.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\LopController.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\LopModule.js" />
+    <Content Include="Areas\GV\AngularJS\Lop\LopService.js" />
+    <Content Include="Areas\GV\AngularJS\User\UserController.js" />
+    <Content Include="Areas\GV\AngularJS\User\UserModule.js" />
+    <Content Include="Areas\GV\AngularJS\User\UserService.js" />
+    <Content Include="Assets\colorlib-regform-5\css\main.css" />
+    <Content Include="Assets\colorlib-regform-5\css\main.min.css" />
+    <Content Include="Assets\colorlib-regform-5\index.html" />
+    <Content Include="Assets\colorlib-regform-5\js\global.js" />
+    <Content Include="Assets\colorlib-regform-5\readme.txt" />
+    <Content Include="Assets\colorlib-regform-5\vendor\datepicker\daterangepicker.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\datepicker\daterangepicker.js" />
+    <Content Include="Assets\colorlib-regform-5\vendor\datepicker\moment.min.js" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\css\font-awesome.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\css\font-awesome.min.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\HELP-US-OUT.txt" />
+    <Content Include="Assets\colorlib-regform-5\vendor\jquery\jquery.js" />
+    <Content Include="Assets\colorlib-regform-5\vendor\jquery\jquery.min.js" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\css\material-design-iconic-font.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\css\material-design-iconic-font.min.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\select2\select2.min.css" />
+    <Content Include="Assets\colorlib-regform-5\vendor\select2\select2.min.js" />
+    <Content Include="Assets\css\main.css" />
+    <Content Include="Assets\css\util.css" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
+    <Content Include="Assets\fonts\montserrat\OFL.txt" />
+    <Content Include="Assets\HomePage\css\animate.min.css" />
+    <Content Include="Assets\HomePage\css\bootstrap.css" />
+    <Content Include="Assets\HomePage\css\bootstrap\bootstrap-grid.css" />
+    <Content Include="Assets\HomePage\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Assets\HomePage\css\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Assets\HomePage\css\bootstrap\bootstrap.css" />
+    <Content Include="Assets\HomePage\css\font-awesome.min.css" />
+    <Content Include="Assets\HomePage\css\jquery.DonutWidget.min.css" />
+    <Content Include="Assets\HomePage\css\jquerysctipttop.css" />
+    <Content Include="Assets\HomePage\css\linearicons.css" />
+    <Content Include="Assets\HomePage\css\magnific-popup.css" />
+    <Content Include="Assets\HomePage\css\main.css" />
+    <Content Include="Assets\HomePage\css\nice-select.css" />
+    <Content Include="Assets\HomePage\css\owl.carousel.css" />
+    <Content Include="Assets\HomePage\css\theme\pages.css" />
+    <Content Include="Assets\HomePage\img\about.jpg" />
+    <Content Include="Assets\HomePage\img\banner-bg.png" />
+    <Content Include="Assets\HomePage\img\blog\ads-banner.jpg" />
+    <Content Include="Assets\HomePage\img\blog\blog-home-banner.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c1.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c2.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c3.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c4.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c5.jpg" />
+    <Content Include="Assets\HomePage\img\blog\c6.jpg" />
+    <Content Include="Assets\HomePage\img\blog\cat-widget1.jpg" />
+    <Content Include="Assets\HomePage\img\blog\cat-widget2.jpg" />
+    <Content Include="Assets\HomePage\img\blog\cat-widget3.jpg" />
+    <Content Include="Assets\HomePage\img\blog\feature-img1.jpg" />
+    <Content Include="Assets\HomePage\img\blog\feature-img2.jpg" />
+    <Content Include="Assets\HomePage\img\blog\feature-img3.jpg" />
+    <Content Include="Assets\HomePage\img\blog\feature-img4.jpg" />
+    <Content Include="Assets\HomePage\img\blog\feature-img5.jpg" />
+    <Content Include="Assets\HomePage\img\blog\next.jpg" />
+    <Content Include="Assets\HomePage\img\blog\post-img1.jpg" />
+    <Content Include="Assets\HomePage\img\blog\post-img2.jpg" />
+    <Content Include="Assets\HomePage\img\blog\pp1.jpg" />
+    <Content Include="Assets\HomePage\img\blog\pp2.jpg" />
+    <Content Include="Assets\HomePage\img\blog\pp3.jpg" />
+    <Content Include="Assets\HomePage\img\blog\pp4.jpg" />
+    <Content Include="Assets\HomePage\img\blog\prev.jpg" />
+    <Content Include="Assets\HomePage\img\blog\s-img.jpg" />
+    <Content Include="Assets\HomePage\img\blog\user-info.png" />
+    <Content Include="Assets\HomePage\img\elements\d.jpg" />
+    <Content Include="Assets\HomePage\img\elements\disabled-check.png" />
+    <Content Include="Assets\HomePage\img\elements\disabled-radio.png" />
+    <Content Include="Assets\HomePage\img\elements\f1.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f2.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f3.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f4.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f5.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f6.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f7.jpg" />
+    <Content Include="Assets\HomePage\img\elements\f8.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g1.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g2.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g3.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g4.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g5.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g6.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g7.jpg" />
+    <Content Include="Assets\HomePage\img\elements\g8.jpg" />
+    <Content Include="Assets\HomePage\img\elements\primary-check.png" />
+    <Content Include="Assets\HomePage\img\elements\primary-radio.png" />
+    <Content Include="Assets\HomePage\img\elements\success-check.png" />
+    <Content Include="Assets\HomePage\img\elements\success-radio.png" />
+    <Content Include="Assets\HomePage\img\faculty\f1.jpg" />
+    <Content Include="Assets\HomePage\img\faculty\f2.jpg" />
+    <Content Include="Assets\HomePage\img\faculty\f3.jpg" />
+    <Content Include="Assets\HomePage\img\faculty\f4.jpg" />
+    <Content Include="Assets\HomePage\img\fav.png" />
+    <Content Include="Assets\HomePage\img\header-bg.png" />
+    <Content Include="Assets\HomePage\img\logo.png" />
+    <Content Include="Assets\HomePage\img\quote.png" />
+    <Content Include="Assets\HomePage\img\rocket.png" />
+    <Content Include="Assets\HomePage\img\testimonial\t1.jpg" />
+    <Content Include="Assets\HomePage\img\testimonial\t2.jpg" />
+    <Content Include="Assets\HomePage\img\testimonial\t3.jpg" />
+    <Content Include="Assets\HomePage\img\testimonial\t4.jpg" />
+    <Content Include="Assets\HomePage\js\easing.min.js" />
+    <Content Include="Assets\HomePage\js\hoverIntent.js" />
+    <Content Include="Assets\HomePage\js\jquery.ajaxchimp.min.js" />
+    <Content Include="Assets\HomePage\js\jquery.counterup.min.js" />
+    <Content Include="Assets\HomePage\js\jquery.magnific-popup.min.js" />
+    <Content Include="Assets\HomePage\js\jquery.nice-select.min.js" />
+    <Content Include="Assets\HomePage\js\jquery.sticky.js" />
+    <Content Include="Assets\HomePage\js\mail-script.js" />
+    <Content Include="Assets\HomePage\js\main.js" />
+    <Content Include="Assets\HomePage\js\owl-carousel-thumb.min.js" />
+    <Content Include="Assets\HomePage\js\owl.carousel.min.js" />
+    <Content Include="Assets\HomePage\js\parallax.min.js" />
+    <Content Include="Assets\HomePage\js\slick.js" />
+    <Content Include="Assets\HomePage\js\superfish.js" />
+    <Content Include="Assets\HomePage\js\superfish.min.js" />
+    <Content Include="Assets\HomePage\js\vendor\bootstrap.min.js" />
+    <Content Include="Assets\HomePage\js\vendor\jquery-2.2.4.min.js" />
+    <Content Include="Assets\HomePage\js\waypoints.min.js" />
+    <Content Include="Assets\HomePage\js\wow.min.js" />
+    <Content Include="Assets\images\bg-01.jpg" />
+    <Content Include="Assets\images\icons\favicon.ico" />
+    <Content Include="Assets\images\icons\icon-google.png" />
+    <Content Include="Assets\images\icons\map-marker.png" />
+    <Content Include="Assets\images\icons\symbol-01.png" />
+    <Content Include="Assets\Image\2017-01-10_04-37-24.jpg" />
+    <Content Include="Assets\Image\54200_mountains-sky-lake-landscapes_1920x1200_h.jpg" />
+    <Content Include="Assets\Image\avartardemo1.png" />
+    <Content Include="Assets\Image\avartardemo2.png" />
+    <Content Include="Assets\Image\avartardemo3.png" />
+    <Content Include="Assets\Image\avartardemo4.png" />
+    <Content Include="Assets\Image\beautiful-landscape-high-resolution-4k-wallpaper-44-3840x2160.jpg" />
+    <Content Include="Assets\Image\Daiso10.png" />
+    <Content Include="Assets\Image\daisogiaitich11.jpg" />
+    <Content Include="Assets\Image\hoa12.jpg" />
+    <Content Include="Assets\Image\LTDH_Toan.png" />
+    <Content Include="Assets\Image\ly10.jpg" />
+    <Content Include="Assets\Image\Penguins.jpg" />
+    <Content Include="Assets\Image\Sinh12.jpg" />
+    <Content Include="Assets\Image\TiengAnh12.png" />
+    <Content Include="Assets\Image\Toan12.png" />
+    <Content Include="Assets\Image\Warframe0003.jpg" />
+    <Content Include="Assets\Image\Warframe0006.jpg" />
+    <Content Include="Assets\Image\Warframe0010.jpg" />
+    <Content Include="Assets\js\main.js" />
+    <Content Include="Assets\Plugin\ckeditor\adapters\jquery.js" />
+    <Content Include="Assets\Plugin\ckeditor\build-config.js" />
+    <Content Include="Assets\Plugin\ckeditor\ckeditor.js" />
+    <Content Include="Assets\Plugin\ckeditor\config.js" />
+    <Content Include="Assets\Plugin\ckeditor\contents.css" />
+    <Content Include="Assets\Plugin\ckeditor\lang\af.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ar.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\az.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\bg.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\bn.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\bs.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\cs.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\cy.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\da.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\de-ch.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\de.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\el.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\en-au.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\en-ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\en-gb.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\en.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\eo.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\es-mx.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\es.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\et.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\eu.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\fa.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\fi.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\fo.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\fr-ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\fr.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\gl.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\gu.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\he.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\hi.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\hr.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\hu.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\id.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\is.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\it.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ja.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ka.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\km.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ko.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ku.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\lt.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\lv.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\mk.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\mn.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ms.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\nb.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\nl.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\no.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\oc.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\pl.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\pt-br.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\pt.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ro.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ru.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\si.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sk.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sl.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sq.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sr-latn.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sr.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\sv.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\th.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\tr.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\tt.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\ug.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\uk.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\vi.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\zh-cn.js" />
+    <Content Include="Assets\Plugin\ckeditor\lang\zh.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\en-au.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\dialog\styles\dialog.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\dialogs\eqneditor.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\dialogs\lang\en.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\dialogs\lang\_notes\dwsync.xml" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\dialogs\_notes\dwsync.xml" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\icons\eqneditor.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\icons\_notes\dwsync.xml" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\lang\en.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\lang\_notes\dwsync.xml" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\plugin.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\eqneditor\_notes\dwsync.xml" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\icons.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\pastefromgdocs\filter\default.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\pastetools\filter\common.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ro.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\widget\images\handle.png" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\css\samples.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\github-top.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\header-bg.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\header-separator.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\logo.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\logo.svg" />
+    <Content Include="Assets\Plugin\ckeditor\samples\img\navigation-tip.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\index.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\js\sample.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\js\sf.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\ajax.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\api.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\appendto.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\assets\posteddata.php" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\assets\sample.jpg" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\datafiltering.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\dialog\dialog.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\divreplace.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\htmlwriter\outputforflash.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\htmlwriter\outputhtml.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\index.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\inlineall.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\inlinebycode.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\inlinetextarea.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\jquery.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\magicline\magicline.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\readonly.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\replacebyclass.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\replacebycode.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\sample.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\sample.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\sample_posteddata.php" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\tabindex.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\uicolor.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\uilanguages.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\xhtmlstyle.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Assets\Plugin\ckeditor\styles.js" />
+    <Content Include="Assets\Plugin\ckeditor\vendor\promise.js" />
+    <Content Include="Assets\vendor\animate\animate.css" />
+    <Content Include="Assets\vendor\animsition\css\animsition.css" />
+    <Content Include="Assets\vendor\animsition\css\animsition.min.css" />
+    <Content Include="Assets\vendor\animsition\js\animsition.js" />
+    <Content Include="Assets\vendor\animsition\js\animsition.min.js" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Assets\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Assets\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Assets\vendor\bootstrap\js\popper.js" />
+    <Content Include="Assets\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Assets\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Assets\vendor\countdowntime\countdowntime.js" />
+    <Content Include="Assets\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Assets\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Assets\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="Assets\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="Assets\vendor\daterangepicker\moment.js" />
+    <Content Include="Assets\vendor\daterangepicker\moment.min.js" />
+    <Content Include="Assets\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Assets\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Assets\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="Assets\vendor\select2\select2.css" />
+    <Content Include="Assets\vendor\select2\select2.js" />
+    <Content Include="Assets\vendor\select2\select2.min.css" />
+    <Content Include="Assets\vendor\select2\select2.min.js" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\ELearningDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ELearningDB.edmx</DependentUpon>
+      <LastGenOutput>ELearningDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ELearningDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ELearningDB.edmx</DependentUpon>
+      <LastGenOutput>ELearningDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Areas\GV\Views\web.config" />
+    <Content Include="Areas\GV\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GV\Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Areas\GV\Views\HomeGV\TrangChu.cshtml" />
+    <Content Include="Areas\GV\Views\CauHoi\Index.cshtml" />
+    <Content Include="Areas\GV\Views\CauHoi\Details.cshtml" />
+    <Content Include="Areas\GV\Views\Lop\MyClass.cshtml" />
+    <Content Include="Areas\GV\Views\CauHoi\CauHoi.cshtml" />
+    <Content Include="Areas\GV\Views\BaiGiang\Index.cshtml" />
+    <Content Include="Areas\GV\Views\User\Index.cshtml" />
+    <Content Include="Areas\GV\Views\BaiGiang\Create.cshtml" />
+    <Content Include="Areas\GV\Views\BaiGiang\Details.cshtml" />
+    <Content Include="Areas\GV\Views\BaiGiang\Edit.cshtml" />
+    <Content Include="Areas\GV\Views\Lop\ViewDetails.cshtml" />
+    <Content Include="Assets\Plugin\ckeditor\CHANGES.md" />
+    <Content Include="Assets\Plugin\ckeditor\LICENSE.md" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Assets\Plugin\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Assets\Plugin\ckeditor\README.md" />
+    <Content Include="Assets\Plugin\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="Assets\Plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="Assets\Plugin\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Areas\GV\Views\CauHoi\TaoMoi.cshtml" />
+    <Content Include="Areas\GV\Views\CauHoi\Update.cshtml" />
+    <Content Include="Areas\GV\Views\DeThi\Index.cshtml" />
+    <Content Include="Areas\GV\Views\DeThi\DanhSachDeThi.cshtml" />
+    <Content Include="Areas\GV\Views\Chuong\Index.cshtml" />
+    <Content Include="Areas\GV\Views\Chuong\Chuong.cshtml" />
+    <Content Include="Areas\GV\Views\Chuong\Create.cshtml" />
+    <Content Include="Areas\GV\Views\DeThi\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAD.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHoc\DanhSachMonHoc.cshtml" />
+    <Content Include="Areas\Admin\Views\MonHoc\Chuong.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\GV\Views\User\FirstLogin.cshtml" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\colorlib-regform-5\vendor\font-awesome-4.7\fonts\FontAwesome.otf" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="Assets\colorlib-regform-5\vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Assets\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="Assets\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Assets\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Assets\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Assets\HomePage\css\.DS_Store" />
+    <Content Include="Assets\HomePage\css\bootstrap.map" />
+    <Content Include="Assets\HomePage\css\main.css.map" />
+    <Content Include="Assets\HomePage\css\main.map" />
+    <Content Include="Assets\HomePage\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\HomePage\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\HomePage\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\HomePage\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\HomePage\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\HomePage\fonts\FontAwesome.otf" />
+    <Content Include="Assets\HomePage\fonts\Linearicons-Free.eot" />
+    <Content Include="Assets\HomePage\fonts\Linearicons-Free.svg" />
+    <Content Include="Assets\HomePage\fonts\Linearicons-Free.ttf" />
+    <Content Include="Assets\HomePage\fonts\Linearicons-Free.woff" />
+    <Content Include="Assets\HomePage\fonts\Linearicons-Free.woff2" />
+    <Content Include="Assets\HomePage\img\.DS_Store" />
+    <Content Include="Assets\HomePage\img\blog\.DS_Store" />
+    <Content Include="Assets\HomePage\img\faculty\.DS_Store" />
+    <Content Include="Assets\HomePage\img\testimonial\.DS_Store" />
+    <Content Include="Assets\HomePage\js\.DS_Store" />
+    <Content Include="Assets\HomePage\scss\.DS_Store" />
+    <Content Include="Assets\HomePage\scss\bootstrap.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\.DS_Store" />
+    <Content Include="Assets\HomePage\scss\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\bootstrap.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_alert.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_badge.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_caret.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_float.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_forms.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_grid.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_hover.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_image.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_lists.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_navbar-align.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_resize.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_size.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_transition.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_align.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_background.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_borders.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_display.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_embed.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_flex.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_float.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_position.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_text.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_alert.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_badge.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_breadcrumb.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_button-group.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_buttons.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_card.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_carousel.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_close.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_code.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_custom-forms.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_dropdown.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_forms.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_functions.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_grid.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_images.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_input-group.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_jumbotron.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_list-group.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_media.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_mixins.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_modal.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_nav.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_navbar.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_pagination.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_popover.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_print.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_progress.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_reboot.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_root.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_tables.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_tooltip.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_transitions.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_type.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_utilities.scss" />
+    <Content Include="Assets\HomePage\scss\bootstrap\_variables.scss" />
+    <Content Include="Assets\HomePage\scss\main.scss" />
+    <Content Include="Assets\HomePage\scss\theme\.DS_Store" />
+    <Content Include="Assets\HomePage\scss\theme\_blog.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_elements.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_flexbox.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_footer.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_header.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_home.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_mixins.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_predefined.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_reset.scss" />
+    <Content Include="Assets\HomePage\scss\theme\_variables.scss" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Areas\GV\Views\LopKiemTra\QuanLyKiemTra.cshtml" />
+    <Content Include="Assets\Image\Image.zip" />
+    <Content Include="Areas\GV\Views\BaiGiang\QuanLyBaiGiang.cshtml" />
+    <EntityDeploy Include="Models\ELearningDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ELearningDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ELearningDB.edmx.diagram">
+      <DependentUpon>ELearningDB.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\Elearning.pubxml" />
+    <None Include="Properties\PublishProfiles\ELearningV2.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ClassDetails\DetailsController.js" />
+    <Content Include="Scripts\ClassDetails\DetailsModule.js" />
+    <Content Include="Scripts\ClassDetails\DetailsService.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\LatinExtendedAdditional.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\MathItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\MathScript.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\MathSSItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Italic\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\AlphaPresentForms.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Arrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\BBBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\BlockElements.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\BoldFraktur.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\BoxDrawing.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\CJK.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\CombDiactForSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\ControlPictures.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\CurrencySymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Cyrillic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Dingbats.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\EnclosedAlphanum.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Fraktur.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekBoldItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekSSBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\GreekSSBoldItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Hiragana.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\ij.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\IPAExtensions.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\LatinExtendedAdditional.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\LatinExtendedD.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathBoldItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathBoldScript.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathScript.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathSS.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathSSBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathSSItalic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathSSItalicBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MathTT.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MiscMathSymbolsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MiscMathSymbolsB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MiscSymbolsAndArrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\MiscTechnical.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\NumberForms.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\PhoneticExtensions.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\Specials.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\SuperAndSubscripts.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\SupplementalArrowsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\SupplementalArrowsB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\General\Regular\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsD\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsD\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsD\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsSm\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsSm\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsSm\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpD\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpD\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpD\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpSm\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpSm\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUpSm\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUp\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUp\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\IntegralsUp\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\BoldItalic\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\BoldItalic\PrivateUse.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Bold\PrivateUse.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Italic\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Italic\PrivateUse.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\NonUnicode\Regular\PrivateUse.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeFiveSym\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeFiveSym\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeFourSym\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeFourSym\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeFourSym\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeOneSym\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeOneSym\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeOneSym\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeOneSym\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeThreeSym\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeThreeSym\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeThreeSym\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeTwoSym\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeTwoSym\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\SizeTwoSym\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\Variants\Bold\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\Variants\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\Variants\Regular\All.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\STIX\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\Arrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\BBBold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\BoxDrawing.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\Dingbats.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\EnclosedAlphanum.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\MiscMathSymbolsB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\MiscTechnical.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\AMS\Regular\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Caligraphic\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Caligraphic\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Bold\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Bold\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Bold\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Fraktur\Regular\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Greek\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Greek\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Greek\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Greek\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\Arrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\CombDiactForSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\MiscMathSymbolsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\MiscTechnical.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\SupplementalArrowsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Bold\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Italic\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Italic\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Italic\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Italic\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Regular\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Regular\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Main\Regular\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Math\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Math\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Bold\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Bold\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Bold\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Italic\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Italic\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Italic\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\SansSerif\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Script\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Script\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Typewriter\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Typewriter\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Typewriter\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\Typewriter\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\WinChrome\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\WinIE6\Regular\AMS.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\WinIE6\Regular\Bold.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\fonts\TeX\WinIE6\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\imageFonts.js" />
+    <Content Include="Scripts\MathJax\jax\output\HTML-CSS\jax.js" />
+    <Content Include="Scripts\MathJax\jax\output\NativeMML\config.js" />
+    <Content Include="Scripts\MathJax\jax\output\NativeMML\jax.js" />
+    <Content Include="Scripts\MathJax\jax\output\PlainSource\config.js" />
+    <Content Include="Scripts\MathJax\jax\output\PlainSource\jax.js" />
+    <Content Include="Scripts\MathJax\jax\output\PreviewHTML\config.js" />
+    <Content Include="Scripts\MathJax\jax\output\PreviewHTML\jax.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\annotation-xml.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\maction.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\menclose.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\mglyph.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\mmultiscripts.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\ms.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\mtable.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\autoload\multiline.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\config.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\DoubleStruck\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Latin\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Misc\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Monospace\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Normal\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Size6\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Asana-Math\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\DoubleStruck\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Latin\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Misc\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Monospace\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Normal\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Size6\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Pagella\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\DoubleStruck\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Latin\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Misc\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Monospace\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Normal\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Size6\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Gyre-Termes\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\DoubleStruck\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Latin\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Misc\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Monospace\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Normal\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size6\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Size7\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Latin-Modern\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\NonUnicode\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Normal\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\Neo-Euler\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Alphabets\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Alphabets\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Alphabets\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Alphabets\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Arrows\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Arrows\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\DoubleStruck\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\DoubleStruck\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\DoubleStruck\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\DoubleStruck\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Fraktur\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Latin\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Latin\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Latin\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Latin\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Main\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Main\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Main\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Marks\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Marks\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Marks\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Marks\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Misc\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Misc\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Misc\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Misc\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Monospace\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Normal\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Normal\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Normal\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Operators\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Operators\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\SansSerif\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\SansSerif\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\SansSerif\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Script\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Script\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Shapes\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Shapes\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Shapes\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Size5\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Symbols\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Symbols\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Variants\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Variants\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Variants\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\STIX-Web\Variants\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\Arrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\BoxDrawing.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\Dingbats.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\EnclosedAlphanum.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\MiscMathSymbolsB.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\MiscTechnical.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\AMS\Regular\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Caligraphic\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Caligraphic\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\fontdata-extra.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\fontdata.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Bold\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Bold\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Bold\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Fraktur\Regular\PUA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\Arrows.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\CombDiactForSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\Latin1Supplement.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\MiscMathSymbolsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\MiscTechnical.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\SupplementalArrowsA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Bold\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\GeneralPunctuation.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Italic\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\GeometricShapes.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\GreekAndCoptic.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\LatinExtendedA.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\LatinExtendedB.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\LetterlikeSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\MathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\MiscSymbols.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\SpacingModLetters.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Main\Regular\SuppMathOperators.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Math\BoldItalic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Math\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Bold\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Bold\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Bold\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Bold\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Italic\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Italic\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Italic\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Italic\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\SansSerif\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Script\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Script\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Size1\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Size2\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Size3\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Size4\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Typewriter\Regular\BasicLatin.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Typewriter\Regular\CombDiacritMarks.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Typewriter\Regular\Main.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\fonts\TeX\Typewriter\Regular\Other.js" />
+    <Content Include="Scripts\MathJax\jax\output\SVG\jax.js" />
+    <Content Include="Scripts\MathJax\localization\ast\ast.js" />
+    <Content Include="Scripts\MathJax\localization\ast\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ast\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ast\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ast\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ast\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ast\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\bcc.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\bcc\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\bg\bg.js" />
+    <Content Include="Scripts\MathJax\localization\bg\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\bg\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\bg\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\bg\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\bg\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\bg\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\br\br.js" />
+    <Content Include="Scripts\MathJax\localization\br\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\br\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\br\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\br\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\br\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\br\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ca\ca.js" />
+    <Content Include="Scripts\MathJax\localization\ca\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ca\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ca\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ca\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ca\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ca\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\cdo.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\cdo\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ce\ce.js" />
+    <Content Include="Scripts\MathJax\localization\ce\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ce\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ce\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ce\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ce\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ce\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\cs\cs.js" />
+    <Content Include="Scripts\MathJax\localization\cs\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\cs\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\cs\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\cs\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\cs\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\cs\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\cy\cy.js" />
+    <Content Include="Scripts\MathJax\localization\cy\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\cy\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\cy\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\cy\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\cy\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\cy\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\da\da.js" />
+    <Content Include="Scripts\MathJax\localization\da\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\da\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\da\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\da\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\da\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\da\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\de\de.js" />
+    <Content Include="Scripts\MathJax\localization\de\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\de\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\de\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\de\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\de\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\de\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\diq\diq.js" />
+    <Content Include="Scripts\MathJax\localization\diq\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\diq\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\diq\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\diq\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\diq\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\diq\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\en\en.js" />
+    <Content Include="Scripts\MathJax\localization\en\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\en\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\en\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\en\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\en\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\en\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\eo\eo.js" />
+    <Content Include="Scripts\MathJax\localization\eo\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\eo\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\eo\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\eo\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\eo\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\eo\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\es\es.js" />
+    <Content Include="Scripts\MathJax\localization\es\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\es\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\es\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\es\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\es\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\es\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\fa\fa.js" />
+    <Content Include="Scripts\MathJax\localization\fa\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\fa\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\fa\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\fa\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\fa\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\fa\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\fi\fi.js" />
+    <Content Include="Scripts\MathJax\localization\fi\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\fi\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\fi\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\fi\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\fi\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\fi\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\fr\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\fr\fr.js" />
+    <Content Include="Scripts\MathJax\localization\fr\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\fr\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\fr\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\fr\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\fr\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\gl\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\gl\gl.js" />
+    <Content Include="Scripts\MathJax\localization\gl\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\gl\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\gl\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\gl\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\gl\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\he\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\he\he.js" />
+    <Content Include="Scripts\MathJax\localization\he\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\he\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\he\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\he\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\he\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ia\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ia\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ia\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ia\ia.js" />
+    <Content Include="Scripts\MathJax\localization\ia\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ia\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ia\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\it\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\it\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\it\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\it\it.js" />
+    <Content Include="Scripts\MathJax\localization\it\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\it\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\it\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ja\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ja\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ja\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ja\ja.js" />
+    <Content Include="Scripts\MathJax\localization\ja\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ja\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ja\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\kn\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\kn\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\kn\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\kn\kn.js" />
+    <Content Include="Scripts\MathJax\localization\kn\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\kn\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\kn\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ko\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ko\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ko\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ko\ko.js" />
+    <Content Include="Scripts\MathJax\localization\ko\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ko\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ko\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\lb\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\lb\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\lb\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\lb\lb.js" />
+    <Content Include="Scripts\MathJax\localization\lb\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\lb\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\lb\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\lki\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\lki\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\lki\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\lki\lki.js" />
+    <Content Include="Scripts\MathJax\localization\lki\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\lki\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\lki\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\lt\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\lt\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\lt\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\lt\lt.js" />
+    <Content Include="Scripts\MathJax\localization\lt\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\lt\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\lt\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\mk\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\mk\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\mk\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\mk\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\mk\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\mk\mk.js" />
+    <Content Include="Scripts\MathJax\localization\mk\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\nl\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\nl\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\nl\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\nl\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\nl\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\nl\nl.js" />
+    <Content Include="Scripts\MathJax\localization\nl\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\oc\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\oc\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\oc\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\oc\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\oc\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\oc\oc.js" />
+    <Content Include="Scripts\MathJax\localization\oc\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\pl\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\pl\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\pl\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\pl\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\pl\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\pl\pl.js" />
+    <Content Include="Scripts\MathJax\localization\pl\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\pt-br.js" />
+    <Content Include="Scripts\MathJax\localization\pt-br\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\pt\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\pt\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\pt\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\pt\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\pt\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\pt\pt.js" />
+    <Content Include="Scripts\MathJax\localization\pt\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\qqq.js" />
+    <Content Include="Scripts\MathJax\localization\qqq\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\ru\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\ru\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\ru\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\ru\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\ru\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\ru\ru.js" />
+    <Content Include="Scripts\MathJax\localization\ru\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\scn\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\scn\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\scn\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\scn\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\scn\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\scn\scn.js" />
+    <Content Include="Scripts\MathJax\localization\scn\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\sco\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\sco\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\sco\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\sco\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\sco\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\sco\sco.js" />
+    <Content Include="Scripts\MathJax\localization\sco\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\sl\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\sl\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\sl\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\sl\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\sl\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\sl\sl.js" />
+    <Content Include="Scripts\MathJax\localization\sl\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\sv\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\sv\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\sv\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\sv\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\sv\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\sv\sv.js" />
+    <Content Include="Scripts\MathJax\localization\sv\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\tr\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\tr\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\tr\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\tr\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\tr\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\tr\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\tr\tr.js" />
+    <Content Include="Scripts\MathJax\localization\uk\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\uk\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\uk\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\uk\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\uk\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\uk\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\uk\uk.js" />
+    <Content Include="Scripts\MathJax\localization\vi\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\vi\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\vi\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\vi\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\vi\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\vi\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\vi\vi.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\FontWarnings.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\HelpDialog.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\HTML-CSS.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\MathMenu.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\MathML.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\TeX.js" />
+    <Content Include="Scripts\MathJax\localization\zh-hans\zh-hans.js" />
+    <Content Include="Scripts\MathJax\MathJax.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\FileAPI.flash.swf" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\FileAPI.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\FileAPI.min.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload-all.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload-all.min.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload-shim.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload-shim.min.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.min.js" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\User\UserController.js" />
+    <Content Include="Scripts\User\UserModule.js" />
+    <Content Include="Scripts\User\UserService.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\TrangChu.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Lop\DanhSachLopHoc.cshtml" />
+    <Content Include="Views\Lop\ViewDetails.cshtml" />
+    <Content Include="Views\Lop\MyClass.cshtml" />
+    <Content Include="Views\Lop\ClassDetails.cshtml" />
+    <Content Include="Views\BaiGiang\Details.cshtml" />
+    <Content Include="Views\Lop\Search.cshtml" />
+    <Content Include="Views\Lop\TimKiem.cshtml" />
+    <Content Include="Views\TaiKhoan\Index.cshtml" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\.versions" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\bower.json" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\LICENSE" />
+    <Content Include="Scripts\ng-file-upload-bower-12.2.12\README.md" />
+    <Content Include="Views\User\FirstLogin.cshtml" />
+    <Content Include="Views\KetQua\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Areas\Admin\Views\TrangThai\" />
+    <Folder Include="Areas\GV\Views\Base\" />
+    <Folder Include="Areas\GV\Views\Comment\" />
+    <Folder Include="Areas\GV\Views\GiangVien\" />
+    <Folder Include="Areas\GV\Views\HocVien\" />
+    <Folder Include="Areas\GV\Views\Home\" />
+    <Folder Include="Areas\GV\Views\ThongBao\" />
+    <Folder Include="Areas\GV\Views\Upload\" />
+    <Folder Include="Assets\Avatar\" />
+    <Folder Include="Assets\LopIMG\" />
+    <Folder Include="Assets\Upload\" />
+    <Folder Include="Views\API\" />
+    <Folder Include="Views\asdasd\" />
+    <Folder Include="Views\Comment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49608</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49608/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.4.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

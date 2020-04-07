@@ -1,0 +1,189 @@
+﻿@model ELearning_V2.Areas.GV.Models.DeThiModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .qst-list {
+        float: left;
+        width: 100%;
+        display: table;
+        padding: 15px;
+        position: relative;
+        padding-right: 30px;
+        line-height: 1.2;
+    }
+
+    .qst-info {
+        vertical-align: middle;
+        display: table-cell;
+        position: relative;
+        border-bottom: 1px solid #777777;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .view-question {
+    }
+
+    .box-guide {
+        background: #e5ebef;
+    }
+
+    .error-msg {
+        font-size: 90%;
+        font-style: italic;
+        color: red;
+    }
+</style>
+
+<div ng-app="DetailsModule" ng-controller="DetailsController" ng-init="MaMon('@Model.MaMonHoc');MaDeThi('@Model.MaDeThi');SoCauHoi('@Model.SoCauHoi')">
+    <div class="RandomCauHoi">
+        <h3>Tạo ngẫu nhiên</h3>
+        <div ng-form="randomform" class="row">
+            <label class="col-md-4">
+                <b style="color:brown">Chương</b>
+                <select ng-model="ChuongRandom" required>
+                    <option value="">--Chọn chương cần tạo</option>
+                    <option ng-repeat="chuong in Chuongs" value="{{chuong.ID}}">{{chuong.Name}}</option>
+                </select>
+            </label>
+            <label class="col-md-2">
+                <b style="color:brown">Độ Khó</b>
+                <select ng-model="DoKhoRandom" required>
+                    <option value="">--Chọn độ khó</option>
+                    <option value="1">Nhận biết</option>
+                    <option value="2">Thông hiểu</option>
+                    <option value="3">Vận dụng</option>
+                    <option value="4">Nâng cao</option>
+                </select>
+            </label>
+            <label class="col-md-2">
+                <b style="color:brown">Số câu hỏi</b>
+                <br />
+                <input class="form-control" type="number" style="width:80px" ng-model="SoLuongRandom" min="1" max="{{randomMax}}" name="SoLuongRandom" required />
+                <span ng-show="randomform.SoLuongRandom.$error.max" class="error-msg">Tối đa {{randomMax}} câu</span>
+                <span ng-show="randomform.SoLuongRandom.$error.required" class="error-msg">Vui lòng nhập số câu hỏi cần tạo</span>
+
+
+            </label>
+            <button class="btn btn-info col-md-1" ng-disabled="randomform.$invalid" ng-click="random()" style="width:100px; height:50px"><b style="font-size:16px;color:white">TẠO</b></button>
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <h3>Chương</h3>
+                <br />
+                <label>Độ Khó:</label>
+                <select ng-model="LocDoKho">
+                    <option value="">--Chọn độ khó</option>
+                    <option value="1">Nhận biết</option>
+                    <option value="2">Thông hiểu</option>
+                    <option value="3">Vận dụng</option>
+                    <option value="4">Nâng cao</option>
+                </select>
+                <br />
+                <form>
+                    <div>
+                        <span style="line-height:2.5" ng-repeat="chuong in Chuongs">
+                            <input type="radio" ng-value="chuong" ng-model="$parent.c" />
+                            {{chuong.Name}}
+                            <br />
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <hr />
+            <div>
+                <h3>Câu hỏi đã chọn ({{CauHoiDeThis.length}}/@Model.SoCauHoi)</h3>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:40px"></th>
+                            <th style="width:40px">ID</th>
+                            <th style="width:270px">Nội dung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="chdt in CauHoiDeThis">
+                            <td>
+                                <a href="" title="Remove"
+                                   ng-click="remove(chdt.MaCauHoi)">
+                                    <em class="fa fa-remove" style="color:red"></em>
+                                </a>
+                            </td>
+                            <td>{{chdt.MaCauHoi}}</td>
+                            <td>{{chdt.NoiDung}} <latex>{{chdt.BieuThuc}}</latex></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-8">
+            @*ch.ChuongID == c.ID && ch.DoKho == LocDoKho*@
+            <h3>Ngân hàng câu hỏi</h3>
+            <div class="qst-list" ng-repeat="ch in CauHois" ng-if="((c.ID == null && LocDoKho == null) || (ch.ChuongID == c.ID && ch.DoKho == LocDoKho)) || ((LocDoKho == null && c.ID != null && ch.ChuongID == c.ID) || (LocDoKho != null && c.ID == null && ch.DoKho == LocDoKho))">
+                <div class="qst-info">
+                    <div class="View-question">
+                        <p style="margin:0 0 10px">
+                            <a href="" ng-click="add(ch.MaCauHoi)">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <b style="font-weight:700">{{ch.MaCauHoi}}</b>
+                            {{ch.NoiDung}}
+                            <i latex>{{ch.BieuThuc}}</i>
+
+                        </p>
+                        <div class="row">
+                            <p class="col-md-3" style="margin:0 0 10px">
+                                <b style="font-weight:700">A</b>
+                                {{ch.CauA}} <latex>{{ch.BieuThucA}}</latex>
+
+                            </p>
+                            <p class="col-md-3" style="margin:0 0 10px">
+                                <b style="font-weight:700">B</b>
+                                {{ch.CauB}} <latex>{{ch.BieuThucB}}</latex>
+
+                            </p>
+                            <p class="col-md-3" style="margin:0 0 10px">
+                                <b style="font-weight:700">C</b>
+                                {{ch.CauC}} <latex>{{ch.BieuThucC}}</latex>
+
+                            </p>
+                            <p class="col-md-3" style="margin:0 0 10px">
+                                <b style="font-weight:700">D</b>
+                                {{ch.CauD}} <latex>{{ch.BieuThucD}}</latex>
+                            </p>
+
+                        </div>
+                        <br />
+                        <div class="box-guide">
+                            <p style="margin:0 0 10px">
+                                Câu trả lời đúng:
+                                <b ng-if="ch.DapAn==1">A</b>
+                                <b ng-if="ch.DapAn==2">B</b>
+                                <b ng-if="ch.DapAn==3">C</b>
+                                <b ng-if="ch.DapAn==4">D</b>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DetailsModule.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DetailsService.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DetailsController.js"></script>
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script src="~/Scripts/angular-ui/ui-bootstrap.js"></script>

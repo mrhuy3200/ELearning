@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewBag.Title = "DanhSachDeThi";
+    Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
+}
+<div ng-app="DeThiModule" ng-controller="DeThiController" ng-init="MaMon('@ViewBag.MaMonHoc')">
+    <div>
+        <h2 style="font-family:'Arial'">
+            === Danh Sách Đề Thi Môn @(ViewBag.TenMon) ===
+        </h2>
+        <br />
+        <div class="panel-body">
+            <button type="button" class="btn btn-info"
+                    data-target="#AddNew" data-toggle="modal">
+                Thêm mới
+            </button>
+            @*<a href="#" class="btn btn-info" onclick="location.href='@Url.Action("TaoMoi","CauHoi", new { id = ViewBag.MaMonHoc})'">Thêm mới</a>*@
+            <br />
+        </div>
+
+        <table class="table table-bordered">
+            <thead style="background-color:lightblue;">
+                <tr>
+                    <th></th>
+                    <th> Mã Đề</th>
+                    <th> Tên đề thi</th>
+                    <th> Số câu</th>
+                    <th> Ngày tạo</th>
+                    <th> Ngày thi</th>
+                    <th> Trạng Thái </th>
+                    <th style="width:200px;"> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dt in DeThis">
+                    <td>
+                        <a href="" title="Remove"
+                           data-toggle="modal"
+                           data-target="#deleteDialog"
+                           ng-click="getForDelete(dt)">
+                            <em class="fa fa-remove" style="color:red"></em>
+                        </a>
+                    </td>
+                    <td>{{dt.MaDeThi}} </td>
+                    <td>{{dt.TenDeThi}}</td>
+                    <td>{{dt.SoCauHoi}}</td>
+                    <td>{{dt.NgayTao}}</td>
+                    <td>{{dt.NgayThi|date:'dd/MM/yyyy'}}</td>
+                    <td ng-show="dt.TrangThai">
+                        <a href=""
+                           data-toggle="modal"
+                           data-target="#privateDialog"
+                           ng-click="getForPrivate(dt)"
+                           title="Click để đóng"><em class="fa fa-unlock"></em> Mở</a>
+                    </td>
+                    <td ng-hide="dt.TrangThai">
+                        <a href=""
+                           data-toggle="modal"
+                           data-target="#publishDialog"
+                           ng-click="getForPublish(dt)"
+                           title="Click để mở"><em class="fa fa-lock"></em> Đóng</a>
+                    </td>
+                    <td>
+                        <a href=""
+                           class="btn btn-primary"
+                           data-ng-href="@Url.Action("Details", "DeThi")/{{dt.MaDeThi}}">
+                            Chi tiết
+                        </a>
+                        <a href=""
+                           class="btn btn-info"
+                           data-toggle="modal"
+                           data-target="#Update"
+                           ng-click="UpdateDeThi(dt)">
+                            Cập nhật
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    @*Publish form*@
+    <div class="modal" role="dialog" id="publishDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận mở đề thi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="publish()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Private form*@
+    <div class="modal" role="dialog" id="privateDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận khóa đề thi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="private()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Delete form*@
+    <div class="modal" role="dialog" id="deleteDialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Xác nhận xóa đề thi?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .error-msg {
+            font-size: 90%;
+            font-style: italic;
+            color: red;
+        }
+    </style>
+
+    @*add new*@
+    <div class="modal" id="AddNew" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm đề thi</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="resetSave()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="AddNewForm">
+                        <div class="form-group">
+                            <label class="control-label"> Tên đề thi</label>
+                            <input class="form-control" name="TenDeThi" ng-model="TenDeThi" type="text" placeholder="Tên đề thi" required maxlength="50"/>
+                            <span ng-show="AddNewForm.TenDeThi.$error.required" class="error-msg">Vui lòng nhập tên đề thi</span>
+                            <span ng-show="AddNewForm.TenDeThi.$error.maxlength" class="error-msg">Tối đa 50 ký tự</span>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Số câu hỏi</label>
+                            <input class="form-control" name="SoCauHoi" ng-model="SoCauHoi" type="number" placeholder="Số câu hỏi" min="20" max="50" required />
+                            <span ng-show="AddNewForm.SoCauHoi.$error.required" class="error-msg">Vui lòng nhập số câu hỏi</span>
+                            <span ng-show="AddNewForm.SoCauHoi.$error.max" class="error-msg">Tối đa 50 câu</span>
+                            <span ng-show="AddNewForm.SoCauHoi.$error.min" class="error-msg">Tối thiểu 20 câu</span>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Ngày thi</label>
+                            <input type="date" ng-model="NgayThi" ng-required="true" name="NgayThi">
+                            <label>{{NgayThi|date:'dd/MM/yyyy' }}</label>
+                            <br />
+                            <span ng-show="AddNewForm.NgayThi.$invalid" class="error-msg">Vui lòng chọn ngày thi</span>
+
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="AddNewForm.$invalid" ng-click="save()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetSave()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Update*@
+    <div class="modal" id="Update" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Sửa đề thi</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="resetSave()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="UpdateForm">
+                        <div class="form-group">
+                            <label class="control-label"> Tên đề thi</label>
+                            <input class="form-control" name="TenDeThi" ng-model="UpdateTenDeThi" type="text" placeholder="Tên đề thi" ng-required="true" />
+                            <span ng-show="UpdateForm.TenDeThi.$error.required" class="error-msg">Vui lòng nhập tên đề thi</span>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Số câu hỏi</label>
+                            <input class="form-control" name="SoCauHoi" ng-model="UpdateSoCauHoi" type="number" placeholder="Số câu hỏi" min="20" max="50" ng-required="true" />
+                            <span ng-show="UpdateForm.SoCauHoi.$error.required" class="error-msg">Vui lòng nhập số câu hỏi</span>
+                            <span ng-show="UpdateForm.SoCauHoi.$error.max" class="error-msg">Tối đa 50 câu</span>
+                            <span ng-show="UpdateForm.SoCauHoi.$error.min" class="error-msg">Tối thiểu 20 câu</span>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Ngày thi</label>
+                            <input type="date" ng-model="UpdateNgayThi" ng-required="true" name="UpdateNgayThi">
+                            <label>{{UpdateNgayThi|date:'dd/MM/yyyy' }}</label>
+                            <br />
+                            <span ng-show="UpdateForm.UpdateNgayThi.$invalid" class="error-msg">Vui lòng chọn ngày thi</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="UpdateForm.$invalid" ng-click="update()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetUpdate()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Details form*@
+    @*<div class="modal" id="Details" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Chi tiết đề thi</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="resetSave()">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal" name="DetailsForm">
+                        <div class="qst-info" ng-repeat="ch in CauHois">
+                            <div class="View-question">
+                                <p style="margin:0 0 10px">
+                                    <b style="font-weight:700">{{ch.MaCauHoi}}</b>
+                                    {{ch.NoiDung}}
+                                    <br />
+                                    $${{ch.BieuThuc}}$$
+                                    <span mathjax-bind="ch.BieuThuc"></span>
+                                </p>
+                                <p style="margin:0 0 10px">
+                                    <b style="font-weight:700">A</b>
+                                    {{ch.CauA}} <i math-jax-bind="ch.BieuThucA"></i>
+                                </p>
+                                <p style="margin:0 0 10px">
+                                    <b style="font-weight:700">B</b>
+                                    {{ch.CauB}} <i math-jax-bind="ch.BieuThucB"></i>
+                                </p>
+                                <p style="margin:0 0 10px">
+                                    <b style="font-weight:700">C</b>
+                                    {{ch.CauC}} <i math-jax-bind="ch.BieuThucC"></i>
+                                </p>
+                                <p style="margin:0 0 10px">
+                                    <b style="font-weight:700">D</b>
+                                    {{ch.CauD}} <i math-jax-bind="ch.BieuThucD"></i>
+                                </p>
+                                <div class="box-guide">
+                                    <p style="margin:0 0 10px">
+                                        Câu trả lời đúng:
+                                        <b>{{ch.DapAn}}</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="DetailsForm.$invalid" ng-click="save()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetSave()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DeThiModule.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DeThiService.js"></script>
+<script src="~/Areas/GV/AngularJS/DeThi/DeThiController.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+    }
+    });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

@@ -1,0 +1,206 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/Assets/HomePage/img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+
+    <title>E_Learning</title>
+    
+    <!--
+        
+    
+            Google Font
+            ============================================= -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/linearicons.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/bootstrap.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/magnific-popup.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/nice-select.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/animate.min.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/owl.carousel.css">
+    <link rel="stylesheet" href="/Assets/HomePage/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" type="text/css"
+          href="http://latex.codecogs.com/css/equation-embed.css" />
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="http://latex.codecogs.com/css/ie6.css" type="text/css"/>
+    <![endif]-->
+    <script type="text/javascript"
+            src="http://latex.codecogs.com/js/eq_config.js"></script>
+    <script type="text/javascript"
+            src="http://latex.codecogs.com/js/eq_editor-lite-18.js"></script>
+
+
+
+    @*<script src="~/Scripts/MathJax/MathJax.js"></script>*@
+    @*<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>*@
+</head>
+<body>
+    <!-- Start Header Area -->
+    <header id="header">
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a href="#" onclick="location.href='@Url.Action("TrangChu","Home")'" ><img src="/Assets/HomePage/img/logo.png" alt="" title="" /></a>
+                </div>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li class="menu-active"><a href="#" onclick="location.href='@Url.Action("TrangChu","Home")'">Trang Chủ</a></li>
+                        <li><a href="about.html">Giới thiệu</a></li>
+                        <li><a>@Html.ActionLink("Đăng xuất", "Logout", new { Area = "", controller = "Login"})</a></li>
+                    </ul>
+
+                </nav><!-- #nav-menu-container -->
+            </div>
+        </div>
+    </header>
+    <!-- End Header Area -->
+    <!-- Start Banner Area -->
+    <section class="home-banner-area relative">
+        <div class="container">
+            <div class="row fullscreen d-flex align-items-center justify-content-center">
+                <div class="banner-content col-lg-8 col-md-12">
+                    <h1 class="wow fadeIn" data-wow-duration="4s">Tri Thức Là Của Bạn!</h1>
+                    <p class="text-white">
+                        Tạo những tiện ích học tập, giao lưu, gắn kết các bạn trẻ và thầy cô.
+                    </p>
+                    <h4 class="text-white">TIỆN ÍCH </h4>
+                    <div class="courses pt-20">
+                        <a href="#" onclick="location.href='@Url.Action("DanhSachMonHoc","MonHoc")'" data-wow-duration="1s" data-wow-delay=".3s" class="primary-btn transparent mr-10 mb-10 wow fadeInDown">Quản lý môn học</a>
+                        <a href="#" onclick="location.href='@Url.Action("Index","Account")'" data-wow-duration="1s" data-wow-delay=".6s" class="primary-btn transparent mr-10 mb-10 wow fadeInDown">Quản lý người dùng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="rocket-img">
+                <img src="/Assets/HomePage/img/rocket.png" alt="">
+            </div>*@
+    </section>
+    <!-- End Banner Area -->
+    <!-- Start Courses Area -->
+    <section class="courses-area section-gap">
+        <div class="container">
+                @RenderBody()
+        </div>
+    </section>
+    <!-- End Courses Area -->
+    <!-- Start Footer Area -->
+    <style type="text/css">
+        footer .container {
+            padding-top: 3.75rem;
+            padding-bottom: 3.75rem;
+        }
+
+        footer p {
+            color: #cccccc;
+            line-height: 20px;
+        }
+
+        footer hr {
+            color: white;
+            background: white;
+            border: 0;
+            height: 1px;
+        }
+
+        footer li i {
+            font-size: 9px;
+        }
+
+        footer p i {
+            color: white;
+        }
+
+        footer p a {
+            color: #cccccc;
+        }
+
+        footer span i {
+            font-size: 50px;
+            color: white;
+        }
+
+        footer li {
+            font-size: 16px;
+            color: white;
+        }
+    </style>
+    <footer class="footer-site" style="background-color:#283367">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="text-info">THÔNG TIN LIÊN HỆ</h4>
+                    <hr />
+                    <p><i class="fas fa-school">&nbsp;&nbsp;&nbsp;&nbsp;</i>Trường THPT Lý Tự Trọng Thành phố Hồ Chí Minh</p>
+                    <p><i class="fas fa-map-marker-alt">&nbsp;&nbsp;&nbsp;&nbsp;</i>390 Hoàng Văn Thụ Phường 4, Quận Tân Bình, TP.HCM</p>
+                    <p><i class="fas fa-phone">&nbsp;&nbsp;&nbsp;&nbsp;</i><a href="#">(028) 3811.0521</a>
+                    <p><i class="fas fa-globe">&nbsp;&nbsp;&nbsp;&nbsp;</i><a href="#">lytutrong@lttc.edu.vn</a></p>
+                </div>
+
+                <div class="col-md-7">
+                    <h4 class="text-info">GIỚI THIỆU</h4>
+                    <hr>
+
+                    <p><i class="fas fa-play">&nbsp;&nbsp;&nbsp;</i>Website hiện tại hỗ trợ tối đa việc học</p>
+                    <p><i class="fas fa-play">&nbsp;&nbsp;&nbsp;</i>Nơi hội tụ đầy đủ nhất đề thi trắc nghiệm từ các giáo viên</p>
+                    <p><i class="fas fa-play">&nbsp;&nbsp;&nbsp;</i>Môi trường học tập chủ động ở mọi lúc mọi nơi</p>
+                    <p><i class="fas fa-play">&nbsp;&nbsp;&nbsp;</i>Cơ hội giao lưu với bạn bè và thầy cô</p>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+    <!-- ####################### Start Scroll to Top Area ####################### -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"></a>
+    </div>
+    <!-- ####################### End Scroll to Top Area ####################### -->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="/Assets/HomePage/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="/Assets/HomePage/js/vendor/bootstrap.min.js"></script>
+    <script type="/Assets/HomePage/text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="/Assets/HomePage/js/easing.min.js"></script>
+    <script src="/Assets/HomePage/js/hoverIntent.js"></script>
+    <script src="/Assets/HomePage/js/superfish.min.js"></script>
+    <script src="/Assets/HomePage/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/Assets/HomePage/js/jquery.magnific-popup.min.js"></script>
+    <script src="/Assets/HomePage/js/owl.carousel.min.js"></script>
+    <script src="/Assets/HomePage/js/owl-carousel-thumb.min.js"></script>
+    <script src="/Assets/HomePage/js/jquery.sticky.js"></script>
+    <script src="/Assets/HomePage/js/jquery.nice-select.min.js"></script>
+    <script src="/Assets/HomePage/js/parallax.min.js"></script>
+    <script src="/Assets/HomePage/js/waypoints.min.js"></script>
+    <script src="/Assets/HomePage/js/wow.min.js"></script>
+    <script src="/Assets/HomePage/js/jquery.counterup.min.js"></script>
+    <script src="/Assets/HomePage/js/mail-script.js"></script>
+    <script src="/Assets/HomePage/js/main.js"></script>
+
+</body>
+</html>

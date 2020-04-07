@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ELearning_V2.Areas.GV.Models.LopModel>
+@{
+    ViewBag.Title = "DanhSachLopHoc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách lớp học</h2>
+<hr />
+<br />
+@using (Html.BeginForm("DanhSachLopHoc", "Lop", FormMethod.Post))
+{
+
+    <div>
+        <input class="form-control" style="width:280px;display:inline-block" type="text" id="key" name="key">
+        <input class="btn btn-info" type="submit" style="display:inline-block" id="submitId" value="Tìm Kiếm" />
+    </div>
+}
+<hr />
+<br />
+
+<div class="row">
+    <table class="table table-bordered col-md-8">
+        @foreach (var item in Model)
+            {
+            <tr style="border:2px solid;border-radius:8px;">
+                <td>
+                    <a href="#" onclick="location.href='@Url.Action("ViewDetails","Lop",new {id=item.MaLop })'">
+                        <img src="~/Assets/Image/@item.Image" class="img-thumbnail" style="width:125px;height:152px" />
+                    </a>
+                </td>
+                <td>
+                    <div>
+                        <div>
+                            <h3 style="display:inline-block">
+                                <a href="#" onclick="location.href='@Url.Action("ViewDetails","Lop",new {id=item.MaLop })'">
+                                    @item.TenLop
+                                </a>
+                            </h3>
+                            <div class="text-muted" style="font-size:12px;">
+                                <ul class="list-unstyled list-inline">
+                                    <li style="display:inline-block;">
+                                        <em class="fa fa-clock-o">
+                                            &nbsp;
+                                        </em>
+                                        Ngày bắt đầu: @item.NgayBatDau
+                                        &nbsp;&nbsp;&nbsp;
+                                    </li>
+                                    <li style="display:inline-block;">
+                                        <em class="fa fa-user">
+                                            &nbsp;
+                                        </em>
+                                        Sĩ số: @item.SiSo
+                                        &nbsp;&nbsp;&nbsp;
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p style="font-size:16px;height:100px;width:500px;overflow:hidden;">
+                            @item.MoTa
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+</div>
