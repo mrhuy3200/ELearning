@@ -35,17 +35,17 @@
                 </div>
             </div>
             @*<div class="col-lg-3 col-sm-6">
-                <div class="finance_item">
-                    <div class="media">
-                        <div class="d-flex">
-                            <i class="lnr lnr-earth"></i>
-                        </div>
-                        <div class="media-body">
-                            <h5>Hướng dẫn</h5>
+                    <div class="finance_item">
+                        <div class="media">
+                            <div class="d-flex">
+                                <i class="lnr lnr-earth"></i>
+                            </div>
+                            <div class="media-body">
+                                <h5>Hướng dẫn</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
             <div class="col-lg-4 col-sm-6">
                 <div class="finance_item">
                     <div class="media">
@@ -79,27 +79,44 @@
         <div class="row packages_inner">
             <div class="col-lg-3">
                 <div class="packages_text">
-                    <h3>Chọn <br />Loại lớp</h3>
-                    <p>Dựa theo nhu cầu dạy học, bạn có thể chọn loại lớp phù hợp.<br />Mỗi loại lớp học sẽ có các đặc điêm riêng, tùy theo chi phí. Bạn vẫn có thể nâng cấp lớp học sau khi đăng ký.</p>
+                    <h3>Chọn <br />Loại Lớp</h3>
+                    <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="packages_item">
                     <div class="pack_head">
                         <i class="lnr lnr-graduation-hat"></i>
-                        <h3>Premium</h3>
-                        <p>For the individuals</p>
+                        <h3>Cơ bản</h3>
+                        <p>Lớp miễn phí</p>
                     </div>
                     <div class="pack_body">
-                        <ul class="list">
-                            <li><a href="#">Secure Online Transfer</a></li>
-                            <li><a href="#">Unlimited Styles for interface</a></li>
-                            <li><a href="#">Reliable Customer Service</a></li>
+                        <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                            <li><p>Tối đa 15 học viên</p></li>
                         </ul>
                     </div>
                     <div class="pack_footer">
-                        <h4>£399.00</h4>
-                        <a class="main_btn" href="#">Join Now</a>
+                        <h4>0VND</h4>
+                        <a class="main_btn" href="#" data-toggle="modal" data-target="#DangKy">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="packages_item">
+                    <div class="pack_head">
+                        <i class="lnr lnr-star"></i>
+                        <h3>Cao Cấp</h3>
+                        <p>Lớp trả phí</p>
+                    </div>
+                    <div class="pack_body">
+                        <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                            <li><p>Tối đa 45 học viên</p></li>
+                            <li><p>Thu phí bài giảng</p></li>
+                        </ul>
+                    </div>
+                    <div class="pack_footer">
+                        <h4>200.000VND</h4>
+                        <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy">Đăng ký</button>
                     </div>
                 </div>
             </div>
@@ -107,42 +124,84 @@
                 <div class="packages_item">
                     <div class="pack_head">
                         <i class="lnr lnr-diamond"></i>
-                        <h3>Exclusive</h3>
-                        <p>For the individuals</p>
+                        <h3>Đặc quyền</h3>
+                        <p>Lớp trả phí</p>
                     </div>
                     <div class="pack_body">
-                        <ul class="list">
-                            <li><a href="#">Secure Online Transfer</a></li>
-                            <li><a href="#">Unlimited Styles for interface</a></li>
-                            <li><a href="#">Reliable Customer Service</a></li>
+                        <ul class="list" style="color: #777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                            <li><p>Không giới hạn học viên</p></li>
+                            <li><p>Thu phí bài giảng</p></li>
+                            <li><p>Thu phí theo lượt học</p></li>
                         </ul>
                     </div>
                     <div class="pack_footer">
-                        <h4>£399.00</h4>
-                        <a class="main_btn" href="#">Join Now</a>
+                        <h4>500.000VND</h4>
+                        <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy">Đăng ký</button>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="packages_item">
-                    <div class="pack_head">
-                        <i class="lnr lnr-diamond"></i>
-                        <h3>Exclusive</h3>
-                        <p>For the individuals</p>
+
+        </div>
+
+        <div class="modal fade" id="DangKy" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Đăng ký lớp học</h3>
+                        <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="Clear()">x</button>
                     </div>
-                    <div class="pack_body">
-                        <ul class="list">
-                            <li><a href="#">Secure Online Transfer</a></li>
-                            <li><a href="#">Unlimited Styles for interface</a></li>
-                            <li><a href="#">Reliable Customer Service</a></li>
-                        </ul>
+                    <div class="modal-body" style="margin-left:20px">
+                        <form class="form-horizontal row" name="AddNewForm">
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"> Số hiệu </label>
+                                    <input class="form-control" name="DeviceNo" ng-model="Device.DeviceNo" type="text" placeholder="Số hiệu ..." required maxlength="50" ng-blur="NoDeviceExist(Device.DeviceNo)" />
+                                    <label ng-if="NoCheck == Device.DeviceNo" style="color:red">Số hiệu đã tồn tại</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Tên thiết bị </label>
+                                    <input class="form-control" name="DeviceName" ng-model="Device.DeviceName" type="text" placeholder="Tên thiết bị ..." required maxlength="30" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Phiên bản </label>
+                                    <input class="form-control" name="DeviceVersion" ng-model="Device.DeviceVersion" type="text" placeholder="Phiên bản ..." required maxlength="50" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Loại tàu </label>
+                                    <select class="form-control" name="TypeShip" ng-model="Device.TypeShip" required>
+                                        <option value="">Chọn loại tàu</option>
+                                        <option value="1">Tàu dưới 12m</option>
+                                        <option value="2">Tàu từ 12m - 15m</option>
+                                        <option value="3">Tàu trên 15m</option>
+                                    </select>
+                                    @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
+                                </div>
+                            </div>
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"> Imei </label>
+                                    <input class="form-control" name="DeviceImei" ng-model="Device.DeviceImei" type="text" placeholder="Imei ..." required maxlength="50" ng-blur="ImeiDeviceExist(Device.DeviceImei)" />
+                                    <label ng-if="ImeiCheck == Device.DeviceImei" style="color:red">Imei đã tồn tại</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ngày hết hạn </label>
+                                    <input class="form-control" name="DateExpired" ng-model="Device.DateExpired" type="date" placeholder="Ngày hết hạn ..." required id="datefield" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Ghi chú </label>
+                                    <textarea class="form-control" name="DeviceNote" ng-model="Device.DeviceNote" type="text" placeholder="Ghi chú ..." required rows="3"></textarea>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="pack_footer">
-                        <h4>£399.00</h4>
-                        <a class="main_btn" href="#">Join Now</a>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="AddNewForm.$invalid || NoCheck == Device.DeviceNo || ImeiCheck == Device.DeviceImei" ng-click="Save()">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+
 </section>
+
