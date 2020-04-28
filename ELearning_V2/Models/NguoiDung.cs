@@ -14,13 +14,21 @@ namespace ELearning_V2.Models
     
     public partial class NguoiDung
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NguoiDung()
+        {
+            this.Lops = new HashSet<Lop>();
+        }
+    
         public long ID { get; set; }
         public string HoVaTen { get; set; }
         public string Email { get; set; }
         public string Image { get; set; }
-        public Nullable<double> SoDu { get; set; }
+        public Nullable<long> SoDu { get; set; }
         public string MaXacNhan { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lop> Lops { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
     }
 }

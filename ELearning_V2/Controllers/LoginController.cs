@@ -43,6 +43,8 @@ namespace ELearning_V2.Controllers
                             userSession.UserName = res.Username;
                             Session.Add(CommonConstants.USER_SESSION, userSession);
 
+                            Session.Add("User", res);
+
                             if (res.Role == 2)
                             {
                                 GiangVien gv = db.GiangViens.Find(res.ID);

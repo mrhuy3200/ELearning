@@ -143,13 +143,17 @@
     <Property Name="MaLop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenLop" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TrangThai" Type="bit" Nullable="false" />
-    <Property Name="MaGiangVien" Type="bigint" Nullable="false" />
+    <Property Name="MaGiangVien" Type="bigint" />
     <Property Name="MaMonHoc" Type="int" />
     <Property Name="NgayBatDau" Type="date" />
     <Property Name="NgayKetThuc" Type="date" />
     <Property Name="Image" Type="varchar" MaxLength="250" />
     <Property Name="SiSo" Type="int" />
     <Property Name="MoTa" Type="nvarchar(max)" />
+    <Property Name="HocPhi" Type="int" />
+    <Property Name="LichHoc" Type="nvarchar" MaxLength="50" />
+    <Property Name="DieuKien" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MaNguoiDung" Type="bigint" />
   </EntityType>
   <EntityType Name="LopBaiGiang">
     <Key>
@@ -183,10 +187,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" />
-    <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="Image" Type="nvarchar" MaxLength="50" />
-    <Property Name="SoDu" Type="float" />
+    <Property Name="HoVaTen" Type="nvarchar" MaxLength="30" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Image" Type="varchar" MaxLength="30" />
+    <Property Name="SoDu" Type="bigint" />
     <Property Name="MaXacNhan" Type="nchar" MaxLength="32" />
   </EntityType>
   <EntityType Name="Reply">
@@ -480,7 +484,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Lop_GiangVien1">
-    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="1" />
+    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="0..1" />
     <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="GiangVien">
@@ -500,6 +504,18 @@
       </Principal>
       <Dependent Role="Lop">
         <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lop_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Lop">
+        <PropertyRef Name="MaNguoiDung" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -721,6 +737,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Lop_MonHoc1" Association="Self.FK_Lop_MonHoc1">
       <End Role="MonHoc" EntitySet="MonHoc" />
+      <End Role="Lop" EntitySet="Lop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lop_NguoiDung" Association="Self.FK_Lop_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
       <End Role="Lop" EntitySet="Lop" />
     </AssociationSet>
     <AssociationSet Name="FK_LopBaiGiang_BaiGiang" Association="Self.FK_LopBaiGiang_BaiGiang">

@@ -26,18 +26,23 @@ namespace ELearning_V2.Models
         public int MaLop { get; set; }
         public string TenLop { get; set; }
         public bool TrangThai { get; set; }
-        public long MaGiangVien { get; set; }
+        public Nullable<long> MaGiangVien { get; set; }
         public Nullable<int> MaMonHoc { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
         public string Image { get; set; }
         public Nullable<int> SiSo { get; set; }
         public string MoTa { get; set; }
+        public Nullable<int> HocPhi { get; set; }
+        public string LichHoc { get; set; }
+        public string DieuKien { get; set; }
+        public Nullable<long> MaNguoiDung { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual GiangVien GiangVien { get; set; }
         public virtual MonHoc MonHoc { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

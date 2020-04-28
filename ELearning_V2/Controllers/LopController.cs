@@ -77,7 +77,7 @@ namespace ELearning_V2.Controllers
                 LopModel lop = new LopModel();
                 lop.MaLop = l.MaLop;
                 lop.TenLop = l.TenLop;
-                lop.MaGiangVien = l.MaGiangVien;
+                lop.MaGiangVien = (long)l.MaGiangVien;
                 lop.HoTenGV = l.GiangVien.HoVaTen;
                 lop.MoTa = l.MoTa;
                 lop.NgayBatDau = l.NgayBatDau.Value.ToString("dd/MM/yyyy");
@@ -197,7 +197,10 @@ namespace ELearning_V2.Controllers
             }
         }
 
-
+        public ActionResult DayThem()
+        {
+            return View();
+        }
 
 
 

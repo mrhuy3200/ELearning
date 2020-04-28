@@ -13,7 +13,12 @@ namespace ELearning_V2.Controllers
         // GET: Home
         public ActionResult TrangChu()
         {
-            if (TempData["ActiveResult"]!=null)
+            var user = (TaiKhoan)Session["User"];
+            if (user == null)
+            {
+                RedirectToAction("Login", "Login");
+            }
+            if (TempData["ActiveResult"] != null)
             {
                 ViewBag.ActiveResult = TempData["ActiveResult"].ToString();
             }
@@ -25,10 +30,16 @@ namespace ELearning_V2.Controllers
             {
                 ViewBag.ActiveResult = TempData["Error"].ToString();
             }
+            var User = (TaiKhoan)Session["User"];
+            if (User.Role == 4)
+            {
+                ELearningDB db = new ELearningDB();
+                var Lops = db.Lops.Where(x => x.HocPhi == 0).ToList();
+                return View("GuessHomePage", Lops);
 
+            }
             return View();
         }
-
         public ActionResult Home()
         {
             return View();

@@ -134,6 +134,10 @@
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="SiSo" ColumnName="SiSo" />
           <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="HocPhi" ColumnName="HocPhi" />
+          <ScalarProperty Name="LichHoc" ColumnName="LichHoc" />
+          <ScalarProperty Name="DieuKien" ColumnName="DieuKien" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

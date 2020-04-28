@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Guess Home Page";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+    @model IEnumerable<ELearning_V2.Models.Lop>
+}
+    <section class="home_banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h3>We Ensure better education <br />for a better world</h3>
+                    <p>In the history of modern astronomy, there is probably no one greater leap forward than the building and launch of the space telescope known as the Hubble.</p>
+                    <a class="main_btn" href="#">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="courses_area p_120">
+    <div class="container">
+        <div class="main_title">
+            <h2>Khóa học miễn phí</h2>
+            <p>Các khoá học miễn phí được nhiều người tham gia</p>
+        </div>
+        <div class="row courses_inner">
+            <div class="grid_inner">
+                @{
+                    for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <div class="grid_item wd44">
+                            <div class="courses_item">
+                                <img src="~/Content/img/ClassImage/@Model.ElementAt(i).Image" alt="">
+                                <div class="hover_text">
+                                    <a class="cat" href="#">@(Model.ElementAt(i).HocPhi * 1000) đ</a>
+                                    <a href="#"><h4>@Model.ElementAt(i).TenLop</h4></a>
+                                    <ul class="list">
+                                        <li><a href="#"><i class="lnr lnr-users"></i>@Model.ElementAt(i).HocViens.Count</a></li>
+                                        <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                        <li><a href="#"><i class="lnr lnr-user"></i>@Model.ElementAt(i).NguoiDung.HoVaTen</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                @*<div class="grid_item wd44">
+                        <div class="courses_item">
+                            <img src="~/Content/img/courses/course-2.jpg" alt="">
+                            <div class="hover_text">
+                                <a class="cat" href="#">Free</a>
+                                <a href="#"><h4>Japanease Language Class</h4></a>
+                                <ul class="list">
+                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_item wd44">
+                        <div class="courses_item">
+                            <img src="~/Content/img/courses/course-4.jpg" alt="">
+                            <div class="hover_text">
+                                <a class="cat" href="#">Free</a>
+                                <a href="#"><h4>Japanease Language Class</h4></a>
+                                <ul class="list">
+                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_item wd55">
+                        <div class="courses_item">
+                            <img src="~/Content/img/courses/course-5.jpg" alt="">
+                            <div class="hover_text">
+                                <a class="cat" href="#">Free</a>
+                                <a href="#"><h4>Japanease Language Class</h4></a>
+                                <ul class="list">
+                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</section>

@@ -146,16 +146,21 @@
     <Property Name="MaLop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="TrangThai" Type="Boolean" Nullable="false" />
-    <Property Name="MaGiangVien" Type="Int64" Nullable="false" />
+    <Property Name="MaGiangVien" Type="Int64" />
     <Property Name="MaMonHoc" Type="Int32" />
     <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
     <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="SiSo" Type="Int32" />
     <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HocPhi" Type="Int32" />
+    <Property Name="LichHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DieuKien" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="MaNguoiDung" Type="Int64" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Lop" FromRole="Lop" ToRole="Comment" />
     <NavigationProperty Name="GiangVien" Relationship="Self.FK_Lop_GiangVien1" FromRole="Lop" ToRole="GiangVien" />
     <NavigationProperty Name="MonHoc" Relationship="Self.FK_Lop_MonHoc1" FromRole="Lop" ToRole="MonHoc" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_Lop_NguoiDung" FromRole="Lop" ToRole="NguoiDung" />
     <NavigationProperty Name="ThongBaos" Relationship="Self.FK_ThongBao_Lop" FromRole="Lop" ToRole="ThongBao" />
     <NavigationProperty Name="HocViens" Relationship="Self.ChiTietLop" FromRole="Lop" ToRole="HocVien" />
     <NavigationProperty Name="BaiGiangs" Relationship="Self.LopBaiGiang" FromRole="Lop" ToRole="BaiGiang" />
@@ -193,11 +198,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" />
-    <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoDu" Type="Double" />
+    <Property Name="HoVaTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SoDu" Type="Int64" />
     <Property Name="MaXacNhan" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_NguoiDung" FromRole="NguoiDung" ToRole="Lop" />
     <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_NguoiDung_TaiKhoan" FromRole="NguoiDung" ToRole="TaiKhoan" />
   </EntityType>
   <EntityType Name="Reply">
@@ -428,7 +434,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Lop_GiangVien1">
-    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="1" />
+    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="0..1" />
     <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="GiangVien">
@@ -472,6 +478,18 @@
       </Principal>
       <Dependent Role="Lop">
         <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lop_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Lop">
+        <PropertyRef Name="MaNguoiDung" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -631,6 +649,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Lop_MonHoc1" Association="Self.FK_Lop_MonHoc1">
       <End Role="MonHoc" EntitySet="MonHocs" />
+      <End Role="Lop" EntitySet="Lops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lop_NguoiDung" Association="Self.FK_Lop_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
       <End Role="Lop" EntitySet="Lops" />
     </AssociationSet>
     <AssociationSet Name="FK_ThongBao_Lop" Association="Self.FK_ThongBao_Lop">
