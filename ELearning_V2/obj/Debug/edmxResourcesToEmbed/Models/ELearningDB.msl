@@ -4,248 +4,270 @@
     <EntitySetMapping Name="BaiGiangs">
       <EntityTypeMapping TypeName="ELearningModel.BaiGiang">
         <MappingFragment StoreEntitySet="BaiGiang">
-          <ScalarProperty Name="MaBaiGiang" ColumnName="MaBaiGiang" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="TenBaiGiang" ColumnName="TenBaiGiang" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="MaBaiGiang" ColumnName="MaBaiGiang" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="BaiLams">
       <EntityTypeMapping TypeName="ELearningModel.BaiLam">
         <MappingFragment StoreEntitySet="BaiLam">
-          <ScalarProperty Name="MaLopKiemTra" ColumnName="MaLopKiemTra" />
-          <ScalarProperty Name="TongDiem" ColumnName="TongDiem" />
-          <ScalarProperty Name="MaHocVien" ColumnName="MaHocVien" />
           <ScalarProperty Name="NgayKiemTra" ColumnName="NgayKiemTra" />
+          <ScalarProperty Name="MaHocVien" ColumnName="MaHocVien" />
+          <ScalarProperty Name="TongDiem" ColumnName="TongDiem" />
+          <ScalarProperty Name="MaLopKiemTra" ColumnName="MaLopKiemTra" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CauHois">
       <EntityTypeMapping TypeName="ELearningModel.CauHoi">
         <MappingFragment StoreEntitySet="CauHoi">
-          <ScalarProperty Name="MaCauHoi" ColumnName="MaCauHoi" />
-          <ScalarProperty Name="BieuThuc" ColumnName="BieuThuc" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="BieuThucB" ColumnName="BieuThucB" />
-          <ScalarProperty Name="BieuThucD" ColumnName="BieuThucD" />
-          <ScalarProperty Name="BieuThucC" ColumnName="BieuThucC" />
-          <ScalarProperty Name="BieuThucA" ColumnName="BieuThucA" />
-          <ScalarProperty Name="CauA" ColumnName="CauA" />
-          <ScalarProperty Name="CauB" ColumnName="CauB" />
-          <ScalarProperty Name="CauC" ColumnName="CauC" />
-          <ScalarProperty Name="CauD" ColumnName="CauD" />
-          <ScalarProperty Name="CauE" ColumnName="CauE" />
-          <ScalarProperty Name="DapAn" ColumnName="DapAn" />
-          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
-          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
           <ScalarProperty Name="ChuongID" ColumnName="ChuongID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Chuongs">
-      <EntityTypeMapping TypeName="ELearningModel.Chuong">
-        <MappingFragment StoreEntitySet="Chuong">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
           <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
+          <ScalarProperty Name="DapAn" ColumnName="DapAn" />
+          <ScalarProperty Name="CauE" ColumnName="CauE" />
+          <ScalarProperty Name="CauD" ColumnName="CauD" />
+          <ScalarProperty Name="CauC" ColumnName="CauC" />
+          <ScalarProperty Name="CauB" ColumnName="CauB" />
+          <ScalarProperty Name="CauA" ColumnName="CauA" />
+          <ScalarProperty Name="BieuThucA" ColumnName="BieuThucA" />
+          <ScalarProperty Name="BieuThucC" ColumnName="BieuThucC" />
+          <ScalarProperty Name="BieuThucD" ColumnName="BieuThucD" />
+          <ScalarProperty Name="BieuThucB" ColumnName="BieuThucB" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="BieuThuc" ColumnName="BieuThuc" />
+          <ScalarProperty Name="MaCauHoi" ColumnName="MaCauHoi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="ELearningModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
           <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="ELearningModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Condition" ColumnName="Condition" />
+          <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseDetails">
+      <EntityTypeMapping TypeName="ELearningModel.CourseDetail">
+        <MappingFragment StoreEntitySet="CourseDetail">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chuongs">
+      <EntityTypeMapping TypeName="ELearningModel.Chuong">
+        <MappingFragment StoreEntitySet="Chuong">
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DeThis">
       <EntityTypeMapping TypeName="ELearningModel.DeThi">
         <MappingFragment StoreEntitySet="DeThi">
-          <ScalarProperty Name="MaDeThi" ColumnName="MaDeThi" />
-          <ScalarProperty Name="TenDeThi" ColumnName="TenDeThi" />
-          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
-          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
-          <ScalarProperty Name="Loai" ColumnName="Loai" />
-          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="SoCauHoi" ColumnName="SoCauHoi" />
           <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
+          <ScalarProperty Name="SoCauHoi" ColumnName="SoCauHoi" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
+          <ScalarProperty Name="Loai" ColumnName="Loai" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
+          <ScalarProperty Name="TenDeThi" ColumnName="TenDeThi" />
+          <ScalarProperty Name="MaDeThi" ColumnName="MaDeThi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GiangViens">
       <EntityTypeMapping TypeName="ELearningModel.GiangVien">
         <MappingFragment StoreEntitySet="GiangVien">
-          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
           <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HocViens">
       <EntityTypeMapping TypeName="ELearningModel.HocVien">
         <MappingFragment StoreEntitySet="HocVien">
-          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
           <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="KeyAPIs">
       <EntityTypeMapping TypeName="ELearningModel.KeyAPI">
         <MappingFragment StoreEntitySet="KeyAPI">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Lops">
       <EntityTypeMapping TypeName="ELearningModel.Lop">
         <MappingFragment StoreEntitySet="Lop">
-          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
-          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
-          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
-          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
           <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-          <ScalarProperty Name="HocPhi" ColumnName="HocPhi" />
-          <ScalarProperty Name="LichHoc" ColumnName="LichHoc" />
-          <ScalarProperty Name="DieuKien" ColumnName="DieuKien" />
-          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="MaGiangVien" ColumnName="MaGiangVien" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LopKiemTras">
       <EntityTypeMapping TypeName="ELearningModel.LopKiemTra">
         <MappingFragment StoreEntitySet="LopKiemTra">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="TestDate" ColumnName="TestDate" />
-          <ScalarProperty Name="GVID" ColumnName="GVID" />
-          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
-          <ScalarProperty Name="MaDeThi" ColumnName="MaDeThi" />
           <ScalarProperty Name="ThoiGianThi" ColumnName="ThoiGianThi" />
+          <ScalarProperty Name="MaDeThi" ColumnName="MaDeThi" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="GVID" ColumnName="GVID" />
+          <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="MonHocs">
       <EntityTypeMapping TypeName="ELearningModel.MonHoc">
         <MappingFragment StoreEntitySet="MonHoc">
-          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
           <ScalarProperty Name="TenMonHoc" ColumnName="TenMonHoc" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NguoiDungs">
       <EntityTypeMapping TypeName="ELearningModel.NguoiDung">
         <MappingFragment StoreEntitySet="NguoiDung">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="SoDu" ColumnName="SoDu" />
           <ScalarProperty Name="MaXacNhan" ColumnName="MaXacNhan" />
+          <ScalarProperty Name="SoDu" ColumnName="SoDu" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Replies">
       <EntityTypeMapping TypeName="ELearningModel.Reply">
         <MappingFragment StoreEntitySet="Reply">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
           <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TaiKhoans">
       <EntityTypeMapping TypeName="ELearningModel.TaiKhoan">
         <MappingFragment StoreEntitySet="TaiKhoan">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ThongBaos">
       <EntityTypeMapping TypeName="ELearningModel.ThongBao">
         <MappingFragment StoreEntitySet="ThongBao">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="LopID" ColumnName="LopID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TrangThaiHeThongs">
       <EntityTypeMapping TypeName="ELearningModel.TrangThaiHeThong">
         <MappingFragment StoreEntitySet="TrangThaiHeThong">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="ChiTietDeThi" TypeName="ELearningModel.ChiTietDeThi" StoreEntitySet="ChiTietDeThi">
-      <EndProperty Name="CauHoi">
-        <ScalarProperty Name="MaCauHoi" ColumnName="MaCauHoi" />
-      </EndProperty>
       <EndProperty Name="DeThi">
         <ScalarProperty Name="MaDeThi" ColumnName="MaDeThi" />
       </EndProperty>
+      <EndProperty Name="CauHoi">
+        <ScalarProperty Name="MaCauHoi" ColumnName="MaCauHoi" />
+      </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ChiTietLop" TypeName="ELearningModel.ChiTietLop" StoreEntitySet="ChiTietLop">
+      <EndProperty Name="Lop">
+        <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+      </EndProperty>
       <EndProperty Name="HocVien">
         <ScalarProperty Name="ID" ColumnName="MaHocVien" />
       </EndProperty>
-      <EndProperty Name="Lop">
-        <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-      </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="HocVienKT" TypeName="ELearningModel.HocVienKT" StoreEntitySet="HocVienKT">
-      <EndProperty Name="HocVien">
-        <ScalarProperty Name="ID" ColumnName="HocVienID" />
-      </EndProperty>
       <EndProperty Name="LopKiemTra">
         <ScalarProperty Name="ID" ColumnName="LopKT" />
       </EndProperty>
+      <EndProperty Name="HocVien">
+        <ScalarProperty Name="ID" ColumnName="HocVienID" />
+      </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="LopBaiGiang" TypeName="ELearningModel.LopBaiGiang" StoreEntitySet="LopBaiGiang">
-      <EndProperty Name="BaiGiang">
-        <ScalarProperty Name="MaBaiGiang" ColumnName="MaBaiGiang" />
-      </EndProperty>
       <EndProperty Name="Lop">
         <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+      </EndProperty>
+      <EndProperty Name="BaiGiang">
+        <ScalarProperty Name="MaBaiGiang" ColumnName="MaBaiGiang" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

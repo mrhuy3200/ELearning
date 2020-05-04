@@ -1,6 +1,8 @@
 ﻿using ELearning_V2.Areas.GV.Models;
 using ELearning_V2.common;
+using ELearning_V2.DTO;
 using ELearning_V2.Models;
+using ELearning_V2.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -202,7 +204,22 @@ namespace ELearning_V2.Controllers
             return View();
         }
 
+        public ActionResult GetClassByUserID()
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                List<CourseDTO> data = new List<CourseDTO>();
+                data = ClassService.GetClassByUserID(User.ID);
+                return Json(data, JsonRequestBehavior.AllowGet);
 
+            }
+        }
 
+        
     }
 }

@@ -28,8 +28,10 @@ namespace ELearning_V2.Models
         public virtual DbSet<BaiGiang> BaiGiangs { get; set; }
         public virtual DbSet<BaiLam> BaiLams { get; set; }
         public virtual DbSet<CauHoi> CauHois { get; set; }
-        public virtual DbSet<Chuong> Chuongs { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<CourseDetail> CourseDetails { get; set; }
+        public virtual DbSet<Chuong> Chuongs { get; set; }
         public virtual DbSet<DeThi> DeThis { get; set; }
         public virtual DbSet<GiangVien> GiangViens { get; set; }
         public virtual DbSet<HocVien> HocViens { get; set; }

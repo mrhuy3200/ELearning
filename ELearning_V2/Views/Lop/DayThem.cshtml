@@ -22,7 +22,7 @@
 <section class="finance_area">
     <div class="container">
         <div class="finance_inner row">
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-3 col-sm-6">
                 <div class="finance_item">
                     <div class="media">
                         <div class="d-flex">
@@ -34,19 +34,19 @@
                     </div>
                 </div>
             </div>
-            @*<div class="col-lg-3 col-sm-6">
-                    <div class="finance_item">
-                        <div class="media">
-                            <div class="d-flex">
-                                <i class="lnr lnr-earth"></i>
-                            </div>
-                            <div class="media-body">
-                                <h5>Hướng dẫn</h5>
-                            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="finance_item">
+                    <div class="media">
+                        <div class="d-flex">
+                            <i class="lnr lnr-list"></i>
+                        </div>
+                        <div class="media-body">
+                            <h5>Danh sách lớp</h5>
                         </div>
                     </div>
-                </div>*@
-            <div class="col-lg-4 col-sm-6">
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
                 <div class="finance_item">
                     <div class="media">
                         <div class="d-flex">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-3 col-sm-6">
                 <div class="finance_item">
                     <div class="media">
                         <div class="d-flex">
@@ -74,134 +74,253 @@
     </div>
 </section>
 
-<section class="packages_area p_120">
-    <div class="container">
-        <div class="row packages_inner">
-            <div class="col-lg-3">
-                <div class="packages_text">
-                    <h3>Chọn <br />Loại Lớp</h3>
-                    <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="packages_item">
-                    <div class="pack_head">
-                        <i class="lnr lnr-graduation-hat"></i>
-                        <h3>Cơ bản</h3>
-                        <p>Lớp miễn phí</p>
-                    </div>
-                    <div class="pack_body">
-                        <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
-                            <li><p>Tối đa 15 học viên</p></li>
-                        </ul>
-                    </div>
-                    <div class="pack_footer">
-                        <h4>0VND</h4>
-                        <a class="main_btn" href="#" data-toggle="modal" data-target="#DangKy">Đăng ký</a>
+<div ng-app="DayThemApp" ng-controller="DayThemController">
+    <section class="packages_area p_120">
+        <div class="container">
+            <div class="row packages_inner">
+                <div class="col-lg-3">
+                    <div class="packages_text">
+                        <h3>Chọn <br />Loại Lớp</h3>
+                        <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="packages_item">
-                    <div class="pack_head">
-                        <i class="lnr lnr-star"></i>
-                        <h3>Cao Cấp</h3>
-                        <p>Lớp trả phí</p>
-                    </div>
-                    <div class="pack_body">
-                        <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
-                            <li><p>Tối đa 45 học viên</p></li>
-                            <li><p>Thu phí bài giảng</p></li>
-                        </ul>
-                    </div>
-                    <div class="pack_footer">
-                        <h4>200.000VND</h4>
-                        <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy">Đăng ký</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="packages_item">
-                    <div class="pack_head">
-                        <i class="lnr lnr-diamond"></i>
-                        <h3>Đặc quyền</h3>
-                        <p>Lớp trả phí</p>
-                    </div>
-                    <div class="pack_body">
-                        <ul class="list" style="color: #777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
-                            <li><p>Không giới hạn học viên</p></li>
-                            <li><p>Thu phí bài giảng</p></li>
-                            <li><p>Thu phí theo lượt học</p></li>
-                        </ul>
-                    </div>
-                    <div class="pack_footer">
-                        <h4>500.000VND</h4>
-                        <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy">Đăng ký</button>
+                <div class="col-lg-3">
+                    <div class="packages_item">
+                        <div class="pack_head">
+                            <i class="lnr lnr-graduation-hat"></i>
+                            <h3>Cơ bản</h3>
+                            <p>Lớp miễn phí</p>
+                        </div>
+                        <div class="pack_body">
+                            <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                                <li><p>Tối đa 15 học viên</p></li>
+                            </ul>
+                        </div>
+                        <div class="pack_footer">
+                            <h4>0VND</h4>
+                            <a class="main_btn" href="#" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(1)">Đăng ký</a>
+                        </div>
                     </div>
                 </div>
+                <div class="col-lg-3">
+                    <div class="packages_item">
+                        <div class="pack_head">
+                            <i class="lnr lnr-star"></i>
+                            <h3>Cao Cấp</h3>
+                            <p>Lớp trả phí</p>
+                        </div>
+                        <div class="pack_body">
+                            <ul class="list" style="color:#777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                                <li><p>Tối đa 45 học viên</p></li>
+                                <li><p>Thu phí bài giảng</p></li>
+                            </ul>
+                        </div>
+                        <div class="pack_footer">
+                            <h4>200.000VND</h4>
+                            <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(2)">Đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="packages_item">
+                        <div class="pack_head">
+                            <i class="lnr lnr-diamond"></i>
+                            <h3>Đặc quyền</h3>
+                            <p>Lớp trả phí</p>
+                        </div>
+                        <div class="pack_body">
+                            <ul class="list" style="color: #777777;line-height:50px;border-bottom:1px solid #eeeeee;display:block;">
+                                <li><p>Không giới hạn học viên</p></li>
+                                <li><p>Thu phí bài giảng</p></li>
+                                <li><p>Thu phí theo lượt học</p></li>
+                            </ul>
+                        </div>
+                        <div class="pack_footer">
+                            <h4>500.000VND</h4>
+                            <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(3)">Đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
+            <div class="modal fade" id="DangKy" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-info">Đăng ký lớp học</h3>
+                            <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="Clear()">x</button>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px">
+                            <form class="form-horizontal row" name="AddNewForm">
+                                <div class="col col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label"> Tên Lớp </label>
+                                        <input class="form-control" name="Name" ng-model="lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
+                                    </div>
+                                    <div class="form-group" ng-if="type != 1">
+                                        <label class="control-label"> Học phí </label>
+                                        <input class="form-control" name="Price" ng-model="lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"> Lịch học </label>
+                                        <input class="form-control" name="Schedule" ng-model="lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
+                                        @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"> Mô tả </label>
+                                        <textarea class="form-control" name="Description" ng-model="lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="col col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label"> Điều kiện </label>
+                                        <textarea class="form-control" name="Condition" ng-model="lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mx-auto d-block">
+                                            <img id="output" ng-if="lop.Image == ''" class="" width="300" height="210" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
+                                            <img id="output" ng-if="lop.Image != ''" class=""
+                                                 width="167" height="158" src="~/Content/img/ClassImage/{{lop.Image}}" alt="Card image cap">
+                                        </div>
+                                        <hr>
+                                        <div class="card-text text-sm-center">
+                                            <input type="file" required name="file" id="file" accept="image/*" ng-model="lop.Image" onchange="loadFile(event);" class="btn btn-light" />
+
+                                        </div>
+                                    </div>
+
+                                    @*<div>
+                                            <label class="control-label"> Hình ảnh </label>
+                                            <input class="form-control" name="Image" ng-model="Lops.Image" type="text" placeholder="Hình ảnh ..." required maxlength="50" ng-blur="ImeiDeviceExist(Device.DeviceImei)" />
+
+                                        </div>*@
+                                    @*<div class="form-group">
+                                            <label class="control-label"> Ngày hết hạn </label>
+                                            <input class="form-control" name="DateExpired" ng-model="Device.DateExpired" type="date" placeholder="Ngày hết hạn ..." required id="datefield" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"> Ghi chú </label>
+                                            <textarea class="form-control" name="DeviceNote" ng-model="Device.DeviceNote" type="text" placeholder="Ghi chú ..." required rows="3"></textarea>
+                                        </div>*@
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save()">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="modal fade" id="DangKy" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="text-info">Đăng ký lớp học</h3>
-                        <button type="button" class="close" data-dismiss="modal" style="text-align:left" ng-click="Clear()">x</button>
+    <section class="courses_area p_120">
+        <div class="container">
+            <div class="main_title">
+                <h2>Lớp của tôi</h2>
+            </div>
+            <div class="progress-table-wrap">
+                <div class="progress-table">
+                    <div class="table-head">
+                        <div class="serial">#</div>
+                        <div class="percentage">Tên lớp</div>
+                        <div class="visit">Sĩ số</div>
+                        <div class="country">Trạng thái</div>
                     </div>
-                    <div class="modal-body" style="margin-left:20px">
-                        <form class="form-horizontal row" name="AddNewForm">
-                            <div class="col col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label"> Số hiệu </label>
-                                    <input class="form-control" name="DeviceNo" ng-model="Device.DeviceNo" type="text" placeholder="Số hiệu ..." required maxlength="50" ng-blur="NoDeviceExist(Device.DeviceNo)" />
-                                    <label ng-if="NoCheck == Device.DeviceNo" style="color:red">Số hiệu đã tồn tại</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Tên thiết bị </label>
-                                    <input class="form-control" name="DeviceName" ng-model="Device.DeviceName" type="text" placeholder="Tên thiết bị ..." required maxlength="30" />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Phiên bản </label>
-                                    <input class="form-control" name="DeviceVersion" ng-model="Device.DeviceVersion" type="text" placeholder="Phiên bản ..." required maxlength="50" />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Loại tàu </label>
-                                    <select class="form-control" name="TypeShip" ng-model="Device.TypeShip" required>
-                                        <option value="">Chọn loại tàu</option>
-                                        <option value="1">Tàu dưới 12m</option>
-                                        <option value="2">Tàu từ 12m - 15m</option>
-                                        <option value="3">Tàu trên 15m</option>
-                                    </select>
-                                    @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
-                                </div>
-                            </div>
-                            <div class="col col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label"> Imei </label>
-                                    <input class="form-control" name="DeviceImei" ng-model="Device.DeviceImei" type="text" placeholder="Imei ..." required maxlength="50" ng-blur="ImeiDeviceExist(Device.DeviceImei)" />
-                                    <label ng-if="ImeiCheck == Device.DeviceImei" style="color:red">Imei đã tồn tại</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Ngày hết hạn </label>
-                                    <input class="form-control" name="DateExpired" ng-model="Device.DateExpired" type="date" placeholder="Ngày hết hạn ..." required id="datefield" />
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label"> Ghi chú </label>
-                                    <textarea class="form-control" name="DeviceNote" ng-model="Device.DeviceNote" type="text" placeholder="Ghi chú ..." required rows="3"></textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-disabled="AddNewForm.$invalid || NoCheck == Device.DeviceNo || ImeiCheck == Device.DeviceImei" ng-click="Save()">Save</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Close</button>
+                    <div class="table-row" ng-repeat="Lop in Lops">
+                        <div class="serial">{{$index}}</div>
+                        <div class="percentage">{{Lop.Name}}</div>
+                        <div class="visit">{{Lop.NumOfPeo}}</div>
+                        <div class="country">
+                            <label ng-if="Lop.Status == 1"><i class="lnr lnr-lock"></i>Mở</label>
+                            <label ng-if="Lop.Status == 0"><i class="lnr lnr-lock"></i>Đóng</label>
+                        </div>
                     </div>
                 </div>
             </div>
+            @*<div class="row courses_inner">
+                    <div class="grid_inner">
+                        @{
+                            for (int i = 0; i < Model.Count(); i += 4)
+                            {
+                                <div class="grid_item wd44">
+                                    <div class="courses_item">
+                                        <img src="~/Content/img/ClassImage/@Model.ElementAt(i).Image" alt="">
+                                        <div class="hover_text">
+                                            <a class="cat" href="#">@(Model.ElementAt(i).HocPhi * 1000) đ</a>
+                                            <a href="#"><h4>@Model.ElementAt(i).TenLop</h4></a>
+                                            <ul class="list">
+                                                <li><a href="#"><i class="lnr lnr-users"></i>@Model.ElementAt(i).HocViens.Count</a></li>
+                                                <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                                <li><a href="#"><i class="lnr lnr-user"></i>@Model.ElementAt(i).NguoiDung.HoVaTen</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid_item wd44">
+                                    <div class="courses_item">
+                                        <img src="~/Content/img/courses/course-2.jpg" alt="">
+                                        <div class="hover_text">
+                                            <a class="cat" href="#">Free</a>
+                                            <a href="#"><h4>Japanease Language Class</h4></a>
+                                            <ul class="list">
+                                                <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                                <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                                <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid_item wd44">
+                                    <div class="courses_item">
+                                        <img src="~/Content/img/courses/course-4.jpg" alt="">
+                                        <div class="hover_text">
+                                            <a class="cat" href="#">Free</a>
+                                            <a href="#"><h4>Japanease Language Class</h4></a>
+                                            <ul class="list">
+                                                <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                                <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                                <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid_item wd55">
+                                    <div class="courses_item">
+                                        <img src="~/Content/img/courses/course-5.jpg" alt="">
+                                        <div class="hover_text">
+                                            <a class="cat" href="#">Free</a>
+                                            <a href="#"><h4>Japanease Language Class</h4></a>
+                                            <ul class="list">
+                                                <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
+                                                <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
+                                                <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>*@
         </div>
+    </section>
 
+</div>
 
-</section>
-
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/DayThem.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src)
+        }
+        fileValidation()
+    };
+</script>

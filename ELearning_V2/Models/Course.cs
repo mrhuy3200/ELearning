@@ -12,26 +12,28 @@ namespace ELearning_V2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NguoiDung
+    public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NguoiDung()
+        public Course()
         {
-            this.Courses = new HashSet<Course>();
             this.CourseDetails = new HashSet<CourseDetail>();
         }
     
         public long ID { get; set; }
-        public string HoVaTen { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Capacity { get; set; }
+        public string Description { get; set; }
         public string Image { get; set; }
-        public Nullable<long> SoDu { get; set; }
-        public string MaXacNhan { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<long> UserID { get; set; }
+        public Nullable<long> Price { get; set; }
+        public string Schedule { get; set; }
+        public string Condition { get; set; }
+        public Nullable<int> Type { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseDetail> CourseDetails { get; set; }
-        public virtual TaiKhoan TaiKhoan { get; set; }
     }
 }

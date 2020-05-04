@@ -34,9 +34,8 @@ namespace ELearning_V2.Controllers
             if (User.Role == 4)
             {
                 ELearningDB db = new ELearningDB();
-                var Lops = db.Lops.Where(x => x.HocPhi == 0).ToList();
+                var Lops = db.Courses.Where(x => x.Price == 0).ToList();
                 return View("GuessHomePage", Lops);
-
             }
             return View();
         }

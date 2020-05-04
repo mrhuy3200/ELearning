@@ -248,6 +248,7 @@
     <Compile Include="Controllers\LopController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +265,12 @@
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Course.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseDetail.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DeThi.cs">
@@ -318,6 +325,7 @@
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ClassService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\AngularJS\Account\AccountController.js" />
@@ -916,12 +924,12 @@
     <Content Include="Content\img\clients-logo\c-logo-3.png" />
     <Content Include="Content\img\clients-logo\c-logo-4.png" />
     <Content Include="Content\img\clients-logo\c-logo-5.png" />
-    <Content Include="Content\img\courses\course-1.jpg" />
-    <Content Include="Content\img\courses\course-2.jpg" />
-    <Content Include="Content\img\courses\course-3.jpg" />
-    <Content Include="Content\img\courses\course-4.jpg" />
-    <Content Include="Content\img\courses\course-5.jpg" />
-    <Content Include="Content\img\courses\course-details.jpg" />
+    <Content Include="Content\img\ClassImage\course-1.jpg" />
+    <Content Include="Content\img\ClassImage\course-2.jpg" />
+    <Content Include="Content\img\ClassImage\course-3.jpg" />
+    <Content Include="Content\img\ClassImage\course-4.jpg" />
+    <Content Include="Content\img\ClassImage\course-5.jpg" />
+    <Content Include="Content\img\ClassImage\course-details.jpg" />
     <Content Include="Content\img\elements\a.jpg" />
     <Content Include="Content\img\elements\a2.jpg" />
     <Content Include="Content\img\elements\d.jpg" />
@@ -2255,6 +2263,8 @@
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.min.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
+    <Content Include="Scripts\Pub\DayThem.js" />
+    <Content Include="Scripts\Pub\dirPagination.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\User\UserController.js" />
@@ -2310,6 +2320,7 @@
     <Folder Include="Assets\Avatar\" />
     <Folder Include="Assets\LopIMG\" />
     <Folder Include="Assets\Upload\" />
+    <Folder Include="Content\img\courses\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\asdasd\" />
     <Folder Include="Views\Comment\" />
