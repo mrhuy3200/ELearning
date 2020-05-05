@@ -34,5 +34,47 @@ namespace ELearning_V2.Service
                 return data;
             }
         }
+
+        public static CourseDTO GetClassByID(long ID)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var c = db.Courses.Find(ID);
+                CourseDTO cou = new CourseDTO();
+                cou.ID = c.ID;
+                cou.Name = c.Name;
+                cou.Capacity = c.Capacity;
+                cou.NumOfPeo = db.CourseDetails.Where(x => x.CourseID == c.ID).Count();
+                cou.Description = c.Description;
+                cou.Image = c.Image;
+                cou.Status = c.Status;
+                cou.Price = c.Price;
+                cou.Schedule = c.Schedule;
+                cou.Condition = c.Condition;
+                cou.Type = c.Type;
+                cou.UserID = c.UserID;
+                return cou;
+            }
+        }
+
+        public static List<TaiKhoanDTO> GetMemberByClassID(long ID)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var lstMember = db.CourseDetails.Where(x => x.CourseID == ID).Select(a => a.UserID);
+                var lst = db.TaiKhoans.Where(x => lstMember.Contains(x.ID)).ToList();
+                List<TaiKhoanDTO> data = new List<TaiKhoanDTO>();
+                foreach (var item in lst)
+                {
+                    TaiKhoanDTO l = new TaiKhoanDTO();
+                    l.ID = item.ID;
+                    l.Username = item.Username;
+                    l.Fullname = item.NguoiDung.HoVaTen;
+                    data.Add(l);
+                }
+                return data;
+            }
+
+        }
     }
 }

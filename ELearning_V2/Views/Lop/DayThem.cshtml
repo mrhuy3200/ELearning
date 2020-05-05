@@ -186,7 +186,7 @@
                                         </div>
                                         <hr>
                                         <div class="card-text text-sm-center">
-                                            <input type="file" required name="file" id="file" accept="image/*" ng-model="lop.Image" onchange="loadFile(event);" class="btn btn-light" />
+                                            <input type="file" required name="file" id="file" accept="image/*" ng-files="getTheFiles($files)" onchange="loadFile(event);" class="btn btn-light" />
 
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save()">Save</button>
+                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save($files)">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Close</button>
                         </div>
                     </div>
@@ -230,17 +230,24 @@
                         <div class="visit">Sĩ số</div>
                         <div class="country">Trạng thái</div>
                     </div>
-                    <div class="table-row" ng-repeat="Lop in Lops">
-                        <div class="serial">{{$index}}</div>
-                        <div class="percentage">{{Lop.Name}}</div>
-                        <div class="visit">{{Lop.NumOfPeo}}</div>
-                        <div class="country">
-                            <label ng-if="Lop.Status == 1"><i class="lnr lnr-lock"></i>Mở</label>
-                            <label ng-if="Lop.Status == 0"><i class="lnr lnr-lock"></i>Đóng</label>
+                    <div class="huy" ng-repeat="Lop in Lops">
+                        <div class="table-row " ng-click="View(Lop.ID)">
+                            <div class="serial">{{$index+1}}</div>
+                            <div class="percentage">{{Lop.Name}}</div>
+                            <div class="visit">{{Lop.NumOfPeo}}</div>
+                            <div class="country">
+                                <label ng-if="Lop.Status == 1"><i class="lnr lnr-lock"></i>Mở</label>
+                                <label ng-if="Lop.Status == 0"><i class="lnr lnr-lock"></i>Đóng</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <style>
+                .huy :hover {
+                    background-color: #c9ebba;
+                }
+            </style>
             @*<div class="row courses_inner">
                     <div class="grid_inner">
                         @{
@@ -321,6 +328,6 @@
         output.onload = function () {
             URL.revokeObjectURL(output.src)
         }
-        fileValidation()
+        //fileValidation()
     };
 </script>

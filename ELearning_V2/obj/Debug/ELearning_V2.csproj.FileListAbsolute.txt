@@ -536,3 +536,4 @@ D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csproj.CoreCompileInputs.c
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csproj.CopyComplete
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.dll
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.pdb
+D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csprojAssemblyReference.cache

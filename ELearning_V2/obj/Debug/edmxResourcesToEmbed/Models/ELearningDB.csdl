@@ -208,25 +208,25 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Capacity" Type="Int32" />
     <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="Status" Type="Int32" />
     <Property Name="UserID" Type="Int64" />
-    <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="Course" ToRole="NguoiDung" />
-    <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
     <Property Name="Price" Type="Int64" />
     <Property Name="Schedule" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Condition" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="Int32" />
+    <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="Course" ToRole="NguoiDung" />
+    <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
   </EntityType>
   <EntityType Name="CourseDetail">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CourseID" Type="Int64" />
     <Property Name="UserID" Type="Int64" />
     <NavigationProperty Name="Course" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="CourseDetail" ToRole="Course" />

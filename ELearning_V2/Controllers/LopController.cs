@@ -3,6 +3,7 @@ using ELearning_V2.common;
 using ELearning_V2.DTO;
 using ELearning_V2.Models;
 using ELearning_V2.Service;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -220,6 +221,88 @@ namespace ELearning_V2.Controllers
             }
         }
 
-        
+        public ActionResult GetClassByID(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                CourseDTO data = new CourseDTO();
+                data = ClassService.GetClassByID(ID);
+                if (data.UserID != User.ID)
+                {
+                    return Json("Không có dữ liệu", JsonRequestBehavior.AllowGet);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetMemberByClassID(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                List<TaiKhoanDTO> data = new List<TaiKhoanDTO>();
+                data = ClassService.GetMemberByClassID(ID);
+                if (db.Courses.Find(ID).UserID != User.ID)
+                {
+                    return Json("Không có dữ liệu", JsonRequestBehavior.AllowGet);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult CreateClass(Course c)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                Course co = new Course();
+                co.Name = c.Name;
+                co.Capacity = c.Capacity;
+                co.Description = c.Description;
+                co.Price = c.Price;
+                co.Schedule = c.Schedule;
+                co.Condition = c.Condition;
+                co.Type = c.Type;
+                co.UserID = User.ID;
+                c.UserID = User.ID;
+                c.Status = 1;
+                db.Courses.Add(c);
+                db.SaveChanges();
+                long id = db.Courses.OrderByDescending(p => p.ID).FirstOrDefault().ID;
+                return Json(id, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult CourseDetail(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Index");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                Course c = new Course();
+                c = db.Courses.Find(ID);
+                if (c.UserID != User.ID)
+                {
+                    return Json("Không tìm thấy lớp học", JsonRequestBehavior.AllowGet);
+                }
+                return View(c);
+            }
+        }
     }
 }

@@ -239,6 +239,7 @@
     <Compile Include="common\GVModel.cs" />
     <Compile Include="common\ImportExcel.cs" />
     <Compile Include="common\TaiKhoanLogin.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\AppAPIController.cs" />
     <Compile Include="Controllers\BaiGiangController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DTO\CourseDTO.cs" />
+    <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1410,28 +1412,12 @@
     <Content Include="Content\learnit-doc\syntax-highlighter\_DS_Store" />
     <Content Include="Content\learnit-doc\_DS_Store" />
     <Content Include="Content\prepros-6.config" />
-    <Content Include="Content\scss\breadcrumb.scss" />
-    <Content Include="Content\scss\style.scss" />
-    <Content Include="Content\scss\_about.scss" />
-    <Content Include="Content\scss\_blog.scss" />
-    <Content Include="Content\scss\_button.scss" />
-    <Content Include="Content\scss\_clients.scss" />
-    <Content Include="Content\scss\_contact.scss" />
-    <Content Include="Content\scss\_courses.scss" />
-    <Content Include="Content\scss\_elements.scss" />
-    <Content Include="Content\scss\_feature.scss" />
-    <Content Include="Content\scss\_footer.scss" />
-    <Content Include="Content\scss\_header.scss" />
-    <Content Include="Content\scss\_predefine.scss" />
-    <Content Include="Content\scss\_price.scss" />
-    <Content Include="Content\scss\_team.scss" />
-    <Content Include="Content\scss\_testimonials.scss" />
-    <Content Include="Content\scss\_variables.scss" />
     <Content Include="Content\vendors\.DS_Store" />
     <Content Include="Content\vendors\linericon\fonts\Linearicons-Free.eot" />
     <Content Include="Content\vendors\linericon\fonts\Linearicons-Free.ttf" />
     <Content Include="Content\vendors\linericon\fonts\Linearicons-Free.woff" />
     <Content Include="Content\vendors\linericon\fonts\Linearicons-Free.woff2" />
+    <Content Include="Content\scss\style.scss" />
     <None Include="Properties\PublishProfiles\Elearning.pubxml" />
     <None Include="Properties\PublishProfiles\ELearningV2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2263,6 +2249,7 @@
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.min.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
+    <Content Include="Scripts\Pub\CourseDetail.js" />
     <Content Include="Scripts\Pub\DayThem.js" />
     <Content Include="Scripts\Pub\dirPagination.js" />
     <Content Include="Scripts\respond.js" />
@@ -2305,6 +2292,7 @@
     <Content Include="Views\Shared\_LayoutLearnIT.cshtml" />
     <Content Include="Views\Home\GuessHomePage.cshtml" />
     <Content Include="Views\Lop\DayThem.cshtml" />
+    <Content Include="Views\Lop\CourseDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

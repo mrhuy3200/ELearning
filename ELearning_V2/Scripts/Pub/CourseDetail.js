@@ -1,6 +1,6 @@
-﻿var DayThemApp = angular.module("DayThemApp", ['angularUtils.directives.dirPagination']);
+﻿var CourseDetailApp = angular.module("CourseDetailApp", ['angularUtils.directives.dirPagination']);
 
-DayThemApp.directive('ngFiles', ['$parse', function ($parse) {
+CourseDetailApp.directive('ngFiles', ['$parse', function ($parse) {
     function fn_link(scope, element, attrs) {
         var onChange = $parse(attrs.ngFiles);
         element.on('change', function (event) {
@@ -13,25 +13,37 @@ DayThemApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-DayThemApp.controller('DayThemController', function ($scope, $http, $window, DayThemService) {
-    LoadClass();
-    var formdata = new FormData();
-    var file;
-    $scope.type = 0;
-    function LoadClass() {
-        DayThemService.LoadClass().then(function (d) {
-            $scope.Lops = d.data;
+CourseDetailApp.controller('CourseDetailController', function ($scope, $http, CourseDetailService) {
+    $scope.ID = function (id) {
+        $scope.currentPage = 1;
+        $scope.pageSize = 10;
+
+        LoadClass(id);
+        LoadMember(id);
+    };
+
+    function LoadClass(ID) {
+        CourseDetailService.LoadClass(ID).then(function (d) {
+            $scope.Lop = d.data;
+            console.log(d.data);
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
-
+    function LoadMember(ID) {
+        CourseDetailService.LoadMember(ID).then(function (d) {
+            $scope.Members = d.data;
+            console.log(d.data);
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
             console.log(key + ' ' + value.name);
             formdata.set(key, value);
-            
+
         });
         file = $files[0];
         console.log(formdata);
@@ -111,19 +123,20 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, Day
     }
     $scope.View = function (ID) {
         alert(ID);
-        $window.location.href = '/Lop/CourseDetail/' + ID;
-
     }
 });
 
 
 
 
-DayThemApp.factory('DayThemService', function ($http) {
+CourseDetailApp.factory('CourseDetailService', function ($http) {
     var fac = {};
-    fac.LoadClass = function () {
-        return $http.get('/Lop/GetClassByUserID');
+    fac.LoadClass = function (ID) {
+        return $http.get('/Lop/GetClassByID/' + ID);
     };
+    fac.LoadMember = function (ID) {
+        return $http.get('/Lop/GetMemberByClassID/' + ID);
+    }
     return fac;
 });
 

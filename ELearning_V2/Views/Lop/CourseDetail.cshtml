@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "CourseDetail";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+@model ELearning_V2.Models.Course
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Chi tiết lớp học</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/DayThem">Dạy thêm</a>
+                    <a href="#">Chi tiết lớp học</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="course_details_area p_120" ng-app="CourseDetailApp" ng-controller="CourseDetailController" ng-init="ID('@Model.ID')">
+    <div class="container">
+        <div class="row course_details_inner">
+            <div class="col-lg-8">
+                <div class="c_details_img">
+                    <img class="img-fluid" style="width:750px;height:250px;" src="~/Content/img/ClassImage/{{Lop.Image}}" alt="">
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Điều kiện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Nội dung bài giảng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Danh sách học viên</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="objctive_text">
+                            <p>{{Lop.Description}}</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="objctive_text">
+                            <p>{{Lop.Condition}}</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="objctive_text">
+                            <ul class="list">
+                                <li><a href="#">Introduction Lesson</a></li>
+                                <li><a href="#">Basics of HTML</a></li>
+                                <li><a href="#">Getting Know about HTML 5</a></li>
+                                <li><a href="#">Tags and Attributes</a></li>
+                                <li><a href="#">Basics of CSS</a></li>
+                                <li><a href="#">Getting Familiar with CSS 3</a></li>
+                                <li><a href="#">Introduction to Bootstrap 3.0</a></li>
+                                <li><a href="#">Responsive Design</a></li>
+                                <li><a href="#">Canvas in HTML 5</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                        <div class="comments-area">
+                            <h4>{{Lop.NumOfPeo}} Học viên</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
+
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Thao tác</th>
+                                            <th>Tên tài khoản</th>
+                                            <th>Tên học viên</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="m in Members | filter:SearchKey | itemsPerPage: 10" current-page="currentPage">
+                                            <td width="5%">{{$index+1}}</td>
+                                            <td width="15%" class="text-center">
+                                                <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{c.UserID}}" title="Chi tiết khách hàng" role="button" class="btn btn-light text-success"><i class="fa fa-info-circle"></i></a>
+                                                &nbsp;&nbsp;
+                                                <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{c.UserID}}" title="Chi tiết khách hàng" role="button" class="btn btn-light text-danger"><i class="lnr lnr-trash"></i></a>
+
+                                                @*<a ng-if="c.Status==1" ng-click="LockUser(c.UserID)" title="Khóa tài khoản"><i class="fa fa-lock" style="color:red"></i></a>
+                                                    <a ng-if="c.Status==-1" ng-click="UnLockUser(c.UserID)" title="Mở khóa tài khoản"><i class="fa fa-unlock" style="color:black"></i></a>
+                                                    <a ng-click="DeleteUser(c.UserID)" title="Xóa tài khoản"><i class="fa fa-trash" style="color:black"></i></a>*@
+                                            </td>
+                                            <td width="15%">{{m.Username}}</td>
+                                            <td width="20%">{{m.Fullname}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="c_details_list">
+                    <ul class="list">
+                        <li><a href="#">Tên lớp <span>{{Lop.Name}}</span></a></li>
+                        <li><a href="#">Học phí <span>{{Lop.Price*1000}}VND</span></a></li>
+                        <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
+                        <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
+                    </ul>
+                    <a class="main_btn" href="#">Enroll the Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/CourseDetail.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>>
+<style>
+    #dataTable tr {
+        line-height:40px
+    }
+</style>
