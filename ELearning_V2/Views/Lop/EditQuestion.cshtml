@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "EditQuestion";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Tạo câu hỏi</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/DayThem#NganHangCauHoi">Ngân Hàng Câu Hỏi</a>
+                    <a href="#">Thêm mới câu hỏi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="team_area p_120" ng-app="EditQuestionApp" ng-controller="EditQuestionController" ng-init="QuestionID('@ViewBag.QuestionID')">
+    <div class="container">
+        <div class="main_title">
+            <h2>Tạo câu hỏi</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="Question-content">
+                    <p class="font-weight-bold">Nội dung <span class="text-danger">(*)</span></p>
+                    <textarea id="TContent"></textarea>
+                    <textarea id="QContent"></textarea>
+                    <p id="QContentVal" class="text-danger" style="padding-left:45px; display:none;">Không để trống nội dung.</p>
+                </div>
+                <div class="Question-solution">
+                    <p class="font-weight-bold">Lời giải</p>
+                    <textarea id="SContent"></textarea>
+                </div>
+                <div class="p-2">
+                    <a class="btn btn-dark text-success float-right ml-1" role="button" ng-click="save()">Lưu</a>
+                    <a class="btn btn-danger float-right text-light" ng-click="clear()">Hủy</a>
+                    <a class="btn btn-light float-left text-danger font-weight-bold" href="~/Lop/DayThem#NganHangCauHoi"><i class="lnr lnr-arrow-left"></i>Back</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="Answer-content col-lg-10">
+                        <p class="font-weight-bold">Đáp án <span class="text-danger">(*)</span></p>
+                        <div class="row">
+                            <div class=" col-md-11">
+                                <textarea id="AContent"></textarea>
+                            </div>
+                            <button class="btn btn-dark text-success col-md-1" id="AddAnswer" style="height:42px" disabled ng-click="AddAnswer()"><i class="fa fa-plus"></i></button>
+                            <div id="AContentVal" class="text-danger" style="padding-left:45px;height:24px;"></div>
+                        </div>
+                        <form class="mt-4">
+                            <ul>
+                                <li ng-repeat="new in FAnswers" class="row" onclick="changeInputRadio(this);">
+                                    <input class="cold-lg-1" type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
+                                    <div id="div{{$index}}" class="col-lg-9" ng-bind-html="new">
+                                    </div>
+                                    <a class="text-info col-lg-1" ng-click="EditAnswer($index)"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a class="text-danger col-lg-1" ng-click="RemoveAnswer($index)"><i class="lnr lnr-trash"></i></a>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="Question-level col-lg-2" style="height:100px">
+                        <p class="font-weight-bold">Mức độ <span class="text-danger float-right">(*)</span></p>
+                        <select class="float-left" id="Level" onchange="changeInputSelect(this)">
+                            <option value="0">Chọn độ khó</option>
+                            <option value="1">Nhận biết</option>
+                            <option value="2">Thông hiểu</option>
+                            <option value="3">Vận dụng</option>
+                            <option value="4">Vận dụng cao</option>
+                        </select>
+                        <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/EditQuestion.js"></script>
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
+
+<script>
+    function changeInputRadio(e) {
+        $("#AContentVal").text("");
+    }
+    function changeInputSelect(e) {
+        if (document.getElementById("Level").value == 0) {
+            $("#LevelVal").css('display', 'block');
+        }
+        if (document.getElementById("Level").value != 0) {
+            $("#LevelVal").css('display', 'none');
+        }
+    }
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline('TContent');
+
+    CKEDITOR.inline('AContent');
+    CKEDITOR.inline('SContent');
+    CKEDITOR.inline('QContent');
+
+    CKEDITOR.instances['QContent'].on('change', function (e) {
+        if (e.editor.checkDirty() == false) {
+            $("#QContentVal").css('display', 'block');
+        }
+    });
+    CKEDITOR.instances['QContent'].on('change', function (e) {
+        if (e.editor.checkDirty() == true) {
+            $("#QContentVal").css('display', 'none');
+        }
+    });
+    CKEDITOR.instances['AContent'].on('change', function (e) {
+        if (e.editor.checkDirty()) {
+            $("#AddAnswer").prop('disabled', false);
+        }
+        if (e.editor.checkDirty() == false) {
+            $("#AddAnswer").prop('disabled', true);
+        }
+    });
+
+</script>
+<style>
+    .question-content {
+        margin-bottom: 25px
+    }
+
+
+    #acontent {
+        border: 1px solid;
+    }
+
+    .answer-content li {
+        display: block;
+    }
+
+    .answer-content a {
+        padding-left: 15px;
+    }
+
+    .question-level {
+        margin-bottom: 50px;
+        height: 85px;
+    }
+
+    .cke_wysiwyg_div {
+        border: 1px solid;
+        background-color: snow;
+    }
+
+    #LevelVal {
+        top: 85px;
+        display: block;
+        position: absolute;
+        width: 140px;
+    }
+</style>

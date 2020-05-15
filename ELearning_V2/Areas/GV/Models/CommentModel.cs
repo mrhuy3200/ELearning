@@ -13,6 +13,8 @@ namespace ELearning_V2.Areas.GV.Models
         public string CreateDate { get; set; }
         public long? CreateBy { get; set; }
         public int ClassID { get; set; }
+        public long CourseID { get; set; }
+        public long LessionID { get; set; }
         public List<CommentModel> Reps { get; set; }
         public string HoTen { get; set; }
 

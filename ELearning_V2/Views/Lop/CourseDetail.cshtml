@@ -3,7 +3,6 @@
     ViewBag.Title = "CourseDetail";
     Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
 }
-
 @model ELearning_V2.Models.Course
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
@@ -13,27 +12,35 @@
                 <h2>Chi tiết lớp học</h2>
                 <div class="page_link">
                     <a href="~/Home/TrangChu">Home</a>
-                    <a href="~/Lop/DayThem">Dạy thêm</a>
+                    <a href="~/Lop/DayThem#DanhSach">Lớp của tôi</a>
                     <a href="#">Chi tiết lớp học</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <section class="course_details_area p_120" ng-app="CourseDetailApp" ng-controller="CourseDetailController" ng-init="ID('@Model.ID')">
+    @Html.Partial("../Shared/_Waiting")
+
     <div class="container">
         <div class="row course_details_inner">
             <div class="col-lg-8">
-                <div class="c_details_img">
-                    <img class="img-fluid" style="width:750px;height:250px;" src="~/Content/img/ClassImage/{{Lop.Image}}" alt="">
+                <div class="c_details_img" onmouseover="ShowBtn()" onmouseout="HideBtn()">
+                    <div id="EditCouseImage" class="h file-field">
+                        <a href="#" class="btn-floating purple-gradient mt-0 float-left" title="Cập nhật ảnh lớp">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                            <input type="file" ng-files="getTheFiles($files)" id="file" accept="image/*" />
+                        </a>
+                    </div>
+                    <img id="output" class="img-fluid" ng-if="Lop.Image == null" style="width:750px;height:250px;" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="{{Lop.Name}}">
+                    <img id="output" class="img-fluid" ng-if="Lop.Image != null" style="width:750px;height:250px;" src="~/Content/img/ClassImage/{{Lop.Image}}" alt="{{Lop.Name}}">
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Điều kiện</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Đánh giá</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Nội dung bài giảng</a>
@@ -49,28 +56,259 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="objctive_text">
-                            <p>{{Lop.Condition}}</p>
+                        <div class="comments-area">
+                            <div>
+                                <div style="font-size:30px">
+                                    <p ng-if="FTotal==1">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p ng-if="FTotal==2">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p ng-if="FTotal==3">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p ng-if="FTotal==4">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p ng-if="FTotal==5">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </p>
+
+                                </div>
+                                <p>{{Total}} average based on {{Comments.length}} reviews.</p>
+                                <hr style="border:3px solid #f1f1f1">
+
+                                <div class="row">
+                                    <div class="side">
+                                        <div>5 star</div>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="bar-container">
+                                            <div class="bar-5" id="bar5"></div>
+                                        </div>
+                                    </div>
+                                    <div class="side hright">
+                                        <div>{{Five}}</div>
+                                    </div>
+                                    <div class="side">
+                                        <div>4 star</div>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="bar-container">
+                                            <div class="bar-4" id="bar4"></div>
+                                        </div>
+                                    </div>
+                                    <div class="side hright">
+                                        <div>{{Four}}</div>
+                                    </div>
+                                    <div class="side">
+                                        <div>3 star</div>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="bar-container">
+                                            <div class="bar-3" id="bar3"></div>
+                                        </div>
+                                    </div>
+                                    <div class="side hright">
+                                        <div>{{Three}}</div>
+                                    </div>
+                                    <div class="side">
+                                        <div>2 star</div>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="bar-container">
+                                            <div class="bar-2" id="bar2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="side hright">
+                                        <div>{{Two}}</div>
+                                    </div>
+                                    <div class="side">
+                                        <div>1 star</div>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="bar-container">
+                                            <div class="bar-1" id="bar1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="side hright">
+                                        <div>{{One}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="comment-list" ng-repeat="cmt in Comments">
+                                <div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img height="60" ng-if="cmt.UserImage == null" width="60" src="~/Content/img/UserImage/Default.png" alt="{{cmt.Fullname}}">
+                                                <img height="60" ng-if="cmt.UserImage != null" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="{{cmt.Fullname}}">
+                                            </div>
+                                            <div class="desc">
+                                                <h5><a href="#">{{cmt.Fullname}}</a></h5>
+                                                <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                <p class="comment" ng-if="cmt.Rate==1">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </p>
+                                                <p class="comment" ng-if="cmt.Rate==2">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </p>
+                                                <p class="comment" ng-if="cmt.Rate==3">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </p>
+                                                <p class="comment" ng-if="cmt.Rate==4">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </p>
+                                                <p class="comment" ng-if="cmt.Rate==5">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                </p>
+                                                <p class="comment">
+                                                    {{cmt.NoiDung}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="" class="btn-reply text-uppercase">reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                            </div>
+                                            <div class="desc">
+                                                <h5><a href="#">{{rep.Fullname}}</a></h5>
+                                                <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                <p class="comment">
+                                                    {{rep.NoiDung}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="" class="btn-reply text-uppercase">reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <div class="objctive_text">
-                            <ul class="list">
-                                <li><a href="#">Introduction Lesson</a></li>
-                                <li><a href="#">Basics of HTML</a></li>
-                                <li><a href="#">Getting Know about HTML 5</a></li>
-                                <li><a href="#">Tags and Attributes</a></li>
-                                <li><a href="#">Basics of CSS</a></li>
-                                <li><a href="#">Getting Familiar with CSS 3</a></li>
-                                <li><a href="#">Introduction to Bootstrap 3.0</a></li>
-                                <li><a href="#">Responsive Design</a></li>
-                                <li><a href="#">Canvas in HTML 5</a></li>
-                            </ul>
+                        <div class="comments-area">
+                            <div class="row" style="margin:auto;">
+                                <h4 class="col-md-11">Bài giảng: {{Lessions.length}}</h4>
+                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" ng-click="AddLession()">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <div class="collapse" id="Add" style="position:absolute;right:115px;">
+                                    <div class="input-group">
+                                        <input class="form-control" ng-model="Username" type="text" placeholder="Nhập Username..." aria-label="Add" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-table-wrap">
+                                <div class="progress-table" style="min-width:600px">
+                                    <div class="table-head">
+                                        <div class="serial">#</div>
+                                        <div class="percentage">Tên bài giảng</div>
+                                        <div class="visit">Lượt xem</div>
+                                        <div class="country">Trạng thái</div>
+                                    </div>
+                                    <div class="huy" ng-repeat="l in Lessions">
+                                        <div class="table-row ">
+                                            <div class="serial">{{$index+1}}</div>
+                                            <div class="percentage">{{l.Name}}</div>
+                                            <div class="visit">{{l.View}}</div>
+                                            <div class="country">
+                                                <div style="width:50px">
+                                                    <label ng-if="l.Status == 1">Publish</label>
+                                                    <label ng-if="l.Status == 0">Close</label>
+                                                    <label ng-if="l.Status == 2">Private</label>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a class="btn dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown" data-target="Status{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                                    <div class="dropdown-menu" id="Status{{$index}}">
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 0">Close</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 0" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 0" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
+
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 1" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 1" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 1">Publish</a>
+
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 2" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 2">Private</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Status == 2" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
+
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="btn dropdown-item" ng-click="ViewLession(l.ID)">View</a>
+                                                        <a class="btn dropdown-item" ng-click="EditLession(l.ID)">Edit</a>
+                                                        <a class="btn dropdown-item" ng-click="RemoveLession(l.ID)">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                         <div class="comments-area">
-                            <h4>{{Lop.NumOfPeo}} Học viên</h4>
+                            <div class="row" style="margin:auto;">
+                                <h4 class="col-md-11">Học viên: {{Lop.NumOfPeo}}</h4>
+                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" data-toggle="collapse" data-target="#Add" aria-expanded="false" ng-click="Add()">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <div class="collapse" id="Add" style="position:absolute;right:115px;">
+                                    <div class="input-group">
+                                        <input class="form-control" ng-model="Username" type="text" placeholder="Nhập Username..." aria-label="Add" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
 
@@ -86,13 +324,9 @@
                                         <tr dir-paginate="m in Members | filter:SearchKey | itemsPerPage: 10" current-page="currentPage">
                                             <td width="5%">{{$index+1}}</td>
                                             <td width="15%" class="text-center">
-                                                <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{c.UserID}}" title="Chi tiết khách hàng" role="button" class="btn btn-light text-success"><i class="fa fa-info-circle"></i></a>
+                                                <a href="#" data-toggle="modal" data-target="#Info" ng-click="Info(m)" title="Thông tin học viên" role="button" class="btn btn-light text-success"><i class="fa fa-info-circle"></i></a>
                                                 &nbsp;&nbsp;
-                                                <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{c.UserID}}" title="Chi tiết khách hàng" role="button" class="btn btn-light text-danger"><i class="lnr lnr-trash"></i></a>
-
-                                                @*<a ng-if="c.Status==1" ng-click="LockUser(c.UserID)" title="Khóa tài khoản"><i class="fa fa-lock" style="color:red"></i></a>
-                                                    <a ng-if="c.Status==-1" ng-click="UnLockUser(c.UserID)" title="Mở khóa tài khoản"><i class="fa fa-unlock" style="color:black"></i></a>
-                                                    <a ng-click="DeleteUser(c.UserID)" title="Xóa tài khoản"><i class="fa fa-trash" style="color:black"></i></a>*@
+                                                <a href="#" ng-click="RemoveMember(m.ID)" title="Xóa học viên" role="button" class="btn btn-light text-danger"><i class="lnr lnr-trash"></i></a>
                                             </td>
                                             <td width="15%">{{m.Username}}</td>
                                             <td width="20%">{{m.Fullname}}</td>
@@ -102,32 +336,251 @@
                                 <div class="text-center">
                                     <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
                                 </div>
-
+                            </div>
+                            <div class="modal fade" id="Info" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="text-info">Thông tin học viên</h3>
+                                            <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                                        </div>
+                                        <div class="modal-body" style="margin-left:20px">
+                                            <form class="form-horizontal row" name="AddNewForm">
+                                                <div class="col col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <strong>Thông Tin Người Dùng </strong>
+                                                        </div>
+                                                        <div class="card-body card-block">
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label class="form-control-label">Username</label></div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input class="form-control" ng-model="User.Username" disabled />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label class="form-control-label">Họ tên</label></div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input class="form-control" ng-model="User.Fullname" disabled />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label class="form-control-label">Email</label></div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input class="form-control" ng-model="User.Email" disabled />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <img ng-if="User.Image == null" width="100" height="100" src="~/Content/img/UserImage/Default.png" alt="{{User.Username}}">
+                                                                <img ng-if="User.Image != null" width="167" height="158" src="~/Content/img/UserImage/{{User.Image}}" alt="{{User.Username}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col col-md-6">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="c_details_list">
                     <ul class="list">
-                        <li><a href="#">Tên lớp <span>{{Lop.Name}}</span></a></li>
+                        <li><a href="#">Tên lớp <span style="font-weight:bold">{{Lop.Name}}</span></a></li>
                         <li><a href="#">Học phí <span>{{Lop.Price*1000}}VND</span></a></li>
                         <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
                         <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
                     </ul>
-                    <a class="main_btn" href="#">Enroll the Course</a>
+                    <a class="main_btn" href="#" data-toggle="modal" data-target="#Edit">Chỉnh sửa thông tin</a>
+                </div>
+                <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="text-info">Chỉnh sửa thông tin</h3>
+                                <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                            </div>
+                            <div class="modal-body" style="margin-left:20px">
+                                <form class="form-horizontal row" name="AddNewForm">
+                                    <div class="col col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Tên Lớp </label>
+                                            <input class="form-control" name="Name" ng-model="Lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
+                                        </div>
+                                        <div class="form-group" ng-if="type != 1">
+                                            <label class="control-label"> Học phí </label>
+                                            <input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"> Lịch học </label>
+                                            <input class="form-control" name="Schedule" ng-model="Lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
+                                            @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Mô tả </label>
+                                            <textarea class="form-control" name="Description" ng-model="Lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"> Điều kiện </label>
+                                            <textarea class="form-control" name="Condition" ng-model="Lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="EditCourse()">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </section>
+<script src="~/Content/js/jquery-3.3.1.min.js"></script>
+
 <script src="~/Scripts/angular.js"></script>
+
 <script src="~/Scripts/Pub/CourseDetail.js"></script>
 <script src="~/Scripts/Pub/dirPagination.js"></script>>
+<script>
+    function ShowBtn() {
+        document.getElementById("EditCouseImage").style.display = "Block";
+    }
+    function HideBtn() {
+        document.getElementById("EditCouseImage").style.display = "None";
+    }
+    document.getElementById('file').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById("output").src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+        // Not supported
+        else {
+            // fallback -- perhaps submit the input to an iframe and temporarily store
+            // them on the server until the user's session ends.
+        }
+    }
+
+</script>
 <style>
     #dataTable tr {
-        line-height:40px
+        line-height: 40px
+    }
+
+    .huy:hover {
+        background-color: #c9ebba;
+    }
+
+    .h {
+        position: absolute;
+        display: none;
+        top: 15px;
+        left: 20px;
+    }
+
+    .dropdown-menu :hover {
+        background-color: #0094ff;
+    }
+
+    .dropdown-toggle::after {
+        display: none
+    }
+
+    .checked {
+        color: orange;
+    }
+
+    /* Three column layout */
+    .side {
+        float: left;
+        width: 15%;
+        margin-top: 10px;
+    }
+
+    .middle {
+        float: left;
+        width: 70%;
+        margin-top: 10px;
+    }
+
+    /* Place text to the right */
+    .hright {
+        text-align: right;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* The bar container */
+    .bar-container {
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        color: white;
+    }
+
+    /* Individual bars */
+    .bar-5 {
+        width: 0%;
+        height: 18px;
+        background-color: #4CAF50;
+    }
+
+    .bar-4 {
+        width: 0%;
+        height: 18px;
+        background-color: #2196F3;
+    }
+
+    .bar-3 {
+        width: 0%;
+        height: 18px;
+        background-color: #00bcd4;
+    }
+
+    .bar-2 {
+        width: 0%;
+        height: 18px;
+        background-color: #ff9800;
+    }
+
+    .bar-1 {
+        width: 0%;
+        height: 18px;
+        background-color: #f44336;
+    }
+
+
+    /* Hide the right column on small screens */
+    .right {
+        display: none;
     }
 </style>

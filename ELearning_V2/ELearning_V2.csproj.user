@@ -22,6 +22,7 @@
     <NameOfLastUsedPublishProfile>ELearningV2</NameOfLastUsedPublishProfile>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Controller</Controller_SelectedScaffolderCategoryPath>
+    <ToolsVersionPromptShown>1.8</ToolsVersionPromptShown>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

@@ -10,6 +10,8 @@ namespace ELearning_V2.DTO
         public long ID { get; set; }
         public string Username { get; set; }
         public string Fullname { get; set; }
+        public string Email { get; set; }
+        public string Image { get; set; }
         public string Password { get; set; }
         public int Role { get; set; }
         public bool TrangThai { get; set; }

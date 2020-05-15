@@ -25,6 +25,7 @@ namespace ELearning_V2.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<BaiGiang> BaiGiangs { get; set; }
         public virtual DbSet<BaiLam> BaiLams { get; set; }
         public virtual DbSet<CauHoi> CauHois { get; set; }
@@ -36,12 +37,17 @@ namespace ELearning_V2.Models
         public virtual DbSet<GiangVien> GiangViens { get; set; }
         public virtual DbSet<HocVien> HocViens { get; set; }
         public virtual DbSet<KeyAPI> KeyAPIs { get; set; }
+        public virtual DbSet<Lession> Lessions { get; set; }
+        public virtual DbSet<Lession_Topic> Lession_Topic { get; set; }
+        public virtual DbSet<LessionView> LessionViews { get; set; }
         public virtual DbSet<Lop> Lops { get; set; }
         public virtual DbSet<LopKiemTra> LopKiemTras { get; set; }
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Reply> Replies { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
         public virtual DbSet<TrangThaiHeThong> TrangThaiHeThongs { get; set; }
     }

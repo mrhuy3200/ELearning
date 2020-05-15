@@ -1,5 +1,6 @@
 ﻿var DayThemApp = angular.module("DayThemApp", ['angularUtils.directives.dirPagination']);
 
+
 DayThemApp.directive('ngFiles', ['$parse', function ($parse) {
     function fn_link(scope, element, attrs) {
         var onChange = $parse(attrs.ngFiles);
@@ -13,8 +14,14 @@ DayThemApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-DayThemApp.controller('DayThemController', function ($scope, $http, $window, DayThemService) {
+DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sce, DayThemService) {
     LoadClass();
+    LoadQuestion();
+    $scope.QcurrentPage = 1;
+    $scope.QpageSize = 5;
+    $scope.CcurrentPage = 1;
+    $scope.CpageSize = 3;
+
     var formdata = new FormData();
     var file;
     $scope.type = 0;
@@ -25,13 +32,39 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, Day
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
-
+    function LoadQuestion() {
+        DayThemService.LoadQuestion().then(function (d) {
+            $scope.Questions = d.data;
+            for (var i = 0; i < $scope.Questions.length; i++) {
+                $scope.Questions[i]["Content"] = $sce.trustAsHtml($scope.Questions[i]["Content"]);
+            }
+            setTimeout(function () {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }, 200);
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
+    function FindQuestion(ID) {
+        for (var i = 0; i < $scope.Questions.length; i++) {
+            if ($scope.Questions[i].ID == ID) {
+                return i;
+            }
+        }
+    }
+    function FindCourse(ID) {
+        for (var i = 0; i < $scope.Lops.length; i++) {
+            if ($scope.Lops[i].ID == ID) {
+                return i;
+            }
+        }
+    }
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
             console.log(key + ' ' + value.name);
             formdata.set(key, value);
-            
+
         });
         file = $files[0];
         console.log(formdata);
@@ -62,7 +95,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, Day
         }
         $scope.type = type;
     }
-    $scope.Save = function ($files) {
+    $scope.Save = function () {
         var ID;
         console.log('Save' + JSON.stringify($scope.lop));
         $http({
@@ -81,7 +114,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, Day
             console.log(formdata.get(0));
             var request = {
                 method: 'POST',
-                url: '/api/API/',
+                url: '/api/API/UploadClassImage',
                 data: formdata,
                 headers: {
                     'Content-Type': undefined
@@ -110,9 +143,110 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, Day
         $scope.lop.Type = null;
     }
     $scope.View = function (ID) {
-        alert(ID);
         $window.location.href = '/Lop/CourseDetail/' + ID;
+    }
+    $scope.ViewQuestion = function (Question) {
+        console.log(Question);
+        var Ans = [];
+        $scope.Question = Question;
+        //$scope.Questions["Content"] = $sce.trustAsHtml($scope.Questions["Content"]);
 
+        var charcode = 65;
+        for (var i = 0; i < Question.Answers.length; i++) {
+            var res = String.fromCharCode(charcode);
+            Ans.push(res);
+            console.log(Ans[i]);
+            console.log($scope.Question["Answers"][i]);
+            $scope.Question["Answers"][i]["FContent"] = $sce.trustAsHtml($scope.Question["Answers"][i]["Content"]);
+            if ($scope.Question["AnswerID"] == $scope.Question["Answers"][i]["ID"]) {
+                console.log("OK");
+                $scope.Question["DapAn"] = res;
+            }
+            charcode++;
+        }
+        $scope.Ans = Ans;
+        setTimeout(function () {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }, 200);
+    }
+    $scope.EditQuestion = function (QuestionID) {
+        $http({
+            method: 'GET',
+            url: '/Lop/EditQuestion/' + QuestionID
+        }).then(function successCallback(response) {
+            if (response.data == -1) {
+                alert("Không tìm thấy câu hỏi");
+            }
+            else {
+                if (response.data == 0) {
+                    alert("Không đủ quyền hạn");
+                }
+                else {
+                    $window.location.href = '/Lop/EditQuestion/' + QuestionID;
+                }
+            }
+        });
+    }
+    $scope.RemoveQuestion = function (QuestionDTO) {
+        if (confirm("Xác nhận xóa, sau khi xóa không thể phục hổi!!!")) {
+            console.log(QuestionDTO);
+            $http({
+                method: 'POST',
+                url: '/Lop/RemoveQuestion',
+                data: JSON.stringify(QuestionDTO)
+            }).then(function successCallback(response) {
+                if (response.data == 1) {
+                    $scope.Questions.splice(FindQuestion(QuestionDTO.ID), 1);
+                    alert("Đã xóa");
+                }
+                if (response.data == 0) {
+                    alert("Không đủ quyền hạn");
+                }
+                if (response.data == -1) {
+                    alert("Xóa thất bại");
+                }
+            });
+        }
+    }
+    $scope.RemoveCourse = function (ID) {
+        console.log(ID);
+        if (confirm("Xác nhận xóa, hành động không thể phục hồi?", "thông báo")) {
+            DayThemService.RemoveCourse(ID).then(function (d) {
+                LoadClass();
+                alert(d.data);
+            }, function () {
+                alert('Không tìm thấy dữ liệu !!!');
+            });
+        }
+    }
+    $scope.ChangeCourseStatus = function (ID, Status) {
+        var CourseDTO = {
+            ID: ID,
+            Status: Status
+        };
+        DayThemService.ChangeCourseStatus(CourseDTO).then(function (d) {
+            alert(d.data);
+            if (d.data == "OK") {
+                $scope.Lops[FindCourse(ID)].Status = Status;
+            }
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
+    $scope.ChangeQuestionStatus = function (ID, Status) {
+        var QuestionDTO = {
+            ID: ID,
+            Status: Status
+        };
+        DayThemService.ChangeQuestionStatus(QuestionDTO).then(function (d) {
+            alert(d.data);
+            if (d.data == "OK") {
+                $scope.Questions[FindQuestion(ID)].Status = Status;
+            }
+            //LoadQuestion();
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
     }
 });
 
@@ -124,6 +258,27 @@ DayThemApp.factory('DayThemService', function ($http) {
     fac.LoadClass = function () {
         return $http.get('/Lop/GetClassByUserID');
     };
+    fac.LoadQuestion = function () {
+        return $http.get('/Lop/GetListQuesionByUserID');
+    };
+    fac.RemoveCourse = function (ID) {
+        return $http.get('/Lop/RemoveCourse/' + ID);
+    };
+    fac.ChangeCourseStatus = function (CourseDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/ChangeCourseStatus',
+            data: JSON.stringify(CourseDTO)
+        });
+    };
+    fac.ChangeQuestionStatus = function (QuestionDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/ChangeQuestionStatus',
+            data: JSON.stringify(QuestionDTO)
+        });
+    };
     return fac;
 });
 
+//MathJax.Hub.Queue(["Typeset", MathJax.Hub]);

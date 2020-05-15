@@ -4,36 +4,47 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99afd6dbe67b4918929a6445aabdb5c2" Name="Diagram1">
+      <Diagram DiagramId="99afd6dbe67b4918929a6445aabdb5c2" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="ELearningModel.Answer" Width="1.5" PointX="12.75" PointY="20.125" />
         <EntityTypeShape EntityType="ELearningModel.BaiGiang" Width="1.5" PointX="5.25" PointY="1.875" />
         <EntityTypeShape EntityType="ELearningModel.BaiLam" Width="1.5" PointX="15" PointY="8.875" />
         <EntityTypeShape EntityType="ELearningModel.CauHoi" Width="1.5" PointX="5.25" PointY="5.25" />
-        <EntityTypeShape EntityType="ELearningModel.Comment" Width="1.5" PointX="12.75" PointY="4.25" />
-        <EntityTypeShape EntityType="ELearningModel.Course" Width="1.5" PointX="5.25" PointY="16.375" />
-        <EntityTypeShape EntityType="ELearningModel.CourseDetail" Width="1.5" PointX="7.5" PointY="17.125" />
+        <EntityTypeShape EntityType="ELearningModel.Comment" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ELearningModel.Course" Width="1.5" PointX="10.5" PointY="9.375" />
+        <EntityTypeShape EntityType="ELearningModel.CourseDetail" Width="1.5" PointX="17.75" PointY="10.5" />
         <EntityTypeShape EntityType="ELearningModel.Chuong" Width="1.5" PointX="3" PointY="7.125" />
         <EntityTypeShape EntityType="ELearningModel.DeThi" Width="1.5" PointX="10.5" PointY="4.75" />
         <EntityTypeShape EntityType="ELearningModel.GiangVien" Width="1.5" PointX="3" PointY="2.25" />
         <EntityTypeShape EntityType="ELearningModel.HocVien" Width="1.5" PointX="5.25" PointY="12" />
-        <EntityTypeShape EntityType="ELearningModel.KeyAPI" Width="1.5" PointX="7.75" PointY="8.375" />
+        <EntityTypeShape EntityType="ELearningModel.KeyAPI" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="ELearningModel.Lession" Width="1.5" PointX="10.5" PointY="15.375" />
+        <EntityTypeShape EntityType="ELearningModel.Lession_Topic" Width="1.5" PointX="15" PointY="15" />
+        <EntityTypeShape EntityType="ELearningModel.LessionView" Width="1.5" PointX="12.75" PointY="16.25" />
         <EntityTypeShape EntityType="ELearningModel.Lop" Width="1.5" PointX="7.5" PointY="3.5" />
         <EntityTypeShape EntityType="ELearningModel.LopKiemTra" Width="1.5" PointX="12.75" PointY="8.5" />
         <EntityTypeShape EntityType="ELearningModel.MonHoc" Width="1.5" PointX="0.75" PointY="6.875" />
-        <EntityTypeShape EntityType="ELearningModel.NguoiDung" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="ELearningModel.NguoiDung" Width="1.5" PointX="8.25" PointY="9.875" />
+        <EntityTypeShape EntityType="ELearningModel.Question" Width="1.5" PointX="10.5" PointY="19.75" />
         <EntityTypeShape EntityType="ELearningModel.Reply" Width="1.5" PointX="15" PointY="4.375" />
         <EntityTypeShape EntityType="ELearningModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="ELearningModel.Topic" Width="1.5" PointX="12.75" PointY="13.25" />
         <EntityTypeShape EntityType="ELearningModel.ThongBao" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ELearningModel.TrangThaiHeThong" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="ELearningModel.TrangThaiHeThong" Width="1.5" PointX="11.75" PointY="0.875" />
+        <AssociationConnector Association="ELearningModel.FK_Answer_Question" />
         <AssociationConnector Association="ELearningModel.FK_BaiGiang_GiangVien" />
         <AssociationConnector Association="ELearningModel.FK_BaiLam_HocVien1" />
         <AssociationConnector Association="ELearningModel.FK_BaiLam_LopKiemTra" />
         <AssociationConnector Association="ELearningModel.FK_CauHoi_Chuong" />
         <AssociationConnector Association="ELearningModel.FK_CauHoi_GiangVien" />
+        <AssociationConnector Association="ELearningModel.FK_Comment_Course" />
+        <AssociationConnector Association="ELearningModel.FK_Comment_Lession" />
         <AssociationConnector Association="ELearningModel.FK_Comment_Lop" />
         <AssociationConnector Association="ELearningModel.FK_Comment_TaiKhoan" />
         <AssociationConnector Association="ELearningModel.FK_Reply_Comment1" />
         <AssociationConnector Association="ELearningModel.FK_Course_NguoiDung" />
         <AssociationConnector Association="ELearningModel.FK_CourseDetail_Course" />
+        <AssociationConnector Association="ELearningModel.FK_Lession_Course" />
+        <AssociationConnector Association="ELearningModel.FK_Topic_Course" />
         <AssociationConnector Association="ELearningModel.FK_CourseDetail_NguoiDung" />
         <AssociationConnector Association="ELearningModel.FK_Chuong_MonHoc" />
         <AssociationConnector Association="ELearningModel.FK_DeThi_GiangVien" />
@@ -44,10 +55,15 @@
         <AssociationConnector Association="ELearningModel.FK_Lop_GiangVien1" />
         <AssociationConnector Association="ELearningModel.FK_ThongBao_GiangVien" />
         <AssociationConnector Association="ELearningModel.FK_HocVien_TaiKhoan" />
+        <AssociationConnector Association="ELearningModel.FK_Lession_Topic_Lession" />
+        <AssociationConnector Association="ELearningModel.FK_LessionView_Lession" />
+        <AssociationConnector Association="ELearningModel.FK_Lession_Topic_Topic" />
+        <AssociationConnector Association="ELearningModel.FK_LessionView_NguoiDung" />
         <AssociationConnector Association="ELearningModel.FK_Lop_MonHoc1" />
         <AssociationConnector Association="ELearningModel.FK_ThongBao_Lop" />
         <AssociationConnector Association="ELearningModel.FK_LopKiemTra_MonHoc" />
         <AssociationConnector Association="ELearningModel.FK_NguoiDung_TaiKhoan" />
+        <AssociationConnector Association="ELearningModel.FK_Question_NguoiDung" />
         <AssociationConnector Association="ELearningModel.FK_Reply_TaiKhoan" />
         <AssociationConnector Association="ELearningModel.ChiTietDeThi" />
         <AssociationConnector Association="ELearningModel.ChiTietLop" />

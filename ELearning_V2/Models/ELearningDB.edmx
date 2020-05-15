@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ELearningModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="QuesionID" Type="bigint" />
+          <Property Name="Image" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="BaiGiang">
           <Key>
             <PropertyRef Name="MaBaiGiang" />
@@ -59,8 +68,11 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar(max)" />
           <Property Name="CreateDate" Type="date" />
-          <Property Name="CreateBy" Type="bigint" Nullable="false" />
-          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="CreateBy" Type="bigint" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="CourseID" Type="bigint" />
+          <Property Name="LessionID" Type="bigint" />
+          <Property Name="Rate" Type="int" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -77,6 +89,7 @@
           <Property Name="Schedule" Type="nvarchar" MaxLength="50" />
           <Property Name="Condition" Type="nvarchar" MaxLength="2000" />
           <Property Name="Type" Type="int" />
+          <Property Name="Rate" Type="float" />
         </EntityType>
         <EntityType Name="CourseDetail">
           <Key>
@@ -165,6 +178,35 @@
           <Property Name="Value" Type="varchar" MaxLength="8" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Lession">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="URL" Type="varchar" MaxLength="200" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CourseID" Type="bigint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Image" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lession_Topic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LessionID" Type="bigint" />
+          <Property Name="TopicID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="LessionView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="LessionID" Type="bigint" />
+        </EntityType>
         <EntityType Name="Lop">
           <Key>
             <PropertyRef Name="MaLop" />
@@ -217,6 +259,21 @@
           <Property Name="Image" Type="varchar" MaxLength="30" />
           <Property Name="SoDu" Type="bigint" />
           <Property Name="MaXacNhan" Type="nchar" MaxLength="32" />
+          <Property Name="Info" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="AnswerID" Type="bigint" />
+          <Property Name="Image" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Solution" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -238,6 +295,14 @@
           <Property Name="Role" Type="int" Nullable="false" />
           <Property Name="TrangThai" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="CourseID" Type="bigint" />
+        </EntityType>
         <EntityType Name="ThongBao">
           <Key>
             <PropertyRef Name="ID" />
@@ -256,6 +321,18 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Answer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="QuesionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BaiGiang_GiangVien">
           <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="1" />
           <End Role="BaiGiang" Type="Self.BaiGiang" Multiplicity="*" />
@@ -320,8 +397,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comment_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Lession">
+          <End Role="Lession" Type="Self.Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_Lop">
-          <End Role="Lop" Type="Self.Lop" Multiplicity="1">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -335,7 +440,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_TaiKhoan">
-          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -361,7 +466,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseDetail_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CourseDetail" Type="Self.CourseDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
@@ -544,6 +651,70 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Lession_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Lession" Type="Self.Lession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lession_Topic_Lession">
+          <End Role="Lession" Type="Self.Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lession_Topic" Type="Self.Lession_Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession_Topic">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lession_Topic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="Lession_Topic" Type="Self.Lession_Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession_Topic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessionView_Lession">
+          <End Role="Lession" Type="Self.Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LessionView" Type="Self.LessionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessionView">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessionView_NguoiDung">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="LessionView" Type="Self.LessionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessionView">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lop_GiangVien1">
           <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="0..1" />
           <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
@@ -630,6 +801,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Question_NguoiDung">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reply_Comment1">
           <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
           <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
@@ -653,6 +836,20 @@
             </Principal>
             <Dependent Role="Reply">
               <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topic_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Topic">
+              <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -683,6 +880,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ELearningModelStoreContainer">
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BaiGiang" EntityType="Self.BaiGiang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BaiLam" EntityType="Self.BaiLam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CauHoi" EntityType="Self.CauHoi" Schema="dbo" store:Type="Tables" />
@@ -697,15 +895,24 @@
           <EntitySet Name="HocVien" EntityType="Self.HocVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HocVienKT" EntityType="Self.HocVienKT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KeyAPI" EntityType="Self.KeyAPI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lession" EntityType="Self.Lession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lession_Topic" EntityType="Self.Lession_Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessionView" EntityType="Self.LessionView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LopBaiGiang" EntityType="Self.LopBaiGiang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LopKiemTra" EntityType="Self.LopKiemTra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reply" EntityType="Self.Reply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrangThaiHeThong" EntityType="Self.TrangThaiHeThong" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Answer_Question" Association="Self.FK_Answer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
           <AssociationSet Name="FK_BaiGiang_GiangVien" Association="Self.FK_BaiGiang_GiangVien">
             <End Role="GiangVien" EntitySet="GiangVien" />
             <End Role="BaiGiang" EntitySet="BaiGiang" />
@@ -725,6 +932,14 @@
           <AssociationSet Name="FK_CauHoi_GiangVien" Association="Self.FK_CauHoi_GiangVien">
             <End Role="GiangVien" EntitySet="GiangVien" />
             <End Role="CauHoi" EntitySet="CauHoi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Course" Association="Self.FK_Comment_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Lession" Association="Self.FK_Comment_Lession">
+            <End Role="Lession" EntitySet="Lession" />
+            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Lop" Association="Self.FK_Comment_Lop">
             <End Role="Lop" EntitySet="Lop" />
@@ -794,6 +1009,26 @@
             <End Role="LopKiemTra" EntitySet="LopKiemTra" />
             <End Role="HocVienKT" EntitySet="HocVienKT" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lession_Course" Association="Self.FK_Lession_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Lession" EntitySet="Lession" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lession_Topic_Lession" Association="Self.FK_Lession_Topic_Lession">
+            <End Role="Lession" EntitySet="Lession" />
+            <End Role="Lession_Topic" EntitySet="Lession_Topic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lession_Topic_Topic" Association="Self.FK_Lession_Topic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="Lession_Topic" EntitySet="Lession_Topic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessionView_Lession" Association="Self.FK_LessionView_Lession">
+            <End Role="Lession" EntitySet="Lession" />
+            <End Role="LessionView" EntitySet="LessionView" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessionView_NguoiDung" Association="Self.FK_LessionView_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="LessionView" EntitySet="LessionView" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lop_GiangVien1" Association="Self.FK_Lop_GiangVien1">
             <End Role="GiangVien" EntitySet="GiangVien" />
             <End Role="Lop" EntitySet="Lop" />
@@ -822,6 +1057,10 @@
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
             <End Role="NguoiDung" EntitySet="NguoiDung" />
           </AssociationSet>
+          <AssociationSet Name="FK_Question_NguoiDung" Association="Self.FK_Question_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reply_Comment1" Association="Self.FK_Reply_Comment1">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="Reply" EntitySet="Reply" />
@@ -829,6 +1068,10 @@
           <AssociationSet Name="FK_Reply_TaiKhoan" Association="Self.FK_Reply_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
             <End Role="Reply" EntitySet="Reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topic_Course" Association="Self.FK_Topic_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Topic" EntitySet="Topic" />
           </AssociationSet>
           <AssociationSet Name="FK_ThongBao_GiangVien" Association="Self.FK_ThongBao_GiangVien">
             <End Role="GiangVien" EntitySet="GiangVien" />
@@ -844,6 +1087,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ELearningModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ELearningDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="ELearningModel.Answer" />
           <EntitySet Name="BaiGiangs" EntityType="ELearningModel.BaiGiang" />
           <EntitySet Name="BaiLams" EntityType="ELearningModel.BaiLam" />
           <EntitySet Name="CauHois" EntityType="ELearningModel.CauHoi" />
@@ -855,14 +1099,23 @@
           <EntitySet Name="GiangViens" EntityType="ELearningModel.GiangVien" />
           <EntitySet Name="HocViens" EntityType="ELearningModel.HocVien" />
           <EntitySet Name="KeyAPIs" EntityType="ELearningModel.KeyAPI" />
+          <EntitySet Name="Lessions" EntityType="ELearningModel.Lession" />
+          <EntitySet Name="Lession_Topic" EntityType="ELearningModel.Lession_Topic" />
+          <EntitySet Name="LessionViews" EntityType="ELearningModel.LessionView" />
           <EntitySet Name="Lops" EntityType="ELearningModel.Lop" />
           <EntitySet Name="LopKiemTras" EntityType="ELearningModel.LopKiemTra" />
           <EntitySet Name="MonHocs" EntityType="ELearningModel.MonHoc" />
           <EntitySet Name="NguoiDungs" EntityType="ELearningModel.NguoiDung" />
+          <EntitySet Name="Questions" EntityType="ELearningModel.Question" />
           <EntitySet Name="Replies" EntityType="ELearningModel.Reply" />
           <EntitySet Name="TaiKhoans" EntityType="ELearningModel.TaiKhoan" />
+          <EntitySet Name="Topics" EntityType="ELearningModel.Topic" />
           <EntitySet Name="ThongBaos" EntityType="ELearningModel.ThongBao" />
           <EntitySet Name="TrangThaiHeThongs" EntityType="ELearningModel.TrangThaiHeThong" />
+          <AssociationSet Name="FK_Answer_Question" Association="ELearningModel.FK_Answer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
           <AssociationSet Name="FK_BaiGiang_GiangVien" Association="ELearningModel.FK_BaiGiang_GiangVien">
             <End Role="GiangVien" EntitySet="GiangViens" />
             <End Role="BaiGiang" EntitySet="BaiGiangs" />
@@ -883,6 +1136,14 @@
             <End Role="GiangVien" EntitySet="GiangViens" />
             <End Role="CauHoi" EntitySet="CauHois" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_Course" Association="ELearningModel.FK_Comment_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Lession" Association="ELearningModel.FK_Comment_Lession">
+            <End Role="Lession" EntitySet="Lessions" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_Lop" Association="ELearningModel.FK_Comment_Lop">
             <End Role="Lop" EntitySet="Lops" />
             <End Role="Comment" EntitySet="Comments" />
@@ -902,6 +1163,14 @@
           <AssociationSet Name="FK_CourseDetail_Course" Association="ELearningModel.FK_CourseDetail_Course">
             <End Role="Course" EntitySet="Courses" />
             <End Role="CourseDetail" EntitySet="CourseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lession_Course" Association="ELearningModel.FK_Lession_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Lession" EntitySet="Lessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topic_Course" Association="ELearningModel.FK_Topic_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Topic" EntitySet="Topics" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseDetail_NguoiDung" Association="ELearningModel.FK_CourseDetail_NguoiDung">
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
@@ -943,6 +1212,22 @@
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="HocVien" EntitySet="HocViens" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lession_Topic_Lession" Association="ELearningModel.FK_Lession_Topic_Lession">
+            <End Role="Lession" EntitySet="Lessions" />
+            <End Role="Lession_Topic" EntitySet="Lession_Topic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessionView_Lession" Association="ELearningModel.FK_LessionView_Lession">
+            <End Role="Lession" EntitySet="Lessions" />
+            <End Role="LessionView" EntitySet="LessionViews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lession_Topic_Topic" Association="ELearningModel.FK_Lession_Topic_Topic">
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="Lession_Topic" EntitySet="Lession_Topic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessionView_NguoiDung" Association="ELearningModel.FK_LessionView_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="LessionView" EntitySet="LessionViews" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lop_MonHoc1" Association="ELearningModel.FK_Lop_MonHoc1">
             <End Role="MonHoc" EntitySet="MonHocs" />
             <End Role="Lop" EntitySet="Lops" />
@@ -958,6 +1243,10 @@
           <AssociationSet Name="FK_NguoiDung_TaiKhoan" Association="ELearningModel.FK_NguoiDung_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_NguoiDung" Association="ELearningModel.FK_Question_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_Reply_TaiKhoan" Association="ELearningModel.FK_Reply_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
@@ -980,6 +1269,16 @@
             <End Role="Lop" EntitySet="Lops" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuesionID" Type="Int64" />
+          <Property Name="Image" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Question" Relationship="ELearningModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
+        </EntityType>
         <EntityType Name="BaiGiang">
           <Key>
             <PropertyRef Name="MaBaiGiang" />
@@ -1041,8 +1340,13 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="0" />
-          <Property Name="CreateBy" Type="Int64" Nullable="false" />
-          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="CreateBy" Type="Int64" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="CourseID" Type="Int64" />
+          <Property Name="LessionID" Type="Int64" />
+          <Property Name="Rate" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Comment_Course" FromRole="Comment" ToRole="Course" />
+          <NavigationProperty Name="Lession" Relationship="ELearningModel.FK_Comment_Lession" FromRole="Comment" ToRole="Lession" />
           <NavigationProperty Name="Lop" Relationship="ELearningModel.FK_Comment_Lop" FromRole="Comment" ToRole="Lop" />
           <NavigationProperty Name="TaiKhoan" Relationship="ELearningModel.FK_Comment_TaiKhoan" FromRole="Comment" ToRole="TaiKhoan" />
           <NavigationProperty Name="Replies" Relationship="ELearningModel.FK_Reply_Comment1" FromRole="Comment" ToRole="Reply" />
@@ -1062,8 +1366,12 @@
           <Property Name="Schedule" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Condition" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" />
+          <Property Name="Rate" Type="Double" />
+          <NavigationProperty Name="Comments" Relationship="ELearningModel.FK_Comment_Course" FromRole="Course" ToRole="Comment" />
           <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="Course" ToRole="NguoiDung" />
           <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
+          <NavigationProperty Name="Lessions" Relationship="ELearningModel.FK_Lession_Course" FromRole="Course" ToRole="Lession" />
+          <NavigationProperty Name="Topics" Relationship="ELearningModel.FK_Topic_Course" FromRole="Course" ToRole="Topic" />
         </EntityType>
         <EntityType Name="CourseDetail">
           <Key>
@@ -1147,6 +1455,43 @@
           <Property Name="Value" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Lession">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CourseID" Type="Int64" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comments" Relationship="ELearningModel.FK_Comment_Lession" FromRole="Lession" ToRole="Comment" />
+          <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Lession_Course" FromRole="Lession" ToRole="Course" />
+          <NavigationProperty Name="Lession_Topic" Relationship="ELearningModel.FK_Lession_Topic_Lession" FromRole="Lession" ToRole="Lession_Topic" />
+          <NavigationProperty Name="LessionViews" Relationship="ELearningModel.FK_LessionView_Lession" FromRole="Lession" ToRole="LessionView" />
+        </EntityType>
+        <EntityType Name="Lession_Topic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LessionID" Type="Int64" />
+          <Property Name="TopicID" Type="Int64" />
+          <NavigationProperty Name="Lession" Relationship="ELearningModel.FK_Lession_Topic_Lession" FromRole="Lession_Topic" ToRole="Lession" />
+          <NavigationProperty Name="Topic" Relationship="ELearningModel.FK_Lession_Topic_Topic" FromRole="Lession_Topic" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="LessionView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="LessionID" Type="Int64" />
+          <NavigationProperty Name="Lession" Relationship="ELearningModel.FK_LessionView_Lession" FromRole="LessionView" ToRole="Lession" />
+          <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_LessionView_NguoiDung" FromRole="LessionView" ToRole="NguoiDung" />
+        </EntityType>
         <EntityType Name="Lop">
           <Key>
             <PropertyRef Name="MaLop" />
@@ -1206,9 +1551,28 @@
           <Property Name="Image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SoDu" Type="Int64" />
           <Property Name="MaXacNhan" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Courses" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="NguoiDung" ToRole="Course" />
           <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_NguoiDung" FromRole="NguoiDung" ToRole="CourseDetail" />
+          <NavigationProperty Name="LessionViews" Relationship="ELearningModel.FK_LessionView_NguoiDung" FromRole="NguoiDung" ToRole="LessionView" />
           <NavigationProperty Name="TaiKhoan" Relationship="ELearningModel.FK_NguoiDung_TaiKhoan" FromRole="NguoiDung" ToRole="TaiKhoan" />
+          <NavigationProperty Name="Questions" Relationship="ELearningModel.FK_Question_NguoiDung" FromRole="NguoiDung" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerID" Type="Int64" />
+          <Property Name="Image" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="Level" Type="Int32" />
+          <NavigationProperty Name="Answers" Relationship="ELearningModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
+          <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Question_NguoiDung" FromRole="Question" ToRole="NguoiDung" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -1237,6 +1601,16 @@
           <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_NguoiDung_TaiKhoan" FromRole="TaiKhoan" ToRole="NguoiDung" />
           <NavigationProperty Name="Replies" Relationship="ELearningModel.FK_Reply_TaiKhoan" FromRole="TaiKhoan" ToRole="Reply" />
         </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CourseID" Type="Int64" />
+          <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Topic_Course" FromRole="Topic" ToRole="Course" />
+          <NavigationProperty Name="Lession_Topic" Relationship="ELearningModel.FK_Lession_Topic_Topic" FromRole="Topic" ToRole="Lession_Topic" />
+        </EntityType>
         <EntityType Name="ThongBao">
           <Key>
             <PropertyRef Name="ID" />
@@ -1257,6 +1631,18 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Boolean" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Answer_Question">
+          <End Type="ELearningModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="ELearningModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="QuesionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BaiGiang_GiangVien">
           <End Type="ELearningModel.GiangVien" Role="GiangVien" Multiplicity="1" />
           <End Type="ELearningModel.BaiGiang" Role="BaiGiang" Multiplicity="*" />
@@ -1321,8 +1707,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comment_Course">
+          <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ELearningModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Lession">
+          <End Type="ELearningModel.Lession" Role="Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ELearningModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_Lop">
-          <End Type="ELearningModel.Lop" Role="Lop" Multiplicity="1">
+          <End Type="ELearningModel.Lop" Role="Lop" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="ELearningModel.Comment" Role="Comment" Multiplicity="*" />
@@ -1336,7 +1750,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_TaiKhoan">
-          <End Type="ELearningModel.TaiKhoan" Role="TaiKhoan" Multiplicity="1">
+          <End Type="ELearningModel.TaiKhoan" Role="TaiKhoan" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="ELearningModel.Comment" Role="Comment" Multiplicity="*" />
@@ -1374,13 +1788,41 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CourseDetail_Course">
-          <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ELearningModel.CourseDetail" Role="CourseDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="CourseDetail">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lession_Course">
+          <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="ELearningModel.Lession" Role="Lession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topic_Course">
+          <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Topic">
               <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1509,6 +1951,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Lession_Topic_Lession">
+          <End Type="ELearningModel.Lession" Role="Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ELearningModel.Lession_Topic" Role="Lession_Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession_Topic">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessionView_Lession">
+          <End Type="ELearningModel.Lession" Role="Lession" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ELearningModel.LessionView" Role="LessionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lession">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessionView">
+              <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lession_Topic_Topic">
+          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="0..1" />
+          <End Type="ELearningModel.Lession_Topic" Role="Lession_Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lession_Topic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessionView_NguoiDung">
+          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="ELearningModel.LessionView" Role="LessionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessionView">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lop_MonHoc1">
           <End Type="ELearningModel.MonHoc" Role="MonHoc" Multiplicity="0..1" />
           <End Type="ELearningModel.Lop" Role="Lop" Multiplicity="*" />
@@ -1559,6 +2053,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Question_NguoiDung">
+          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="ELearningModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reply_TaiKhoan">
           <End Type="ELearningModel.TaiKhoan" Role="TaiKhoan" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1589,12 +2095,22 @@
           <End Type="ELearningModel.BaiGiang" Role="BaiGiang" Multiplicity="*" />
           <End Type="ELearningModel.Lop" Role="Lop" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ELearningModelStoreContainer" CdmEntityContainer="ELearningDB">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="ELearningModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="QuesionID" ColumnName="QuesionID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BaiGiangs">
             <EntityTypeMapping TypeName="ELearningModel.BaiGiang">
               <MappingFragment StoreEntitySet="BaiGiang">
@@ -1647,6 +2163,9 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="ELearningModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="LessionID" ColumnName="LessionID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -1658,6 +2177,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="ELearningModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Condition" ColumnName="Condition" />
                 <ScalarProperty Name="Schedule" ColumnName="Schedule" />
@@ -1741,6 +2261,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Lessions">
+            <EntityTypeMapping TypeName="ELearningModel.Lession">
+              <MappingFragment StoreEntitySet="Lession">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lession_Topic">
+            <EntityTypeMapping TypeName="ELearningModel.Lession_Topic">
+              <MappingFragment StoreEntitySet="Lession_Topic">
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="LessionID" ColumnName="LessionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessionViews">
+            <EntityTypeMapping TypeName="ELearningModel.LessionView">
+              <MappingFragment StoreEntitySet="LessionView">
+                <ScalarProperty Name="LessionID" ColumnName="LessionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Lops">
             <EntityTypeMapping TypeName="ELearningModel.Lop">
               <MappingFragment StoreEntitySet="Lop">
@@ -1781,11 +2333,27 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="ELearningModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="MaXacNhan" ColumnName="MaXacNhan" />
                 <ScalarProperty Name="SoDu" ColumnName="SoDu" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="ELearningModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1808,6 +2376,15 @@
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="ELearningModel.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

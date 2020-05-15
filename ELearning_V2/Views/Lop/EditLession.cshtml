@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "EditLession";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+@model ELearning_V2.DTO.LessionDTO
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Bài giảng</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/DayThem">Dạy thêm</a>
+                    <a href="~/Lop/CourseDetail/@Model.CourseID">Course</a>
+                    <a href="#">Tạo mới bài giảng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team_area p_120" ng-app="EditLessionApp" ng-controller="EditLessionController" ng-init="InitLessionID('@Model.ID')">
+    <div class="container">
+        <div class="form-horizontal">
+            <h2>Tạo bài giảng mới</h2>
+            <hr />
+            <div class="modal-body" style="margin-left:20px">
+                <div class="form-group">
+                    <label class="control-label"> Tên bài giảng </label>
+                    <input class="form-control" ng-model="Lession.Name" required placeholder="Nhập tên bài giảng..." />
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label class="control-label"> Image </label>
+                        <br />
+                        <div>
+                            <input class="btn btn-outline-dark" type="file" ng-files="getTheFiles($files)" id="file" accept="image/*" />
+                        </div>
+                        <br />
+                        <img id="output" width="500" height="300" src="~/Content/img/LessionImage/{{Lession.Image}}" alt="Card image cap">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label class="control-label"> Liên kết video </label>
+                        <br />
+                        <div>
+                            <input class="form-control" ng-model="Lession.URL" id="URL" placeholder="Liên kết..." />
+                        </div>
+                        <br />
+                        <iframe id="Video" ng-src="{{URL}}" width="500" height="300" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung</label>
+                    <div>
+                        <textarea id="Content"></textarea>
+                        <script src="~/Assets/Plugin/ckeditor/ckeditor.js"></script>
+                        <script>
+                            CKEDITOR.replace("Content");
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a class="btn btn-dark text-info" ng-click="save()">
+                            Save
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#" onclick="location.href='@Url.Action("QuanLyBaiGiang","BaiGiang")'">Quay lại</a>
+        </div>
+    </div>
+</section>
+<script src="~/Content/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/EditLession.js"></script>
+
+<script>
+    document.getElementById('file').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById("output").src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+        // Not supported
+        else {
+            // fallback -- perhaps submit the input to an iframe and temporarily store
+            // them on the server until the user's session ends.
+        }
+    }
+    document.getElementById('URL').onblur = function () {
+        var a = document.getElementById('URL').value;
+        var b = a.replace("watch?v=", "embed/");
+        console.log(b);
+        document.getElementById('Video').src = b;
+
+    }
+
+</script>

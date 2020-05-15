@@ -19,6 +19,8 @@ namespace ELearning_V2.Models
         {
             this.Courses = new HashSet<Course>();
             this.CourseDetails = new HashSet<CourseDetail>();
+            this.LessionViews = new HashSet<LessionView>();
+            this.Questions = new HashSet<Question>();
         }
     
         public long ID { get; set; }
@@ -27,11 +29,16 @@ namespace ELearning_V2.Models
         public string Image { get; set; }
         public Nullable<long> SoDu { get; set; }
         public string MaXacNhan { get; set; }
+        public string Info { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseDetail> CourseDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LessionView> LessionViews { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

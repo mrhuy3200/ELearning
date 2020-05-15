@@ -46,7 +46,30 @@ namespace ELearning_V2.Controllers
                     com.NoiDung = item.NoiDung;
                     com.CreateDate = item.CreateDate.Value.ToString("dd/MM/yyyy hh:mm tt");
                     com.CreateBy = item.CreateBy;
-                    com.ClassID = item.ClassID;
+                    if (item.ClassID == null)
+                    {
+                        com.ClassID = -1;
+                    }
+                    else
+                    {
+                        com.ClassID = (int)item.ClassID;
+                    }
+                    if (item.CourseID == null)
+                    {
+                        com.CourseID = -1;
+                    }
+                    else
+                    {
+                        com.CourseID = (int)item.CourseID;
+                    }
+                    if (item.LessionID == null)
+                    {
+                        com.LessionID = -1;
+                    }
+                    else
+                    {
+                        com.LessionID = (int)item.LessionID;
+                    }
                     com.HoTen = getNamebyID(item.TaiKhoan.ID);
                     List<Reply> lstRep = db.Replies.Where(x => x.CommentID == item.ID).ToList();
                     List<CommentModel> reps = new List<CommentModel>();

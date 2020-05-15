@@ -17,7 +17,10 @@ namespace ELearning_V2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
+            this.Comments = new HashSet<Comment>();
             this.CourseDetails = new HashSet<CourseDetail>();
+            this.Lessions = new HashSet<Lession>();
+            this.Topics = new HashSet<Topic>();
         }
     
         public long ID { get; set; }
@@ -31,9 +34,16 @@ namespace ELearning_V2.Models
         public string Schedule { get; set; }
         public string Condition { get; set; }
         public Nullable<int> Type { get; set; }
+        public Nullable<double> Rate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseDetail> CourseDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lession> Lessions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Topic> Topics { get; set; }
     }
 }

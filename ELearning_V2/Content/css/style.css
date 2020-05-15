@@ -1235,7 +1235,7 @@ button:focus {
 }
 
 .comments-area h4 {
-	text-align: center;
+	text-align: left;
 	margin-bottom: 50px;
 	color: #222222;
 	font-size: 18px;
