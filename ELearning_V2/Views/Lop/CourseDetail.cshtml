@@ -37,25 +37,28 @@
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả</a>
+                        <a class="nav-link" id="Description-tab" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Mô tả</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Đánh giá</a>
+                        <a class="nav-link" id="Comments-tab" data-toggle="tab" href="#Comments" role="tab" aria-controls="Comments" aria-selected="false">Đánh giá</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Nội dung bài giảng</a>
+                        <a class="nav-link" id="Lession-tab" data-toggle="tab" href="#Lession" role="tab" aria-controls="Lession" aria-selected="false">Nội dung bài giảng</a>
+                    </li>
+                    <li class="active">
+                        <a class="nav-link active" data-toggle="tab" href="#Member">Danh sách học viên</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Danh sách học viên</a>
+                        <a class="nav-link" id="Testing-tab" data-toggle="tab" href="#Testing" role="tab" aria-controls="Testing" aria-selected="false">Bài tập</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade" id="Description" role="tabpanel" aria-labelledby="Description-tab">
                         <div class="objctive_text">
                             <p>{{Lop.Description}}</p>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade" id="Comments" role="tabpanel" aria-labelledby="Comments-tab">
                         <div class="comments-area">
                             <div>
                                 <div style="font-size:30px">
@@ -236,16 +239,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade" id="Lession" role="tabpanel" aria-labelledby="Lession-tab">
                         <div class="comments-area">
                             <div class="row" style="margin:auto;">
                                 <h4 class="col-md-11">Bài giảng: {{Lessions.length}}</h4>
-                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" ng-click="AddLession()">
+                                <a class="col-md-1 btn btn-dark text-success" data-target="#AddLession" data-toggle="modal" role="button" style="height:35px" ng-click="AddLession()">
                                     <i class="fa fa-plus"></i>
                                 </a>
                                 <div class="collapse" id="Add" style="position:absolute;right:115px;">
                                     <div class="input-group">
                                         <input class="form-control" ng-model="Username" type="text" placeholder="Nhập Username..." aria-label="Add" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:15px">
+                                <div class="col-md-4" style="display:flex">
+                                    <div id="SearchQuestion" class="input-group">
+                                        <input class="form-control" ng-model="LSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 offset-md-4" style="display:flex">
+                                    <div class="col-md-6">
+                                        <label style="width:max-content">Page size:</label>
+                                    </div>
+                                    <div class="input-group col-md-6">
+                                        <input class="form-control" type="number" ng-model="LpageSize" min="4" max="10" />
                                     </div>
                                 </div>
                             </div>
@@ -257,46 +275,51 @@
                                         <div class="visit">Lượt xem</div>
                                         <div class="country">Trạng thái</div>
                                     </div>
-                                    <div class="huy" ng-repeat="l in Lessions">
+                                    <div class="huy" dir-paginate="l in Lessions | filter:LSearchKey | itemsPerPage: LpageSize" current-page="LcurrentPage" pagination-id="ListLession">
                                         <div class="table-row ">
-                                            <div class="serial">{{$index+1}}</div>
+                                            <div class="serial">{{$index + (LcurrentPage-1)*LpageSize+1}}</div>
                                             <div class="percentage">{{l.Name}}</div>
                                             <div class="visit">{{l.View}}</div>
                                             <div class="country">
                                                 <div style="width:50px">
-                                                    <label ng-if="l.Status == 1">Publish</label>
-                                                    <label ng-if="l.Status == 0">Close</label>
-                                                    <label ng-if="l.Status == 2">Private</label>
+                                                    <label ng-if="l.Course_LessionStatus == 1">Publish</label>
+                                                    <label ng-if="l.Course_LessionStatus == 0">Close</label>
+                                                    <label ng-if="l.Course_LessionStatus == 2">Private</label>
                                                 </div>
                                                 <div class="dropdown">
                                                     <a class="btn dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown" data-target="Status{{$index}}"><i class="lnr lnr-cog"></i></a>
                                                     <div class="dropdown-menu" id="Status{{$index}}">
-                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 0">Close</a>
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 0" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 0" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Course_LessionStatus == 0">Close</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 0" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 0" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
 
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 1" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 1" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
-                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 1">Publish</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 1" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 1" ng-click="ChangeLessionStatus(l.ID,2)">Private</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Course_LessionStatus == 1">Publish</a>
 
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 2" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
-                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Status == 2">Private</a>
-                                                        <a class="btn dropdown-item" ng-if="l.Status == 2" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 2" ng-click="ChangeLessionStatus(l.ID,0)">Close</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="l.Course_LessionStatus == 2">Private</a>
+                                                        <a class="btn dropdown-item" ng-if="l.Course_LessionStatus == 2" ng-click="ChangeLessionStatus(l.ID,1)">Publish</a>
 
                                                         <div class="dropdown-divider"></div>
                                                         <a class="btn dropdown-item" ng-click="ViewLession(l.ID)">View</a>
                                                         <a class="btn dropdown-item" ng-click="EditLession(l.ID)">Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="RemoveLession(l.ID)">Remove</a>
+                                                        <a class="btn dropdown-item" ng-click="RemoveLessionFromCourse(l.ID)">Remove</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="other-controller">
+                                        <div class="col-md-3 offset-md-9">
+                                            <dir-pagination-controls boundary-links="true" pagination-id="ListLession"></dir-pagination-controls>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                    <div class="tab-pane fade show active" id="Member" role="tabpanel" aria-labelledby="Member-tab">
                         <div class="comments-area">
                             <div class="row" style="margin:auto;">
                                 <h4 class="col-md-11">Học viên: {{Lop.NumOfPeo}}</h4>
@@ -306,6 +329,21 @@
                                 <div class="collapse" id="Add" style="position:absolute;right:115px;">
                                     <div class="input-group">
                                         <input class="form-control" ng-model="Username" type="text" placeholder="Nhập Username..." aria-label="Add" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:15px">
+                                <div class="col-md-4" style="display:flex">
+                                    <div id="SearchQuestion" class="input-group">
+                                        <input class="form-control" ng-model="MSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 offset-md-4" style="display:flex">
+                                    <div class="col-md-6">
+                                        <label style="width:max-content">Page size:</label>
+                                    </div>
+                                    <div class="input-group col-md-6">
+                                        <input class="form-control" type="number" ng-model="MpageSize" min="4" max="10" />
                                     </div>
                                 </div>
                             </div>
@@ -321,8 +359,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="m in Members | filter:SearchKey | itemsPerPage: 10" current-page="currentPage">
-                                            <td width="5%">{{$index+1}}</td>
+                                        <tr dir-paginate="m in Members | filter:MSearchKey | itemsPerPage: MPageSize" pagination-id="ListMember" current-page="McurrentPage">
+                                            <td width="5%">{{$index + (LcurrentPage-1)*LpageSize+1}}</td>
                                             <td width="15%" class="text-center">
                                                 <a href="#" data-toggle="modal" data-target="#Info" ng-click="Info(m)" title="Thông tin học viên" role="button" class="btn btn-light text-success"><i class="fa fa-info-circle"></i></a>
                                                 &nbsp;&nbsp;
@@ -333,8 +371,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="text-center">
-                                    <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+                            </div>
+                            <div class="other-controller">
+                                <div class="col-md-3 offset-md-9">
+                                    <dir-pagination-controls boundary-links="true" pagination-id="ListMember"></dir-pagination-controls>
                                 </div>
                             </div>
                             <div class="modal fade" id="Info" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -391,6 +431,72 @@
                         </div>
 
                     </div>
+                    <div class="tab-pane fade" id="Testing" role="tabpanel" aria-labelledby="Testing-tab">
+                        <div class="comments-area">
+                            <div class="row" style="margin:auto;">
+                                <h4 class="col-md-11">Bài tập: {{Tests.length}}</h4>
+                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" ng-click="AddTest()">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                            <div class="row" style="padding-bottom:15px">
+                                <div class="col-md-4" style="display:flex">
+                                    <div id="SearchQuestion" class="input-group">
+                                        <input class="form-control" ng-model="TSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 offset-md-4" style="display:flex">
+                                    <div class="col-md-6">
+                                        <label style="width:max-content">Page size:</label>
+                                    </div>
+                                    <div class="input-group col-md-6">
+                                        <input class="form-control" type="number" ng-model="TPageSize" min="4" max="10" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-table-wrap">
+                                <div class="progress-table" style="min-width:600px">
+                                    <div class="table-head">
+                                        <div class="serial">#</div>
+                                        <div class="percentage">Tên</div>
+                                        <div class="visit">Ngày tạo</div>
+                                        <div class="country">Trạng thái</div>
+                                    </div>
+                                    <div class="huy" dir-paginate="t in Tests | filter:TSearchKey | itemsPerPage: TPageSize" pagination-id="Tests" current-page="TcurrentPage">
+                                        <div class="table-row ">
+                                            <div class="serial">{{$index + (TcurrentPage-1)*TPageSize+1}}</div>
+                                            <div class="percentage">{{t.Name}}</div>
+                                            <div class="visit">{{t.CreateDate | date:"dd/MM/yyyy"}}</div>
+                                            <div class="country">
+                                                <div style="width:50px">
+                                                    <label ng-if="t.Status == 1">Mở</label>
+                                                    <label ng-if="t.Status == 0">Đóng</label>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a class="btn dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown" data-target="TStatus{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                                    <div class="dropdown-menu" id="TStatus{{$index}}">
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="t.Status == 0">Đóng</a>
+                                                        <a class="btn dropdown-item" ng-if="t.Status == 0" ng-click="ChangeTestStatus(t.ID,1)">Mở</a>
+
+                                                        <a class="btn dropdown-item" ng-if="t.Status == 1" ng-click="ChangeTestStatus(t.ID,0)">Đóng</a>
+                                                        <a class="dropdown-item" style="cursor:not-allowed" ng-if="t.Status == 1">Mở</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="btn dropdown-item" ng-click="ViewTest(l.ID)">View</a>
+                                                        <a class="btn dropdown-item" ng-click="RemoveTest(l.ID)">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="other-controller">
+                                        <div class="col-md-3 offset-md-9">
+                                            <dir-pagination-controls boundary-links="true" pagination-id="Tests"></dir-pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -403,53 +509,110 @@
                     </ul>
                     <a class="main_btn" href="#" data-toggle="modal" data-target="#Edit">Chỉnh sửa thông tin</a>
                 </div>
-                <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="text-info">Chỉnh sửa thông tin</h3>
-                                <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Chỉnh sửa thông tin</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal row" name="AddNewForm">
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Tên Lớp </label>
+                                <input class="form-control" name="Name" ng-model="Lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
                             </div>
-                            <div class="modal-body" style="margin-left:20px">
-                                <form class="form-horizontal row" name="AddNewForm">
-                                    <div class="col col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label"> Tên Lớp </label>
-                                            <input class="form-control" name="Name" ng-model="Lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
-                                        </div>
-                                        <div class="form-group" ng-if="type != 1">
-                                            <label class="control-label"> Học phí </label>
-                                            <input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"> Lịch học </label>
-                                            <input class="form-control" name="Schedule" ng-model="Lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
-                                            @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
-                                        </div>
-                                    </div>
-                                    <div class="col col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label"> Mô tả </label>
-                                            <textarea class="form-control" name="Description" ng-model="Lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"> Điều kiện </label>
-                                            <textarea class="form-control" name="Condition" ng-model="Lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div class="form-group" ng-if="type != 1">
+                                <label class="control-label"> Học phí </label>
+                                <input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="EditCourse()">Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="form-group">
+                                <label class="control-label"> Lịch học </label>
+                                <input class="form-control" name="Schedule" ng-model="Lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
+                                @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
                             </div>
                         </div>
-                    </div>
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Mô tả </label>
+                                <textarea class="form-control" name="Description" ng-model="Lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"> Điều kiện </label>
+                                <textarea class="form-control" name="Condition" ng-model="Lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="EditCourse()">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="AddLession" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thêm bài giảng</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <div class="row" style="padding-bottom:15px">
+                        <div class="col-md-4" style="display:flex">
+                            <div id="SearchQuestion" class="input-group">
+                                <input class="form-control" ng-model="LTASearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 offset-md-4" style="display:flex">
+                            <div class="col-md-6">
+                                <label style="width:max-content">Page size:</label>
+                            </div>
+                            <div class="input-group col-md-6">
+                                <input class="form-control" type="number" ng-model="LTAPageSize" min="4" max="10" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Thao tác</th>
+                                    <th>Tên bài giảng</th>
+                                    <th>Lượt xem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="l in LessionToAdds | filter:LTASearchKey | itemsPerPage: LTAPageSize" pagination-id="LessionToAdds" current-page="LTAcurrentPage">
+                                    <td width="5%">{{$index+1}}</td>
+                                    <td width="15%" class="text-center">
+                                        <a ng-click="AddLessionToCourse(l.ID)" title="Thêm vào lớp" role="button" class="btn btn-light text-success"><i class="fa fa-plus"></i></a>
+                                    </td>
+                                    <td width="15%">{{l.Name}}</td>
+                                    <td width="20%">{{l.View}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" pagination-id="LessionToAdds"></dir-pagination-controls>
+                        </div>
+                    </div>
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 <script src="~/Content/js/jquery-3.3.1.min.js"></script>

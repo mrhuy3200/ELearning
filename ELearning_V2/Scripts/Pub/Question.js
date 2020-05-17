@@ -16,6 +16,7 @@ CreateQuestionApp.directive('ngFiles', ['$parse', function ($parse) {
 CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http, $sce, $window) {
     $scope.Index = -1;
     InitCss();
+    LoadTopic();
     var formdata = new FormData();
     var file;
     function InitCss() {
@@ -98,12 +99,24 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
                 }
                 ListAns.push(AnswerDTO);
             }
+            var Topics = [];
+            var lstTopic = $("input[name='CheckTopic']:checked");
+            console.log(lstTopic)
+            for (var i = 0; i < lstTopic.length; i++) {
+                var Topic = {
+                    ID: lstTopic[i].value
+                };
+                Topics.push(Topic);
+            }
+            console.log(Topics);
+
             var QuestionDTO = {
                 Content: CKEDITOR.instances.QContent.getData(),
                 AnswerID: $("input[name='RightAnswer']:checked").val(),
                 Level: $("#Level").val(),
                 Solution: CKEDITOR.instances.SContent.getData(),
-                Answers: ListAns
+                Answers: ListAns,
+                Topics: Topics
             };
             console.log(QuestionDTO);
             $http({
@@ -136,7 +149,15 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
         $scope.FAnswers = [];
         $('#Level').val(0).niceSelect('update');
     }
-
+    function LoadTopic() {
+        $http({
+            method: 'GET',
+            url: '/Lop/GetTopic'
+        }).then(function successCallback(response) {
+            $scope.Topics = response.data;
+            console.log("Topics: " + $scope.Topics)
+        });
+    }
     function Validate() {
         if (CKEDITOR.instances.QContent.getData() == '') {
             console.log(CKEDITOR.instances.QContent.getData());

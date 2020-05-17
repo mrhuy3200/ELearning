@@ -18,6 +18,7 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
         $scope.QuestionID = QuestionID;
         $scope.Index = -1;
         InitCss();
+        LoadTopic();
         setTimeout(function () {
             GetQuestion();
         }, 1000);
@@ -51,6 +52,9 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                         var id = "radio" + i
                     }
                 }
+                for (var i = 0; i < $scope.Question.Topics; i++) {
+
+                }
                 $('#Level').val(response.data.Level).niceSelect('update');
 
                 setTimeout(function () {
@@ -62,6 +66,13 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                 alert("Không tìm thấy dữ liệu");
             }
         });
+    }
+    function FindTopic(TopicID) {
+        for (var i = 0; i < $scope.Topics.length; i++) {
+            if ($scope.Topics[i].ID == TopicID) {
+                return i;
+            }
+        }
     }
     function InitCss() {
         console.log("OK");
@@ -159,6 +170,17 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
             $scope.Question.Level = $("#Level").val();
             $scope.Question.Solution = CKEDITOR.instances.SContent.getData();
             $scope.Question.Answers = $scope.Answers;
+            var Topics = [];
+            var lstTopic = $("input[name='CheckTopic']:checked");
+            console.log(lstTopic)
+            for (var i = 0; i < lstTopic.length; i++) {
+                var Topic = {
+                    ID: lstTopic[i].value
+                };
+                Topics.push(Topic);
+            }
+            console.log(Topics);
+            $scope.Question.Topics = Topics;
             //var QuestionDTO = {
             //    Content: CKEDITOR.instances.QContent.getData(),
             //    AnswerID: $("input[name='RightAnswer']:checked").val(),
@@ -167,24 +189,24 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
             //    Answers: ListAns
             //};
             console.log($scope.Question);
-            $http({
-                method: 'POST',
-                url: '/Lop/EditQuestion',
-                data: JSON.stringify($scope.Question)
-            }).then(function successCallback(response) {
-                if (response.data == 1) {
-                    alert("Cập nhật thành công")
-                    $window.location.href = '/Lop/DayThem#NganHangCauHoi';
-                }
-                if (response.data == -1) {
-                    alert("Lưu thất bại");
-                    //$window.location.href = '/Lop/DayThem';
-                }
-                if (response.data == 0) {
-                    alert("Không đủ quyền hạn")
-                    $window.location.href = '/Lop/DayThem#NganHangCauHoi';
-                }
-            });
+            //$http({
+            //    method: 'POST',
+            //    url: '/Lop/EditQuestion',
+            //    data: JSON.stringify($scope.Question)
+            //}).then(function successCallback(response) {
+            //    if (response.data == 1) {
+            //        alert("Cập nhật thành công")
+            //        $window.location.href = '/Lop/DayThem#NganHangCauHoi';
+            //    }
+            //    if (response.data == -1) {
+            //        alert("Lưu thất bại");
+            //        //$window.location.href = '/Lop/DayThem';
+            //    }
+            //    if (response.data == 0) {
+            //        alert("Không đủ quyền hạn")
+            //        $window.location.href = '/Lop/DayThem#NganHangCauHoi';
+            //    }
+            //});
         }
     }
     $scope.clear = function () {
@@ -204,6 +226,15 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                 return $scope.Question.Answers[i];
             }
         }
+    }
+    function LoadTopic() {
+        $http({
+            method: 'GET',
+            url: '/Lop/GetTopic'
+        }).then(function successCallback(response) {
+            $scope.Topics = response.data;
+            console.log("Topics: " + $scope.Topics)
+        });
     }
     function Validate() {
         if (CKEDITOR.instances.QContent.getData() == '') {

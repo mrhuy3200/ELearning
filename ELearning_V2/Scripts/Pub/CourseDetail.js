@@ -17,8 +17,14 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     runWaiting();
     var formdata = new FormData();
     $scope.ID = function (id) {
-        $scope.currentPage = 1;
-        $scope.pageSize = 10;
+        $scope.LcurrentPage = 1;
+        $scope.LpageSize = 5;
+        $scope.McurrentPage = 1;
+        $scope.MpageSize = 5;
+        $scope.LTAcurrentPage = 1;
+        $scope.LTApageSize = 5;
+        $scope.TcurrentPage = 1;
+        $scope.TPageSize = 5;
         $scope.CourseID = id;
         $scope.Username = '';
         $scope.Five = 0;
@@ -30,7 +36,9 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         LoadClass(id);
         LoadMember(id);
         LoadLession(id);
+        LoadLessionToAdd(id);
         LoadComment(id);
+        LoadTest(id);
         downWaiting();
     };
     function runWaiting() {
@@ -63,6 +71,14 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     function LoadLession(ID) {
         CourseDetailService.LoadLession(ID).then(function (d) {
             $scope.Lessions = d.data;
+            console.log(d.data);
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
+    function LoadLessionToAdd(ID) {
+        CourseDetailService.LoadLessionToAdd(ID).then(function (d) {
+            $scope.LessionToAdds = d.data;
             console.log(d.data);
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
@@ -117,7 +133,27 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
-
+    function LoadTest(ID) {
+        CourseDetailService.LoadTest(ID).then(function (d) {
+            if (d.data == 0) {
+                alert("Không đủ quyền hạn");
+            }
+            else {
+                if (d.data == -1) {
+                    alert("Không có dữ liệu");
+                }
+                else {
+                    $scope.Tests = d.data;
+                    for (var i = 0; i < d.data.length; i++) {
+                        $scope.Tests[i].CreateDate = new Date(parseInt($scope.Tests[i].CreateDate.substr(6)));
+                    }
+                    console.log(d.data);
+                }
+            }
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
     function AddMember(Username) {
         var CourseDetailDTO = {
             CourseID: $scope.CourseID,
@@ -130,6 +166,20 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
+    }
+    function FindLession(ID) {
+        for (var i = 0; i < $scope.Lessions.length; i++) {
+            if ($scope.Lessions[i].ID == ID) {
+                return i;
+            }
+        }
+    }
+    function FindLessionToAdd(ID) {
+        for (var i = 0; i < $scope.LessionToAdds.length; i++) {
+            if ($scope.LessionToAdds[i].ID == ID) {
+                return i;
+            }
+        }
     }
     $scope.EditCourse = function () {
         console.log('i am inside update funcr ' +
@@ -173,7 +223,8 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     $scope.ChangeLessionStatus = function (ID, Status) {
         var LessionlDTO = {
             ID: ID,
-            Status: Status
+            CourseID: $scope.CourseID,
+            Course_LessionStatus: Status
         };
         CourseDetailService.ChangeLessionStatus(LessionlDTO).then(function (d) {
             LoadLession($scope.CourseID);
@@ -183,42 +234,44 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         });
     }
     $scope.ViewLession = function (LessionID) {
-        $http({
-            method: 'GET',
-            url: '/Lop/LessionDetail/' + LessionID
-        }).then(function successCallback(response) {
-            alert(response.data);
-            if (response.data == 0) {
-                alert("Không tìm thấy bài giảng");
-            }
-            else {
-                if (response.data == -1) {
-                    alert("Không không đủ quyền hạn")
-                }
-                else {
-                    $window.location.href = '/Lop/LessionDetail/' + LessionID;
-                }
-            }
-        });
+        $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+
+        //$http({
+        //    method: 'GET',
+        //    url: '/Lop/LessionDetail/' + LessionID
+        //}).then(function successCallback(response) {
+        //    alert(response.data);
+        //    if (response.data == 0) {
+        //        alert("Không tìm thấy bài giảng");
+        //    }
+        //    else {
+        //        if (response.data == -1) {
+        //            alert("Không không đủ quyền hạn")
+        //        }
+        //        else {
+        //        }
+        //    }
+        //});
 
     }
     $scope.EditLession = function (ID) {
-        $http({
-            method: 'GET',
-            url: '/Lop/EditLession/' + ID
-        }).then(function successCallback(response) {
-            if (response.data == 0) {
-                alert("Không tìm thấy bài giảng");
-            }
-            else {
-                if (response.data == -1) {
-                    alert("Không không đủ quyền hạn")
-                }
-                else {
-                    $window.location.href = '/Lop/EditLession/' + ID;
-                }
-            }
-        });
+        $window.location.href = '/Lop/EditLession/' + ID;
+
+        //$http({
+        //    method: 'GET',
+        //    url: '/Lop/EditLession/' + ID
+        //}).then(function successCallback(response) {
+        //    if (response.data == 0) {
+        //        alert("Không tìm thấy bài giảng");
+        //    }
+        //    else {
+        //        if (response.data == -1) {
+        //            alert("Không không đủ quyền hạn")
+        //        }
+        //        else {
+        //        }
+        //    }
+        //});
     }
     $scope.RemoveLession = function (ID) {
         var LessionlDTO = {
@@ -232,20 +285,65 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         });
     }
     $scope.AddLession = function () {
+        CourseDetailService.LoadLessionToAdd($scope.CourseID).then(function (d) {
+            console.log(d.data);
+            $scope.LessionToAdds = d.data;
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+        //$http({
+        //    method: 'GET',
+        //    url: '/Lop/CreateLession/' + $scope.CourseID
+        //}).then(function successCallback(response) {
+        //    if (response.data == 0) {
+        //        alert("Không tìm thấy lớp học");
+        //    }
+        //    else {
+        //        if (response.data == -1) {
+        //            alert("Không không đủ quyền hạn")
+        //        }
+        //        else {
+        //            $window.location.href = '/Lop/CreateLession/' + $scope.CourseID;
+        //        }
+        //    }
+        //});
+    }
+    $scope.AddLessionToCourse = function (LessionID) {
+        var LessionDTO = {
+            ID: LessionID,
+            CourseID: $scope.CourseID
+        };
         $http({
-            method: 'GET',
-            url: '/Lop/CreateLession/' + $scope.CourseID
+            method: 'POST',
+            url: '/Lop/AddLessionToCourse',
+            data: JSON.stringify(LessionDTO)
         }).then(function successCallback(response) {
-            if (response.data == 0) {
-                alert("Không tìm thấy lớp học");
+            if (response.data != null) {
+                //LoadLessionToAdd($scope.CourseID);
+                LoadLession($scope.CourseID);
+                //console.log(response.data)
+                $scope.LessionToAdds.splice(FindLessionToAdd(LessionID), 1);
+                //$scope.Lessions.push(response.data);
+                alert("Đã thêm");
             }
-            else {
-                if (response.data == -1) {
-                    alert("Không không đủ quyền hạn")
-                }
-                else {
-                    $window.location.href = '/Lop/CreateLession/' + $scope.CourseID;
-                }
+        });
+    }
+    $scope.RemoveLessionFromCourse = function (LessionID) {
+        var LessionDTO = {
+            ID: LessionID,
+            CourseID: $scope.CourseID
+        };
+        $http({
+            method: 'POST',
+            url: '/Lop/RemoveLessionFromCourse',
+            data: JSON.stringify(LessionDTO)
+        }).then(function successCallback(response) {
+            if (response.data != null) {
+                LoadLessionToAdd($scope.CourseID);
+                //LoadLession($scope.CourseID);
+                $scope.Lessions.splice(FindLessionToAdd(LessionID), 1);
+                //$scope.LessionToAdds.push(response.data);
+                alert("Đã xóa");
             }
         });
     }
@@ -367,6 +465,12 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
     };
     fac.LoadLession = function (ID) {
         return $http.get('/Lop/GetLessionByClassID/' + ID);
+    };
+    fac.LoadLessionToAdd = function (ID) {
+        return $http.get('/Lop/LoadLessionToAdd/' + ID);
+    };
+    fac.LoadTest = function (ID) {
+        return $http.get('/Lop/GetListTestByCourseID/' + ID);
     };
     fac.AddMember = function (CourseDetailDTO) {
         return $http({

@@ -18,14 +18,17 @@ namespace ELearning_V2.Models
         public Topic()
         {
             this.Lession_Topic = new HashSet<Lession_Topic>();
+            this.Question_Topic = new HashSet<Question_Topic>();
         }
     
         public long ID { get; set; }
         public string Name { get; set; }
-        public Nullable<long> CourseID { get; set; }
+        public Nullable<long> UserID { get; set; }
     
-        public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lession_Topic> Lession_Topic { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question_Topic> Question_Topic { get; set; }
     }
 }

@@ -3,8 +3,6 @@
     ViewBag.Title = "LessionDetail";
     Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
 }
-@model ELearning_V2.Models.Lession
-
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
@@ -13,8 +11,11 @@
                 <h2>Bài giảng</h2>
                 <div class="page_link">
                     <a href="~/Home/TrangChu">Home</a>
-                    <a href="~/Lop/DayThem">Dạy thêm</a>
-                    <a href="~/Lop/CourseDetail/@Model.CourseID">Course</a>
+                    <a href="~/Lop/DayThem#QuanLyBaiGiang">Dạy thêm</a>
+                    @if (ViewBag.CourseID != null)
+                    {
+                        <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Dạy thêm</a>
+                    }
                     <a href="#">Lession</a>
                 </div>
             </div>
@@ -22,7 +23,7 @@
     </div>
 </section>
 
-<section class="blog_area single-post-area p_120" ng-app="LessionDetailApp" ng-controller="LessionDetailController" ng-init="ID('@Model.ID','@Model.CourseID')">
+<section class="blog_area single-post-area p_120" ng-app="LessionDetailApp" ng-controller="LessionDetailController" ng-init="ID('@ViewBag.LessionID','@ViewBag.CourseID')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 posts-list">
@@ -36,10 +37,7 @@
                     <div class="col-lg-3 col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a href="#">Food,</a>
-                                <a class="active" href="#">Technology,</a>
-                                <a href="#">Politics,</a>
-                                <a href="#">Lifestyle</a>
+                                <label ng-repeat="t in Lession.Topics">{{t.Name}}&nbsp;&nbsp;</label>
                             </div>
                             <ul class="blog_meta list">
                                 <li><a href="#">{{Lession.Username}}<i class="lnr lnr-user"></i></a></li>
@@ -51,14 +49,13 @@
                     </div>
                     <div class="col-lg-9 col-md-9 blog_details">
                         <h2>{{Lession.Name}}</h2>
-                        <div class="RawContent">
-                            @Html.Raw(Model.Content)
+                        <div class="RawContent" ng-bind-html="Lession.Content">
                         </div>
-                        <iframe width="560" height="315" src=@Model.URL frameborder="0" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="{{Lession.URL}}" frameborder="0" allowfullscreen></iframe>
 
                     </div>
                 </div>
-                <div class="comments-area">
+                <div class="comments-area" ng-if="CourseID != ''">
                     <h4>{{Lession.Comment}} Comments</h4>
                     <div class="comment-list" ng-repeat="cmt in Comments">
                         <div class="comment-list">
@@ -122,10 +119,10 @@
                         <div class="media post_item" ng-repeat="l in Lessions">
                             <img width="100" height="60" src="~/Content/img/LessionImage/Default.png" alt="post">
                             <div class="media-body">
-                                <a href="#" ng-if="l.ID == @Model.ID">
+                                <a href="#" ng-if="l.ID == Lession.ID">
                                     <h3 style="color:#4dbf1c">{{l.Name}}</h3>
                                 </a>
-                                <a href="/Lop/LessionDetail/{{l.ID}}" ng-if="l.ID != @Model.ID">
+                                <a href="/Lop/LessionDetail/{{l.ID}}" ng-if="l.ID != Lession.ID">
                                     <h3>{{l.Name}}</h3>
                                 </a>
                                 <p>{{l.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}}</p>

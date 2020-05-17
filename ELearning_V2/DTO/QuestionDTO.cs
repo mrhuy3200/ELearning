@@ -17,6 +17,7 @@ namespace ELearning_V2.DTO
         public int? Level { get; set; }
         public string Solution { get; set; }
         public List<AnswerDTO> Answers { get; set; }
+        public List<TopicDTO> Topics { get; set; }
 
     }
 }

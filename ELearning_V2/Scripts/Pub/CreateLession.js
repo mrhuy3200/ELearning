@@ -13,12 +13,12 @@ CreateLessionApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-CreateLessionApp.controller('CreateLessionController', function ($scope, $http, $window, CreateLessionService) {
+CreateLessionApp.controller('CreateLessionController', function ($scope, $http, $window) {
+    $scope.InitUserID = function (UserID) {
+        $scope.UserID = UserID;
+    }
     var formdata = new FormData();
     var file;
-    $scope.InitCourseID = function (id) {
-        $scope.CourseID = id;
-    }
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
@@ -37,7 +37,7 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
             Name: $scope.Name,
             URL: url,
             Content: CKEDITOR.instances.Content.getData(),
-            CourseID: $scope.CourseID
+            UserID: $scope.UserID
         };
         $http({
             method: 'POST',
@@ -68,15 +68,3 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
         });
     }
 });
-
-
-
-
-CreateLessionApp.factory('CreateLessionService', function ($http) {
-    var fac = {};
-    fac.UploadLessionImg = function () {
-
-    };
-    return fac;
-});
-

@@ -12,7 +12,9 @@ namespace ELearning_V2.DTO
         public string Content { get; set; }
         public string URL { get; set; }
         public Nullable<int> Status { get; set; }
-        public Nullable<long> CourseID { get; set; }
+        public Nullable<int> Course_LessionStatus { get; set; }
+
+        public Nullable<long> UserID { get; set; }
         public long View { get; set; }
         public string Username { get; set; }
         public string UserAvatar { get; set; }
@@ -20,6 +22,9 @@ namespace ELearning_V2.DTO
         public DateTime CreateDate { get; set; }
         public long Comment { get; set; }
         public string Image { get; set; }
+        public List<TopicDTO> Topics { get; set; }
+        public long? CourseID { get; set; }
+
 
     }
 }

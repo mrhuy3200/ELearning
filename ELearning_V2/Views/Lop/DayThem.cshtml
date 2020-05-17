@@ -58,14 +58,14 @@
                     </div>
                 </div>
             </a>
-            <a class="h col-lg-3 col-sm-6">
+            <a class="h col-lg-3 col-sm-6" href="#QuanLyBaiGiang">
                 <div class="finance_item">
                     <div class="media">
                         <div class="d-flex">
                             <i class="lnr lnr-tag"></i>
                         </div>
                         <div class="media-body">
-                            <h5>Hướng dẫn<br />Trợ giúp</h5>
+                            <h5>Quản lý<br />Bài giảng</h5>
                         </div>
                     </div>
                 </div>
@@ -222,6 +222,22 @@
             <div class="main_title">
                 <h2>Lớp của tôi</h2>
             </div>
+            <div class="row">
+                <div class="col-md-4" style="display:flex">
+                    <div id="SearchQuestion" class="input-group col-md-6">
+                        <input class="form-control" ng-model="CSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                    </div>
+                </div>
+                <div class="col-md-2 offset-md-6" style="display:flex">
+                    <div class="col-md-6">
+                        <label style="width:max-content">Page size:</label>
+                    </div>
+                    <div class="input-group col-md-6">
+                        <input class="form-control" type="number" ng-model="CpageSize" min="2" max="10" />
+                    </div>
+                </div>
+            </div>
+
             <div class="progress-table-wrap">
                 <div class="progress-table">
                     <div class="table-head">
@@ -283,20 +299,20 @@
             <div class="main_title">
                 <h2>Ngân hàng câu hỏi</h2>
             </div>
-            <div>
-                <div style="float:left">
-                    <div class="pr-2">
+            <div class="row">
+                <div class="col-md-4" style="display:flex">
+                    <div class="col-md-2">
                         <a class="btn btn-dark text-success" href="/Lop/CreateQuestion"><i class="fa fa-plus"></i></a>
                     </div>
-                    <div id="SearchQuestion" class="input-group">
-                        <input class="form-control" ng-model="SearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                    <div id="SearchQuestion" class="input-group col-md-6">
+                        <input class="form-control" ng-model="QSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
                     </div>
                 </div>
-                <div style="float:right">
-                    <div>
-                        <label>Page size:</label>
+                <div class="col-md-2 offset-md-6" style="display:flex">
+                    <div class="col-md-6">
+                        <label style="width:max-content">Page size:</label>
                     </div>
-                    <div class="input-group">
+                    <div class="input-group col-md-6">
                         <input class="form-control" type="number" ng-model="QpageSize" min="4" max="10" />
                     </div>
                 </div>
@@ -346,6 +362,90 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ViewQuestion" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Chi tiết câu hỏi</h3>
+                        <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                    </div>
+                    <div class="modal-body" style="margin-left:20px">
+                        <strong>Câu {{Question.ID}}</strong>
+                        <br />
+                        <label ng-bind-html="Question.Content"></label>
+                        <p ng-repeat="an in Question.Answers">
+                            <strong>{{Ans[$index]}}. </strong>
+                            <label ng-bind-html="an.FContent"></label>
+                        </p>
+                        <br />
+                        <strong>Đáp án: {{Question.DapAn}}</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <hr />
+
+    <section class="courses_area p_120" id="QuanLyBaiGiang">
+        <div class="container">
+            <div class="main_title">
+                <h2>Quản lý bài giảng</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4" style="display:flex">
+                    <div class="col-md-2">
+                        <a class="btn btn-dark text-success" href="/Lop/CreateLession"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="SearchQuestion" class="input-group col-md-6">
+                        <input class="form-control" ng-model="LSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                    </div>
+                </div>
+                <div class="col-md-2 offset-md-6" style="display:flex">
+                    <div class="col-md-6">
+                        <label style="width:max-content">Page size:</label>
+                    </div>
+                    <div class="input-group col-md-6">
+                        <input class="form-control" type="number" ng-model="LpageSize" min="4" max="10" />
+                    </div>
+                </div>
+            </div>
+            <div class="progress-table-wrap">
+                <div class="progress-table" style="min-width:600px">
+                    <div class="table-head">
+                        <div class="serial">#</div>
+                        <div class="percentage">Tên bài giảng</div>
+                        <div class="visit">Lượt xem</div>
+                        <div class="country">Thao tác</div>
+                    </div>
+                    <div class="huy" dir-paginate="l in Lessions | filter:LSearchKey | itemsPerPage: LpageSize" current-page="LcurrentPage" pagination-id="ListLession">
+                        <div class="table-row ">
+                            <div class="serial">{{$index + (LcurrentPage-1)*LpageSize+1}}</div>
+                            <div class="percentage">{{l.Name}}</div>
+                            <div class="visit">{{l.View}}</div>
+                            <div class="country">
+                                <div class="dropdown">
+                                    <a class="btn dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown" data-target="Status{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                    <div class="dropdown-menu" id="Status{{$index}}">
+                                        <a class="btn dropdown-item" ng-click="ViewLession(l.ID)">View</a>
+                                        <a class="btn dropdown-item" ng-click="EditLession(l.ID)">Edit</a>
+                                        <a class="btn dropdown-item" ng-click="RemoveLession(l.ID)">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="other-controller">
+                <div class="col-md-3 offset-md-9">
+                    <dir-pagination-controls boundary-links="true" pagination-id="ListLession"></dir-pagination-controls>
                 </div>
             </div>
         </div>

@@ -92,6 +92,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Course_Lession">
+      <EntityTypeMapping TypeName="ELearningModel.Course_Lession">
+        <MappingFragment StoreEntitySet="Course_Lession">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="LessionID" ColumnName="LessionID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CourseDetails">
       <EntityTypeMapping TypeName="ELearningModel.CourseDetail">
         <MappingFragment StoreEntitySet="CourseDetail">
@@ -166,7 +176,7 @@
         <MappingFragment StoreEntitySet="Lession">
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -258,6 +268,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Question_Topic">
+      <EntityTypeMapping TypeName="ELearningModel.Question_Topic">
+        <MappingFragment StoreEntitySet="Question_Topic">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Replies">
       <EntityTypeMapping TypeName="ELearningModel.Reply">
         <MappingFragment StoreEntitySet="Reply">
@@ -280,10 +299,52 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="ELearningModel.Test">
+        <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Test_Question">
+      <EntityTypeMapping TypeName="ELearningModel.Test_Question">
+        <MappingFragment StoreEntitySet="Test_Question">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestDetails">
+      <EntityTypeMapping TypeName="ELearningModel.TestDetail">
+        <MappingFragment StoreEntitySet="TestDetail">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestResults">
+      <EntityTypeMapping TypeName="ELearningModel.TestResult">
+        <MappingFragment StoreEntitySet="TestResult">
+          <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+          <ScalarProperty Name="TestResult1" ColumnName="TestResult" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Topics">
       <EntityTypeMapping TypeName="ELearningModel.Topic">
         <MappingFragment StoreEntitySet="Topic">
-          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>

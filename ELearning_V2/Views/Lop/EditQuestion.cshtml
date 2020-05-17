@@ -24,7 +24,7 @@
             <h2>Tạo câu hỏi</h2>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="Question-content">
                     <p class="font-weight-bold">Nội dung <span class="text-danger">(*)</span></p>
                     <textarea id="TContent"></textarea>
@@ -41,39 +41,75 @@
                     <a class="btn btn-light float-left text-danger font-weight-bold" href="~/Lop/DayThem#NganHangCauHoi"><i class="lnr lnr-arrow-left"></i>Back</a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="row">
-                    <div class="Answer-content col-lg-10">
+                    <div class="Answer-content col-lg-6">
                         <p class="font-weight-bold">Đáp án <span class="text-danger">(*)</span></p>
                         <div class="row">
-                            <div class=" col-md-11">
+                            <div class=" col-md-10">
                                 <textarea id="AContent"></textarea>
                             </div>
-                            <button class="btn btn-dark text-success col-md-1" id="AddAnswer" style="height:42px" disabled ng-click="AddAnswer()"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-dark text-success col-md-2" id="AddAnswer" style="height:42px" disabled ng-click="AddAnswer()"><i class="fa fa-plus"></i></button>
                             <div id="AContentVal" class="text-danger" style="padding-left:45px;height:24px;"></div>
                         </div>
                         <form class="mt-4">
                             <ul>
-                                <li ng-repeat="new in FAnswers" class="row" onclick="changeInputRadio(this);">
-                                    <input class="cold-lg-1" type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
-                                    <div id="div{{$index}}" class="col-lg-9" ng-bind-html="new">
+                                <li ng-repeat="new in FAnswers" class="switch-wrap d-flex justify-content-between" onclick="changeInputRadio(this);">
+                                    <div class="confirm-radio">
+                                        <input type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
+                                        <label for="radio{{$index}}"></label>
+                                        <div style="margin-left:30px" ng-bind-html="new">
+                                        </div>
                                     </div>
-                                    <a class="text-info col-lg-1" ng-click="EditAnswer($index)"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a class="text-danger col-lg-1" ng-click="RemoveAnswer($index)"><i class="lnr lnr-trash"></i></a>
+
+                                    <p>
+                                        <a class="text-info" ng-click="EditAnswer($index)"><i class="fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a class="text-danger" ng-click="RemoveAnswer($index)"><i class="lnr lnr-trash"></i></a>
+                                    </p>
                                 </li>
                             </ul>
                         </form>
                     </div>
-                    <div class="Question-level col-lg-2" style="height:100px">
-                        <p class="font-weight-bold">Mức độ <span class="text-danger float-right">(*)</span></p>
-                        <select class="float-left" id="Level" onchange="changeInputSelect(this)">
-                            <option value="0">Chọn độ khó</option>
-                            <option value="1">Nhận biết</option>
-                            <option value="2">Thông hiểu</option>
-                            <option value="3">Vận dụng</option>
-                            <option value="4">Vận dụng cao</option>
-                        </select>
-                        <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
+                    <div class="Question-level col-lg-6" style="height:100px">
+                        <div class="col-md-12" style="padding-bottom:60px">
+                            <p class="font-weight-bold">Mức độ <span class="text-danger float-left">(*)</span></p>
+                            <select class="float-left" id="Level" onchange="changeInputSelect(this)">
+                                <option value="0">Chọn độ khó</option>
+                                <option value="1">Nhận biết</option>
+                                <option value="2">Thông hiểu</option>
+                                <option value="3">Vận dụng</option>
+                                <option value="4">Vận dụng cao</option>
+                            </select>
+                            <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <strong class="col-md-12">Chủ đề</strong>
+
+                                <div class="row" style="padding: 10px 0px 15px 30px;">
+                                    <input class="form-control col-md-10" type="text" ng-model="Topic" />
+                                    <div class="col-md-2">
+                                        <a class="btn btn-dark text-success "><i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul style="padding-left:0px;padding-right:45px">
+                                <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
+                                    <div class="confirm-checkbox">
+                                        <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
+                                        <label for="check{{$index}}"></label>
+                                        <p style="margin-left:30px">{{t.Name}}</p>
+                                    </div>
+                                    <p>
+                                        <a class="text-info" ng-click="EditTopic(t.ID)"><i class="fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a class="text-danger" ng-click="RemoveTopic(t.ID)"><i class="lnr lnr-trash"></i></a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>

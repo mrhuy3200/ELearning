@@ -17,11 +17,13 @@ DayThemApp.directive('ngFiles', ['$parse', function ($parse) {
 DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sce, DayThemService) {
     LoadClass();
     LoadQuestion();
+    LoadLession();
     $scope.QcurrentPage = 1;
     $scope.QpageSize = 5;
     $scope.CcurrentPage = 1;
     $scope.CpageSize = 3;
-
+    $scope.LcurrentPage = 1;
+    $scope.LpageSize = 5;
     var formdata = new FormData();
     var file;
     $scope.type = 0;
@@ -45,6 +47,14 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
+    function LoadLession() {
+        DayThemService.LoadLession().then(function (d) {
+            $scope.Lessions = d.data;
+            console.log(d.data);
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
     function FindQuestion(ID) {
         for (var i = 0; i < $scope.Questions.length; i++) {
             if ($scope.Questions[i].ID == ID) {
@@ -55,6 +65,13 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
     function FindCourse(ID) {
         for (var i = 0; i < $scope.Lops.length; i++) {
             if ($scope.Lops[i].ID == ID) {
+                return i;
+            }
+        }
+    }
+    function FindLession(ID) {
+        for (var i = 0; i < $scope.Lessions.length; i++) {
+            if ($scope.Lessions[i].ID == ID) {
                 return i;
             }
         }
@@ -212,7 +229,10 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         console.log(ID);
         if (confirm("Xác nhận xóa, hành động không thể phục hồi?", "thông báo")) {
             DayThemService.RemoveCourse(ID).then(function (d) {
-                LoadClass();
+                if (d.data == "OK") {
+                    $scope.Lops.splice([FindCourse(ID)], 1);
+                }
+                //LoadClass();
                 alert(d.data);
             }, function () {
                 alert('Không tìm thấy dữ liệu !!!');
@@ -248,6 +268,64 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
+    $scope.ViewLession = function (LessionID) {
+        $window.location.href = '/Lop/LessionDetail/' + LessionID;
+
+        //$http({
+        //    method: 'GET',
+        //    url: '/Lop/LessionDetail/' + LessionID
+        //}).then(function successCallback(response) {
+
+        //    if (response.data == 0) {
+        //        alert("Không tìm thấy bài giảng");
+        //    }
+        //    else {
+        //        if (response.data == -1) {
+        //            alert("Không không đủ quyền hạn")
+        //        }
+        //        else {
+        //        }
+        //    }
+        //});
+
+    }
+    $scope.CreateLession = function () {
+        $window.location.href = '/Lop/CreateLession';
+    }
+    $scope.EditLession = function (ID) {
+        $window.location.href = '/Lop/EditLession/' + ID;
+
+        //$http({
+        //    method: 'GET',
+        //    url: '/Lop/EditLession/' + ID
+        //}).then(function successCallback(response) {
+        //    if (response.data == 0) {
+        //        alert("Không tìm thấy bài giảng");
+        //    }
+        //    else {
+        //        if (response.data == -1) {
+        //            alert("Không không đủ quyền hạn")
+        //        }
+        //        else {
+        //        }
+        //    }
+        //});
+    }
+    $scope.RemoveLession = function (ID) {
+        var LessionlDTO = {
+            ID: ID,
+        };
+        DayThemService.RemoveLession(LessionlDTO).then(function (d) {
+            if (d.data == "OK") {
+                
+                $scope.Lessions.splice(FindLession(ID),1);
+            }
+            alert(d.data);
+        }, function () {
+            alert('Không tìm thấy dữ liệu !!!');
+        });
+    }
+
 });
 
 
@@ -261,8 +339,18 @@ DayThemApp.factory('DayThemService', function ($http) {
     fac.LoadQuestion = function () {
         return $http.get('/Lop/GetListQuesionByUserID');
     };
+    fac.LoadLession = function (ID) {
+        return $http.get('/Lop/GetLessionByUserID');
+    };
     fac.RemoveCourse = function (ID) {
         return $http.get('/Lop/RemoveCourse/' + ID);
+    };
+    fac.RemoveLession = function (LessionDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/RemoveLession',
+            data: JSON.stringify(LessionDTO)
+        });
     };
     fac.ChangeCourseStatus = function (CourseDTO) {
         return $http({

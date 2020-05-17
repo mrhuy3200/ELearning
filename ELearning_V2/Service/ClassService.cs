@@ -37,19 +37,12 @@ namespace ELearning_V2.Service
                 return data;
             }
         }
-
         public static int RemoveCourse(Course c)
         {
             try
             {
                 using (ELearningDB db = new ELearningDB())
                 {
-                    var lstLession = db.Lessions.Where(x => x.CourseID == c.ID).ToList();
-                    foreach (var item in lstLession)
-                    {
-                        db.Lessions.Remove(item);
-                    }
-                    db.SaveChanges();
                     db.Courses.Remove(db.Courses.Find(c.ID));
                     db.SaveChanges();
                     return 1;
@@ -57,7 +50,7 @@ namespace ELearning_V2.Service
             }
             catch (Exception)
             {
-                return 0;
+                //return 0;
                 throw;
             }
         }
@@ -82,7 +75,6 @@ namespace ELearning_V2.Service
                 return cou;
             }
         }
-
         public static List<TaiKhoanDTO> GetMemberByClassID(long ID)
         {
             using (ELearningDB db = new ELearningDB())
@@ -103,12 +95,11 @@ namespace ELearning_V2.Service
                 return data;
             }
         }
-
-        public static List<LessionDTO> GetLessionByClassID(long ID)
+        public static List<LessionDTO> GetLessionByUserID(long UserID)
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.Lessions.Where(x => x.CourseID == ID).ToList();
+                var lst = db.Lessions.Where(x => x.UserID == UserID).ToList();
                 List<LessionDTO> data = new List<LessionDTO>();
                 foreach (var item in lst)
                 {
@@ -124,7 +115,51 @@ namespace ELearning_V2.Service
                 return data;
             }
         }
+        public static List<LessionDTO> GetLessionByCourseID(long CourseID)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var lstLesID = db.Course_Lession.Where(x => x.CourseID == CourseID).Select(x => x.LessionID).ToList();
+                var lst = db.Lessions.Where(x => lstLesID.Contains(x.ID)).ToList();
+                List<LessionDTO> data = new List<LessionDTO>();
+                foreach (var item in lst)
+                {
+                    LessionDTO l = new LessionDTO();
+                    l.ID = item.ID;
+                    l.Name = item.Name;
+                    l.Content = item.Content;
+                    l.URL = item.URL;
+                    l.Status = item.Status;
+                    l.View = item.LessionViews.Count();
+                    l.Course_LessionStatus = item.Course_Lession.Where(x => x.LessionID == item.ID && x.CourseID == CourseID).FirstOrDefault().Status;
 
+                    data.Add(l);
+                }
+                return data;
+            }
+        }
+        public static List<LessionDTO> LoadLessionToAdd(long CourseID, long UserID)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var lstLesID = db.Course_Lession.Where(x => x.CourseID == CourseID).Select(x => x.LessionID).ToList();
+                var lst = db.Lessions.Where(x => !lstLesID.Contains(x.ID) && x.UserID == UserID && x.Status == 1).ToList();
+                List<LessionDTO> data = new List<LessionDTO>();
+                foreach (var item in lst)
+                {
+                    LessionDTO l = new LessionDTO();
+                    l.ID = item.ID;
+                    l.Name = item.Name;
+                    l.Content = item.Content;
+                    l.URL = item.URL;
+                    l.Status = item.Status;
+                    l.View = item.LessionViews.Count();
+                    data.Add(l);
+                }
+                return data;
+
+            }
+        }
         public static bool EditCourse(CourseDTO c)
         {
             try
@@ -146,7 +181,6 @@ namespace ELearning_V2.Service
                 return false;
             }
         }
-
         public static int AddMember(CourseDetail cd)
         {
             try
@@ -168,7 +202,6 @@ namespace ELearning_V2.Service
                 return 0;
             }
         }
-
         public static int RemoveMember(CourseDetail cd)
         {
             try
@@ -190,17 +223,27 @@ namespace ELearning_V2.Service
                 return 0;
             }
         }
-
         public static int ChangeStatusLession(LessionDTO l)
         {
             try
             {
                 using (ELearningDB db = new ELearningDB())
                 {
-                    Lession data = db.Lessions.Find(l.ID);
-                    data.Status = l.Status;
-                    db.SaveChanges();
-                    return 1;
+                    if (l.CourseID == null)
+                    {
+                        Lession data = db.Lessions.Find(l.ID);
+                        data.Status = l.Status;
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    else
+                    {
+                        var data = db.Course_Lession.Where(x => x.LessionID == l.ID && x.CourseID == l.CourseID).FirstOrDefault();
+                        data.Status = l.Course_LessionStatus;
+                        db.SaveChanges();
+                        return 1;
+                    }
+
                 }
             }
             catch (Exception)
@@ -256,6 +299,45 @@ namespace ELearning_V2.Service
                 //throw;
             }
         }
+        public static LessionDTO AddLessionToCourse(long CourseID, long LessionID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Course_Lession data = new Course_Lession();
+                    data.CourseID = CourseID;
+                    data.LessionID = LessionID;
+                    data.Status = 2;
+                    db.Course_Lession.Add(data);
+                    db.SaveChanges();
+                    return GetLessionByID(LessionID);
+                }
+            }
+            catch (Exception)
+            {
+                //return null;
+                throw;
+            }
+        }
+        public static LessionDTO RemoveLessionFromCourse(long CourseID, long LessionID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Course_Lession.Where(x => x.CourseID == CourseID && x.LessionID == LessionID).FirstOrDefault();
+                    db.Course_Lession.Remove(data);
+                    db.SaveChanges();
+                    return GetLessionByID(LessionID);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
         public static int RemoveLession(LessionDTO l)
         {
             try
@@ -263,6 +345,16 @@ namespace ELearning_V2.Service
                 using (ELearningDB db = new ELearningDB())
                 {
                     Lession data = db.Lessions.Find(l.ID);
+                    var lstCmt = db.Comments.Where(x => x.LessionID == l.ID).ToList();
+                    foreach (var item in lstCmt)
+                    {
+                        var lstRep = db.Replies.Where(x => x.CommentID == item.ID).ToList();
+                        foreach (var rep in lstRep)
+                        {
+                            db.Replies.Remove(rep);
+                        }
+                        db.Comments.Remove(item);
+                    }
                     db.Lessions.Remove(data);
                     db.SaveChanges();
                     return 1;
@@ -274,7 +366,6 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-
         public static LessionDTO GetLessionByID(long LessionID)
         {
             try
@@ -284,20 +375,30 @@ namespace ELearning_V2.Service
                     var l = db.Lessions.Find(LessionID);
                     var lstCmtID = db.Comments.Where(x => x.LessionID == LessionID).Select(a => a.ID);
                     var lstRep = db.Replies.Where(x => lstCmtID.Contains(x.CommentID)).ToList();
+                    var lstTopic = db.Lession_Topic.Where(x => x.LessionID == LessionID).ToList();
+                    List<TopicDTO> lstTopicDTO = new List<TopicDTO>();
+                    foreach (var item in lstTopic)
+                    {
+                        TopicDTO t = new TopicDTO();
+                        t.ID = (long)item.TopicID;
+                        t.Name = item.Topic.Name;
+                        lstTopicDTO.Add(t);
+                    }
                     LessionDTO data = new LessionDTO();
                     data.ID = l.ID;
                     data.Name = l.Name;
                     data.Content = l.Content;
                     data.URL = l.URL;
                     data.Status = l.Status;
-                    data.CourseID = l.CourseID;
+                    data.UserID = l.UserID;
                     data.View = l.LessionViews.Count();
                     data.Comment = l.Comments.Count() + lstRep.Count();
                     data.CreateDate = (DateTime)l.CreateDate;
                     data.Image = l.Image;
-                    data.Username = l.Course.NguoiDung.HoVaTen;
-                    data.UserAvatar = l.Course.NguoiDung.Image;
-                    data.UserInfo = l.Course.NguoiDung.Info;
+                    data.Username = l.NguoiDung.HoVaTen;
+                    data.UserAvatar = l.NguoiDung.Image;
+                    data.UserInfo = l.NguoiDung.Info;
+                    data.Topics = lstTopicDTO;
                     return data;
                 }
             }
@@ -307,8 +408,7 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-
-        public static List<CommentDTO> GetCommentByID(long id, int flag)
+        public static List<CommentDTO> GetCommentByID(CommentDTO c, int flag)
         {
             try
             {
@@ -317,15 +417,15 @@ namespace ELearning_V2.Service
                     List<Comment> lstCom = new List<Comment>();
                     if (flag == 1)
                     {
-                        lstCom = db.Comments.Where(x => x.ClassID == id).ToList();
+                        lstCom = db.Comments.Where(x => x.ClassID == c.ClassID).ToList();
                     }
                     if (flag == 2)
                     {
-                        lstCom = db.Comments.Where(x => x.CourseID == id).ToList();
+                        lstCom = db.Comments.Where(x => x.CourseID == c.CourseID && x.LessionID == null).ToList();
                     }
                     if (flag == 3)
                     {
-                        lstCom = db.Comments.Where(x => x.LessionID == id).ToList();
+                        lstCom = db.Comments.Where(x => x.LessionID == c.LessionID && x.CourseID == c.CourseID).ToList();
                     }
                     List<CommentDTO> Coms = new List<CommentDTO>();
                     foreach (var item in lstCom)
@@ -387,7 +487,6 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-
         public static long CreateLession(LessionDTO l)
         {
             try
@@ -398,7 +497,7 @@ namespace ELearning_V2.Service
                     data.Name = l.Name;
                     data.Content = l.Content;
                     data.URL = l.URL;
-                    data.CourseID = l.CourseID;
+                    data.UserID = l.UserID;
                     data.Status = 2;
                     data.CreateDate = DateTime.Now;
                     db.Lessions.Add(data);
@@ -415,7 +514,6 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-
         public static long EditLession(LessionDTO l)
         {
             try
@@ -438,7 +536,6 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-
         public static List<QuestionDTO> GetListQuestionByUserID(long UserID)
         {
             try
@@ -515,6 +612,29 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static bool CreateQuestionTopic(long QuestionID, List<TopicDTO> Topics)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    foreach (var item in Topics)
+                    {
+                        Question_Topic t = new Question_Topic();
+                        t.QuestionID = QuestionID;
+                        t.TopicID = item.ID;
+                        db.Question_Topic.Add(t);
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }    
         public static bool EditQuestion(QuestionDTO q)
         {
             try
@@ -526,6 +646,16 @@ namespace ELearning_V2.Service
                     Qdata.Content = q.Content;
                     Qdata.Solution = q.Solution;
                     Qdata.Level = q.Level;
+                    db.SaveChanges();
+                    var TopicDelete = db.Question_Topic.Where(x => x.QuestionID == q.ID).ToList();
+                    db.Question_Topic.RemoveRange(TopicDelete);
+                    foreach (var item in q.Topics)
+                    {
+                        Question_Topic t = new Question_Topic();
+                        t.QuestionID = q.ID;
+                        t.TopicID = item.ID;
+                        db.Question_Topic.Add(t);
+                    }
                     db.SaveChanges();
                     var Adata = db.Answers.Where(x => x.QuesionID == Qdata.ID).ToList();
                     for (int i = 0; i < q.Answers.Count; i++)
@@ -554,7 +684,7 @@ namespace ELearning_V2.Service
                         }
                     }
                     var AdataID = Adata.Select(x => x.ID).ToList();
-                    var AnswersID = q.Answers.Where(x=>x.ID != 0).Select(x => x.ID);
+                    var AnswersID = q.Answers.Where(x => x.ID != 0).Select(x => x.ID);
                     for (int i = 0; i < AdataID.Count; i++)
                     {
                         if (AnswersID.Contains(AdataID[i]) == false)
@@ -593,7 +723,7 @@ namespace ELearning_V2.Service
                 return false;
                 throw;
             }
-        }    
+        }
         public static QuestionDTO GetQuestion(long QuestionID)
         {
             try
@@ -610,6 +740,14 @@ namespace ELearning_V2.Service
                         data.AnswerID = q.AnswerID;
                         data.Level = q.Level;
                         data.UserID = q.UserID;
+                        List<TopicDTO> Tdata = new List<TopicDTO>();
+                        foreach (var item in q.Question_Topic)
+                        {
+                            TopicDTO t = new TopicDTO();
+                            t.ID = item.ID;
+                            Tdata.Add(t);
+                        }
+                        data.Topics = Tdata;
                         List<AnswerDTO> Adata = new List<AnswerDTO>();
                         foreach (var item in q.Answers)
                         {
@@ -630,6 +768,56 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static List<TestDTO> GetListTestByCourseID(long CourseID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var lstTest = db.Tests.Where(x => x.CourseID == CourseID).ToList();
+                    List<TestDTO> data = new List<TestDTO>();
+                    foreach (var item in lstTest)
+                    {
+                        TestDTO t = new TestDTO();
+                        t.ID = item.ID;
+                        t.Name = item.Name;
+                        t.CreateDate = item.CreateDate;
+                        t.Status = item.Status;
+                        t.CourseID = item.CourseID;
+                        data.Add(t);
+                    }
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+        public static List<TopicDTO> GetListTopicByUserID(long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var lst = db.Topics.Where(x => x.UserID == UserID).ToList();
+                    List<TopicDTO> data = new List<TopicDTO>();
+                    foreach (var item in lst)
+                    {
+                        TopicDTO t = new TopicDTO();
+                        t.ID = item.ID;
+                        t.Name = item.Name;
+                        data.Add(t);
+                    }
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }    
     }
 }

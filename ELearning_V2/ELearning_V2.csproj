@@ -256,6 +256,8 @@
     <Compile Include="DTO\LessionDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
+    <Compile Include="DTO\TestDTO.cs" />
+    <Compile Include="DTO\TopicDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,6 +283,9 @@
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CourseDetail.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Course_Lession.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DeThi.cs">
@@ -334,10 +339,25 @@
     <Compile Include="Models\Question.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Question_Topic.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Reply.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaiKhoan.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestDetail.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestResult.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test_Question.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThongBao.cs">
@@ -3295,6 +3315,7 @@
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
     <Content Include="Scripts\Pub\CourseDetail.js" />
     <Content Include="Scripts\Pub\CreateLession.js" />
+    <Content Include="Scripts\Pub\CreateTest.js" />
     <Content Include="Scripts\Pub\DayThem.js" />
     <Content Include="Scripts\Pub\dirPagination.js" />
     <Content Include="Scripts\Pub\EditLession.js" />
@@ -3348,6 +3369,7 @@
     <Content Include="Views\Lop\EditLession.cshtml" />
     <Content Include="Views\Lop\CreateQuestion.cshtml" />
     <Content Include="Views\Lop\EditQuestion.cshtml" />
+    <Content Include="Views\Lop\CreateTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

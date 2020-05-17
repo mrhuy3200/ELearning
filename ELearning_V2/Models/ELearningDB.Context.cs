@@ -31,6 +31,7 @@ namespace ELearning_V2.Models
         public virtual DbSet<CauHoi> CauHois { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Course_Lession> Course_Lession { get; set; }
         public virtual DbSet<CourseDetail> CourseDetails { get; set; }
         public virtual DbSet<Chuong> Chuongs { get; set; }
         public virtual DbSet<DeThi> DeThis { get; set; }
@@ -45,8 +46,13 @@ namespace ELearning_V2.Models
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Question_Topic> Question_Topic { get; set; }
         public virtual DbSet<Reply> Replies { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<Test_Question> Test_Question { get; set; }
+        public virtual DbSet<TestDetail> TestDetails { get; set; }
+        public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
         public virtual DbSet<TrangThaiHeThong> TrangThaiHeThongs { get; set; }
