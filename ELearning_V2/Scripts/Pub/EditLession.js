@@ -18,11 +18,24 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
     var file;
     $scope.InitLessionID = function (id) {
         $scope.LessionID = id;
+        InitCss();
         LoadTopic();
         setTimeout(function () {
             LoadLession();
-        }, 200);
+        }, 1000);
 
+    }
+    function InitCss() {
+        console.log("OK");
+        var x = document.getElementsByClassName("cke_textarea_inline");
+        x[0].style.display = "none";
+        x[1].style.border = "2px solid";
+        x[1].style.position = "relative";
+        x[1].style.height = "auto";
+        x[1].style.borderRadius = "10px";
+        x[1].style.backgroundColor = "snow";
+        x[1].style.minHeight = "100px";
+        x[1].style.padding = "2px 10px";
     }
     function LoadLession() {
         $http({
@@ -31,12 +44,17 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
         }).then(function successCallback(response) {
             console.log(response.data);
             $scope.Lession = response.data;
-            CKEDITOR.instances.Content.setData($scope.Lession.Content);
+            CKEDITOR.instances.Content.setData(response.data.Content);
+            CKEDITOR.instances.Test.setData(response.data.Content);
+
             $scope.URL = $sce.trustAsResourceUrl($scope.Lession.URL);
             SetUpTopic($scope.Lession.Topics);
+            console.log("Set Content" + response.data.Content);
+
 
         });
     }
+
     $scope.getTheFiles = function ($files) {
         console.log($files)
         file = $files[0];

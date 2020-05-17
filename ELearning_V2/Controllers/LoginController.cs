@@ -109,6 +109,7 @@ namespace ELearning_V2.Controllers
         {
             //Session.Clear();
             Session.Abandon();
+            Session.Remove("User");
             return RedirectToAction("Index", "Login");
         }
 
