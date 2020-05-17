@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "CreateQuestion";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Tạo câu hỏi</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/DayThem#NganHangCauHoi">Ngân Hàng Câu Hỏi</a>
+                    <a href="#">Thêm mới câu hỏi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="team_area p_120" ng-app="CreateQuestionApp" ng-controller="CreateQuestionController">
+    <div class="container">
+        <div class="main_title">
+            <h2>Tạo câu hỏi</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="Question-content">
+                    <p class="font-weight-bold">Nội dung <span class="text-danger">(*)</span></p>
+                    <textarea id="QContent"></textarea>
+                    <p id="QContentVal" class="text-danger" style="padding-left:45px; display:none;">Không để trống nội dung.</p>
+                </div>
+                <div class="Question-solution">
+                    <p class="font-weight-bold">Lời giải</p>
+                    <textarea id="SContent"></textarea>
+                </div>
+                <div class="p-2">
+                    <a class="btn btn-dark text-success float-right ml-1" role="button" ng-click="save()">Lưu</a>
+                    <a class="btn btn-danger float-right text-light" ng-click="clear()">Hủy</a>
+                    <a class="btn btn-light float-left text-danger font-weight-bold" href="~/Lop/DayThem#NganHangCauHoi"><i class="lnr lnr-arrow-left"></i>Back</a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="Answer-content col-lg-6">
+                        <p class="font-weight-bold">Đáp án <span class="text-danger">(*)</span></p>
+                        <div class="row">
+                            <div class=" col-md-10">
+                                <textarea id="AContent"></textarea>
+                            </div>
+                            <button class="btn btn-dark text-success col-md-2" id="AddAnswer" style="height:42px" disabled ng-click="AddAnswer()"><i class="fa fa-plus"></i></button>
+                            <div id="AContentVal" class="text-danger" style="padding-left:45px;height:24px;"></div>
+                        </div>
+                        <form class="mt-4">
+                            <ul>
+                                <li ng-repeat="new in FAnswers" class="switch-wrap d-flex justify-content-between" onclick="changeInputRadio(this);">
+                                    <div class="confirm-radio">
+                                        <input type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
+                                        <label for="radio{{$index}}"></label>
+                                        <div style="margin-left:30px" ng-bind-html="new">
+                                        </div>
+                                    </div>
+
+                                    <p>
+                                        <a class="text-info" ng-click="EditAnswer($index)"><i class="fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a class="text-danger" ng-click="RemoveAnswer($index)"><i class="lnr lnr-trash"></i></a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="Question-level col-lg-6" style="height:100px">
+                        <div class="col-md-12" style="padding-bottom:60px">
+                            <p class="font-weight-bold">Mức độ <span class="text-danger float-left">(*)</span></p>
+                            <select class="float-left" id="Level" onchange="changeInputSelect(this)">
+                                <option value="0">Chọn độ khó</option>
+                                <option value="1">Nhận biết</option>
+                                <option value="2">Thông hiểu</option>
+                                <option value="3">Vận dụng</option>
+                                <option value="4">Vận dụng cao</option>
+                            </select>
+                            <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <strong class="col-md-12">Chủ đề</strong>
+
+                                <div class="row" style="padding: 10px 0px 15px 30px;">
+                                    <input class="form-control col-md-10" type="text" ng-model="Topic" />
+                                    <div class="col-md-2">
+                                        <a class="btn btn-dark text-success "><i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul style="padding-left:0px;padding-right:45px">
+                                <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
+                                    <div class="confirm-checkbox">
+                                        <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
+                                        <label for="check{{$index}}"></label>
+                                        <p style="margin-left:30px">{{t.Name}}</p>
+                                    </div>
+                                    <p>
+                                        <a class="text-info" ng-click="EditTopic(t.ID)"><i class="fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a class="text-danger" ng-click="RemoveTopic(t.ID)"><i class="lnr lnr-trash"></i></a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/Question.js"></script>
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
+<script>
+    //CKEDITOR.disableAutoInline = true;
+    var S = CKEDITOR.inline('SContent');
+    var Q = CKEDITOR.inline('QContent');
+    CKEDITOR.instances['QContent'].on('change', function (e) {
+        if (e.editor.checkDirty() == false) {
+            $("#QContentVal").css('display', 'block');
+        }
+    });
+    CKEDITOR.instances['QContent'].on('change', function (e) {
+        if (e.editor.checkDirty() == true) {
+            $("#QContentVal").css('display', 'none');
+        }
+    });
+    var A = CKEDITOR.inline('AContent');
+    CKEDITOR.instances['AContent'].on('change', function (e) {
+        if (e.editor.checkDirty()) {
+            $("#AddAnswer").prop('disabled', false);
+        }
+        if (e.editor.checkDirty() == false) {
+            $("#AddAnswer").prop('disabled', true);
+        }
+    });
+    function changeInputRadio(e) {
+        $("#AContentVal").text("");
+    }
+    function changeInputSelect(e) {
+        if (document.getElementById("Level").value == 0) {
+            $("#LevelVal").css('display', 'block');
+        }
+        if (document.getElementById("Level").value != 0) {
+            $("#LevelVal").css('display', 'none');
+        }
+    }
+
+</script>
+<style>
+    .question-content {
+        margin-bottom: 25px
+    }
+
+    #acontent {
+        border: 1px solid;
+    }
+
+    .answer-content li {
+        display: block;
+    }
+
+    .answer-content a {
+        padding-left: 15px;
+    }
+
+    .question-level {
+        margin-bottom: 50px;
+        height: 85px;
+    }
+
+    .cke_wysiwyg_div {
+        border: 1px solid;
+        background-color: snow;
+    }
+
+    #LevelVal {
+        top: 85px;
+        display: block;
+        position: absolute;
+        width: 140px;
+    }
+</style>

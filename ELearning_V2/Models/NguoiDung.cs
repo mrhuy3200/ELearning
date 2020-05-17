@@ -17,7 +17,14 @@ namespace ELearning_V2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NguoiDung()
         {
-            this.Lops = new HashSet<Lop>();
+            this.Courses = new HashSet<Course>();
+            this.CourseDetails = new HashSet<CourseDetail>();
+            this.Lessions = new HashSet<Lession>();
+            this.LessionViews = new HashSet<LessionView>();
+            this.Questions = new HashSet<Question>();
+            this.TestDetails = new HashSet<TestDetail>();
+            this.TestResults = new HashSet<TestResult>();
+            this.Topics = new HashSet<Topic>();
         }
     
         public long ID { get; set; }
@@ -26,9 +33,24 @@ namespace ELearning_V2.Models
         public string Image { get; set; }
         public Nullable<long> SoDu { get; set; }
         public string MaXacNhan { get; set; }
+        public string Info { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lop> Lops { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseDetail> CourseDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lession> Lessions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LessionView> LessionViews { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Questions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestDetail> TestDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestResult> TestResults { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Topic> Topics { get; set; }
     }
 }

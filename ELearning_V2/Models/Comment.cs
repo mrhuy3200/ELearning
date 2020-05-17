@@ -23,9 +23,14 @@ namespace ELearning_V2.Models
         public long ID { get; set; }
         public string NoiDung { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
-        public long CreateBy { get; set; }
-        public int ClassID { get; set; }
+        public Nullable<long> CreateBy { get; set; }
+        public Nullable<int> ClassID { get; set; }
+        public Nullable<long> CourseID { get; set; }
+        public Nullable<long> LessionID { get; set; }
+        public Nullable<int> Rate { get; set; }
     
+        public virtual Course Course { get; set; }
+        public virtual Lession Lession { get; set; }
         public virtual Lop Lop { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

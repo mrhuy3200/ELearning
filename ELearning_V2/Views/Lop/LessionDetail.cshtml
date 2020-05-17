@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "LessionDetail";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Bài giảng</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/DayThem#QuanLyBaiGiang">Dạy thêm</a>
+                    @if (ViewBag.CourseID != null)
+                    {
+                        <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Dạy thêm</a>
+                    }
+                    <a href="#">Lession</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog_area single-post-area p_120" ng-app="LessionDetailApp" ng-controller="LessionDetailController" ng-init="ID('@ViewBag.LessionID','@ViewBag.CourseID')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post row">
+                    <div class="col-lg-12">
+                        <div class="feature-img">
+                            <img class="img-fluid" ng-if="Lession.Image == null" style="height:350px" width="750" src="~/Content/img/LessionImage/Default.png" alt="">
+                            <img class="img-fluid" ng-if="Lession.Image != null" style="height:350px" width="750" src="~/Content/img/LessionImage/{{Lession.Image}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="blog_info text-right">
+                            <div class="post_tag">
+                                <label ng-repeat="t in Lession.Topics">{{t.Name}}&nbsp;&nbsp;</label>
+                            </div>
+                            <ul class="blog_meta list">
+                                <li><a href="#">{{Lession.Username}}<i class="lnr lnr-user"></i></a></li>
+                                <li><a href="#">{{Lession.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                <li><a href="#">{{Lession.View}} Views<i class="lnr lnr-eye"></i></a></li>
+                                <li><a href="#">{{Lession.Comment}} Comments<i class="lnr lnr-bubble"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 blog_details">
+                        <h2>{{Lession.Name}}</h2>
+                        <div class="RawContent" ng-bind-html="Lession.Content">
+                        </div>
+                        <iframe width="560" height="315" src="{{Lession.URL}}" frameborder="0" allowfullscreen></iframe>
+
+                    </div>
+                </div>
+                <div class="comments-area" ng-if="CourseID != ''">
+                    <h4>{{Lession.Comment}} Comments</h4>
+                    <div class="comment-list" ng-repeat="cmt in Comments">
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5><a href="#">{{cmt.Fullname}}</a></h5>
+                                        <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                        <p class="comment">
+                                            {{cmt.NoiDung}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="reply-btn">
+                                    <a href="" class="btn-reply text-uppercase">reply</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5><a href="#">{{rep.Fullname}}</a></h5>
+                                        <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                        <p class="comment">
+                                            {{rep.NoiDung}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="reply-btn">
+                                    <a href="" class="btn-reply text-uppercase">reply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget author_widget">
+                        <img class="author_img rounded-circle" width="120" height="120" src="~/Content/img/UserImage/Default.png" alt="">
+                        <h4>{{Lession.Username}}</h4>
+                        <p>Senior blog writer</p>
+                        <div class="social_icon">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-github"></i></a>
+                            <a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+                        <p>{{Lession.UserInfo}}</p>
+                        <div class="br"></div>
+                    </aside>
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Danh sách bài giảng</h3>
+                        <div class="media post_item" ng-repeat="l in Lessions">
+                            <img width="100" height="60" src="~/Content/img/LessionImage/Default.png" alt="post">
+                            <div class="media-body">
+                                <a href="#" ng-if="l.ID == Lession.ID">
+                                    <h3 style="color:#4dbf1c">{{l.Name}}</h3>
+                                </a>
+                                <a href="/Lop/LessionDetail/{{l.ID}}" ng-if="l.ID != Lession.ID">
+                                    <h3>{{l.Name}}</h3>
+                                </a>
+                                <p>{{l.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}}</p>
+                            </div>
+                        </div>
+                        <div class="br"></div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/LessionDetail.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>
+@*<script src="~/Assets/Plugin/ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>*@
+<script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
+<style>
+    .huy {
+        width: 750;
+        height: 350 !important;
+    }
+
+    .RawContent p {
+        line-height: 4;
+    }
+</style>
