@@ -52,9 +52,7 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                         var id = "radio" + i
                     }
                 }
-                for (var i = 0; i < $scope.Question.Topics; i++) {
-
-                }
+                SetUpTopic($scope.Question.Topics);
                 $('#Level').val(response.data.Level).niceSelect('update');
 
                 setTimeout(function () {
@@ -66,13 +64,6 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                 alert("Không tìm thấy dữ liệu");
             }
         });
-    }
-    function FindTopic(TopicID) {
-        for (var i = 0; i < $scope.Topics.length; i++) {
-            if ($scope.Topics[i].ID == TopicID) {
-                return i;
-            }
-        }
     }
     function InitCss() {
         console.log("OK");
@@ -130,10 +121,6 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
             }, 200);
         }
     }
-
-    //$scope.InitCourseID = function (id) {
-    //    $scope.CourseID = id;
-    //}
     $scope.EditAnswer = function (Index) {
         CKEDITOR.instances.AContent.setData($scope.Answers[Index].Content);
         $scope.Index = Index;
@@ -158,13 +145,6 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
     };
     $scope.save = function () {
         if (Validate()) {
-            var ListAns = $scope.Answers;
-            //for (var i = 0; i < $scope.Answers.length; i++) {
-            //    var AnswerDTO = {
-            //        Content: $scope.Answers[i]
-            //    }
-            //    ListAns.push(AnswerDTO);
-            //}
             $scope.Question.Content = CKEDITOR.instances.QContent.getData();
             $scope.Question.AnswerID = $("input[name='RightAnswer']:checked").val();
             $scope.Question.Level = $("#Level").val();
@@ -181,34 +161,118 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
             }
             console.log(Topics);
             $scope.Question.Topics = Topics;
-            //var QuestionDTO = {
-            //    Content: CKEDITOR.instances.QContent.getData(),
-            //    AnswerID: $("input[name='RightAnswer']:checked").val(),
-            //    Level: $("#Level").val(),
-            //    Solution: CKEDITOR.instances.SContent.getData(),
-            //    Answers: ListAns
-            //};
             console.log($scope.Question);
-            //$http({
-            //    method: 'POST',
-            //    url: '/Lop/EditQuestion',
-            //    data: JSON.stringify($scope.Question)
-            //}).then(function successCallback(response) {
-            //    if (response.data == 1) {
-            //        alert("Cập nhật thành công")
-            //        $window.location.href = '/Lop/DayThem#NganHangCauHoi';
-            //    }
-            //    if (response.data == -1) {
-            //        alert("Lưu thất bại");
-            //        //$window.location.href = '/Lop/DayThem';
-            //    }
-            //    if (response.data == 0) {
-            //        alert("Không đủ quyền hạn")
-            //        $window.location.href = '/Lop/DayThem#NganHangCauHoi';
-            //    }
-            //});
+            $http({
+                method: 'POST',
+                url: '/Lop/EditQuestion',
+                data: JSON.stringify($scope.Question)
+            }).then(function successCallback(response) {
+                if (response.data == 1) {
+                    alert("Cập nhật thành công")
+                    $window.location.href = '/Lop/DayThem#NganHangCauHoi';
+                }
+                if (response.data == -1) {
+                    alert("Lưu thất bại");
+                }
+                if (response.data == 0) {
+                    alert("Không đủ quyền hạn")
+                    $window.location.href = '/Lop/DayThem#NganHangCauHoi';
+                }
+            });
         }
     }
+
+    //TopicManage////////////////////////////////////
+    var topicFlag = 0;
+    $scope.CreateTopic = function () {
+        var TopicDTO = {
+            Name: $scope.TopicName
+        };
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag == 0) {
+            $http({
+                method: 'POST',
+                url: '/Lop/CreateTopic',
+                data: JSON.stringify(TopicDTO)
+            }).then(function successCallback(response) {
+                if (response.data != 0) {
+                    TopicDTO["ID"] = response.data;
+                    console.log(TopicDTO);
+                    $scope.Topics.push(TopicDTO);
+                    $scope.TopicName = "";
+                }
+                else {
+                    alert("Fail");
+                }
+            });
+        }
+
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag != 0) {
+            EditTopic(topicFlag);
+        }
+    }
+    $scope.SelectTopic = function (Index) {
+        document.getElementById("TopicInput").value = $scope.Topics[Index].Name;
+        topicFlag = Index;
+    }
+    function EditTopic(Index) {
+        var TopicDTO = $scope.Topics[Index];
+        TopicDTO.Name = $scope.TopicName;
+        $http({
+            method: 'POST',
+            url: '/Lop/EditTopic',
+            data: JSON.stringify(TopicDTO)
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics[Index].Name = $scope.TopicName;
+                $scope.TopicName = "";
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
+    $scope.DeleteTopic = function (Index) {
+        console.log($scope.Topics[Index]);
+        $http({
+            method: 'POST',
+            url: '/Lop/DeleteTopic',
+            data: JSON.stringify($scope.Topics[Index])
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics.splice(Index,1);
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
+    function LoadTopic() {
+        $http({
+            method: 'GET',
+            url: '/Lop/GetTopic'
+        }).then(function successCallback(response) {
+            $scope.Topics = response.data;
+            console.log("Topics: " + $scope.Topics)
+        });
+    }
+    function FindTopic(TopicID) {
+        for (var i = 0; i < $scope.Topics.length; i++) {
+            if ($scope.Topics[i].ID == TopicID) {
+                return i;
+            }
+        }
+    }
+    function SetUpTopic(ListTopic) {
+        for (var i = 0; i < ListTopic.length; i++) {
+
+            var topicID = "check" + FindTopic(ListTopic[i].ID);
+            document.getElementById(topicID).checked = true;
+        }
+    }
+    //TopicManage////////////////////////////////////
+
     $scope.clear = function () {
         clear();
     }
@@ -226,15 +290,6 @@ EditQuestionApp.controller('EditQuestionController', function ($scope, $http, $s
                 return $scope.Question.Answers[i];
             }
         }
-    }
-    function LoadTopic() {
-        $http({
-            method: 'GET',
-            url: '/Lop/GetTopic'
-        }).then(function successCallback(response) {
-            $scope.Topics = response.data;
-            console.log("Topics: " + $scope.Topics)
-        });
     }
     function Validate() {
         if (CKEDITOR.instances.QContent.getData() == '') {

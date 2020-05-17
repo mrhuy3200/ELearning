@@ -56,7 +56,10 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
             $scope.Lession["Content"] = $sce.trustAsHtml($scope.Lession["Content"]);
             $scope.Lession.URL = $sce.trustAsResourceUrl($scope.Lession.URL);
 
-            console.log(d.data);
+            console.log($scope.Lession);
+            setTimeout(function () {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }, 200);
         }, function () {
             alert('Không tìm thấy dữ liệu lession!!!');
         });

@@ -65,9 +65,7 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
             setTimeout(function () {
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
             }, 200);
-
         }
-
     }
     $scope.RemoveAnswer = function (Index) {
         $scope.FAnswers.splice(Index, 1);
@@ -78,9 +76,6 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
         $scope.Index = Index;
 
     }
-    //$scope.InitCourseID = function (id) {
-    //    $scope.CourseID = id;
-    //}
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
@@ -149,6 +144,71 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
         $scope.FAnswers = [];
         $('#Level').val(0).niceSelect('update');
     }
+    var topicFlag = 0;
+    $scope.CreateTopic = function () {
+        var TopicDTO = {
+            Name: $scope.TopicName
+        };
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag == 0) {
+            $http({
+                method: 'POST',
+                url: '/Lop/CreateTopic',
+                data: JSON.stringify(TopicDTO)
+            }).then(function successCallback(response) {
+                if (response.data != 0) {
+                    TopicDTO["ID"] = response.data;
+                    console.log(TopicDTO);
+                    $scope.Topics.push(TopicDTO);
+                    $scope.TopicName = "";
+                }
+                else {
+                    alert("Fail");
+                }
+            });
+        }
+
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag != 0) {
+            EditTopic(topicFlag);
+        }
+    }
+    $scope.SelectTopic = function (Index) {
+        document.getElementById("TopicInput").value = $scope.Topics[Index].Name;
+        topicFlag = Index;
+    }
+    function EditTopic(Index) {
+        var TopicDTO = $scope.Topics[Index];
+        TopicDTO.Name = $scope.TopicName;
+        $http({
+            method: 'POST',
+            url: '/Lop/EditTopic',
+            data: JSON.stringify(TopicDTO)
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics[Index].Name = $scope.TopicName;
+                $scope.TopicName = "";
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
+    $scope.DeleteTopic = function (Index) {
+        console.log($scope.Topics[Index]);
+        $http({
+            method: 'POST',
+            url: '/Lop/DeleteTopic',
+            data: JSON.stringify($scope.Topics[Index])
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics.splice(Index, 1);
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
     function LoadTopic() {
         $http({
             method: 'GET',
@@ -158,6 +218,7 @@ CreateQuestionApp.controller('CreateQuestionController', function ($scope, $http
             console.log("Topics: " + $scope.Topics)
         });
     }
+
     function Validate() {
         if (CKEDITOR.instances.QContent.getData() == '') {
             console.log(CKEDITOR.instances.QContent.getData());
