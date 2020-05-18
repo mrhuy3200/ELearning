@@ -498,11 +498,18 @@ namespace ELearning_V2.Service
                     data.Content = l.Content;
                     data.URL = l.URL;
                     data.UserID = l.UserID;
-                    data.Status = 2;
+                    data.Status = 1;
                     data.CreateDate = DateTime.Now;
                     db.Lessions.Add(data);
                     db.SaveChanges();
                     long id = db.Lessions.OrderByDescending(p => p.ID).FirstOrDefault().ID;
+                    foreach (var item in l.Topics)
+                    {
+                        Lession_Topic t = new Lession_Topic();
+                        t.LessionID = id;
+                        t.TopicID = item.ID;
+                        db.Lession_Topic.Add(t);
+                    }
                     data.Image = id + ".jpg";
                     db.SaveChanges();
                     return id;
@@ -526,6 +533,17 @@ namespace ELearning_V2.Service
                     data.URL = l.URL;
                     data.Status = l.Status;
                     db.SaveChanges();
+                    var TopicDelete = db.Lession_Topic.Where(x => x.LessionID == l.ID).ToList();
+                    db.Lession_Topic.RemoveRange(TopicDelete);
+                    foreach (var item in l.Topics)
+                    {
+                        Lession_Topic t = new Lession_Topic();
+                        t.LessionID = l.ID;
+                        t.TopicID = item.ID;
+                        db.Lession_Topic.Add(t);
+                    }
+                    db.SaveChanges();
+
                     return data.ID;
                 }
 
@@ -741,13 +759,16 @@ namespace ELearning_V2.Service
                         data.Level = q.Level;
                         data.UserID = q.UserID;
                         List<TopicDTO> Tdata = new List<TopicDTO>();
-                        foreach (var item in q.Question_Topic)
+                        if (q.Question_Topic != null)
                         {
-                            TopicDTO t = new TopicDTO();
-                            t.ID = item.ID;
-                            Tdata.Add(t);
+                            foreach (var item in q.Question_Topic)
+                            {
+                                TopicDTO t = new TopicDTO();
+                                t.ID = (long)item.TopicID;
+                                Tdata.Add(t);
+                            }
+                            data.Topics = Tdata;
                         }
-                        data.Topics = Tdata;
                         List<AnswerDTO> Adata = new List<AnswerDTO>();
                         foreach (var item in q.Answers)
                         {
@@ -819,5 +840,62 @@ namespace ELearning_V2.Service
                 throw;
             }
         }    
+        public static long CreateTopic(string Name, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Topic data = new Topic();
+                    data.Name = Name;
+                    data.UserID = UserID;
+                    db.Topics.Add(data);
+                    db.SaveChanges();
+                    return db.Topics.OrderByDescending(x=>x.ID).FirstOrDefault().ID;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
+        }
+        public static bool EditTopic(string Name, long TopicID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Topics.Find(TopicID);
+                    data.Name = Name;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool DeleteTopic(long TopicID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Topics.Find(TopicID);
+                    db.Topics.Remove(data);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

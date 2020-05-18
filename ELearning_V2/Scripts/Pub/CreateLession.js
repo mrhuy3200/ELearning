@@ -16,6 +16,8 @@ CreateLessionApp.directive('ngFiles', ['$parse', function ($parse) {
 CreateLessionApp.controller('CreateLessionController', function ($scope, $http, $window) {
     $scope.InitUserID = function (UserID) {
         $scope.UserID = UserID;
+        LoadTopic();
+
     }
     var formdata = new FormData();
     var file;
@@ -33,12 +35,25 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
         var data = CKEDITOR.instances.Content.getData();
         console.log(data);
         var url = $scope.URL.replace("watch?v=", "embed/");
+        var Topics = [];
+        var lstTopic = $("input[name='CheckTopic']:checked");
+        console.log(lstTopic)
+        for (var i = 0; i < lstTopic.length; i++) {
+            var Topic = {
+                ID: lstTopic[i].value
+            };
+            Topics.push(Topic);
+        }
+        console.log(Topics);
         var LessionDTO = {
             Name: $scope.Name,
             URL: url,
             Content: CKEDITOR.instances.Content.getData(),
-            UserID: $scope.UserID
+            UserID: $scope.UserID,
+            Topics: Topics
         };
+        console.log(LessionDTO);
+
         $http({
             method: 'POST',
             url: '/Lop/CreateLession',
@@ -65,6 +80,80 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
                     $window.location.href = '/Lop/LessionDetail/' + ID;
                 }
             });
+        });
+    }
+    var topicFlag = 0;
+    $scope.CreateTopic = function () {
+        var TopicDTO = {
+            Name: $scope.TopicName
+        };
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag == 0) {
+            $http({
+                method: 'POST',
+                url: '/Lop/CreateTopic',
+                data: JSON.stringify(TopicDTO)
+            }).then(function successCallback(response) {
+                if (response.data != 0) {
+                    TopicDTO["ID"] = response.data;
+                    console.log(TopicDTO);
+                    $scope.Topics.push(TopicDTO);
+                    $scope.TopicName = "";
+                }
+                else {
+                    alert("Fail");
+                }
+            });
+        }
+
+        if ($scope.TopicName != null && $scope.TopicName != "" && topicFlag != 0) {
+            EditTopic(topicFlag);
+        }
+    }
+    $scope.SelectTopic = function (Index) {
+        document.getElementById("TopicInput").value = $scope.Topics[Index].Name;
+        topicFlag = Index;
+    }
+    function EditTopic(Index) {
+        var TopicDTO = $scope.Topics[Index];
+        TopicDTO.Name = $scope.TopicName;
+        $http({
+            method: 'POST',
+            url: '/Lop/EditTopic',
+            data: JSON.stringify(TopicDTO)
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics[Index].Name = $scope.TopicName;
+                $scope.TopicName = "";
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
+    $scope.DeleteTopic = function (Index) {
+        console.log($scope.Topics[Index]);
+        $http({
+            method: 'POST',
+            url: '/Lop/DeleteTopic',
+            data: JSON.stringify($scope.Topics[Index])
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                $scope.Topics.splice(Index, 1);
+            }
+            else {
+                alert("Fail");
+            }
+        });
+
+    }
+    function LoadTopic() {
+        $http({
+            method: 'GET',
+            url: '/Lop/GetTopic'
+        }).then(function successCallback(response) {
+            $scope.Topics = response.data;
+            console.log("Topics: " + $scope.Topics)
         });
     }
 });

@@ -32,33 +32,33 @@
                     <input class="form-control" ng-model="Lession.Name" required placeholder="Nhập tên bài giảng..." />
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-6">
+                    <div class="form-group col-md-4">
                         <label class="control-label"> Image </label>
                         <br />
                         <div>
                             <input class="btn btn-outline-dark" type="file" ng-files="getTheFiles($files)" id="file" accept="image/*" />
                         </div>
                         <br />
-                        <img id="output" width="500" height="300" src="~/Content/img/LessionImage/{{Lession.Image}}" alt="Card image cap">
+                        <img id="output" width="330" src="~/Content/img/LessionImage/{{Lession.Image}}" alt="Card image cap">
                     </div>
-                    <div class="form-group col-lg-6">
+                    <div class="form-group col-md-4">
                         <label class="control-label"> Liên kết video </label>
                         <br />
                         <div>
                             <input class="form-control" ng-model="Lession.URL" id="URL" placeholder="Liên kết..." />
                         </div>
                         <br />
-                        <iframe id="Video" ng-src="{{URL}}" width="500" height="300" frameborder="0" allowfullscreen></iframe>
+                        <iframe id="Video" ng-src="{{URL}}" width="330" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Partial("_TopicManage")
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Nội dung</label>
                     <div>
+                        <textarea id="Test" style="display:none"></textarea>
                         <textarea id="Content"></textarea>
-                        <script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
-                        <script>
-                            CKEDITOR.replace("Content");
-                        </script>
                     </div>
                 </div>
                 <div class="form-group">
@@ -71,14 +71,14 @@
             </div>
         </div>
         <div>
-            <a href="#" onclick="location.href='@Url.Action("QuanLyBaiGiang","BaiGiang")'">Quay lại</a>
+            <a href="#" ng-click="Test()">Quay lại</a>
         </div>
     </div>
 </section>
-<script src="~/Content/js/jquery-3.3.1.min.js"></script>
+@*<script src="~/Content/js/jquery-3.3.1.min.js"></script>*@
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/EditLession.js"></script>
-
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
 <script>
     document.getElementById('file').onchange = function (evt) {
         var tgt = evt.target || window.event.srcElement,
@@ -106,5 +106,6 @@
         document.getElementById('Video').src = b;
 
     }
-
+    CKEDITOR.inline("Test");
+    CKEDITOR.inline('Content');
 </script>

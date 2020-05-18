@@ -83,32 +83,33 @@
                             </select>
                             <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <strong class="col-md-12">Chủ đề</strong>
+                        @*<div class="col-md-12">
+                                <div class="row">
+                                    <strong class="col-md-12">Chủ đề</strong>
 
-                                <div class="row" style="padding: 10px 0px 15px 30px;">
-                                    <input class="form-control col-md-10" type="text" ng-model="Topic" />
-                                    <div class="col-md-2">
-                                        <a class="btn btn-dark text-success "><i class="fa fa-plus"></i></a>
+                                    <div class="row" style="padding: 10px 0px 15px 30px;">
+                                        <input class="form-control col-md-10" type="text" ng-model="Topic" />
+                                        <div class="col-md-2">
+                                            <a class="btn btn-dark text-success "><i class="fa fa-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <ul style="padding-left:0px;padding-right:45px">
-                                <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
-                                    <div class="confirm-checkbox">
-                                        <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
-                                        <label for="check{{$index}}"></label>
-                                        <p style="margin-left:30px">{{t.Name}}</p>
-                                    </div>
-                                    <p>
-                                        <a class="text-info" ng-click="EditTopic(t.ID)"><i class="fa fa-pencil-square-o"></i></a>
-                                        &nbsp;
-                                        <a class="text-danger" ng-click="RemoveTopic(t.ID)"><i class="lnr lnr-trash"></i></a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
+                                <ul style="padding-left:0px;padding-right:45px">
+                                    <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
+                                        <div class="confirm-checkbox">
+                                            <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
+                                            <label for="check{{$index}}"></label>
+                                            <p style="margin-left:30px">{{t.Name}}</p>
+                                        </div>
+                                        <p>
+                                            <a class="text-info" ng-click="EditTopic(t.ID)"><i class="fa fa-pencil-square-o"></i></a>
+                                            &nbsp;
+                                            <a class="text-danger" ng-click="RemoveTopic(t.ID)"><i class="lnr lnr-trash"></i></a>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>*@
+                        @Html.Partial("_TopicManage")
                     </div>
                 </div>
             </div>
@@ -120,6 +121,7 @@
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/Question.js"></script>
 <script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
+<script src="~/Scripts/Pub/TopicManage.js"></script>
 <script>
     //CKEDITOR.disableAutoInline = true;
     var S = CKEDITOR.inline('SContent');

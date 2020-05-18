@@ -37,7 +37,7 @@
                         @*@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập tên bài giảng" } })*@
                     </div>
                     <div class="row">
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-md-4">
                             <label class="control-label"> Image </label>
                             <br />
                             <div>
@@ -45,9 +45,9 @@
                                 @*@Html.TextBoxFor(model => model.Image, new { @class = "btn btn-outline-dark", @type = "file", @id = "file", @required = "required", @accept = "image/*" })*@
                             </div>
                             <br />
-                            <img id="output" width="500" height="300" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
+                            <img id="output" width="330" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
                         </div>
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-md-4">
                             <label class="control-label"> Liên kết video </label>
                             <br />
                             <div>
@@ -55,7 +55,10 @@
                                 @*@Html.TextBoxFor(model => model.URL, new { @class = "form-control", @placeholder = "Liên kết...", @id = "URL" })*@
                             </div>
                             <br />
-                            <iframe id="Video" width="500" height="300" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="Video" width="330" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.Partial("_TopicManage")
                         </div>
                     </div>
                     <div class="form-group">

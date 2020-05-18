@@ -73,7 +73,7 @@
                     </div>
                     <div class="Question-level col-lg-6" style="height:100px">
                         <div class="col-md-12" style="padding-bottom:60px">
-                            <p class="font-weight-bold">Mức độ <span class="text-danger float-left">(*)</span></p>
+                            <p class="font-weight-bold">Mức độ <span class="text-danger">(*)</span></p>
                             <select class="float-left" id="Level" onchange="changeInputSelect(this)">
                                 <option value="0">Chọn độ khó</option>
                                 <option value="1">Nhận biết</option>
@@ -88,9 +88,9 @@
                                 <strong class="col-md-12">Chủ đề</strong>
 
                                 <div class="row" style="padding: 10px 0px 15px 30px;">
-                                    <input class="form-control col-md-10" type="text" ng-model="Topic" />
+                                    <input id="TopicInput" class="form-control col-md-10" type="text" ng-model="TopicName" />
                                     <div class="col-md-2">
-                                        <a class="btn btn-dark text-success "><i class="fa fa-plus"></i></a>
+                                        <a class="btn btn-dark text-success"  ng-click="CreateTopic()"><i class="fa fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -102,9 +102,9 @@
                                         <p style="margin-left:30px">{{t.Name}}</p>
                                     </div>
                                     <p>
-                                        <a class="text-info" ng-click="EditTopic(t.ID)"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a class="text-info" ng-click="SelectTopic($index)"><i class="fa fa-pencil-square-o"></i></a>
                                         &nbsp;
-                                        <a class="text-danger" ng-click="RemoveTopic(t.ID)"><i class="lnr lnr-trash"></i></a>
+                                        <a class="text-danger" ng-click="DeleteTopic($index)"><i class="lnr lnr-trash"></i></a>
                                     </p>
                                 </li>
                             </ul>

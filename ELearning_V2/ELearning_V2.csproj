@@ -3322,6 +3322,7 @@
     <Content Include="Scripts\Pub\EditQuestion.js" />
     <Content Include="Scripts\Pub\LessionDetail.js" />
     <Content Include="Scripts\Pub\Question.js" />
+    <Content Include="Scripts\Pub\TopicManage.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\User\UserController.js" />
@@ -3370,6 +3371,8 @@
     <Content Include="Views\Lop\CreateQuestion.cshtml" />
     <Content Include="Views\Lop\EditQuestion.cshtml" />
     <Content Include="Views\Lop\CreateTest.cshtml" />
+    <Content Include="Views\Shared\_TopicManage.cshtml" />
+    <Content Include="Views\Shared\_BackTop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

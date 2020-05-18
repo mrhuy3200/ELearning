@@ -312,7 +312,7 @@ namespace ELearning_V2.Controllers
             using (ELearningDB db = new ELearningDB())
             {
                 var Course = db.Courses.Find(ID);
-                if (Course.UserID != User.ID || db.CourseDetails.Where(x=>x.CourseID == ID && x.UserID == User.ID)!=null)
+                if (Course.UserID != User.ID || db.CourseDetails.Where(x => x.CourseID == ID && x.UserID == User.ID) != null)
                 {
                     var data = ClassService.GetLessionByCourseID(ID);
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -982,5 +982,73 @@ namespace ELearning_V2.Controllers
             ViewBag.CourseID = ID;
             return View();
         }
+        [HttpPost]
+        public ActionResult CreateTopic(TopicDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var data = ClassService.CreateTopic(t.Name, User.ID);
+            if (data != -1)
+            {
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult EditTopic(TopicDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var check = db.Topics.Find(t.ID);
+                if (check == null)
+                {
+                    return Json("Không tìm thấy chủ đề", JsonRequestBehavior.AllowGet);
+                }
+                if (check.UserID != User.ID)
+                {
+                    return Json("Không đủ quyền hạn", JsonRequestBehavior.AllowGet);
+                }
+            }
+            if (ClassService.EditTopic(t.Name, t.ID))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Fail", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteTopic(TopicDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var check = db.Topics.Find(t.ID);
+                if (check == null)
+                {
+                    return Json("Không tìm thấy chủ đề", JsonRequestBehavior.AllowGet);
+                }
+                if (check.UserID != User.ID)
+                {
+                    return Json("Không đủ quyền hạn", JsonRequestBehavior.AllowGet);
+                }
+            }
+            if (ClassService.DeleteTopic(t.ID))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Fail", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
