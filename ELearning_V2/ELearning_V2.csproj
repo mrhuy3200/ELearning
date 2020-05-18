@@ -255,6 +255,7 @@
     <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="DTO\LessionDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
+    <Compile Include="DTO\ReplyDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
     <Compile Include="DTO\TestDTO.cs" />
     <Compile Include="DTO\TopicDTO.cs" />

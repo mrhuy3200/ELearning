@@ -776,6 +776,66 @@ namespace ELearning_V2.Controllers
 
             }
         }
+        [HttpPost]
+        public ActionResult CreateReply(ReplyDTO r)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            r.CreateBy = User.ID;
+            var Data = ClassService.CreateReply(r);
+            if (Data == 1)
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CreateComment(CommentDTO c)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            c.CreateBy = User.ID;
+            var Data = ClassService.CreateComment(c);
+            if (Data == 1)
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult EditComment(CommentDTO c)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.EditComment(c))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RemoveComment(CommentDTO c)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.RemoveComment(c.ID))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult GetListQuesionByUserID()
         {

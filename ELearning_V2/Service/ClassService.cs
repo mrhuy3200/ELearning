@@ -487,6 +487,123 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static int CreateReply(ReplyDTO r)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Reply data = new Reply();
+                    data.NoiDung = r.NoiDung;
+                    data.CommentID = r.CommentID;
+                    data.CreateDate = DateTime.Now;
+                    data.CreateBy = r.CreateBy;
+                    db.Replies.Add(data);
+                    db.SaveChanges();
+                    //CommentDTO returnData = new CommentDTO();
+                    //var id = db.Replies.OrderByDescending(x => x.ID).FirstOrDefault().ID;
+                    //List<Reply> lstRep = db.Replies.Where(x => x.ID == id).ToList();
+                    //List<CommentDTO> reps = new List<CommentDTO>();
+                    //foreach (var rep in lstRep)
+                    //{
+                    //    CommentDTO tepm = new CommentDTO();
+                    //    tepm.ID = rep.ID;
+                    //    tepm.NoiDung = rep.NoiDung;
+                    //    tepm.CreateDate = rep.CreateDate;
+                    //    tepm.CreateBy = rep.CreateBy;
+                    //    if (rep.TaiKhoan.Role == 4)
+                    //    {
+                    //        tepm.Fullname = rep.TaiKhoan.NguoiDung.HoVaTen;
+                    //    }
+                    //    returnData = tepm;
+                    //}
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static int CreateComment(CommentDTO c)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Comment data = new Comment();
+                    data.NoiDung = c.NoiDung;
+                    data.CreateDate = DateTime.Now;
+                    data.CreateBy = c.CreateBy;
+                    data.CourseID = c.CourseID;
+                    data.LessionID = c.LessionID;
+                    db.Comments.Add(data);
+                    db.SaveChanges();
+                    //CommentDTO returnData = new CommentDTO();
+                    //var id = db.Comments.OrderByDescending(x => x.ID).FirstOrDefault().ID;
+                    //List<Comment> lstCom = db.Comments.Where(x => x.ID == id).ToList();
+                    //List<CommentDTO> reps = new List<CommentDTO>();
+                    //foreach (var rep in lstCom)
+                    //{
+                    //    CommentDTO tepm = new CommentDTO();
+                    //    tepm.ID = rep.ID;
+                    //    tepm.NoiDung = rep.NoiDung;
+                    //    tepm.CreateDate = rep.CreateDate;
+                    //    tepm.CreateBy = rep.CreateBy;
+                    //    if (rep.TaiKhoan.Role == 4)
+                    //    {
+                    //        tepm.Fullname = rep.TaiKhoan.NguoiDung.HoVaTen;
+                    //    }
+                    //    returnData = tepm;
+                    //}
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool EditComment(CommentDTO c)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Comments.Find(c.ID);
+                    data.NoiDung = c.NoiDung;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool RemoveComment(long CommentID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Comments.Find(CommentID);
+                    var lstRep = data.Replies.ToList();
+                    db.Replies.RemoveRange(lstRep);
+                    db.Comments.Remove(data);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public static long CreateLession(LessionDTO l)
         {
             try

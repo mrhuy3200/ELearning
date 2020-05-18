@@ -1362,7 +1362,6 @@ button:focus {
 }
 
 .comment-form textarea.form-control {
-	height: 140px;
 	resize: none;
 }
 
