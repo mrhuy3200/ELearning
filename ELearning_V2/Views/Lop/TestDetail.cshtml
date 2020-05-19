@@ -24,12 +24,12 @@
 <section class="team_area p_120" ng-app="TestDetailApp" ng-controller="TestDetailController" ng-init="InitTestID('@ViewBag.TestID')">
     <div class="container">
         <div class="main_title">
-            <h2>Create Test</h2>
+            <h2>Test Manage</h2>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h3>Random</h3>
-                <div class="row p-2 border border-dark rounded bg-white" ng-form="randomform">
+                <h3>Tạo ngẫu nhiên</h3>
+                <div class="row p-2 border border-dark rounded bg-white" style="padding-bottom:15px !important" ng-form="randomform">
                     <label class="col-md-4">
                         <b style="color:brown">Chủ đề</b>
                         <select class="form-control" id="TopicRandom" ng-model="TopicRandom" required>
@@ -50,12 +50,12 @@
                     <label class="col-md-1">
                         <b style="color:brown">Số câu hỏi</b>
                         <br />
-                        <input class="form-control" type="number" style="width:80px" ng-model="AmountRandom" min="1" max="{{randomMax}}" name="AmountRandom" required />
-                        <span ng-show="randomform.SoLuongRandom.$error.max" class="error-msg">Tối đa {{randomMax}} câu</span>
-                        <span ng-show="randomform.SoLuongRandom.$error.required" class="error-msg">Vui lòng nhập số câu hỏi cần tạo</span>
+                        <input class="form-control" type="number" style="width:80px" ng-model="AmountRandom" min="1" max="{{MaxRandom}}" name="AmountRandom" required />
+                        <span style="position:absolute;width:fit-content;" ng-show="randomform.AmountRandom.$error.max" class="text-danger">Tối đa {{MaxRandom}} câu</span>
+                        
                     </label>
                     <div class="col-md-1">
-                        <button class="btn btn-dark text-success mt-4" ng-disabled="randomform.$invalid" ng-click="random()">Tạo</button>
+                        <button class="btn btn-dark text-success mt-4" ng-disabled="randomform.$invalid" ng-click="RandomTestQuestion()">Tạo</button>
 
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                                 <tr ng-repeat="q in Test.Questions">
                                     <td>
                                         <a href="" title="Remove"
-                                           ng-click="remove(q.ID)">
+                                           ng-click="RemoveQuestionFromTest(q.ID)">
                                             <em class="fa fa-trash" style="color:red"></em>
                                         </a>
                                     </td>
@@ -129,14 +129,17 @@
                         </div>
                     </div>
                     <div class="qst-list" dir-paginate="q in Questions | filter:QSearchKey | itemsPerPage: QpageSize" current-page="QcurrentPage" pagination-id="ListQuestion">
-                        <div class="qst-info" ng-hide="(q.Level != LevelFilter && (LevelFilter != null && LevelFilter != '')) || (lstTopic.length != 0 )">
+                        <div class="qst-info" ng-hide="(q.Level != LevelFilter && (LevelFilter != null && LevelFilter != '')) || (lstTopic.length != 0 && q.Hide)">
                             <div class="View-question">
                                 <div class="row border-bottom pl-3">
-                                    <a ng-click="add(q.ID)">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                    </a>
+                                    <div class="text-success">
+                                        <a ng-click="AddQuestionToTest(q.ID)">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
                                     &nbsp;
-                                    <strong>{{$index + ((QcurrentPage-1)* 10) +1}}.&nbsp;&nbsp;</strong>
+                                    <strong>{{$index + ((QcurrentPage-1)* QpageSize) +1}}.&nbsp;&nbsp;</strong>
                                     <div ng-bind-html="q.FContent"></div>
                                 </div>
                                 <div class="row border-bottom pt-3">
