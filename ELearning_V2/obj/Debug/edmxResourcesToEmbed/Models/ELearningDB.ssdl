@@ -316,6 +316,7 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="Status" Type="int" />
     <Property Name="CourseID" Type="bigint" />
+    <Property Name="AmountQuestion" Type="int" />
   </EntityType>
   <EntityType Name="Test_Question">
     <Key>
@@ -754,7 +755,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Lession_Topic_Topic">
-    <End Role="Topic" Type="Self.Topic" Multiplicity="0..1" />
+    <End Role="Topic" Type="Self.Topic" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Lession_Topic" Type="Self.Lession_Topic" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Topic">
@@ -902,7 +905,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Question_Topic_Topic">
-    <End Role="Topic" Type="Self.Topic" Multiplicity="0..1" />
+    <End Role="Topic" Type="Self.Topic" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Question_Topic" Type="Self.Question_Topic" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Topic">
@@ -913,7 +918,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Reply_Comment1">
+  <Association Name="FK_Reply_Comment">
     <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
     <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1277,7 +1282,7 @@
       <End Role="Topic" EntitySet="Topic" />
       <End Role="Question_Topic" EntitySet="Question_Topic" />
     </AssociationSet>
-    <AssociationSet Name="FK_Reply_Comment1" Association="Self.FK_Reply_Comment1">
+    <AssociationSet Name="FK_Reply_Comment" Association="Self.FK_Reply_Comment">
       <End Role="Comment" EntitySet="Comment" />
       <End Role="Reply" EntitySet="Reply" />
     </AssociationSet>

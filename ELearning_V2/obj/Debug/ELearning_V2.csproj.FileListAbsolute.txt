@@ -537,3 +537,16 @@ D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csproj.CopyComplete
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.dll
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.pdb
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csprojAssemblyReference.cache
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Security.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Owin.dll
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.xml
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Security.xml

@@ -6,7 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hosting;
 namespace ELearning_V2
 {
     public class MvcApplication : HttpApplication
@@ -18,6 +19,7 @@ namespace ELearning_V2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
     }
 }

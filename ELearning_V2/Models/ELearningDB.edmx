@@ -321,6 +321,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Status" Type="int" />
           <Property Name="CourseID" Type="bigint" />
+          <Property Name="AmountQuestion" Type="int" />
         </EntityType>
         <EntityType Name="Test_Question">
           <Key>
@@ -759,7 +760,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lession_Topic_Topic">
-          <End Role="Topic" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="Topic" Type="Self.Topic" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Lession_Topic" Type="Self.Lession_Topic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topic">
@@ -907,7 +910,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_Topic_Topic">
-          <End Role="Topic" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="Topic" Type="Self.Topic" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Question_Topic" Type="Self.Question_Topic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topic">
@@ -918,7 +923,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reply_Comment1">
+        <Association Name="FK_Reply_Comment">
           <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
           <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1282,7 +1287,7 @@
             <End Role="Topic" EntitySet="Topic" />
             <End Role="Question_Topic" EntitySet="Question_Topic" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reply_Comment1" Association="Self.FK_Reply_Comment1">
+          <AssociationSet Name="FK_Reply_Comment" Association="Self.FK_Reply_Comment">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="Reply" EntitySet="Reply" />
           </AssociationSet>
@@ -1411,7 +1416,7 @@
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reply_Comment1" Association="ELearningModel.FK_Reply_Comment1">
+          <AssociationSet Name="FK_Reply_Comment" Association="ELearningModel.FK_Reply_Comment">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="Reply" EntitySet="Replies" />
           </AssociationSet>
@@ -1656,7 +1661,7 @@
           <NavigationProperty Name="Lession" Relationship="ELearningModel.FK_Comment_Lession" FromRole="Comment" ToRole="Lession" />
           <NavigationProperty Name="Lop" Relationship="ELearningModel.FK_Comment_Lop" FromRole="Comment" ToRole="Lop" />
           <NavigationProperty Name="TaiKhoan" Relationship="ELearningModel.FK_Comment_TaiKhoan" FromRole="Comment" ToRole="TaiKhoan" />
-          <NavigationProperty Name="Replies" Relationship="ELearningModel.FK_Reply_Comment1" FromRole="Comment" ToRole="Reply" />
+          <NavigationProperty Name="Replies" Relationship="ELearningModel.FK_Reply_Comment" FromRole="Comment" ToRole="Reply" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -1919,7 +1924,7 @@
           <Property Name="CreateDate" Type="DateTime" Precision="0" />
           <Property Name="CreateBy" Type="Int64" Nullable="false" />
           <Property Name="CommentID" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="ELearningModel.FK_Reply_Comment1" FromRole="Reply" ToRole="Comment" />
+          <NavigationProperty Name="Comment" Relationship="ELearningModel.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
           <NavigationProperty Name="TaiKhoan" Relationship="ELearningModel.FK_Reply_TaiKhoan" FromRole="Reply" ToRole="TaiKhoan" />
         </EntityType>
         <EntityType Name="TaiKhoan">
@@ -1946,6 +1951,7 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CourseID" Type="Int64" />
+          <Property Name="AmountQuestion" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Test_Course" FromRole="Test" ToRole="Course" />
           <NavigationProperty Name="Test_Question" Relationship="ELearningModel.FK_Test_Question_Test" FromRole="Test" ToRole="Test_Question" />
           <NavigationProperty Name="TestDetails" Relationship="ELearningModel.FK_TestDetail_Test" FromRole="Test" ToRole="TestDetail" />
@@ -2151,7 +2157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reply_Comment1">
+        <Association Name="FK_Reply_Comment">
           <End Type="ELearningModel.Comment" Role="Comment" Multiplicity="1" />
           <End Type="ELearningModel.Reply" Role="Reply" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2390,7 +2396,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lession_Topic_Topic">
-          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="0..1" />
+          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ELearningModel.Lession_Topic" Role="Lession_Topic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topic">
@@ -2548,7 +2556,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_Topic_Topic">
-          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="0..1" />
+          <End Type="ELearningModel.Topic" Role="Topic" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ELearningModel.Question_Topic" Role="Question_Topic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topic">
@@ -2932,6 +2942,7 @@
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="ELearningModel.Test">
               <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="AmountQuestion" ColumnName="AmountQuestion" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

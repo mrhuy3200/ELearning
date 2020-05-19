@@ -12,5 +12,10 @@ namespace ELearning_V2.DTO
         public DateTime? CreateDate { get; set; }
         public int? Status { get; set; }
         public long? CourseID { get; set; }
+        public int AmountQuestion { get; set; }
+        public long UserID { get; set; }
+        public List<QuestionDTO> Questions { get; set; }
+        
+
     }
 }
