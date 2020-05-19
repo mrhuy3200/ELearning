@@ -836,7 +836,34 @@ namespace ELearning_V2.Controllers
             }
             return Json("", JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
+        public ActionResult EditReply(ReplyDTO r)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.EditReply(r))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RemoveReply(ReplyDTO r)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.RemoveReply(r))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetListQuesionByUserID()
         {
             var User = (TaiKhoan)Session["User"];
@@ -1027,20 +1054,30 @@ namespace ELearning_V2.Controllers
             }
             return Json(-1, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult CreateTest(long ID)
+        public ActionResult TestDetail(long ID, long CourseID)
         {
             var User = (TaiKhoan)Session["User"];
             if (User == null)
             {
                 return RedirectToAction("Login", "Login");
             }
-            var Course = ClassService.GetClassByID(ID);
-            if (Course.UserID != User.ID)
+            ViewBag.CourseID = CourseID;
+            ViewBag.TestID = ID;
+            return View();
+        }
+        public ActionResult GetTest(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var data = ClassService.GetTestByID(ID);
+            if (data.UserID != User.ID)
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.CourseID = ID;
-            return View();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult CreateTopic(TopicDTO t)

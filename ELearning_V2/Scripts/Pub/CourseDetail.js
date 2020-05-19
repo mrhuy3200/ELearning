@@ -347,6 +347,10 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
             }
         });
     }
+    $scope.ViewTest = function (TestID) {
+        $window.location.href = '/Lop/TestDetail/' + TestID + '?CourseID=' + $scope.CourseID;
+    }
+
     $scope.getTheFiles = function ($files) {
         console.log($files);
         file = $files[0];

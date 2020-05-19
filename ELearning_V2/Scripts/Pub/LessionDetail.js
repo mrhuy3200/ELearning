@@ -114,12 +114,13 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
                 NoiDung: $("#RrepArea" + CmtIndex + RepIndex).val(),
                 ID: RepID
             };
+            console.log(ReplyDTO);
             LessionDetailService.EditReply(ReplyDTO).then(function (r) {
                 if (r.data != null) {
                     LoadComment($scope.LessionID, $scope.CourseID);
-                    $("#repArea" + Index).val("");
-                    $("#RepBtn" + Index).text('reply');
-                    $("#Rep" + Index).collapse('hide');
+                    $("#RrepArea" + CmtIndex + RepIndex).val("");
+                    $("#RRepBtn" + CmtIndex + RepIndex).text('reply');
+                    $("#RRep" + CmtIndex + RepIndex).collapse('hide');
                 }
             });
         }
@@ -132,6 +133,13 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
             }
         });
 
+    }
+    $scope.RemoveReply = function (Reply) {
+        LessionDetailService.RemoveReply(Reply).then(function (r) {
+            if (r.data != null) {
+                LoadComment($scope.LessionID, $scope.CourseID);
+            }
+        });
     }
     $scope.SendRepRep = function (CmtIndex, RepIndex, CmtID) {
         console.log($("#RrepArea" + CmtIndex + RepIndex).val());
@@ -270,6 +278,20 @@ LessionDetailApp.factory('LessionDetailService', function ($http) {
             method: 'POST',
             url: '/Lop/EditComment',
             data: JSON.stringify(CommentDTO)
+        });
+    };
+    fac.EditReply = function (ReplyDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/EditReply',
+            data: JSON.stringify(ReplyDTO)
+        });
+    };
+    fac.RemoveReply = function (ReplyDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/RemoveReply',
+            data: JSON.stringify(ReplyDTO)
         });
     };
     return fac;

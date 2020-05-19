@@ -118,7 +118,7 @@
                                     <div class="collapse row" id="RRep{{$parent.$index}}{{$index}}">
                                         <textarea id="RrepArea{{$parent.$index}}{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
                                         <div class="col-md-2">
-                                            <a id="EditRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="EditRep($parent.$index, $index, cmt.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
+                                            <a id="EditRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="EditRep($parent.$index, $index, rep.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
                                             <a id="SendRepRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="SendRepRep($parent.$index, $index, cmt.ID)"><i class="fa fa-paper-plane-o"></i></a>
                                         </div>
                                     </div>

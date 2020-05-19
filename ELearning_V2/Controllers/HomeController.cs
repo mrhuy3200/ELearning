@@ -16,7 +16,7 @@ namespace ELearning_V2.Controllers
             var user = (TaiKhoan)Session["User"];
             if (user == null)
             {
-                RedirectToAction("Login", "Login");
+                return RedirectToAction("Login", "Login");
             }
             if (TempData["ActiveResult"] != null)
             {
@@ -40,6 +40,10 @@ namespace ELearning_V2.Controllers
             return View();
         }
         public ActionResult Home()
+        {
+            return View();
+        }
+        public ActionResult Chat()
         {
             return View();
         }

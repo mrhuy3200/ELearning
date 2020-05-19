@@ -302,6 +302,7 @@
     <EntitySetMapping Name="Tests">
       <EntityTypeMapping TypeName="ELearningModel.Test">
         <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="AmountQuestion" ColumnName="AmountQuestion" />
           <ScalarProperty Name="CourseID" ColumnName="CourseID" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

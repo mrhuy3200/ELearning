@@ -4,37 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99afd6dbe67b4918929a6445aabdb5c2" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="ELearningModel.Answer" Width="1.5" PointX="7.5" PointY="38.375" />
-        <EntityTypeShape EntityType="ELearningModel.BaiGiang" Width="1.5" PointX="5.25" PointY="25.5" />
-        <EntityTypeShape EntityType="ELearningModel.BaiLam" Width="1.5" PointX="15" PointY="18.75" />
-        <EntityTypeShape EntityType="ELearningModel.CauHoi" Width="1.5" PointX="5.25" PointY="19" />
-        <EntityTypeShape EntityType="ELearningModel.Comment" Width="1.5" PointX="10.5" PointY="32.625" />
-        <EntityTypeShape EntityType="ELearningModel.Course" Width="1.5" PointX="5.25" PointY="29.5" />
-        <EntityTypeShape EntityType="ELearningModel.Course_Lession" Width="1.5" PointX="10.5" PointY="40.375" />
-        <EntityTypeShape EntityType="ELearningModel.CourseDetail" Width="1.5" PointX="7.5" PointY="29.5" />
-        <EntityTypeShape EntityType="ELearningModel.Chuong" Width="1.5" PointX="3" PointY="20.875" />
-        <EntityTypeShape EntityType="ELearningModel.DeThi" Width="1.5" PointX="10.5" PointY="22" />
+      <Diagram DiagramId="99afd6dbe67b4918929a6445aabdb5c2" Name="Diagram1" ZoomLevel="68">
+        <EntityTypeShape EntityType="ELearningModel.Answer" Width="1.5" PointX="7.5" PointY="30.75" />
+        <EntityTypeShape EntityType="ELearningModel.BaiGiang" Width="1.5" PointX="5.25" PointY="21.875" />
+        <EntityTypeShape EntityType="ELearningModel.BaiLam" Width="1.5" PointX="18" PointY="38" />
+        <EntityTypeShape EntityType="ELearningModel.CauHoi" Width="1.5" PointX="8.25" PointY="21" />
+        <EntityTypeShape EntityType="ELearningModel.Comment" Width="1.5" PointX="10.5" PointY="29.25" />
+        <EntityTypeShape EntityType="ELearningModel.Course" Width="1.5" PointX="5.25" PointY="34.375" />
+        <EntityTypeShape EntityType="ELearningModel.Course_Lession" Width="1.5" PointX="10.5" PointY="34.125" />
+        <EntityTypeShape EntityType="ELearningModel.CourseDetail" Width="1.5" PointX="10.5" PointY="37.125" />
+        <EntityTypeShape EntityType="ELearningModel.Chuong" Width="1.5" PointX="6" PointY="18.875" />
+        <EntityTypeShape EntityType="ELearningModel.DeThi" Width="1.5" PointX="10.5" PointY="23" />
         <EntityTypeShape EntityType="ELearningModel.GiangVien" Width="1.5" PointX="3" PointY="25" />
-        <EntityTypeShape EntityType="ELearningModel.HocVien" Width="1.5" PointX="3" PointY="16.875" />
+        <EntityTypeShape EntityType="ELearningModel.HocVien" Width="1.5" PointX="3" PointY="42.375" />
         <EntityTypeShape EntityType="ELearningModel.KeyAPI" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ELearningModel.Lession" Width="1.5" PointX="5.25" PointY="42" />
-        <EntityTypeShape EntityType="ELearningModel.Lession_Topic" Width="1.5" PointX="7.5" PointY="45" />
-        <EntityTypeShape EntityType="ELearningModel.LessionView" Width="1.5" PointX="10.5" PointY="43.5" />
-        <EntityTypeShape EntityType="ELearningModel.Lop" Width="1.5" PointX="7.5" PointY="20.75" />
-        <EntityTypeShape EntityType="ELearningModel.LopKiemTra" Width="1.5" PointX="12.75" PointY="19.75" />
+        <EntityTypeShape EntityType="ELearningModel.Lession" Width="1.5" PointX="5.25" PointY="25.625" />
+        <EntityTypeShape EntityType="ELearningModel.Lession_Topic" Width="1.5" PointX="7.5" PointY="33.625" />
+        <EntityTypeShape EntityType="ELearningModel.LessionView" Width="1.5" PointX="7.5" PointY="27.625" />
+        <EntityTypeShape EntityType="ELearningModel.Lop" Width="1.5" PointX="13.5" PointY="27.625" />
+        <EntityTypeShape EntityType="ELearningModel.LopKiemTra" Width="1.5" PointX="15.75" PointY="32.625" />
         <EntityTypeShape EntityType="ELearningModel.MonHoc" Width="1.5" PointX="0.75" PointY="21.625" />
-        <EntityTypeShape EntityType="ELearningModel.NguoiDung" Width="1.5" PointX="3" PointY="35.5" />
-        <EntityTypeShape EntityType="ELearningModel.Question" Width="1.5" PointX="5.25" PointY="37.5" />
-        <EntityTypeShape EntityType="ELearningModel.Question_Topic" Width="1.5" PointX="7.5" PointY="41.875" />
-        <EntityTypeShape EntityType="ELearningModel.Reply" Width="1.5" PointX="12.75" PointY="29.625" />
+        <EntityTypeShape EntityType="ELearningModel.NguoiDung" Width="1.5" PointX="3" PointY="31.625" />
+        <EntityTypeShape EntityType="ELearningModel.Question" Width="1.5" PointX="5.25" PointY="29.875" />
+        <EntityTypeShape EntityType="ELearningModel.Question_Topic" Width="1.5" PointX="7.5" PointY="36.75" />
+        <EntityTypeShape EntityType="ELearningModel.Reply" Width="1.5" PointX="15.75" PointY="27.875" />
         <EntityTypeShape EntityType="ELearningModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="25.375" />
-        <EntityTypeShape EntityType="ELearningModel.Test" Width="1.5" PointX="7.5" PointY="33" />
-        <EntityTypeShape EntityType="ELearningModel.Test_Question" Width="1.5" PointX="12.75" PointY="33.125" />
-        <EntityTypeShape EntityType="ELearningModel.TestDetail" Width="1.5" PointX="12.75" PointY="35.875" />
-        <EntityTypeShape EntityType="ELearningModel.TestResult" Width="1.5" PointX="9.75" PointY="37.125" />
-        <EntityTypeShape EntityType="ELearningModel.Topic" Width="1.5" PointX="5.25" PointY="34.625" />
-        <EntityTypeShape EntityType="ELearningModel.ThongBao" Width="1.5" PointX="9.75" PointY="26.5" />
+        <EntityTypeShape EntityType="ELearningModel.Test" Width="1.5" PointX="7.5" PointY="40.75" />
+        <EntityTypeShape EntityType="ELearningModel.Test_Question" Width="1.5" PointX="12.75" PointY="35.75" />
+        <EntityTypeShape EntityType="ELearningModel.TestDetail" Width="1.5" PointX="12.75" PointY="32.5" />
+        <EntityTypeShape EntityType="ELearningModel.TestResult" Width="1.5" PointX="12.75" PointY="39.375" />
+        <EntityTypeShape EntityType="ELearningModel.Topic" Width="1.5" PointX="5.25" PointY="39.375" />
+        <EntityTypeShape EntityType="ELearningModel.ThongBao" Width="1.5" PointX="15.75" PointY="24.125" />
         <EntityTypeShape EntityType="ELearningModel.TrangThaiHeThong" Width="1.5" PointX="2.75" PointY="0.75" />
         <AssociationConnector Association="ELearningModel.FK_Answer_Question" />
         <AssociationConnector Association="ELearningModel.FK_BaiGiang_GiangVien" />
@@ -46,7 +46,7 @@
         <AssociationConnector Association="ELearningModel.FK_Comment_Lession" />
         <AssociationConnector Association="ELearningModel.FK_Comment_Lop" />
         <AssociationConnector Association="ELearningModel.FK_Comment_TaiKhoan" />
-        <AssociationConnector Association="ELearningModel.FK_Reply_Comment1" />
+        <AssociationConnector Association="ELearningModel.FK_Reply_Comment" />
         <AssociationConnector Association="ELearningModel.FK_Course_Lession_Course" />
         <AssociationConnector Association="ELearningModel.FK_Course_NguoiDung" />
         <AssociationConnector Association="ELearningModel.FK_CourseDetail_Course" />

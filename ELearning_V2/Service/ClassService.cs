@@ -604,6 +604,43 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static bool EditReply(ReplyDTO r)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Replies.Find(r.ID);
+                    data.NoiDung = r.NoiDung;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool RemoveReply(ReplyDTO r)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Replies.Find(r.ID);
+                    db.Replies.Remove(data);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public static long CreateLession(LessionDTO l)
         {
             try
@@ -690,9 +727,8 @@ namespace ELearning_V2.Service
                         d.CreateDate = item.CreateDate;
                         d.Level = item.Level;
                         d.UserID = item.UserID;
-                        var lstAns = db.Answers.Where(x => x.QuesionID == item.ID);
                         List<AnswerDTO> Adata = new List<AnswerDTO>();
-                        foreach (var a in lstAns)
+                        foreach (var a in item.Answers)
                         {
                             AnswerDTO asw = new AnswerDTO();
                             asw.ID = a.ID;
@@ -702,6 +738,15 @@ namespace ELearning_V2.Service
                             Adata.Add(asw);
                         }
                         d.Answers = Adata;
+                        List<TopicDTO> Tdata = new List<TopicDTO>();
+                        foreach (var t in item.Question_Topic)
+                        {
+                            TopicDTO to = new TopicDTO();
+                            to.ID = (long)t.TopicID;
+                            to.Name = t.Topic.Name;
+                            Tdata.Add(to);
+                        }
+                        d.Topics = Tdata;
                         data.Add(d);
                     }
                     return data;
@@ -769,7 +814,7 @@ namespace ELearning_V2.Service
 
                 throw;
             }
-        }    
+        }
         public static bool EditQuestion(QuestionDTO q)
         {
             try
@@ -933,6 +978,52 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static TestDTO GetTestByID(long TestID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var test = db.Tests.Find(TestID);
+                    TestDTO data = new TestDTO();
+                    data.ID = test.ID;
+                    data.Name = test.Name;
+                    data.CreateDate = test.CreateDate;
+                    data.Status = test.Status;
+                    data.CourseID = test.CourseID;
+                    data.AmountQuestion = (int)test.AmountQuestion;
+                    data.UserID = test.Course.NguoiDung.ID;
+                    List<QuestionDTO> QData = new List<QuestionDTO>();
+                    foreach (var item in test.Test_Question)
+                    {
+                        QuestionDTO q = new QuestionDTO();
+                        q.ID = (long)item.QuestionID;
+                        q.Content = item.Question.Content;
+                        q.AnswerID = item.Question.AnswerID;
+                        q.Level = item.Question.Level;
+                        q.Solution = item.Question.Solution;
+                        List<AnswerDTO> AData = new List<AnswerDTO>();
+                        foreach (var a in item.Question.Answers)
+                        {
+                            AnswerDTO an = new AnswerDTO();
+                            an.ID = a.ID;
+                            an.Content = a.Content;
+                            an.QuesionID = a.QuesionID;
+                            AData.Add(an);
+                        }
+                        q.Answers = AData;
+                        QData.Add(q);
+                    }
+                    data.Questions = QData;
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public static List<TopicDTO> GetListTopicByUserID(long UserID)
         {
             try
@@ -956,7 +1047,7 @@ namespace ELearning_V2.Service
 
                 throw;
             }
-        }    
+        }
         public static long CreateTopic(string Name, long UserID)
         {
             try
@@ -968,7 +1059,7 @@ namespace ELearning_V2.Service
                     data.UserID = UserID;
                     db.Topics.Add(data);
                     db.SaveChanges();
-                    return db.Topics.OrderByDescending(x=>x.ID).FirstOrDefault().ID;
+                    return db.Topics.OrderByDescending(x => x.ID).FirstOrDefault().ID;
                 }
             }
             catch (Exception)
