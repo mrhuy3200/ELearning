@@ -37,6 +37,45 @@ namespace ELearning_V2.Service
                 return data;
             }
         }
+        public static List<CourseDTO> GetAllClass()
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var lst = db.Courses.Where(x => x.Status == 1).ToList();
+                    List<CourseDTO> data = new List<CourseDTO>();
+                    foreach (var item in lst)
+                    {
+                        var lstCmtID = db.Comments.Where(x => x.CourseID == item.ID).Select(a => a.ID);
+                        var lstRep = db.Replies.Where(x => lstCmtID.Contains(x.CommentID)).ToList();
+
+                        CourseDTO l = new CourseDTO();
+                        l.ID = item.ID;
+                        l.Name = item.Name;
+                        l.Capacity = item.Capacity;
+                        l.NumOfPeo = db.CourseDetails.Where(x => x.CourseID == item.ID).Count();
+                        l.Description = item.Description;
+                        l.Image = item.Image;
+                        l.Status = item.Status;
+                        l.Price = item.Price;
+                        l.Schedule = item.Schedule;
+                        l.Condition = item.Condition;
+                        l.Type = item.Type;
+                        l.UserID = item.UserID;
+                        l.Comments = item.Comments.Count() + lstRep.Count();
+                        l.Username = item.NguoiDung.HoVaTen;
+                        data.Add(l);
+                    }
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }    
         public static int RemoveCourse(Course c)
         {
             try
@@ -538,6 +577,7 @@ namespace ELearning_V2.Service
                     data.CreateBy = c.CreateBy;
                     data.CourseID = c.CourseID;
                     data.LessionID = c.LessionID;
+                    data.Rate = c.Rate;
                     db.Comments.Add(data);
                     db.SaveChanges();
                     //CommentDTO returnData = new CommentDTO();
@@ -1073,6 +1113,84 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static int CreateTest(TestDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Test data = new Test();
+                    data.Name = t.Name;
+                    data.CreateDate = DateTime.Now;
+                    data.Status = 0;
+                    data.CourseID = t.CourseID;
+                    data.AmountQuestion = t.AmountQuestion;
+                    db.Tests.Add(data);
+                    db.SaveChanges();
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
+        }
+        public static int EditTest(TestDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Tests.Find(t.ID);
+                    data.Name = t.Name;
+                    data.AmountQuestion = t.AmountQuestion;
+                    db.SaveChanges();
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
+        }
+        public static int DeleteTest(TestDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Tests.Find(t.ID);
+                    db.Tests.Remove(data);
+                    db.SaveChanges();
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
+        }
+        public static int ChangeTestStatus(TestDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Tests.Find(t.ID);
+                    data.Status = t.Status;
+                    db.SaveChanges();
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
+        }
         public static List<TestDTO> GetListTestByCourseID(long CourseID)
         {
             try
@@ -1089,6 +1207,7 @@ namespace ELearning_V2.Service
                         t.CreateDate = item.CreateDate;
                         t.Status = item.Status;
                         t.CourseID = item.CourseID;
+                        t.AmountQuestion = (int)item.AmountQuestion;
                         data.Add(t);
                     }
                     return data;
@@ -1274,6 +1393,69 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static bool CheckJoinStatus(long CourseID, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.CourseDetails.Where(x => x.CourseID == CourseID && x.UserID == UserID).FirstOrDefault();
+                    if (data != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+        public static TaiKhoanDTO GetUserInfo(long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var user = db.TaiKhoans.Find(UserID);
+                    TaiKhoanDTO data = new TaiKhoanDTO();
+                    data.ID = user.ID;
+                    data.Fullname = user.NguoiDung.HoVaTen;
+                    data.Balance = (long)user.NguoiDung.SoDu;
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool Pay(long From, long To, double Price)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var from = db.NguoiDungs.Find(From);
+                    var to = db.NguoiDungs.Find(To);
+                    if (from.SoDu < Price)
+                    {
+                        return false;
+                    }
+                    from.SoDu -= Price;
+                    to.SoDu += Price;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Courses</h2>
+                <div class="page_link">
+                    <a href="index.html">Home</a>
+                    <a href="#">Courses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="courses_area p_120" ng-app="CoursesApp" ng-controller="CoursesController">
+    <div class="container">
+        <div class="main_title">
+            <h2>Danh sách lớp học</h2>
+        </div>
+        <div class="row" style="padding: 0px 10px 15px 10px;">
+            <div class="col-md-4" style="display:flex">
+                <div id="SearchQuestion" class="input-group">
+                    <input class="form-control" ng-model="CSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                </div>
+            </div>
+            <div class="col-md-2 offset-md-6" style="display:flex">
+                <div class="col-md-6">
+                    <label style="width:max-content">Page size:</label>
+                </div>
+                <div class="input-group col-md-6">
+                    <input class="form-control" type="number" ng-model="CPageSize" min="4" max="10" />
+                </div>
+            </div>
+        </div>
+        <div class="row courses_inner">
+            <div class="grid_inner col-md-12">
+                <div class="grid_item wd33" dir-paginate="c in Courses | filter:CSearchKey | itemsPerPage: CPageSize" pagination-id="Course" current-page="CcurrentPage">
+                    <div class="courses_item">
+                        <img height="270" src="~/Content/img/ClassImage/{{c.Image}}" alt="">
+                        <div class="hover_text">
+                            <a class="cat" >{{c.Price}}</a>
+                            <a href="/Lop/ViewCourse/{{c.ID}}"><h4>{{c.Name}}</h4></a>
+                            <ul class="list">
+                                <li ng-if="c.Type != 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}/{{c.Capacity}}</a></li>
+                                <li ng-if="c.Type == 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}</a></li>
+                                <li><a href="#"><i class="lnr lnr-bubble"></i> {{c.Comments}}</a></li>
+                                <li><a href="#"><i class="lnr lnr-user"></i>{{c.Username}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="other-controller mt-3 row">
+            <div class="text-center offset-md-5">
+                <dir-pagination-controls boundary-links="true" pagination-id="Course"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/Courses.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>

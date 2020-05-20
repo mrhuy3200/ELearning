@@ -33,6 +33,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         $scope.Two = 0;
         $scope.One = 0;
         $scope.Total = 0;
+        $scope.TestIDEdit = 0;
         LoadClass(id);
         LoadMember(id);
         LoadLession(id);
@@ -177,6 +178,13 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     function FindLessionToAdd(ID) {
         for (var i = 0; i < $scope.LessionToAdds.length; i++) {
             if ($scope.LessionToAdds[i].ID == ID) {
+                return i;
+            }
+        }
+    }
+    function FindTest(ID) {
+        for (var i = 0; i < $scope.Tests.length; i++) {
+            if ($scope.Tests[i].ID == ID) {
                 return i;
             }
         }
@@ -350,7 +358,110 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     $scope.ViewTest = function (TestID) {
         $window.location.href = '/Lop/TestDetail/' + TestID + '?CourseID=' + $scope.CourseID;
     }
+    $scope.CreateTest = function () {
+        var isHidden = $('#AddTestForm').is(":hidden");
+        if (isHidden == false && $scope.TestName != null && $scope.AmountQuestion != null) {
+            if ($scope.TestIDEdit == 0) {
+                console.log("Add")
+                var TestDTO = {
+                    Name: $scope.TestName,
+                    CourseID: $scope.CourseID,
+                    AmountQuestion: $scope.AmountQuestion
+                }
+                console.log(TestDTO);
+                $http({
+                    method: 'POST',
+                    url: '/Lop/CreateTest',
+                    data: JSON.stringify(TestDTO)
+                }).then(function successCallback(response) {
+                    if (response.data == 1) {
+                        LoadTest($scope.CourseID);
+                        alert("Đã thêm");
+                        $scope.TestName = null;
+                        $scope.AmountQuestion = null;
+                    }
+                    if (response.data == -1) {
+                        alert("Xảy ra lỗi");
+                    }
+                });
+            }
+            else {
+                console.log("Edit")
+                var TestDTO = {
+                    ID: $scope.TestIDEdit,
+                    Name: $scope.TestName,
+                    AmountQuestion: $scope.AmountQuestion
+                }
+                console.log(TestDTO);
+                $http({
+                    method: 'POST',
+                    url: '/Lop/EditTest',
+                    data: JSON.stringify(TestDTO)
+                }).then(function successCallback(response) {
+                    if (response.data == 1) {
+                        LoadTest($scope.CourseID);
+                        alert("Đã cập nhật");
+                        $scope.TestName = null;
+                        $scope.AmountQuestion = null;
+                    }
+                    if (response.data == -1) {
+                        alert("Xảy ra lỗi");
+                    }
+                });
 
+            }
+        }
+    }
+    $scope.EditTest = function (TestID) {
+        var isHidden = $('#AddTestForm').is(":hidden");
+        if (isHidden == true) {
+            $('#AddTestForm').show();
+            $scope.TestName = $scope.Tests[FindTest(TestID)].Name;
+            $scope.AmountQuestion = $scope.Tests[FindTest(TestID)].AmountQuestion;
+            $scope.TestIDEdit = TestID;
+        }
+        else {
+            $scope.TestName = $scope.Tests[FindTest(TestID)].Name;
+            $scope.AmountQuestion = $scope.Tests[FindTest(TestID)].AmountQuestion;
+            $scope.TestIDEdit = TestID;
+        }
+    }
+    $scope.DeleteTest = function (TestID) {
+        var TestDTO = {
+            ID: TestID
+        }
+        $http({
+            method: 'POST',
+            url: '/Lop/DeleteTest',
+            data: JSON.stringify(TestDTO)
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                LoadTest($scope.CourseID);
+                alert("Đã xóa");
+            }
+            if (response.data == -1) {
+                alert("Xảy ra lỗi");
+            }
+        });
+    }
+    $scope.ChangeTestStatus = function (TestID, Status) {
+        var TestDTO = {
+            ID: TestID,
+            Status: Status
+        }
+        $http({
+            method: 'POST',
+            url: '/Lop/ChangeTestStatus',
+            data: JSON.stringify(TestDTO)
+        }).then(function successCallback(response) {
+            if (response.data == 1) {
+                LoadTest($scope.CourseID);
+            }
+            if (response.data == -1) {
+                alert("Xảy ra lỗi");
+            }
+        });
+    }
     $scope.getTheFiles = function ($files) {
         console.log($files);
         file = $files[0];

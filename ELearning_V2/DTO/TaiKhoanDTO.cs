@@ -15,6 +15,7 @@ namespace ELearning_V2.DTO
         public string Password { get; set; }
         public int Role { get; set; }
         public bool TrangThai { get; set; }
+        public double Balance { get; set; }
 
     }
 }
