@@ -701,7 +701,20 @@ namespace ELearning_V2.Controllers
                 return View(c);
             }
         }
-
+        public ActionResult ViewCourse(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                ViewBag.UserID = 0;
+            }
+            else
+            {
+                ViewBag.UserID = User.ID;
+            }
+            ViewBag.CourseID = ID;
+            return View();
+        }
         public ActionResult LessionDetail(long ID, long? CourseID)
         {
             var User = (TaiKhoan)Session["User"];
@@ -743,7 +756,8 @@ namespace ELearning_V2.Controllers
                     if (c.CourseID != null)
                     {
                         var check = db.Lessions.Find(c.LessionID);
-                        if (check.UserID == User.ID)
+                        var checka = db.CourseDetails.Where(x => x.CourseID == c.CourseID && x.UserID == User.ID).FirstOrDefault();
+                        if (check.UserID == User.ID || checka != null)
                         {
                             var data = ClassService.GetCommentByID(c, 3);
                             return Json(data, JsonRequestBehavior.AllowGet);
@@ -1056,6 +1070,45 @@ namespace ELearning_V2.Controllers
             }
             return Json(-1, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult CreateTest(TestDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.CreateTest(t), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult EditTest(TestDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.EditTest(t), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteTest(TestDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.DeleteTest(t), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ChangeTestStatus(TestDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.ChangeTestStatus(t), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetListTestByCourseID(long ID)
         {
             var User = (TaiKhoan)Session["User"];
@@ -1197,6 +1250,15 @@ namespace ELearning_V2.Controllers
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
             return Json("Fail", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Courses()
+        {
+            return View();
+        }
+        public ActionResult GetAllCourse()
+        {
+            var data = ClassService.GetAllClass();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

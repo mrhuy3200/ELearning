@@ -330,7 +330,7 @@
     <Property Name="Image" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="Status" Type="Int32" />
     <Property Name="UserID" Type="Int64" />
-    <Property Name="Price" Type="Int64" />
+    <Property Name="Price" Type="Double" />
     <Property Name="Schedule" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Condition" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="Int32" />
@@ -529,7 +529,7 @@
     <Property Name="HoVaTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="SoDu" Type="Int64" />
+    <Property Name="SoDu" Type="Double" />
     <Property Name="MaXacNhan" Type="String" MaxLength="32" FixedLength="true" Unicode="true" />
     <Property Name="Info" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="NguoiDung" ToRole="Course" />
@@ -1240,7 +1240,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Test_Question_Test">
-    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1" />
+    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="ELearningModel.Test_Question" Role="Test_Question" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Test">
@@ -1252,7 +1254,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TestDetail_Test">
-    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1" />
+    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="ELearningModel.TestDetail" Role="TestDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Test">
@@ -1264,7 +1268,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TestResult_Test">
-    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1" />
+    <End Type="ELearningModel.Test" Role="Test" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="ELearningModel.TestResult" Role="TestResult" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Test">

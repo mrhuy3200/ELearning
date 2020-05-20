@@ -31,7 +31,7 @@ namespace ELearning_V2.Models
         public string HoVaTen { get; set; }
         public string Email { get; set; }
         public string Image { get; set; }
-        public Nullable<long> SoDu { get; set; }
+        public Nullable<double> SoDu { get; set; }
         public string MaXacNhan { get; set; }
         public string Info { get; set; }
     

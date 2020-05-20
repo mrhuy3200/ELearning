@@ -138,13 +138,10 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
                 }
             };
             $http(request)
-                .success(function (d) {
-                    alert(d);
+                .then(function (d) {
+                    alert("Đăng ký thành công");
                     LoadClass();
                 })
-                .error(function () {
-                });
-
         }, function errorCallback(response) {
             alert("Error : " + response.data.ExceptionMessage);
         });

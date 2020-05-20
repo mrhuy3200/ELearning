@@ -15,10 +15,12 @@ namespace ELearning_V2.DTO
         public string Image { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<long> UserID { get; set; }
-        public Nullable<long> Price { get; set; }
+        public Nullable<double> Price { get; set; }
         public string Schedule { get; set; }
         public string Condition { get; set; }
         public Nullable<int> Type { get; set; }
+        public long Comments { get; set; }
+        public string Username { get; set; }
 
     }
 }

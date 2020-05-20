@@ -435,9 +435,19 @@
                         <div class="comments-area">
                             <div class="row" style="margin:auto;">
                                 <h4 class="col-md-11">Bài tập: {{Tests.length}}</h4>
-                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" ng-click="AddTest()">
+                                <a class="col-md-1 btn btn-dark text-success" role="button" style="height:35px" data-toggle="collapse" data-target="#AddTestForm" ng-click="CreateTest()">
                                     <i class="fa fa-plus"></i>
                                 </a>
+                                <div class="collapse row col-md-10 border bg-white rounded mb-3" style="padding:7px 7px 12px;left:130px;top:-25px" id="AddTestForm">
+                                    <div class="col-md-8">
+                                        <label>Name: </label>
+                                        <input type="text" class="form-control" maxlength="50" ng-model="TestName" required placeholder="Nhập tên bài test..."/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Số câu hỏi:</label>
+                                        <input type="number" class="form-control" min="1" ng-model="AmountQuestion" max="50" required />
+                                    </div>
+                                </div>
                             </div>
                             <div class="row" style="padding-bottom:15px">
                                 <div class="col-md-4" style="display:flex">
@@ -482,7 +492,8 @@
                                                         <a class="dropdown-item" style="cursor:not-allowed" ng-if="t.Status == 1">Mở</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="btn dropdown-item" ng-click="ViewTest(t.ID)">View</a>
-                                                        <a class="btn dropdown-item" ng-click="RemoveTest(t.ID)">Remove</a>
+                                                        <a class="btn dropdown-item" ng-click="EditTest(t.ID)">Edit</a>
+                                                        <a class="btn dropdown-item" ng-click="DeleteTest(t.ID)">Remove</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -513,7 +524,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
