@@ -350,7 +350,7 @@ namespace ELearning_V2.Service
                     data.Status = 2;
                     db.Course_Lession.Add(data);
                     db.SaveChanges();
-                    return GetLessionByID(LessionID);
+                    return GetLessionByID(LessionID, CourseID);
                 }
             }
             catch (Exception)
@@ -368,7 +368,7 @@ namespace ELearning_V2.Service
                     var data = db.Course_Lession.Where(x => x.CourseID == CourseID && x.LessionID == LessionID).FirstOrDefault();
                     db.Course_Lession.Remove(data);
                     db.SaveChanges();
-                    return GetLessionByID(LessionID);
+                    return GetLessionByID(LessionID, CourseID);
                 }
             }
             catch (Exception)
@@ -405,7 +405,7 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-        public static LessionDTO GetLessionByID(long LessionID)
+        public static LessionDTO GetLessionByID(long LessionID, long? CourseID)
         {
             try
             {
@@ -438,6 +438,12 @@ namespace ELearning_V2.Service
                     data.UserAvatar = l.NguoiDung.Image;
                     data.UserInfo = l.NguoiDung.Info;
                     data.Topics = lstTopicDTO;
+                    if (CourseID != null)
+                    {
+                        data.CourseID = CourseID;
+                        var course_lession = db.Course_Lession.Where(x => x.LessionID == LessionID && x.CourseID == CourseID).FirstOrDefault();
+                        data.Course_LessionStatus = course_lession.Status;
+                    }
                     return data;
                 }
             }
@@ -1449,6 +1455,35 @@ namespace ELearning_V2.Service
                     to.SoDu += Price;
                     db.SaveChanges();
                     return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static int CheckUserRole(long? UserID, long CourseID)
+        {
+            try
+            {
+                if (UserID == null)
+                {
+                    return 3;
+                }
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var Member = db.CourseDetails.Where(x => x.CourseID == CourseID && x.UserID == UserID).FirstOrDefault() == null ? false : true;
+                    var Owner = db.Courses.Find(CourseID).UserID == UserID ? true : false;
+                    if (Member)
+                    {
+                        return 2;
+                    }
+                    if (Owner)
+                    {
+                        return 1;
+                    }
+                    return 3;
                 }
             }
             catch (Exception)

@@ -20,7 +20,6 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         $scope.Total = 0;
         $scope.TestIDEdit = 0;
         $scope.CommentRating = 0;
-        
         //////////////////////////
         
         //var load1 = function () { LoadClass(CourseID); }
@@ -33,6 +32,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         //});
         LoadClass(CourseID, LoadComment);
         CheckJoinStatus();
+        CheckRole();
         //downWaiting();
     };
     function initRatinBar() {
@@ -216,11 +216,43 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         });
         
     }
+    function CheckRole() {
+        var CourseDetailDTO = {
+            UserID: $scope.UserID,
+            CourseID: $scope.CourseID
+        }
+        $http({
+            method: 'POST',
+            url: '/Lop/CheckUserRole',
+            data: JSON.stringify(CourseDetailDTO)
+        }).then(function (r) {
+            $scope.UserRole = r.data;
+            console.log("ROLE: " + r.data);
+        })
+    }
+
+
+    function FindLession(LessionID) {
+        for (var i = 0; i < $scope.Lessions.length; i++) {
+            if ($scope.Lessions[i].ID == LessionID) {
+                return i;
+            }
+        }
+    }
+
     $scope.Info = function (User) {
         $scope.User = User;
     }
     $scope.ViewLession = function (LessionID) {
-        $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+        if ($scope.UserRole == 3) {
+            if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 1) {
+                $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+            }
+            alert("Bài giảng chỉ dành cho thành viên lớp học")
+        }
+        else {
+            $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+        }
     }
     $scope.ViewTest = function (TestID) {
         $window.location.href = '/Lop/TestDetail/' + TestID + '?CourseID=' + $scope.CourseID;

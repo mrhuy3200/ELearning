@@ -305,19 +305,12 @@ namespace ELearning_V2.Controllers
         public ActionResult GetLessionByClassID(long ID)
         {
             var User = (TaiKhoan)Session["User"];
-            if (User == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
             using (ELearningDB db = new ELearningDB())
             {
                 var Course = db.Courses.Find(ID);
-                if (Course.UserID != User.ID || db.CourseDetails.Where(x => x.CourseID == ID && x.UserID == User.ID) != null)
-                {
-                    var data = ClassService.GetLessionByCourseID(ID);
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                }
-                return Json("Không đủ quyền hạn", JsonRequestBehavior.AllowGet);
+
+                var data = ClassService.GetLessionByCourseID(ID);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
@@ -605,7 +598,7 @@ namespace ELearning_V2.Controllers
                     return Json(-1, JsonRequestBehavior.AllowGet);
                 }
                 LessionDTO l = new LessionDTO();
-                l = ClassService.GetLessionByID(ID);
+                l = ClassService.GetLessionByID(ID, null);
                 return View("EditLession", l);
             }
         }
@@ -720,49 +713,87 @@ namespace ELearning_V2.Controllers
             var User = (TaiKhoan)Session["User"];
             if (User == null)
             {
-                return RedirectToAction("Login", "Login");
+                ViewBag.UserID = 0;
             }
+            else
+            {
+                ViewBag.UserID = User.ID;
+            }
+
             ViewBag.LessionID = ID;
             ViewBag.CourseID = CourseID;
             return View();
         }
 
-        public ActionResult GetLessionByID(long ID)
+        public ActionResult GetLessionByID(long ID, long CourseID)
         {
             var User = (TaiKhoan)Session["User"];
-            if (User == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
+
             using (ELearningDB db = new ELearningDB())
             {
                 LessionDTO l = new LessionDTO();
-                l = ClassService.GetLessionByID(ID);
-                return Json(l, JsonRequestBehavior.AllowGet);
+                l = ClassService.GetLessionByID(ID, CourseID);
+                if (User == null)
+                {
+                    if (l.Course_LessionStatus == 1)
+                    {
+                        return Json(l, JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(null, JsonRequestBehavior.AllowGet);
+
+                }
+                else
+                {
+                    if (l.Course_LessionStatus == 1)
+                    {
+                        return Json(l, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        if (ClassService.CheckUserRole(User.ID, (long)l.CourseID) == 1 || ClassService.CheckUserRole(User.ID, (long)l.CourseID) == 2)
+                        {
+                            return Json(l, JsonRequestBehavior.AllowGet);
+                        }
+                        return Json(null, JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
         }
         [HttpPost]
         public ActionResult GetCommentByID(CommentDTO c)
         {
             var User = (TaiKhoan)Session["User"];
-            if (User == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
             using (ELearningDB db = new ELearningDB())
             {
                 if (c.LessionID != null)
                 {
                     if (c.CourseID != null)
                     {
-                        var check = db.Lessions.Find(c.LessionID);
-                        var checka = db.CourseDetails.Where(x => x.CourseID == c.CourseID && x.UserID == User.ID).FirstOrDefault();
-                        if (check.UserID == User.ID || checka != null)
+                        var course_lession = db.Course_Lession.Where(x => x.CourseID == c.CourseID && x.LessionID == c.LessionID).FirstOrDefault();
+                        if (course_lession.Status == 1)
                         {
                             var data = ClassService.GetCommentByID(c, 3);
                             return Json(data, JsonRequestBehavior.AllowGet);
+
                         }
-                        return Json("Không có dữ liệu", JsonRequestBehavior.AllowGet);
+                        else
+                        {
+                            if (User == null)
+                            {
+                                return Json("Không có dữ liệu", JsonRequestBehavior.AllowGet);
+
+                            }
+                            var owner = db.Lessions.Find(c.LessionID).UserID == User.ID ? true : false;
+                            var member = db.CourseDetails.Where(x => x.CourseID == c.CourseID && x.UserID == User.ID).FirstOrDefault() == null ? false : true;
+                            if (owner || member)
+                            {
+                                var data = ClassService.GetCommentByID(c, 3);
+                                return Json(data, JsonRequestBehavior.AllowGet);
+                            }
+                            return Json("Không có dữ liệu", JsonRequestBehavior.AllowGet);
+
+                        }
+
                     }
                     return Json(null, JsonRequestBehavior.AllowGet);
                 }
@@ -1259,6 +1290,11 @@ namespace ELearning_V2.Controllers
         {
             var data = ClassService.GetAllClass();
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CheckUserRole(CourseDetailDTO c)
+        {
+            return Json(ClassService.CheckUserRole(c.UserID, (long)c.CourseID), JsonRequestBehavior.AllowGet);
         }
     }
 }

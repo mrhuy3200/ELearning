@@ -13,18 +13,23 @@ LessionDetailApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, LessionDetailService) {
+LessionDetailApp.controller('LessionDetailController', function ($scope, $window, $http, $sce, LessionDetailService) {
     $scope.ID = function (id, CourseID, UserID) {
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.LessionID = id;
         $scope.CourseID = CourseID;
         $scope.UserID = UserID;
-        console.log(UserID);
+        $scope.UserRole = 0;
+        //role = 1: Owner
+        //role = 2: Member
+        //role = 3: Guest
+        console.log("UserID"+UserID);
         console.log(id);
         console.log(CourseID);
 
         LoadLession(id);
+        CheckRole();
         LoadComment(id, CourseID);
         if (CourseID != '') {
             LoadListLession(CourseID);
@@ -184,6 +189,39 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
         $("#EditRepBtn" + CmtIndex + RepIndex).css("display", "inline-block");
         $("#SendRepRepBtn" + CmtIndex + RepIndex).css("display", "none");
     }
+    $scope.ViewLession = function (Lession) {
+        if ($scope.UserID == 0) {
+            if (Lession.Course_LessionStatus == 1) {
+                $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
+            }
+            else {
+                alert("Bài giảng chỉ dành cho thành viên trong lớp")
+            }
+        }
+        else {
+            if (Lession.Course_LessionStatus == 1) {
+                $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
+            }
+            else {
+                if (Lession.Course_LessionStatus == 2) {
+                    if ($scope.UserRole != 3 ) {
+                        $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
+                    }
+                    alert("Bài giảng chỉ dành cho thành viên trong lớp")
+                }
+                else {
+                    if ($scope.UserRole == 1) {
+                        $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
+                    }
+                    else {
+                        alert("Bài giảng bị khóa")
+
+                    }
+                }
+            }
+        }
+        
+    }
     function LoadComment(ID, CourseID) {
         var CommentDTO = {
             LessionID: ID,
@@ -205,7 +243,7 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
         });
     }
     function LoadLession(ID) {
-        LessionDetailService.LoadLession(ID).then(function (d) {
+        LessionDetailService.LoadLession(ID, $scope.CourseID).then(function (d) {
             $scope.Lession = d.data;
             $scope.Lession["CreateDate"] = new Date(parseInt($scope.Lession["CreateDate"].substr(6)));
             $scope.Lession["Content"] = $sce.trustAsHtml($scope.Lession["Content"]);
@@ -230,6 +268,20 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $sce, L
             alert('Không tìm thấy dữ liệu listLession !!!');
         });
     }
+    function CheckRole() {
+        var CourseDetailDTO = {
+            UserID: $scope.UserID,
+            CourseID: $scope.CourseID
+        }
+        $http({
+            method: 'POST',
+            url: '/Lop/CheckUserRole',
+            data: JSON.stringify(CourseDetailDTO)
+        }).then(function (r) {
+            $scope.UserRole = r.data;
+            console.log("ROLE: " + r.data);
+        })
+    }
 });
 
 
@@ -239,8 +291,8 @@ LessionDetailApp.factory('LessionDetailService', function ($http) {
     var fac = {};
 
 
-    fac.LoadLession = function (ID) {
-        return $http.get('/Lop/GetLessionByID/' + ID);
+    fac.LoadLession = function (ID, CourseID) {
+        return $http.get('/Lop/GetLessionByID/' + ID + '?CourseID=' + CourseID);
     };
     fac.LoadListLession = function (CourseID) {
         return $http.get('/Lop/GetLessionByClassID/' + CourseID);

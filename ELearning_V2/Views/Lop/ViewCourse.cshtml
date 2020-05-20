@@ -36,10 +36,10 @@
                     <li class="nav-item">
                         <a class="nav-link" id="Lession-tab" data-toggle="tab" href="#Lession" role="tab" aria-controls="Lession" aria-selected="false">Danh sách bài giảng</a>
                     </li>
-                    <li class="active">
-                        <a class="nav-link" data-toggle="tab" href="#Member">Danh sách học viên</a>
+                    <li class="nav-item" ng-if="UserRole != 3">
+                        <a class="nav-link" id="Member-tab" data-toggle="tab" href="#Member" role="tab" aria-controls="Lession" aria-selected="false">Danh sách học viên</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" ng-if="UserRole != 3">
                         <a class="nav-link" id="Testing-tab" data-toggle="tab" href="#Testing" role="tab" aria-controls="Testing" aria-selected="false">Bài tập</a>
                     </li>
                 </ul>
@@ -280,7 +280,7 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="Member" role="tabpanel" aria-labelledby="Member-tab">
+                    <div class="tab-pane fade" id="Member" role="tabpanel" aria-labelledby="Member-tab" ng-if="UserRole != 3">
                         <div class="comments-area">
                             <div class="row" style="margin:auto;">
                                 <h4 class="col-md-11">Học viên: {{Lop.NumOfPeo}}</h4>
@@ -382,7 +382,7 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane fade" id="Testing" role="tabpanel" aria-labelledby="Testing-tab">
+                    <div class="tab-pane fade" id="Testing" role="tabpanel" aria-labelledby="Testing-tab" ng-if="UserRole != 3">
                         <div class="comments-area">
                             <div class="row" style="margin:auto;">
                                 <h4 class="col-md-11">Bài tập: {{Tests.length}}</h4>
@@ -442,7 +442,7 @@
                         <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
                         <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
                     </ul>
-                    <a class="main_btn" ng-if="JoinStatus != 1" href="#" ng-click="Join()">Đăng ký</a>
+                    <a class="main_btn text-light" ng-if="JoinStatus != 1" ng-click="Join()">Đăng ký</a>
                     <div id="JoinAlert" class="alert alert-danger mt-3 text-center" style="display:none">
                         <p class="bold">Bạn cần đăng nhập để thực hiện việc này!!!</p>
                         <a class="btn btn-success text-light">Đăng nhập</a>
