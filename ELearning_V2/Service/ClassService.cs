@@ -758,6 +758,128 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static List<QuestionDTO> GetListQuestionByTestID(long TestID, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    List<QuestionDTO> data = new List<QuestionDTO>();
+                    var lstQTest = db.Test_Question.Where(x => x.TestID == TestID).Select(x=>x.QuestionID).ToList();
+                    var lst = db.Questions.Where(x => x.UserID == UserID && !lstQTest.Contains(x.ID)).ToList();
+                    foreach (var item in lst)
+                    {
+                        QuestionDTO d = new QuestionDTO();
+                        d.ID = item.ID;
+                        d.Content = item.Content;
+                        d.AnswerID = item.AnswerID;
+                        d.Image = item.Image;
+                        d.Status = item.Status;
+                        d.CreateDate = item.CreateDate;
+                        d.Level = item.Level;
+                        d.UserID = item.UserID;
+                        List<AnswerDTO> Adata = new List<AnswerDTO>();
+                        foreach (var a in item.Answers)
+                        {
+                            AnswerDTO asw = new AnswerDTO();
+                            asw.ID = a.ID;
+                            asw.Content = a.Content;
+                            asw.Image = a.Image;
+                            asw.QuesionID = a.QuesionID;
+                            Adata.Add(asw);
+                        }
+                        d.Answers = Adata;
+                        List<TopicDTO> Tdata = new List<TopicDTO>();
+                        foreach (var t in item.Question_Topic)
+                        {
+                            TopicDTO to = new TopicDTO();
+                            to.ID = (long)t.TopicID;
+                            to.Name = t.Topic.Name;
+                            Tdata.Add(to);
+                        }
+                        d.Topics = Tdata;
+                        data.Add(d);
+                    }
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
+        public static List<QuestionDTO> RandomTestQuestion(long TestID, long UserID, int Quantity, int Level, long TopicID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Random ran = new Random();
+                    //var lstCauHoiDeThi = db.CauHois.Where(x => x.DeThis.Any(s => s.MaDeThi == c.DeThiID));
+                    var lstTestQuestion = db.Test_Question.Where(x => x.TestID == TestID).Select(x=>x.ID).ToList();
+                    //List<CauHoi> lstcauhoi = db.CauHois.Where(x => x.ChuongID == c.ChuongID && x.DoKho == c.DoKho).Except(lstCauHoiDeThi).ToList();
+                    var lstQuestion = db.Questions.Where(x => x.UserID == UserID && x.Question_Topic.Select(q=>q.TopicID).Contains(TopicID) && x.Level == Level && !lstTestQuestion.Contains(x.ID)).ToList();
+                    List<Question> Questions = new List<Question>();
+                    if (lstQuestion.Count < Quantity)
+                    {
+                        return null;
+                    }
+                    for (int i = 0; i < Quantity; i++)
+                    {
+                        int index = ran.Next(lstQuestion.Count());
+                        Question q = lstQuestion.ElementAt(index);
+                        Questions.Add(q);
+                        lstQuestion.RemoveAt(index);
+                    }
+                    List<QuestionDTO> Rdata = new List<QuestionDTO>();
+                    foreach (var item in Questions)
+                    {
+                        Test_Question data = new Test_Question();
+                        data.QuestionID = item.ID;
+                        data.TestID = TestID;
+                        db.Test_Question.Add(data);
+                        QuestionDTO d = new QuestionDTO();
+                        d.ID = item.ID;
+                        d.Content = item.Content;
+                        d.AnswerID = item.AnswerID;
+                        d.Image = item.Image;
+                        d.Status = item.Status;
+                        d.CreateDate = item.CreateDate;
+                        d.Level = item.Level;
+                        d.UserID = item.UserID;
+                        List<AnswerDTO> Adata = new List<AnswerDTO>();
+                        foreach (var a in item.Answers)
+                        {
+                            AnswerDTO asw = new AnswerDTO();
+                            asw.ID = a.ID;
+                            asw.Content = a.Content;
+                            asw.Image = a.Image;
+                            asw.QuesionID = a.QuesionID;
+                            Adata.Add(asw);
+                        }
+                        d.Answers = Adata;
+                        List<TopicDTO> Tdata = new List<TopicDTO>();
+                        foreach (var t in item.Question_Topic)
+                        {
+                            TopicDTO to = new TopicDTO();
+                            to.ID = (long)t.TopicID;
+                            to.Name = t.Topic.Name;
+                            Tdata.Add(to);
+                        }
+                        d.Topics = Tdata;
+                        Rdata.Add(d);
+                    }
+                    db.SaveChanges();
+                    return Rdata;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public static long CreateQuestion(Question q)
         {
             try
@@ -1021,6 +1143,54 @@ namespace ELearning_V2.Service
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        public static int AddQuestionToTest(TestQuestionDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var check = db.Test_Question.Where(x => x.QuestionID == t.QuestionID && x.TestID == t.TestID).FirstOrDefault();
+                    if (check == null)
+                    {
+                        Test_Question data = new Test_Question();
+                        data.QuestionID = t.QuestionID;
+                        data.TestID = t.TestID;
+                        db.Test_Question.Add(data);
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    return -1;
+                }
+            }
+            catch (Exception)
+            {
+                return -2;
+                throw;
+            }
+        }
+        public static int RemoveQuestionFromTest(TestQuestionDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var check = db.Test_Question.Where(x => x.QuestionID == t.QuestionID && x.TestID == t.TestID).FirstOrDefault();
+                    if (check != null)
+                    {
+                        db.Test_Question.Remove(check);
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    return -1;
+                }
+
+            }
+            catch (Exception)
+            {
+                return -2;
                 throw;
             }
         }

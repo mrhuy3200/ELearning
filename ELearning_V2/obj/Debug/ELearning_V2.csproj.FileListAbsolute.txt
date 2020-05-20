@@ -550,3 +550,16 @@ D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.xml
 D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\DOAN\ELearning\ELearning_V2\bin\Microsoft.Owin.Security.xml
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.dll
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.dll
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.Host.SystemWeb.dll
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.Security.dll
+G:\Git\ELearning\ELearning_V2\bin\Owin.dll
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.pdb
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.Core.xml
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.xml
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.Host.SystemWeb.xml
+G:\Git\ELearning\ELearning_V2\bin\Microsoft.Owin.Security.xml

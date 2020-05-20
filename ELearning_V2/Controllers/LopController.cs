@@ -874,6 +874,30 @@ namespace ELearning_V2.Controllers
             var data = ClassService.GetListQuestionByUserID(User.ID);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetListQuesionByTestID(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var data = ClassService.GetListQuestionByTestID(ID, User.ID);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RandomTestQuestion(CauHoiDeThiModel c)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.GetTestByID(c.DeThiID).UserID != User.ID)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            return Json(ClassService.RandomTestQuestion(c.DeThiID, User.ID, c.SoCauHoi, c.DoKho, c.ChuongID), JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult ChangeQuestionStatus(QuestionDTO q)
         {
@@ -1080,6 +1104,34 @@ namespace ELearning_V2.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public ActionResult AddQuestionToTest(TestQuestionDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.GetQuestion(t.QuestionID).UserID != User.ID && ClassService.GetTestByID(t.TestID).UserID != User.ID)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            return Json(ClassService.AddQuestionToTest(t), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RemoveQuestionFromTest(TestQuestionDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ClassService.GetQuestion(t.QuestionID).UserID != User.ID && ClassService.GetTestByID(t.TestID).UserID != User.ID)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            return Json(ClassService.RemoveQuestionFromTest(t), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public ActionResult CreateTopic(TopicDTO t)
         {
             var User = (TaiKhoan)Session["User"];
@@ -1146,6 +1198,5 @@ namespace ELearning_V2.Controllers
             }
             return Json("Fail", JsonRequestBehavior.AllowGet);
         }
-
     }
 }
