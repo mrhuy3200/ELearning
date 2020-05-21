@@ -21,7 +21,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         $scope.TestIDEdit = 0;
         $scope.CommentRating = 0;
         //////////////////////////
-        
+
         //var load1 = function () { LoadClass(CourseID); }
         //var load2 = function () { LoadMember(CourseID); }
         //var load3 = function () { LoadLession(CourseID); }
@@ -103,7 +103,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
-        
+
     }
     function LoadComment(ID, callback) {
         console.log("Load cmt");
@@ -164,7 +164,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
-        
+
     }
 
     function LoadLession(ID, callback) {
@@ -177,7 +177,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
-        
+
     }
     function LoadMember(ID, callback) {
         console.log("LoadMember");
@@ -189,32 +189,23 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
-        
+
     }
     function LoadTest(ID, callback) {
         console.log("LoadTest");
 
         ViewCourseService.LoadTest(ID).then(function (d) {
-            if (d.data == 0) {
-                alert("Không đủ quyền hạn");
+
+            $scope.Tests = d.data;
+            for (var i = 0; i < d.data.length; i++) {
+                $scope.Tests[i].CreateDate = new Date(parseInt($scope.Tests[i].CreateDate.substr(6)));
             }
-            else {
-                if (d.data == -1) {
-                    alert("Không có dữ liệu");
-                }
-                else {
-                    $scope.Tests = d.data;
-                    for (var i = 0; i < d.data.length; i++) {
-                        $scope.Tests[i].CreateDate = new Date(parseInt($scope.Tests[i].CreateDate.substr(6)));
-                    }
-                    console.log(d.data);
-                }
-            }
+            console.log(d.data);
             callback();
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
         });
-        
+
     }
     function CheckRole() {
         var CourseDetailDTO = {
@@ -239,7 +230,21 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             }
         }
     }
-
+    function LoadTestResult(TestID) {
+        var TestResultDTO = {
+            TestID: TestID,
+            CourseID: $scope.CourseID
+        }
+        $http({
+            method: 'POST',
+            url: '/Course/LoadTestResult',
+            data: JSON.stringify(TestResultDTO)
+        }).then(function (r) {
+            $scope.TestResult = r.data;
+            $scope.TestResult.TestDate = new Date(parseInt(($scope.TestResult.TestDate).substr(6)));
+            console.log("TestResult: " + r.data);
+        })
+    }
     $scope.Info = function (User) {
         $scope.User = User;
     }
@@ -254,8 +259,11 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
         }
     }
-    $scope.ViewTest = function (TestID) {
-        $window.location.href = '/Lop/TestDetail/' + TestID + '?CourseID=' + $scope.CourseID;
+    $scope.ViewTest = function (Test) {
+        $scope.TestInfo = Test;
+        LoadTestResult(Test.ID);
+        $('#TestInfo').modal('show');
+
     }
     $scope.Join = function () {
         if ($scope.JoinStatus == -1) {
@@ -285,6 +293,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         }).then(function (r) {
             if (r.data == 1) {
                 alert("Đăng ký thành công");
+                $window.location.reload(true);
             }
             if (r.data == false) {
                 alert("Số dư không đủ")
@@ -318,7 +327,15 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
                 });
             }
         }
+    }
+    $scope.DoTest = function () {
+        if ($scope.TestInfo.Status != 1) {
+            alert("Bài test hiện đang bị khóa")
+        }
+        else {
+            $window.location.href = '/Course/DoTest/?CourseID=' + $scope.CourseID + '&TestID=' + $scope.TestInfo.ID;
 
+        }
     }
 
 });

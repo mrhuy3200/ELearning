@@ -276,8 +276,10 @@
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\ReplyDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
+    <Compile Include="DTO\TestDetailDTO.cs" />
     <Compile Include="DTO\TestDTO.cs" />
     <Compile Include="DTO\TestQuestionDTO.cs" />
+    <Compile Include="DTO\TestResultDTO.cs" />
     <Compile Include="DTO\TopicDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3410,11 +3412,13 @@
     <Content Include="Scripts\Pub\CreateLession.js" />
     <Content Include="Scripts\Pub\DayThem.js" />
     <Content Include="Scripts\Pub\dirPagination.js" />
+    <Content Include="Scripts\Pub\DoTest.js" />
     <Content Include="Scripts\Pub\EditLession.js" />
     <Content Include="Scripts\Pub\EditQuestion.js" />
     <Content Include="Scripts\Pub\LessionDetail.js" />
     <Content Include="Scripts\Pub\Question.js" />
     <Content Include="Scripts\Pub\TestDetail.js" />
+    <Content Include="Scripts\Pub\TestResult.js" />
     <Content Include="Scripts\Pub\TopicManage.js" />
     <Content Include="Scripts\Pub\ViewCourse.js" />
     <Content Include="Scripts\respond.js" />
@@ -3471,6 +3475,9 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Lop\Courses.cshtml" />
     <Content Include="Views\Lop\ViewCourse.cshtml" />
+    <Content Include="Views\Course\DoTest.cshtml" />
+    <Content Include="Views\Course\ViewTestResult.cshtml" />
+    <Content Include="Views\Course\MyCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3490,7 +3497,6 @@
     <Folder Include="Views\API\" />
     <Folder Include="Views\asdasd\" />
     <Folder Include="Views\Comment\" />
-    <Folder Include="Views\Course\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

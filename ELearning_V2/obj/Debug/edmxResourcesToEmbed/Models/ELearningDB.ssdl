@@ -317,6 +317,7 @@
     <Property Name="Status" Type="int" />
     <Property Name="CourseID" Type="bigint" />
     <Property Name="AmountQuestion" Type="int" />
+    <Property Name="Time" Type="int" />
   </EntityType>
   <EntityType Name="Test_Question">
     <Key>
@@ -345,6 +346,7 @@
     <Property Name="UserID" Type="bigint" />
     <Property Name="TestResult" Type="float" />
     <Property Name="TestDate" Type="datetime" />
+    <Property Name="RightAnswer" Type="int" />
   </EntityType>
   <EntityType Name="Topic">
     <Key>

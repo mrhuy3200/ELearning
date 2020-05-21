@@ -322,6 +322,7 @@
           <Property Name="Status" Type="int" />
           <Property Name="CourseID" Type="bigint" />
           <Property Name="AmountQuestion" Type="int" />
+          <Property Name="Time" Type="int" />
         </EntityType>
         <EntityType Name="Test_Question">
           <Key>
@@ -350,6 +351,7 @@
           <Property Name="UserID" Type="bigint" />
           <Property Name="TestResult" Type="float" />
           <Property Name="TestDate" Type="datetime" />
+          <Property Name="RightAnswer" Type="int" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -1962,6 +1964,7 @@
           <NavigationProperty Name="Test_Question" Relationship="ELearningModel.FK_Test_Question_Test" FromRole="Test" ToRole="Test_Question" />
           <NavigationProperty Name="TestDetails" Relationship="ELearningModel.FK_TestDetail_Test" FromRole="Test" ToRole="TestDetail" />
           <NavigationProperty Name="TestResults" Relationship="ELearningModel.FK_TestResult_Test" FromRole="Test" ToRole="TestResult" />
+          <Property Name="Time" Type="Int32" />
         </EntityType>
         <EntityType Name="Test_Question">
           <Key>
@@ -1997,6 +2000,7 @@
           <Property Name="TestDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_TestResult_NguoiDung" FromRole="TestResult" ToRole="NguoiDung" />
           <NavigationProperty Name="Test" Relationship="ELearningModel.FK_TestResult_Test" FromRole="TestResult" ToRole="Test" />
+          <Property Name="RightAnswer" Type="Int32" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -2954,6 +2958,7 @@
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="ELearningModel.Test">
               <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="AmountQuestion" ColumnName="AmountQuestion" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -2986,6 +2991,7 @@
           <EntitySetMapping Name="TestResults">
             <EntityTypeMapping TypeName="ELearningModel.TestResult">
               <MappingFragment StoreEntitySet="TestResult">
+                <ScalarProperty Name="RightAnswer" ColumnName="RightAnswer" />
                 <ScalarProperty Name="TestDate" ColumnName="TestDate" />
                 <ScalarProperty Name="TestResult1" ColumnName="TestResult" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

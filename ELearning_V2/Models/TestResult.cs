@@ -19,6 +19,7 @@ namespace ELearning_V2.Models
         public Nullable<long> UserID { get; set; }
         public Nullable<double> TestResult1 { get; set; }
         public Nullable<System.DateTime> TestDate { get; set; }
+        public Nullable<int> RightAnswer { get; set; }
     
         public virtual NguoiDung NguoiDung { get; set; }
         public virtual Test Test { get; set; }

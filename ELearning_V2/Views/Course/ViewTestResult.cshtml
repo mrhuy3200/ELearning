@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "ViewTestResult";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area" ng-if="UserRole != 1">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Kết quả</h2>
+                <div class="page_link">
+                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Lop/ViewCourse/@ViewBag.CourseID">Chi tiết lớp học</a>
+                    <a href="#">Kết quả</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="courses_area p_120" ng-app="TestResultApp" ng-controller="TestResultController" ng-init="Init('@ViewBag.CourseID', '@ViewBag.UserID', '@ViewBag.TestID')">
+    <div class="container">
+        <div class="main_title">
+            <h2>Test Result</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row " id="TestInfo">
+
+                    <h4 class="col-md-12 mb-3">Thông tin</h4>
+                    <br />
+                    <strong class="col-md-4 text-right">Tên bài test: </strong>
+                    <p class="bold col-md-8">{{Test.Name}}</p>
+                    <strong class="col-md-4 text-right">Số câu hỏi: </strong>
+                    <p class="bold col-md-8">{{Test.Questions.length}}</p>
+                    <strong class="col-md-4 text-right">Thời gian: </strong>
+                    <p class="bold col-md-8">{{Test.Time}} phút</p>
+                </div>
+            </div>
+            <div class="col-md-8 border bg-light">
+                <div class="modal-body" style="margin-left:20px" ng-repeat="q in Questions">
+                    <div class="View-question">
+                        <div class="row border-bottom pl-3">
+                            <strong>Câu {{$index+1}}.&nbsp;&nbsp;</strong>
+                            <div ng-bind-html="q.Content"></div>
+                        </div>
+                        <div class="row border-bottom pt-3">
+                            <div ng-repeat="a in q.Answers" class="col-md-6 border-right" style="margin:0 0 10px">
+                                <div class="confirm-radio float-left">
+                                    <input class="float-left" id="answer{{$parent.$index}}{{$index}}" type="radio" name="Question{{$parent.$index}}" value="{{a.ID}}" />
+                                    <label for="answer{{$parent.$index}}{{$index}}"></label>
+                                </div>
+                                <strong class="float-left">{{a.Char}}.&nbsp;&nbsp;</strong>
+                                <div class="float-left" ng-bind-html="a.Content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/DoTest.js"></script>
+<style>
+    .sidenav {
+        width: 130px;
+        position: fixed;
+        z-index: 1;
+        top: 20px;
+        left: 10px;
+        background: #eee;
+        overflow-x: hidden;
+        padding: 8px 0;
+    }
+
+    .sticky {
+        padding-top: 250px;
+    }
+
+    #Clock {
+        margin-left: 100px;
+        font-weight: bold;
+        font-size: large;
+        border: 2px solid;
+        border-radius: 10px;
+        padding: 10px 10px 0px 10px;
+    }
+</style>
+
