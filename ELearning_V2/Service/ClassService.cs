@@ -11,11 +11,20 @@ namespace ELearning_V2.Service
 {
     public class ClassService
     {
-        public static List<CourseDTO> GetClassByUserID(long UserID)
+        public static List<CourseDTO> GetClassByUserID(long UserID, int Flag)
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.Courses.Where(x => x.UserID == UserID).ToList();
+                List<Course> lst = new List<Course>();
+                if (Flag == 1)
+                {
+                     lst = db.Courses.Where(x => x.UserID == UserID).OrderByDescending(x => x.ID).ToList();
+                }
+                if (Flag == 2)
+                {
+                    var course_detail = db.CourseDetails.Where(x => x.UserID == UserID).Select(x => x.CourseID).ToList();
+                     lst = db.Courses.Where(x => course_detail.Contains(x.ID)).OrderByDescending(x => x.ID).ToList();
+                }
                 List<CourseDTO> data = new List<CourseDTO>();
                 foreach (var item in lst)
                 {
@@ -118,7 +127,7 @@ namespace ELearning_V2.Service
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lstMember = db.CourseDetails.Where(x => x.CourseID == ID).Select(a => a.UserID);
+                var lstMember = db.CourseDetails.Where(x => x.CourseID == ID).OrderByDescending(x => x.ID).Select(a => a.UserID);
                 var lst = db.TaiKhoans.Where(x => lstMember.Contains(x.ID)).ToList();
                 List<TaiKhoanDTO> data = new List<TaiKhoanDTO>();
                 foreach (var item in lst)
@@ -138,7 +147,7 @@ namespace ELearning_V2.Service
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.Lessions.Where(x => x.UserID == UserID).ToList();
+                var lst = db.Lessions.Where(x => x.UserID == UserID).OrderByDescending(x => x.ID).ToList();
                 List<LessionDTO> data = new List<LessionDTO>();
                 foreach (var item in lst)
                 {
@@ -159,7 +168,7 @@ namespace ELearning_V2.Service
             using (ELearningDB db = new ELearningDB())
             {
                 var lstLesID = db.Course_Lession.Where(x => x.CourseID == CourseID).Select(x => x.LessionID).ToList();
-                var lst = db.Lessions.Where(x => lstLesID.Contains(x.ID)).ToList();
+                var lst = db.Lessions.Where(x => lstLesID.Contains(x.ID)).OrderByDescending(x => x.ID).ToList();
                 List<LessionDTO> data = new List<LessionDTO>();
                 foreach (var item in lst)
                 {
@@ -182,7 +191,7 @@ namespace ELearning_V2.Service
             using (ELearningDB db = new ELearningDB())
             {
                 var lstLesID = db.Course_Lession.Where(x => x.CourseID == CourseID).Select(x => x.LessionID).ToList();
-                var lst = db.Lessions.Where(x => !lstLesID.Contains(x.ID) && x.UserID == UserID && x.Status == 1).ToList();
+                var lst = db.Lessions.Where(x => !lstLesID.Contains(x.ID) && x.UserID == UserID && x.Status == 1).OrderByDescending(x=>x.ID).ToList();
                 List<LessionDTO> data = new List<LessionDTO>();
                 foreach (var item in lst)
                 {
@@ -441,7 +450,7 @@ namespace ELearning_V2.Service
                     if (CourseID != null)
                     {
                         data.CourseID = CourseID;
-                        var course_lession = db.Course_Lession.Where(x => x.LessionID == LessionID && x.CourseID == CourseID).FirstOrDefault();
+                        var course_lession = db.Course_Lession.Where(x => x.LessionID == LessionID && x.CourseID == CourseID).OrderByDescending(x => x.ID).FirstOrDefault();
                         data.Course_LessionStatus = course_lession.Status;
                     }
                     return data;
@@ -462,15 +471,15 @@ namespace ELearning_V2.Service
                     List<Comment> lstCom = new List<Comment>();
                     if (flag == 1)
                     {
-                        lstCom = db.Comments.Where(x => x.ClassID == c.ClassID).ToList();
+                        lstCom = db.Comments.Where(x => x.ClassID == c.ClassID).OrderByDescending(x=>x.ID).ToList();
                     }
                     if (flag == 2)
                     {
-                        lstCom = db.Comments.Where(x => x.CourseID == c.CourseID && x.LessionID == null).ToList();
+                        lstCom = db.Comments.Where(x => x.CourseID == c.CourseID && x.LessionID == null).OrderByDescending(x => x.ID).ToList();
                     }
                     if (flag == 3)
                     {
-                        lstCom = db.Comments.Where(x => x.LessionID == c.LessionID && x.CourseID == c.CourseID).ToList();
+                        lstCom = db.Comments.Where(x => x.LessionID == c.LessionID && x.CourseID == c.CourseID).OrderByDescending(x => x.ID).ToList();
                     }
                     List<CommentDTO> Coms = new List<CommentDTO>();
                     foreach (var item in lstCom)
@@ -496,7 +505,7 @@ namespace ELearning_V2.Service
                         {
                             com.Fullname = item.TaiKhoan.GiangVien.HoVaTen;
                         }
-                        List<Reply> lstRep = db.Replies.Where(x => x.CommentID == item.ID).ToList();
+                        List<Reply> lstRep = db.Replies.Where(x => x.CommentID == item.ID).OrderByDescending(x => x.ID).ToList();
                         List<CommentDTO> reps = new List<CommentDTO>();
                         foreach (var rep in lstRep)
                         {
@@ -761,7 +770,7 @@ namespace ELearning_V2.Service
                 using (ELearningDB db = new ELearningDB())
                 {
                     List<QuestionDTO> data = new List<QuestionDTO>();
-                    var lst = db.Questions.Where(x => x.UserID == UserID).ToList();
+                    var lst = db.Questions.Where(x => x.UserID == UserID).OrderByDescending(x=>x.ID).ToList();
                     foreach (var item in lst)
                     {
                         QuestionDTO d = new QuestionDTO();
@@ -812,7 +821,7 @@ namespace ELearning_V2.Service
                 {
                     List<QuestionDTO> data = new List<QuestionDTO>();
                     var lstQTest = db.Test_Question.Where(x => x.TestID == TestID).Select(x=>x.QuestionID).ToList();
-                    var lst = db.Questions.Where(x => x.UserID == UserID && !lstQTest.Contains(x.ID)).ToList();
+                    var lst = db.Questions.Where(x => x.UserID == UserID && !lstQTest.Contains(x.ID)).OrderBy(x=>x.ID).ToList();
                     foreach (var item in lst)
                     {
                         QuestionDTO d = new QuestionDTO();
@@ -1205,7 +1214,7 @@ namespace ELearning_V2.Service
             {
                 using (ELearningDB db = new ELearningDB())
                 {
-                    var lstTest = db.Tests.Where(x => x.CourseID == CourseID).ToList();
+                    var lstTest = db.Tests.Where(x => x.CourseID == CourseID).OrderBy(x=>x.ID).ToList();
                     List<TestDTO> data = new List<TestDTO>();
                     foreach (var item in lstTest)
                     {
@@ -1329,7 +1338,7 @@ namespace ELearning_V2.Service
             {
                 using (ELearningDB db = new ELearningDB())
                 {
-                    var lst = db.Topics.Where(x => x.UserID == UserID).ToList();
+                    var lst = db.Topics.Where(x => x.UserID == UserID).OrderBy(x=>x.Name).ToList();
                     List<TopicDTO> data = new List<TopicDTO>();
                     foreach (var item in lst)
                     {
@@ -1583,6 +1592,28 @@ namespace ELearning_V2.Service
             catch (Exception)
             {
                 return null;
+                throw;
+            }
+        }
+        public static int ExitCourse(long CourseID, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var check = db.CourseDetails.Where(x => x.CourseID == CourseID && x.UserID == UserID).FirstOrDefault();
+                    if (check != null)
+                    {
+                        db.CourseDetails.Remove(check);
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    return 0;
+                }
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

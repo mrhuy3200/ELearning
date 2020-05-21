@@ -253,10 +253,20 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 1) {
                 $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
             }
-            alert("Bài giảng chỉ dành cho thành viên lớp học")
+            if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 0) {
+                alert("Bài giảng bị khóa")
+            }
+            if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 2) {
+                alert("Bài giảng chỉ dành cho thành viên lớp học")
+            }
         }
         else {
-            $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+            if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 0) {
+                alert("Bài giảng bị khóa")
+            }
+            else {
+                $window.location.href = '/Lop/LessionDetail/' + LessionID + '?CourseID=' + $scope.CourseID;
+            }
         }
     }
     $scope.ViewTest = function (Test) {

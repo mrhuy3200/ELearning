@@ -3416,6 +3416,9 @@
     <Content Include="Scripts\Pub\EditLession.js" />
     <Content Include="Scripts\Pub\EditQuestion.js" />
     <Content Include="Scripts\Pub\LessionDetail.js" />
+    <Content Include="Scripts\Pub\MD5.js" />
+    <Content Include="Scripts\Pub\MyCourse.js" />
+    <Content Include="Scripts\Pub\Personal.js" />
     <Content Include="Scripts\Pub\Question.js" />
     <Content Include="Scripts\Pub\TestDetail.js" />
     <Content Include="Scripts\Pub\TestResult.js" />
@@ -3478,6 +3481,7 @@
     <Content Include="Views\Course\DoTest.cshtml" />
     <Content Include="Views\Course\ViewTestResult.cshtml" />
     <Content Include="Views\Course\MyCourse.cshtml" />
+    <Content Include="Views\User\Personal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

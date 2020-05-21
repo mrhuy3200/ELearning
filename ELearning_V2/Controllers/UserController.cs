@@ -1,5 +1,6 @@
 ﻿using ELearning_V2.Areas.GV.Models;
 using ELearning_V2.common;
+using ELearning_V2.DTO;
 using ELearning_V2.Models;
 using System;
 using System.Collections.Generic;
@@ -161,6 +162,36 @@ namespace ELearning_V2.Controllers
                 return View(hv);
             }
         }
-
+        public ActionResult Personal()
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View();
+        }
+        public ActionResult GetUserInfo()
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var user = db.TaiKhoans.Find(User.ID);
+                TaiKhoanDTO data = new TaiKhoanDTO();
+                data.ID = user.ID;
+                data.Username = user.Username;
+                data.Fullname = user.NguoiDung.HoVaTen;
+                data.Email = user.NguoiDung.Email;
+                data.Image = user.NguoiDung.Image;
+                data.Balance = (double)user.NguoiDung.SoDu;
+                data.Password = user.Password;
+                data.Info = user.NguoiDung.Info;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

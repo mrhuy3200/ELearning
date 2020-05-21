@@ -220,7 +220,7 @@ namespace ELearning_V2.Controllers
             using (ELearningDB db = new ELearningDB())
             {
                 List<CourseDTO> data = new List<CourseDTO>();
-                data = ClassService.GetClassByUserID(User.ID);
+                data = ClassService.GetClassByUserID(User.ID, 1);
                 return Json(data, JsonRequestBehavior.AllowGet);
 
             }
