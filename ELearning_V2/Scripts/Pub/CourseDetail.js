@@ -360,13 +360,14 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     }
     $scope.CreateTest = function () {
         var isHidden = $('#AddTestForm').is(":hidden");
-        if (isHidden == false && $scope.TestName != null && $scope.AmountQuestion != null) {
+        if (isHidden == false && $scope.TestName != null && $scope.AmountQuestion != null && $scope.TestTime != null) {
             if ($scope.TestIDEdit == 0) {
                 console.log("Add")
                 var TestDTO = {
                     Name: $scope.TestName,
                     CourseID: $scope.CourseID,
-                    AmountQuestion: $scope.AmountQuestion
+                    AmountQuestion: $scope.AmountQuestion,
+                    Time: $scope.TestTime
                 }
                 console.log(TestDTO);
                 $http({
@@ -379,6 +380,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
                         alert("Đã thêm");
                         $scope.TestName = null;
                         $scope.AmountQuestion = null;
+                        $scope.TestTime = null
                     }
                     if (response.data == -1) {
                         alert("Xảy ra lỗi");
@@ -390,7 +392,9 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
                 var TestDTO = {
                     ID: $scope.TestIDEdit,
                     Name: $scope.TestName,
-                    AmountQuestion: $scope.AmountQuestion
+                    AmountQuestion: $scope.AmountQuestion,
+                    Time: $scope.TestTime
+
                 }
                 console.log(TestDTO);
                 $http({
@@ -403,6 +407,8 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
                         alert("Đã cập nhật");
                         $scope.TestName = null;
                         $scope.AmountQuestion = null;
+                        $scope.TestTime = null
+
                     }
                     if (response.data == -1) {
                         alert("Xảy ra lỗi");
@@ -415,14 +421,16 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     $scope.EditTest = function (TestID) {
         var isHidden = $('#AddTestForm').is(":hidden");
         if (isHidden == true) {
-            $('#AddTestForm').show();
+            $('#AddTestForm').collapse("toggle")
             $scope.TestName = $scope.Tests[FindTest(TestID)].Name;
             $scope.AmountQuestion = $scope.Tests[FindTest(TestID)].AmountQuestion;
             $scope.TestIDEdit = TestID;
+            $scope.TestTime = $scope.Tests[FindTest(TestID)].Time;
         }
         else {
             $scope.TestName = $scope.Tests[FindTest(TestID)].Name;
             $scope.AmountQuestion = $scope.Tests[FindTest(TestID)].AmountQuestion;
+            $scope.TestTime = $scope.Tests[FindTest(TestID)].Time;
             $scope.TestIDEdit = TestID;
         }
     }

@@ -439,13 +439,17 @@
                                     <i class="fa fa-plus"></i>
                                 </a>
                                 <div class="collapse row col-md-10 border bg-white rounded mb-3" style="padding:7px 7px 12px;left:130px;top:-25px" id="AddTestForm">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <label>Name: </label>
-                                        <input type="text" class="form-control" maxlength="50" ng-model="TestName" required placeholder="Nhập tên bài test..."/>
+                                        <input type="text" class="form-control" maxlength="50" ng-model="TestName" required placeholder="Nhập tên bài test..." />
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label>Số câu hỏi:</label>
                                         <input type="number" class="form-control" min="1" ng-model="AmountQuestion" max="50" required />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Thời gian:</label>
+                                        <input type="number" class="form-control" min="1" ng-model="TestTime" max="180" required />
                                     </div>
                                 </div>
                             </div>
@@ -469,14 +473,14 @@
                                     <div class="table-head">
                                         <div class="serial">#</div>
                                         <div class="percentage">Tên</div>
-                                        <div class="visit">Ngày tạo</div>
+                                        <div class="visit">Thời gian</div>
                                         <div class="country">Trạng thái</div>
                                     </div>
                                     <div class="huy" dir-paginate="t in Tests | filter:TSearchKey | itemsPerPage: TPageSize" pagination-id="Tests" current-page="TcurrentPage">
                                         <div class="table-row ">
                                             <div class="serial">{{$index + (TcurrentPage-1)*TPageSize+1}}</div>
                                             <div class="percentage">{{t.Name}}</div>
-                                            <div class="visit">{{t.CreateDate | date:"dd/MM/yyyy"}}</div>
+                                            <div class="visit">{{t.Time}} phút</div>
                                             <div class="country">
                                                 <div style="width:50px">
                                                     <label ng-if="t.Status == 1">Mở</label>

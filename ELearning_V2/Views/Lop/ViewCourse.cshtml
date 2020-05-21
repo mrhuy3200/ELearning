@@ -407,14 +407,14 @@
                                     <div class="table-head">
                                         <div class="serial">#</div>
                                         <div class="percentage">Tên</div>
-                                        <div class="visit">Ngày tạo</div>
+                                        <div class="visit">Thời gian</div>
                                         <div class="country">Trạng thái</div>
                                     </div>
-                                    <div class="huy" dir-paginate="t in Tests | filter:TSearchKey | itemsPerPage: TPageSize" pagination-id="Tests" current-page="TcurrentPage">
+                                    <div ng-click="ViewTest(t)" class="huy" dir-paginate="t in Tests | filter:TSearchKey | itemsPerPage: TPageSize" pagination-id="Tests" current-page="TcurrentPage">
                                         <div class="table-row ">
                                             <div class="serial">{{$index + (TcurrentPage-1)*TPageSize+1}}</div>
                                             <div class="percentage">{{t.Name}}</div>
-                                            <div class="visit">{{t.CreateDate | date:"dd/MM/yyyy"}}</div>
+                                            <div class="visit">{{t.Time}} phút</div>
                                             <div class="country">
                                                 <div style="width:50px">
                                                     <label ng-if="t.Status == 1">Mở</label>
@@ -481,7 +481,44 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="TestInfo" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Thông tin bài test</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                </div>
+                <div class="modal-body" style="margin-left:20px">
+                    <form class="form-horizontal row" name="AddNewForm">
+                        <div class="col-md-6">
+                            <p><strong>Tên bài test</strong>: {{TestInfo.Name}}</p>
+                            <p><strong>Số câu hỏi</strong>: {{TestInfo.AmountQuestion}}</p>
+                            <p><strong>Thời gian</strong>: {{TestInfo.Time}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <strong>Kết quả test</strong>
+                                <div ng-if="TestResult != ''">
+                                    <p><strong>Tên người dùng</strong>: {{TestResult.Fullname}}</p>
+                                    <p><strong>Ngày làm</strong>: {{TestResult.TestDate | date:"dd/MM/yyyy HH:mm:ss"}}</p>
+                                    <p><strong>Điểm</strong>: {{TestResult.TestResult}}</p>
+                                </div>
+                                <div ng-if="TestResult == ''" class="border rounded alert-danger text-center mt-2 mb-3">
+                                    <label class="text-danger Bold mt-1">Chưa có kết quả</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-center">
+                                    <a class="btn btn-success text-light" ng-if="TestResult == ''" ng-click="DoTest()">Làm bài</a>
+                                    <a class="btn btn-dark text-light" ng-if="TestResult != ''" ng-click="DoTest()">Xem bài làm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <script src="~/Content/js/jquery-3.3.1.min.js"></script>
 <script src="~/Content/jquery-bar-rating-master/dist/jquery.barrating.min.js"></script>

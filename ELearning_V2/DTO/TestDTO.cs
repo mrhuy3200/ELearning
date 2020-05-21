@@ -14,6 +14,7 @@ namespace ELearning_V2.DTO
         public long? CourseID { get; set; }
         public int AmountQuestion { get; set; }
         public long UserID { get; set; }
+        public int Time { get; set; }
         public List<QuestionDTO> Questions { get; set; }
         
 

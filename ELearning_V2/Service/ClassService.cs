@@ -43,7 +43,7 @@ namespace ELearning_V2.Service
             {
                 using (ELearningDB db = new ELearningDB())
                 {
-                    var lst = db.Courses.Where(x => x.Status == 1).ToList();
+                    var lst = db.Courses.Where(x => x.Status == 1).OrderByDescending(x=>x.Comments.Select(c=>c.Rate).Sum()/x.Comments.Select(c=>c.Rate).Count()).ToList();
                     List<CourseDTO> data = new List<CourseDTO>();
                     foreach (var item in lst)
                     {
@@ -1131,6 +1131,7 @@ namespace ELearning_V2.Service
                     data.Status = 0;
                     data.CourseID = t.CourseID;
                     data.AmountQuestion = t.AmountQuestion;
+                    data.Time = t.Time;
                     db.Tests.Add(data);
                     db.SaveChanges();
                     return 1;
@@ -1151,6 +1152,7 @@ namespace ELearning_V2.Service
                     var data = db.Tests.Find(t.ID);
                     data.Name = t.Name;
                     data.AmountQuestion = t.AmountQuestion;
+                    data.Time = t.Time;
                     db.SaveChanges();
                     return 1;
                 }
@@ -1214,6 +1216,7 @@ namespace ELearning_V2.Service
                         t.Status = item.Status;
                         t.CourseID = item.CourseID;
                         t.AmountQuestion = (int)item.AmountQuestion;
+                        t.Time = (int)item.Time;
                         data.Add(t);
                     }
                     return data;
@@ -1240,6 +1243,7 @@ namespace ELearning_V2.Service
                     data.CourseID = test.CourseID;
                     data.AmountQuestion = (int)test.AmountQuestion;
                     data.UserID = test.Course.NguoiDung.ID;
+                    data.Time = (int)test.Time;
                     List<QuestionDTO> QData = new List<QuestionDTO>();
                     foreach (var item in test.Test_Question)
                     {
@@ -1489,6 +1493,96 @@ namespace ELearning_V2.Service
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        public static TestResultDTO GetTestResult(long TestID, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var test = db.TestResults.Where(x => x.TestID == TestID && x.UserID == UserID).FirstOrDefault();
+                    if (test != null)
+                    {
+                        var lstTestDetail = db.TestDetails.Where(x => x.TestID == TestID && x.UserID == UserID).ToList();
+                        List<TestDetailDTO> tdata = new List<TestDetailDTO>();
+                        TestResultDTO data = new TestResultDTO();
+                        data.ID = test.ID;
+                        data.TestID = test.TestID;
+                        data.UserID = test.UserID;
+                        data.Fullname = test.NguoiDung.HoVaTen;
+                        data.TestResult = test.TestResult1;
+                        data.TestDate = test.TestDate;
+                        data.RightAnswer = (int)test.RightAnswer;
+
+                        foreach (var item in lstTestDetail)
+                        {
+                            TestDetailDTO td = new TestDetailDTO();
+                            td.ID = item.ID;
+                            td.QuestionID = (long)item.QuestionID;
+                            td.Answer = (long)item.Answer;
+                            td.TestID = (long)item.TestID;
+                            td.UserID = (long)item.UserID;
+                            tdata.Add(td);
+                        }
+                        data.TestDetails = tdata;
+                        return data;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static TestResultDTO SubmitTest(TestResultDTO t)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var rate = 10.0/db.Tests.Find(t.TestID).Test_Question.Count();
+                    double res = 0;
+                    int rightAn = 0;
+                    foreach (var item in t.TestDetails)
+                    {
+                        TestDetail td = new TestDetail();
+                        td.QuestionID = item.QuestionID;
+                        td.Answer = item.Answer;
+                        td.TestID = item.TestID;
+                        td.UserID = item.UserID;
+                        db.TestDetails.Add(td);
+                        if (item.Answer == db.Questions.Find(item.QuestionID).AnswerID)
+                        {
+                            res += rate;
+                            rightAn++;
+                        }
+                    }
+                    db.SaveChanges();
+                    TestResult data = new TestResult();
+                    data.TestID = t.TestID;
+                    data.UserID = t.UserID;
+                    data.TestDate = DateTime.Now;
+                    data.TestResult1 = res;
+                    data.RightAnswer = rightAn;
+                    db.TestResults.Add(data);
+                    db.SaveChanges();
+                    TestResultDTO Rdata = new TestResultDTO();
+                    Rdata.TestID = data.TestID;
+                    Rdata.UserID = data.UserID;
+                    Rdata.TestResult = data.TestResult1;
+                    Rdata.TestDate = data.TestDate;
+                    Rdata.RightAnswer = (int)data.RightAnswer;
+                    Rdata.TestDetails = t.TestDetails;
+                    return Rdata;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
                 throw;
             }
         }

@@ -28,6 +28,7 @@ namespace ELearning_V2.Models
         public Nullable<int> Status { get; set; }
         public Nullable<long> CourseID { get; set; }
         public Nullable<int> AmountQuestion { get; set; }
+        public Nullable<int> Time { get; set; }
     
         public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

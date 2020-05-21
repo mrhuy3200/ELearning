@@ -16,7 +16,15 @@ namespace ELearning_V2.Controllers
         {
             return View();
         }
-
+        public ActionResult MyCourse()
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View();
+        }
         public ActionResult GetClassByID(long ID)
         {
             var User = (TaiKhoan)Session["User"];
@@ -52,11 +60,9 @@ namespace ELearning_V2.Controllers
         {
             var User = (TaiKhoan)Session["User"];
             var data = ClassService.GetListTestByCourseID(ID);
-            if (data != null)
-            {
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return Json(-1, JsonRequestBehavior.AllowGet);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
         [HttpPost]
         public ActionResult GetCommentByID(CommentDTO c)
@@ -120,6 +126,91 @@ namespace ELearning_V2.Controllers
 
             }
             return Json(-1, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult LoadTestResult(TestResultDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var Member = ClassService.CheckUserRole(User.ID, (long)t.CourseID) == 2 ? true : false;
+            if (Member)
+            {
+                return Json(ClassService.GetTestResult((long)t.TestID, User.ID), JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DoTest(long CourseID, long TestID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var Member = ClassService.CheckUserRole(User.ID, CourseID) == 2 ? true : false;
+            if (Member)
+            {
+                ViewBag.TestID = TestID;
+                ViewBag.UserID = User.ID;
+                ViewBag.CourseID = CourseID;
+                return View("DoTest");
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]
+        public ActionResult GetTestByID(TestResultDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var Member = ClassService.CheckUserRole(User.ID, (long)t.CourseID) == 2 ? true : false;
+            if (Member)
+            {
+                var data = ClassService.GetTestByID((long)t.TestID);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult GetTestResult(TestResultDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var Member = ClassService.CheckUserRole(User.ID, (long)t.CourseID) == 2 ? true : false;
+            if (Member)
+            {
+                var data = ClassService.GetTestResult((long)t.TestID, User.ID);
+                if (data == null)
+                {
+                    return Json(-1, JsonRequestBehavior.AllowGet);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(-1, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]
+        public ActionResult SubmitTest(TestResultDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var Member = ClassService.CheckUserRole(User.ID, (long)t.CourseID) == 2 ? true : false;
+            if (Member && ClassService.GetTestResult((long)t.TestID, User.ID) == null)
+            {
+                return Json(ClassService.SubmitTest(t), JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
     }
