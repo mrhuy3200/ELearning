@@ -440,12 +440,12 @@
                 <div class="col-lg-4">
                     <div class="c_details_list">
                         <ul class="list">
-                            <li><a href="#">Tên lớp <span style="font-weight:bold">{{Lop.Name}}</span></a></li>
+                            <li><p class="Course-name text-uppercase" style="font-weight:bold">{{Lop.Name}}</p></li>
                             <li><a href="#">Học phí <span>{{Lop.Price}}VND</span></a></li>
                             <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
                             <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
                         </ul>
-                        <a class="main_btn text-light" ng-if="JoinStatus != 1" ng-click="Join()">Đăng ký</a>
+                        <a id="JoinBtn" class="main_btn text-light" ng-if="JoinStatus != 1" ng-click="Join()">Đăng ký</a>
                         <div id="JoinAlert" class="alert alert-danger mt-3 text-center" style="display:none">
                             <p class="bold">Bạn cần đăng nhập để thực hiện việc này!!!</p>
                             <a class="btn btn-success text-light">Đăng nhập</a>
@@ -471,6 +471,7 @@
                             <div class="col-md-6">
                                 <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
                                 <p><strong>Số dư</strong>: {{User.Balance}}</p>
+                                <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-Lop.Price}}</p>
                                 <div>
                                     <strong>Xác nhận đăng ký</strong>
                                     <div>
@@ -633,5 +634,10 @@
     /* Hide the right column on small screens */
     .right {
         display: none;
+    }
+    .Course-name{
+        padding-left:5%;
+        font-weight:bold;
+
     }
 </style>

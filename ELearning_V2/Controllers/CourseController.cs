@@ -107,6 +107,12 @@ namespace ELearning_V2.Controllers
             }
             var us = ClassService.GetUserInfo((long)cd.UserID);
             var course = ClassService.GetClassByID((long)cd.CourseID);
+            if (course.Capacity == course.NumOfPeo)
+            {
+                //Lớp đã đầy
+                return Json(2, JsonRequestBehavior.AllowGet);
+
+            }
             if (us == null || course == null)
             {
                 return Json(0, JsonRequestBehavior.AllowGet);

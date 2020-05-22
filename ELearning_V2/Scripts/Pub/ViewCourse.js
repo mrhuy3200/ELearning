@@ -99,6 +99,10 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         ViewCourseService.LoadClass(ID).then(function (d) {
             $scope.Lop = d.data;
             console.log(d.data);
+            if ($scope.Lop.NumOfPeo == $scope.Lop.Capacity) {
+                //FULL
+                $('#JoinBtn').css("display", "none");
+            }
             callback(ID, LoadLession);
         }, function () {
             alert('Không tìm thấy dữ liệu !!!');
@@ -313,6 +317,9 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             }
             if (r.data == 0) {
                 alert("Xảy ra lỗi")
+            }
+            if (r.data == 2) {
+                alert("Lớp đã đủ học viên")
             }
         })
     }
