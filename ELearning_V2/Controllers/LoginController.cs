@@ -53,7 +53,7 @@ namespace ELearning_V2.Controllers
                                     return RedirectToAction("FirstLogin", "User", new { area = "GV", id = gv.ID });
 
                                 }
-                                Session["Hoten"] = gv.HoVaTen;
+                                Session.Add("Hoten", res.GiangVien.HoVaTen);
                                 return RedirectToAction("TrangChu", "HomeGV", new { area = "GV" });
                             }
                             else
@@ -67,7 +67,7 @@ namespace ELearning_V2.Controllers
 
                                     }
 
-                                    Session["Hoten"] = hv.HoVaTen;
+                                    Session.Add("Hoten", res.HocVien.HoVaTen);
                                     return RedirectToAction("TrangChu", "Home");
                                 }
                                 else
@@ -81,8 +81,8 @@ namespace ELearning_V2.Controllers
                                         if (res.Role == 4)
                                         {
                                             NguoiDung user = db.NguoiDungs.Find(res.ID);
-                                            Session["Hoten"] = user.HoVaTen;
-                                            return RedirectToAction("TrangChu", "Home");
+                                            Session.Add("Hoten", res.NguoiDung.HoVaTen);
+                                            return RedirectToAction("GuessHomePage", "Home");
                                         }
                                     }
                                 }
@@ -169,7 +169,7 @@ namespace ELearning_V2.Controllers
                     NguoiDung u = db.NguoiDungs.Find(ID.ID);
                     u.HoVaTen = model.FullName;
                     u.Email = model.Email;
-                    u.Image = null;
+                    u.Image = ID.ID+".jpg";
                     u.SoDu = 20000;
                     u.MaXacNhan = GenerateCode();
                     db.SaveChanges();
@@ -236,7 +236,7 @@ namespace ELearning_V2.Controllers
                 var receiverEmail = new MailAddress(user.Email, user.HoVaTen);
                 var password = "huynhthanhhuy";
                 var sub = "Kích hoạt tài khoản";
-                var body = string.Format("Xin chào {0} <BR/>Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn: http://localhost:49608/Login/ActiveAccount/{1}/{2} ", user.HoVaTen, user.ID, user.MaXacNhan);
+                var body = string.Format("Xin chào {0} <br/>Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn: http://localhost:49608/Login/ActiveAccount/{1}/{2} ", user.HoVaTen, user.ID, user.MaXacNhan);
                 var smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",

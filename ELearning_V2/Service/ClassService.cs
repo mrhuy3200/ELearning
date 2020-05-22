@@ -179,6 +179,7 @@ namespace ELearning_V2.Service
                     l.URL = item.URL;
                     l.Status = item.Status;
                     l.View = item.LessionViews.Count();
+                    l.Image = item.Image;
                     l.Course_LessionStatus = item.Course_Lession.Where(x => x.LessionID == item.ID && x.CourseID == CourseID).FirstOrDefault().Status;
 
                     data.Add(l);
@@ -489,13 +490,14 @@ namespace ELearning_V2.Service
                         com.NoiDung = item.NoiDung;
                         com.CreateDate = item.CreateDate;
                         com.CreateBy = item.CreateBy;
-                        if (item.Rate != null)
+                        if (item.Rate != 0)
                         {
                             com.Rate = (int)item.Rate;
                         }
                         if (item.TaiKhoan.Role == 4)
                         {
                             com.Fullname = item.TaiKhoan.NguoiDung.HoVaTen;
+                            com.UserImage = item.TaiKhoan.NguoiDung.Image;
                         }
                         if (item.TaiKhoan.Role == 3)
                         {
@@ -517,6 +519,7 @@ namespace ELearning_V2.Service
                             if (rep.TaiKhoan.Role == 4)
                             {
                                 r.Fullname = rep.TaiKhoan.NguoiDung.HoVaTen;
+                                r.UserImage = rep.TaiKhoan.NguoiDung.Image;
                             }
                             if (rep.TaiKhoan.Role == 3)
                             {

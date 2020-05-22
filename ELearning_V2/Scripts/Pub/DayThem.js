@@ -101,14 +101,18 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             $scope.lop.Type = 1;
             $scope.lop.Capacity = 15;
             $scope.lop.Price = 0;
+            $scope.lop.Pay = 0;
         }
         if (type == 2) {
             $scope.lop.Type = 2;
             $scope.lop.Capacity = 45;
+            $scope.lop.Pay = 200000;
+
         }
         if (type == 3) {
             $scope.lop.Type = 3;
             $scope.lop.Capacity = null;
+            $scope.lop.Pay = 500000;
         }
         $scope.type = type;
     }
@@ -116,35 +120,92 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         var ID;
         console.log('Save' + JSON.stringify($scope.lop));
         $http({
-            method: 'POST',
-            url: '/Lop/CreateClass',
-            data: JSON.stringify($scope.lop)
-        }).then(function successCallback(response) {
-            ID = response.data;
-            console.log(ID);
-            //$scope.Clear();
-            console.log('filename ' + file.name);
-            var blob = file.slice(0, file.size, 'image/jpg');
-            newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
-            console.log('filename ' + newFile);
-            formdata.set(0, newFile);
-            console.log(formdata.get(0));
-            var request = {
+            method: 'GET',
+            url: '/Course/GetUserInfo'
+        }).then(function (r) {
+            $scope.User = r.data;
+            console.log($scope.User);
+        })
+        
+        $('#PayConfirm').modal('show');
+
+        //$http({
+        //    method: 'POST',
+        //    url: '/Lop/CreateClass',
+        //    data: JSON.stringify($scope.lop)
+        //}).then(function successCallback(response) {
+        //    ID = response.data;
+        //    console.log(ID);
+        //    //$scope.Clear();
+        //    console.log('filename ' + file.name);
+        //    var blob = file.slice(0, file.size, 'image/jpg');
+        //    newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
+        //    console.log('filename ' + newFile);
+        //    formdata.set(0, newFile);
+        //    console.log(formdata.get(0));
+        //    var request = {
+        //        method: 'POST',
+        //        url: '/api/API/UploadClassImage',
+        //        data: formdata,
+        //        headers: {
+        //            'Content-Type': undefined
+        //        }
+        //    };
+        //    $http(request)
+        //        .then(function (d) {
+        //            alert("Đăng ký thành công");
+        //            LoadClass();
+        //        })
+        //}, function errorCallback(response) {
+        //    alert("Error : " + response.data.ExceptionMessage);
+        //});
+    }
+    $scope.Pay = function () {
+        if ($scope.lop.Pay <= $scope.User.Balance) {
+            console.log("OK");
+            $http({
                 method: 'POST',
-                url: '/api/API/UploadClassImage',
-                data: formdata,
-                headers: {
-                    'Content-Type': undefined
+                url: '/Lop/CreateClass',
+                data: JSON.stringify($scope.lop)
+            }).then(function successCallback(response) {
+                if (response.data != -1) {
+                    ID = response.data;
+                    console.log(ID);
+                    //$scope.Clear();
+                    console.log('filename ' + file.name);
+                    var blob = file.slice(0, file.size, 'image/jpg');
+                    newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
+                    console.log('filename ' + newFile);
+                    formdata.set(0, newFile);
+                    console.log(formdata.get(0));
+                    var request = {
+                        method: 'POST',
+                        url: '/api/API/UploadClassImage',
+                        data: formdata,
+                        headers: {
+                            'Content-Type': undefined
+                        }
+                    };
+                    $http(request)
+                        .then(function (d) {
+                            alert("Đăng ký thành công");
+                            LoadClass();
+                            $('.modal').modal('hide');
+
+                        })
                 }
-            };
-            $http(request)
-                .then(function (d) {
-                    alert("Đăng ký thành công");
-                    LoadClass();
-                })
-        }, function errorCallback(response) {
-            alert("Error : " + response.data.ExceptionMessage);
-        });
+                else {
+                    alert("Số dư không đủ để thanh toán");
+                }
+            }, function errorCallback(response) {
+                alert("Error : " + response.data.ExceptionMessage);
+            });
+
+        }
+        else {
+            alert("Số dư không đủ để thanh toán");
+        }
+
     }
     $scope.Clear = function () {
         $scope.lop.Name = '';
@@ -314,8 +375,8 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         };
         DayThemService.RemoveLession(LessionlDTO).then(function (d) {
             if (d.data == "OK") {
-                
-                $scope.Lessions.splice(FindLession(ID),1);
+
+                $scope.Lessions.splice(FindLession(ID), 1);
             }
             alert(d.data);
         }, function () {

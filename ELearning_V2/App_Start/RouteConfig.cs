@@ -16,7 +16,7 @@ namespace ELearning_V2
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {controller = "Home", action = "Home", id = UrlParameter.Optional },
+                defaults: new {controller = "Home", action = "GuessHomePage", id = UrlParameter.Optional },
                 namespaces: new[] { "ELearning_V2.Controllers" }
             );
             routes.MapRoute(

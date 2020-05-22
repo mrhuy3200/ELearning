@@ -41,7 +41,7 @@
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class="form-control-label">Email</label></div>
                             <div class="col-12 col-md-9">
-                                <input class="form-control" placeholder="Số điện thoại..." type="text" required maxlength="10" ng-model="User.Email" ng-pattern="/^[0-9]+$/" />
+                                <input class="form-control" placeholder="Email..." type="text" required maxlength="50" ng-model="User.Email" />
                             </div>
                         </div>
                         <div class="row form-group">
@@ -50,13 +50,36 @@
                                 <textarea class="form-control" placeholder="Thông tin cá nhân..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;" required maxlength="2000" ng-model="User.Info"></textarea>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class="form-control-label">Số dư</label></div>
+                            <div class="col-12 col-md-9">
+                                <input class="form-control" readonly type="text" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+                            </div>
+                        </div>
                         <div>
                             <button type="submit" class="btn btn-primary btn-sm" ng-click="update()">
-                                <i class="fa fa-dot-circle-o"></i> Cập nhật
+                                <i class="fas fa-edit"></i> Cập nhật
                             </button>
-                            <button data-toggle="modal" data-target="#ChangePassword" class="btn btn-primary btn-sm" style="padding-right:4%">
-                                Đổi mật khẩu
+                            <button data-toggle="modal" data-target="#ChangePassword" class="btn btn-primary btn-sm">
+                                <i class="fa fa-key"></i> Đổi mật khẩu
                             </button>
+                            <button ng-click="AddMoney()" data-toggle="collapse" data-target="#AddMoney" class="btn btn-primary btn-sm">
+                                <i class="fa fa-dollar"></i> Nạp tiền
+                            </button>
+                        </div>
+                        <div id="AddMoney" class="row mt-3 ml-3 mr-3 collapse">
+                            <div class="col-md-3">
+                                <a class="btn btn-dark text-light" ng-click="Recharge(20000)"><i class="fa fa-dollar"></i>20.000</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="btn btn-info text-light" ng-click="Recharge(50000)"><i class="fa fa-dollar"></i>50.000</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="btn btn-primary text-light" ng-click="Recharge(100000)"><i class="fa fa-dollar"></i>100.000</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="btn btn-success text-light" ng-click="Recharge(500000)"><i class="fa fa-dollar"></i>500.000</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,14 +142,14 @@
                             <img id="output" ng-if="User.Image == null" class="rounded-circle mx-auto d-block"
                                  width="167" height="158" src="~/Content/img/UserImage/Default.png" alt="Card image cap">
 
-                            <h5 class="text-sm-center mt-2 mb-1">{{User.FullName}}</h5>
+                            <h5 class="text-sm-center mt-2 mb-1">{{User.Fullname}}</h5>
                         </div>
                         <hr>
                         <div class="card-text text-sm-center">
-                            <form action="Upload" method="post" enctype="multipart/form-data" name="UpLoad">
-                                <input type="file" required name="file" id="file" accept="image/*" onchange="loadFile(event);" class="btn btn-light" />
+                            <form name="UpLoad">
+                                <input type="file" required name="file" id="file" accept="image/*" ng-files="getTheFiles($files)" class="btn btn-light" />
 
-                                <button type="submit" ng-click="LoadUser()" class="btn btn-primary btn-sm">
+                                <button type="submit" ng-click="UploadImage()" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Lưu
                                 </button>
                             </form>
@@ -148,3 +171,12 @@
         o.style.height = (25 + o.scrollHeight) + "px";
     }
 </script>
+<style>
+    #AddMoney {
+        padding: 10px;
+        border: 1px solid;
+        border-radius: 10px;
+        background-color: snow;
+        text-align: center;
+    }
+</style>

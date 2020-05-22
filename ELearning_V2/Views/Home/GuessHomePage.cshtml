@@ -1,8 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Guess Home Page";
+    ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
 }
-@model IEnumerable<ELearning_V2.Models.Course>
 
 <section class="home_banner_area">
     <div class="banner_inner d-flex align-items-center">
@@ -16,77 +15,85 @@
         </div>
     </div>
 </section>
+<div ng-app="HomeApp" ng-controller="HomeController">
+    <section class="courses_area p_120">
+        <div class="container">
+            <div class="main_title">
+                <h2>Khóa học miễn phí</h2>
+                <p>Các khoá học miễn phí được nhiều người tham gia</p>
+            </div>
+            <div class="row courses_inner">
+                <div class="grid_inner col-md-12">
+                    <div class="grid_item wd33" ng-repeat="c in Courses">
+                        <div class="courses_item">
+                            <img height="270" src="~/Content/img/ClassImage/{{c.Image}}" alt="">
+                            <div class="hover_text">
+                                <a class="cat">Free</a>
+                                <a href="/Lop/ViewCourse/{{c.ID}}"><h4>{{c.Name}}</h4></a>
+                                <ul class="list">
+                                    <li ng-if="c.Type != 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}/{{c.Capacity}}</a></li>
+                                    <li ng-if="c.Type == 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}</a></li>
+                                    <li><a href="#"><i class="lnr lnr-bubble"></i> {{c.Comments}}</a></li>
+                                    <li><a href="#"><i class="lnr lnr-user"></i>{{c.Username}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-<section class="courses_area p_120">
-    <div class="container">
-        <div class="main_title">
-            <h2>Khóa học miễn phí</h2>
-            <p>Các khoá học miễn phí được nhiều người tham gia</p>
-        </div>
-        <div class="row courses_inner">
-            <div class="grid_inner">
-                @{
-                    for (int i = 0; i < Model.Count(); i++)
-                    {
-                        <div class="grid_item wd44">
-                            <div class="courses_item">
-                                <img src="~/Content/img/ClassImage/@Model.ElementAt(i).Image" alt="">
-                                <div class="hover_text">
-                                    <a class="cat" href="#">@(Model.ElementAt(i).Price * 1000) đ</a>
-                                    <a href="#"><h4>@Model.ElementAt(i).Name</h4></a>
-                                    <ul class="list">
-                                        <li><a href="#"><i class="lnr lnr-users"></i>@Model.ElementAt(i).CourseDetails.Count()</a></li>
-                                        <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
-                                        <li><a href="#"><i class="lnr lnr-user"></i>@Model.ElementAt(i).NguoiDung.HoVaTen</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                @*<div class="grid_item wd44">
-                        <div class="courses_item">
-                            <img src="~/Content/img/courses/course-2.jpg" alt="">
-                            <div class="hover_text">
-                                <a class="cat" href="#">Free</a>
-                                <a href="#"><h4>Japanease Language Class</h4></a>
-                                <ul class="list">
-                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
-                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
-                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid_item wd44">
-                        <div class="courses_item">
-                            <img src="~/Content/img/courses/course-4.jpg" alt="">
-                            <div class="hover_text">
-                                <a class="cat" href="#">Free</a>
-                                <a href="#"><h4>Japanease Language Class</h4></a>
-                                <ul class="list">
-                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
-                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
-                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid_item wd55">
-                        <div class="courses_item">
-                            <img src="~/Content/img/courses/course-5.jpg" alt="">
-                            <div class="hover_text">
-                                <a class="cat" href="#">Free</a>
-                                <a href="#"><h4>Japanease Language Class</h4></a>
-                                <ul class="list">
-                                    <li><a href="#"><i class="lnr lnr-users"></i> 355</a></li>
-                                    <li><a href="#"><i class="lnr lnr-bubble"></i> 35</a></li>
-                                    <li><a href="#"><i class="lnr lnr-user"></i> T. Robert</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>*@
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="team_area p_120">
+        <div class="container">
+            <div class="main_title">
+                <h2>Meet Our Faculty</h2>
+                <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
+            </div>
+            <div class="row team_inner">
+                <div class="col-lg-3 col-sm-6" ng-repeat="t in TopTeachers">
+                    <div class="team_item">
+                        <div class="team_img">
+                            <img ng-if="t.Image != null" class="rounded-circle" src="~/Content/img/UserImage/{{t.Image}}" alt="{{t.Fullname}}">
+                            <img ng-if="t.Image == null" class="rounded-circle" src="~/Content/img/UserImage/Default.png" alt="{{t.Fullname}}">
+
+                            <div class="hover">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="team_name">
+                            <h4>{{t.Fullname}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="latest_blog_area p_120">
+        <div class="container">
+            <div class="main_title">
+                <h2>Latest Posts From Blog</h2>
+                <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
+            </div>
+            <div class="row latest_blog_inner">
+                <div class="col-lg-3 col-md-6" ng-repeat="l in PubLessions">
+                    <div class="l_blog_item">
+                        <img class="img-fluid" ng-if="l.Image != null" src="~/Content/img/LessionImage/{{l.Image}}" alt="">
+                        <img class="img-fluid" ng-if="l.Image == null" src="~/Content/img/LessionImage/Default.png" alt="">
+                        <a class="date" href="#">{{l.CreateDate | date:"dd/MM/yyyy"}}</a>
+                        <a href="/Lop/LessionDetail/{{l.ID}}"><h4>{{l.Name}}</h4></a>
+                        <div ng-bind-html="l.Content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/Home.js"></script>

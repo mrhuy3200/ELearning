@@ -193,5 +193,56 @@ namespace ELearning_V2.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        public ActionResult EditUserInfo(TaiKhoanDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var data = db.TaiKhoans.Find(t.ID);
+                data.NguoiDung.HoVaTen = t.Fullname;
+                data.NguoiDung.Email = t.Email;
+                data.NguoiDung.Info = t.Info;
+                data.NguoiDung.Image = t.Image;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult ChangeUserPassword(TaiKhoanDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var data = db.TaiKhoans.Find(t.ID);
+                data.Password = t.Password;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult Recharge(TaiKhoanDTO t)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var data = db.TaiKhoans.Find(t.ID);
+                data.NguoiDung.SoDu = t.Balance;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
