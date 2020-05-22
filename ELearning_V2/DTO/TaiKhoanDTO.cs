@@ -16,6 +16,7 @@ namespace ELearning_V2.DTO
         public int Role { get; set; }
         public bool TrangThai { get; set; }
         public double Balance { get; set; }
+        public string Info { get; set; }
 
     }
 }

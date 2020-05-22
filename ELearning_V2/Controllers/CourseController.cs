@@ -212,6 +212,25 @@ namespace ELearning_V2.Controllers
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetMyCourse()
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.GetClassByUserID(User.ID, 2), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ExitCourse(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.ExitCourse(ID, User.ID), JsonRequestBehavior.AllowGet);
+
+        }
 
     }
 }
