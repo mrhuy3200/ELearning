@@ -70,7 +70,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         });
     }
     function LoadLession(ID) {
-        CourseDetailService.LoadLession(ID).then(function (d) {
+        CourseDetailService.LoadLession(ID, $scope.CourseID).then(function (d) {
             $scope.Lessions = d.data;
             console.log(d.data);
         }, function () {
@@ -136,7 +136,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     }
     function LoadTest(ID) {
         CourseDetailService.LoadTest(ID).then(function (d) {
-            if (d.data == 0) {
+            if (d.data == -1) {
                 alert("Không đủ quyền hạn");
             }
             else {
@@ -263,7 +263,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
 
     }
     $scope.EditLession = function (ID) {
-        $window.location.href = '/Lop/EditLession/' + ID;
+        $window.location.href = '/Lop/EditLession/' + ID + '?CourseID=' + $scope.CourseID;
 
         //$http({
         //    method: 'GET',
@@ -586,7 +586,7 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
     fac.LoadMember = function (ID) {
         return $http.get('/Lop/GetMemberByClassID/' + ID);
     };
-    fac.LoadLession = function (ID) {
+    fac.LoadLession = function (ID, CourseID) {
         return $http.get('/Lop/GetLessionByClassID/' + ID);
     };
     fac.LoadLessionToAdd = function (ID) {

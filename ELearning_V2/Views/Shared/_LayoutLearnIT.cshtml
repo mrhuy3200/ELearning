@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    var user = Session["User"] as ELearning_V2.Models.TaiKhoan;
+    var user = Session["Hoten"] as string;
 }
 
 <!doctype html>
@@ -68,8 +68,8 @@
                             <li class="nav-item submenu dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" style="color:#222222;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khóa học</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="/Lop/Courses">Courses</a>
-                                    <li class="nav-item"><a class="nav-link" href="/Course/MyCourse">My Course</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Lop/Courses">Lớp học</a>
+                                    <li class="nav-item"><a class="nav-link" href="/Course/MyCourse">Lớp học của tôi</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown">
@@ -77,13 +77,13 @@
                                 {
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="elements.html">Đăng ký</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/Login/Register">Đăng ký</a></li>
                                         <li class="nav-item"><a class="nav-link" href="/Login/login">Đăng nhập</a></li>
                                     </ul>
                                 }
                                 else
                                 {
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@user.Username</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@user</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a class="nav-link" href="/Login/Logout">Đăng xuất</a></li>
                                         <li class="nav-item"><a class="nav-link" href="/User/Personal">Cá nhân</a></li>

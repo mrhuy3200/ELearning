@@ -21,10 +21,10 @@
     </div>
 </section>
 
-<section class="team_area p_120" ng-app="EditLessionApp" ng-controller="EditLessionController" ng-init="InitLessionID('@Model.ID')">
+<section class="team_area p_120" ng-app="EditLessionApp" ng-controller="EditLessionController" ng-init="InitLessionID('@Model.ID','@Model.CourseID')">
     <div class="container">
         <div class="form-horizontal">
-            <h2>Tạo bài giảng mới</h2>
+            <h2>Chỉnh sửa bài giảng</h2>
             <hr />
             <div class="modal-body" style="margin-left:20px">
                 <div class="form-group">

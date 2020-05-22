@@ -29,7 +29,10 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
         console.log(CourseID);
 
         LoadLession(id);
-        CheckRole();
+        if (CourseID != '') {
+            CheckRole();
+
+        }
         LoadComment(id, CourseID);
         if (CourseID != '') {
             LoadListLession(CourseID);
@@ -63,9 +66,10 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
         }
     }
     $scope.SendComment = function () {
-        if ($scope.Comment != null && $scope.Comment != "") {
+        console.log($('#CommentArea').val());
+        if ($('#CommentArea').val() != null && $('#CommentArea').val() != '') {
             var CommentDTO = {
-                NoiDung: $scope.Comment,
+                NoiDung: $('#CommentArea').val(),
                 CourseID: $scope.CourseID,
                 LessionID: $scope.LessionID
             };
@@ -73,9 +77,12 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
             LessionDetailService.SendComment(CommentDTO).then(function (r) {
                 if (r.data != null) {
                     LoadComment($scope.LessionID, $scope.CourseID);
-                    $scope.Comment = "";
+                    $('#CommentArea').val('');
                 }
             });
+        }
+        else {
+            console.log("null")
         }
     }
     $scope.SendRep = function (Index, CmtID) {

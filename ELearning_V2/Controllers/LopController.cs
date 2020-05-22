@@ -398,13 +398,50 @@ namespace ELearning_V2.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+            if (c.Type != 1)
+            {
+                var pay = ClassService.Pay(User.ID, 1, c.Type == 2 ? 200000 : 500000);
+                if (pay)
+                {
+                    using (ELearningDB db = new ELearningDB())
+                    {
+                        Course co = new Course();
+                        co.Name = c.Name;
+                        if (c.Type == 2)
+                        {
+                            co.Capacity = 45;
+                        }
+                        else
+                        {
+                            co.Capacity = null;
+                        }
+                        co.Description = c.Description;
+                        co.Price = c.Price;
+                        co.Schedule = c.Schedule;
+                        co.Condition = c.Condition;
+                        co.Type = c.Type;
+                        co.UserID = User.ID;
+                        c.UserID = User.ID;
+                        c.Status = 1;
+                        db.Courses.Add(c);
+                        db.SaveChanges();
+                        long id = db.Courses.OrderByDescending(p => p.ID).FirstOrDefault().ID;
+                        c.Image = id + ".jpg";
+                        db.SaveChanges();
+                        return Json(id, JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                return Json(-1, JsonRequestBehavior.AllowGet);
+
+            }
             using (ELearningDB db = new ELearningDB())
             {
                 Course co = new Course();
                 co.Name = c.Name;
-                co.Capacity = c.Capacity;
+                co.Capacity = 15;
                 co.Description = c.Description;
-                co.Price = c.Price;
+                co.Price = 0;
                 co.Schedule = c.Schedule;
                 co.Condition = c.Condition;
                 co.Type = c.Type;
@@ -579,7 +616,7 @@ namespace ELearning_V2.Controllers
             return View(l);
         }
 
-        public ActionResult EditLession(long ID)
+        public ActionResult EditLession(long ID, long? CourseID)
         {
             var User = (TaiKhoan)Session["User"];
             if (User == null)
@@ -598,7 +635,7 @@ namespace ELearning_V2.Controllers
                     return Json(-1, JsonRequestBehavior.AllowGet);
                 }
                 LessionDTO l = new LessionDTO();
-                l = ClassService.GetLessionByID(ID, null);
+                l = ClassService.GetLessionByID(ID, CourseID);
                 return View("EditLession", l);
             }
         }
@@ -725,7 +762,7 @@ namespace ELearning_V2.Controllers
             return View();
         }
 
-        public ActionResult GetLessionByID(long ID, long CourseID)
+        public ActionResult GetLessionByID(long ID, long? CourseID)
         {
             var User = (TaiKhoan)Session["User"];
 
@@ -733,6 +770,16 @@ namespace ELearning_V2.Controllers
             {
                 LessionDTO l = new LessionDTO();
                 l = ClassService.GetLessionByID(ID, CourseID);
+                //if (CourseID == -1)
+                //{
+                //    l = ClassService.GetLessionByID(ID, null);
+
+                //}
+                //else
+                //{
+                //    l = ClassService.GetLessionByID(ID, CourseID);
+
+                //}
                 if (User == null)
                 {
                     if (l.Course_LessionStatus == 1)
@@ -750,6 +797,11 @@ namespace ELearning_V2.Controllers
                     }
                     else
                     {
+                        if (l.UserID == User.ID)
+                        {
+                            return Json(l, JsonRequestBehavior.AllowGet);
+
+                        }
                         if (ClassService.CheckUserRole(User.ID, (long)l.CourseID) == 1 || ClassService.CheckUserRole(User.ID, (long)l.CourseID) == 2)
                         {
                             return Json(l, JsonRequestBehavior.AllowGet);
@@ -1152,15 +1204,11 @@ namespace ELearning_V2.Controllers
             {
                 if (Course.UserID != User.ID || db.CourseDetails.Where(x => x.CourseID == ID && x.UserID == User.ID) == null)
                 {
-                    return Json(0, JsonRequestBehavior.AllowGet);
+                    return Json(-1, JsonRequestBehavior.AllowGet);
                 }
             }
             var data = ClassService.GetListTestByCourseID(ID);
-            if (data != null)
-            {
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return Json(-1, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult TestDetail(long ID, long CourseID)
         {

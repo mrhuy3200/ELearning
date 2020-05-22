@@ -190,30 +190,51 @@
 
                                         </div>
                                     </div>
-
-                                    @*<div>
-                                            <label class="control-label"> Hình ảnh </label>
-                                            <input class="form-control" name="Image" ng-model="Lops.Image" type="text" placeholder="Hình ảnh ..." required maxlength="50" ng-blur="ImeiDeviceExist(Device.DeviceImei)" />
-
-                                        </div>*@
-                                    @*<div class="form-group">
-                                            <label class="control-label"> Ngày hết hạn </label>
-                                            <input class="form-control" name="DateExpired" ng-model="Device.DateExpired" type="date" placeholder="Ngày hết hạn ..." required id="datefield" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"> Ghi chú </label>
-                                            <textarea class="form-control" name="DeviceNote" ng-model="Device.DeviceNote" type="text" placeholder="Ghi chú ..." required rows="3"></textarea>
-                                        </div>*@
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save($files)">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save()">Đăng ký</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Đóng</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="PayConfirm" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-info">Đăng ký vào lớp</h3>
+                            <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px">
+                            <form class="form-horizontal row" name="AddNewForm">
+                                <div class="col-md-6">
+                                    <p><strong>Tên lớp</strong>: {{lop.Name}}</p>
+                                    <p><strong>Loại</strong>: {{lop.Type}}</p>
+                                    <p><strong>Số người tối đa</strong>: {{lop.Capacity}}</p>
+                                    <p><strong>Chi phí</strong>: {{lop.Pay}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
+                                    <p><strong>Số dư</strong>: {{User.Balance}}</p>
+                                    <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-lop.Pay}}</p>
+
+                                    <span ng-if="lop.Pay>User.Balance" class="text-danger">Số dư không đủ để thanh toán</span>
+                                    <div>
+                                        <strong>Xác nhận thanh toán</strong>
+                                        <div>
+                                            <a class="btn btn-success text-light" ng-click="Pay()">Xác nhận</a>
+                                            <a class="btn btn-dark text-light">Hủy bỏ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 

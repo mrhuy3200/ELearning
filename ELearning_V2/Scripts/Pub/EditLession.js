@@ -16,8 +16,9 @@ EditLessionApp.directive('ngFiles', ['$parse', function ($parse) {
 EditLessionApp.controller('EditLessionController', function ($scope, $http, $window, $sce) {
     var formdata = new FormData();
     var file;
-    $scope.InitLessionID = function (id) {
+    $scope.InitLessionID = function (id, CourseID) {
         $scope.LessionID = id;
+        $scope.CourseID = CourseID;
         InitCss();
         LoadTopic();
         setTimeout(function () {
@@ -40,7 +41,7 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
     function LoadLession() {
         $http({
             method: 'GET',
-            url: '/Lop/GetLessionByID/' + $scope.LessionID
+            url: '/Lop/GetLessionByID/' + $scope.LessionID + '?CourseID=' + $scope.CourseID
         }).then(function successCallback(response) {
             console.log(response.data);
             $scope.Lession = response.data;
@@ -101,7 +102,7 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
                 }).then(function successCallback(response) {
                     alert(response.data);
                     if (response.data == "OK") {
-                        $window.location.href = '/Lop/LessionDetail/' + ID;
+                        $window.location.href = '/Lop/LessionDetail/' + ID + '?CourseID=' + $scope.CourseID;
                     }
                 });
 
@@ -109,7 +110,7 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
             else {
                 alert(response.data)
                 if (response.data == "OK") {
-                    $window.location.href = '/Lop/LessionDetail/' + $scope.Lession.ID;
+                    $window.location.href = '/Lop/LessionDetail/' + $scope.Lession.ID + '?CourseID=' + $scope.CourseID;
                 }
             }
         });

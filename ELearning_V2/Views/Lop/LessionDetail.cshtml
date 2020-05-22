@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
 }
     <div ng-app="LessionDetailApp" ng-controller="LessionDetailController" ng-init="ID('@ViewBag.LessionID','@ViewBag.CourseID','@ViewBag.UserID')">
-        <section class="banner_area" ng-if="UserRole == 1">
+        <section class="banner_area" ng-if="CourseID == ''">
             <div class="banner_inner d-flex align-items-center">
                 <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
                 <div class="container">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </section>
-        <section class="banner_area" ng-if="UserRole != 1">
+        <section class="banner_area" ng-if="CourseID != '' && UserRole == 2">
             <div class="banner_inner d-flex align-items-center">
                 <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
                 <div class="container">
@@ -32,6 +32,21 @@
                         <div class="page_link">
                             <a href="~/Home/TrangChu">Home</a>
                             <a href="~/Lop/ViewCourse/@ViewBag.CourseID">Chi tiết lớp học</a>
+                            <a href="#">Lession</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="banner_area" ng-if="CourseID != '' && UserRole == 1">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+                <div class="container">
+                    <div class="banner_content text-center">
+                        <h2>Bài giảng</h2>
+                        <div class="page_link">
+                            <a href="~/Home/TrangChu">Home</a>
+                            <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Chi tiết lớp học</a>
                             <a href="#">Lession</a>
                         </div>
                     </div>
@@ -80,7 +95,8 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                                        <img ng-if="cmt.UserImage != null" height="60" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="">
+                                                        <img ng-if="cmt.UserImage == null" height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">{{cmt.Fullname}}</a></h5>
@@ -156,7 +172,9 @@
                     <div class="col-lg-4">
                         <div class="blog_right_sidebar">
                             <aside class="single_sidebar_widget author_widget">
-                                <img class="author_img rounded-circle" width="120" height="120" src="~/Content/img/UserImage/Default.png" alt="">
+                                <img ng-if="Lession.UserAvatar != null" class="author_img rounded-circle" width="120" height="120" src="~/Content/img/UserImage/{{Lession.UserAvatar}}" alt="">
+                                <img ng-if="Lession.UserAvatar == null" class="author_img rounded-circle" width="120" height="120" src="~/Content/img/UserImage/Default.png" alt="">
+
                                 <h4>{{Lession.Username}}</h4>
                                 <p>Senior blog writer</p>
                                 <div class="social_icon">
@@ -171,7 +189,8 @@
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title">Danh sách bài giảng</h3>
                                 <div class="media post_item" ng-repeat="l in Lessions">
-                                    <img width="100" height="60" src="~/Content/img/LessionImage/Default.png" alt="post">
+                                    <img ng-if="l.Image != null" width="100" height="60" src="~/Content/img/LessionImage/{{l.Image}}" alt="{{l.Name}}">
+                                    <img ng-if="l.Image == null" width="100" height="60" src="~/Content/img/LessionImage/Default.png" alt="{{l.Name}}">
                                     <div class="media-body">
                                         <a href="#" ng-if="l.ID == Lession.ID">
                                             <h3 style="color:#4dbf1c">{{l.Name}}</h3>
