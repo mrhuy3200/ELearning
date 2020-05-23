@@ -57,7 +57,7 @@
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li class="menu-active"><a href="#" onclick="location.href='@Url.Action("TrangChu","Home")'">Trang Chủ</a></li>
+                        <li class="menu-active"><a href="#" onclick="location.href='@Url.Action("TrangChu","Home", new { area ="" })'">Trang Chủ</a></li>
                         <li><a href="about.html">Giới thiệu</a></li>
                         @if (Session["Hoten"] != null)
                         {

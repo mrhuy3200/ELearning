@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "CreateTest";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Bài giảng</h2>
+                <div class="page_link">
+                    <a href="~/Home/GuessHomePage">Home</a>
+                    <a href="~/Lop/DayThem">Dạy thêm</a>
+                    <a href="~/Lop/CourseDetail/@Model.CourseID">Course</a>
+                    <a href="#">Create Test</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team_area p_120" ng-app="CreateTestApp" ng-controller="CreateTestController">
+    <div class="container">
+        <div class="main_title">
+            <h2>Create Test</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Random</h3>
+                <div class="row">
+                    <label class="col-md-4">
+                        <b style="color:brown">Chủ đề</b>
+                        <select ng-model="TopicRandom" required>
+                            <option value="">--Chọn chủ đề cần tạo</option>
+                            <option ng-repeat="t in Topics" value="{{t.ID}}">{{t.Name}}</option>
+                        </select>
+                    </label>
+                    <label class="col-md-2">
+                        <b style="color:brown">Độ Khó</b>
+                        <select ng-model="LevelRandom" required>
+                            <option value="">--Chọn độ khó</option>
+                            <option value="1">Nhận biết</option>
+                            <option value="2">Thông hiểu</option>
+                            <option value="3">Vận dụng</option>
+                            <option value="4">Nâng cao</option>
+                        </select>
+                    </label>
+                    <label class="col-md-2">
+                        <b style="color:brown">Số câu hỏi</b>
+                        <br />
+                        <input class="form-control" type="number" style="width:80px" ng-model="AmountRandom" min="1" max="{{randomMax}}" name="AmountRandom" required />
+                        <span ng-show="randomform.SoLuongRandom.$error.max" class="error-msg">Tối đa {{randomMax}} câu</span>
+                        <span ng-show="randomform.SoLuongRandom.$error.required" class="error-msg">Vui lòng nhập số câu hỏi cần tạo</span>
+                    </label>
+                    <button class="btn btn-info col-md-1" ng-disabled="randomform.$invalid" ng-click="random()" style="width:100px; height:50px"><b style="font-size:16px;color:white">TẠO</b></button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div>
+                        <h3>Chương</h3>
+                        <br />
+                        <label>Độ Khó:</label>
+                        <select ng-model="LevelFilter">
+                            <option value="">--Chọn độ khó</option>
+                            <option value="1">Nhận biết</option>
+                            <option value="2">Thông hiểu</option>
+                            <option value="3">Vận dụng</option>
+                            <option value="4">Nâng cao</option>
+                        </select>
+                        <br />
+                        <form>
+                            <div>
+                                <span style="line-height:2.5" ng-repeat="T in Topics">
+                                    <input type="radio" value="{{T.ID}}" ng-model="SelectTopic" />
+                                    {{T.Name}}
+                                    <br />
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <hr />
+                    <div>
+                        <h3>Câu hỏi đã chọn ({{Questions.length}}/{{Test.AmountQuestion}})</h3>
+                        <table class="table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th style="width:40px">ID</th>
+                                    <th style="width:270px">Nội dung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="q in Questions">
+                                    <td>
+                                        <a href="" title="Remove"
+                                           ng-click="remove(q.ID)">
+                                            <em class="fa fa-remove" style="color:red"></em>
+                                        </a>
+                                    </td>
+                                    <td>{{q.ID}}</td>
+                                    <td>{{q.Content}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @*ch.ChuongID == c.ID && ch.DoKho == LocDoKho*@
+                    <h3>Ngân hàng câu hỏi</h3>
+                    <div class="qst-list" ng-repeat="q in Questions">
+                        <div class="qst-info">
+                            <div class="View-question">
+                                <p style="margin:0 0 10px">
+                                    <a href="" ng-click="add(q.ID)">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </a>
+                                    &nbsp;
+                                    <b style="font-weight:700">{{q.ID}}</b>
+                                    {{q.Content}}
+                                </p>
+                                <div class="row">
+                                    <p ng-repeat="a in q.Answers" class="col-md-3" style="margin:0 0 10px">
+                                        <b style="font-weight:700">A</b>
+                                        {{a.Content}}
+                                    </p>
+                                </div>
+                                <br />
+                                <div class="box-guide">
+                                    <p style="margin:0 0 10px">
+                                        Câu trả lời đúng:
+                                        <b ng-if="ch.DapAn==1">A</b>
+                                        <b ng-if="ch.DapAn==2">B</b>
+                                        <b ng-if="ch.DapAn==3">C</b>
+                                        <b ng-if="ch.DapAn==4">D</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="~/Scripts/angular.js"></script>

@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "TestDetail";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Bài giảng</h2>
+                <div class="page_link">
+                    <a href="~/Home/GuessHomePage">Home</a>
+                    <a href="~/Lop/DayThem">Dạy thêm</a>
+                    <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Course</a>
+                    <a href="#">Create Test</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team_area p_120" ng-app="TestDetailApp" ng-controller="TestDetailController" ng-init="InitTestID('@ViewBag.TestID')">
+    <div class="container">
+        <div class="main_title">
+            <h2>Test Manage</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Tạo ngẫu nhiên</h3>
+                <div class="row p-2 border border-dark rounded bg-white" style="padding-bottom:15px !important" ng-form="randomform">
+                    <label class="col-md-4">
+                        <b style="color:brown">Chủ đề</b>
+                        <select class="form-control" id="TopicRandom" ng-model="TopicRandom" required>
+                            <option value="">--Chọn chủ đề cần tạo--</option>
+                            <option ng-repeat="t in Topics" value="{{t.ID}}">{{t.Name}}</option>
+                        </select>
+                    </label>
+                    <label class="col-md-2">
+                        <b style="color:brown">Độ Khó</b>
+                        <select class="form-control" id="LevelRandom" ng-model="LevelRandom" required>
+                            <option value="">--Chọn độ khó--</option>
+                            <option value="1">Nhận biết</option>
+                            <option value="2">Thông hiểu</option>
+                            <option value="3">Vận dụng</option>
+                            <option value="4">Nâng cao</option>
+                        </select>
+                    </label>
+                    <label class="col-md-1">
+                        <b style="color:brown">Số câu hỏi</b>
+                        <br />
+                        <input class="form-control" type="number" style="width:80px" ng-model="AmountRandom" min="1" max="{{MaxRandom}}" name="AmountRandom" required />
+                        <span style="position:absolute;width:fit-content;" ng-show="randomform.AmountRandom.$error.max" class="text-danger">Tối đa {{MaxRandom}} câu</span>
+                        
+                    </label>
+                    <div class="col-md-1">
+                        <button class="btn btn-dark text-success mt-4" ng-disabled="randomform.$invalid" ng-click="RandomTestQuestion()">Tạo</button>
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="col-md-12 row mt-3">
+                <div class="col-md-4">
+                    <div>
+                        <b style="color:brown">Độ khó</b>
+                        <select class="form-control w-50" ng-model="LevelFilter">
+                            <option value="">--Chọn độ khó--</option>
+                            <option value="1">Nhận biết</option>
+                            <option value="2">Thông hiểu</option>
+                            <option value="3">Vận dụng</option>
+                            <option value="4">Nâng cao</option>
+                        </select>
+                        <br />
+                        <b style="color:brown">Độ khó</b>
+
+                        <form>
+                            <div>
+                                <span style="line-height:2.5" ng-repeat="T in Topics">
+                                    <input id="check{{$index}}" type="checkbox" value="{{T.ID}}" ng-model="SelectTopic" ng-change="CheckTopic($index)" />
+                                    {{T.Name}}
+                                    <br />
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <h3>Câu hỏi đã chọn ({{Test.Questions.length}}/{{Test.AmountQuestion}})</h3>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%"></th>
+                                    <th style="width:10%">ID</th>
+                                    <th style="width:80%">Nội dung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="q in Test.Questions">
+                                    <td>
+                                        <a href="" title="Remove"
+                                           ng-click="RemoveQuestionFromTest(q.ID)">
+                                            <em class="fa fa-trash" style="color:red"></em>
+                                        </a>
+                                    </td>
+                                    <td>{{$index+1}}</td>
+                                    <td><div ng-bind-html="q.FContent"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @*ch.ChuongID == c.ID && ch.DoKho == LocDoKho*@
+                    <h3>Ngân hàng câu hỏi</h3>
+                    <div class="row mb-3">
+                        <div class="col-md-4" style="display:flex">
+                            <div id="SearchQuestion" class="input-group col-md-12">
+                                <input class="form-control" ng-model="QSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 offset-md-5" style="display:flex">
+                            <div class="col-md-6">
+                                <label style="width:max-content">Page size:</label>
+                            </div>
+                            <div class="input-group col-md-6">
+                                <input class="form-control" type="number" ng-model="QpageSize" min="4" max="10" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qst-list" dir-paginate="q in Questions | filter:QSearchKey | itemsPerPage: QpageSize" current-page="QcurrentPage" pagination-id="ListQuestion">
+                        <div class="qst-info" ng-hide="(q.Level != LevelFilter && (LevelFilter != null && LevelFilter != '')) || (lstTopic.length != 0 && q.Hide)">
+                            <div class="View-question">
+                                <div class="row border-bottom pl-3">
+                                    <div class="text-success">
+                                        <a ng-click="AddQuestionToTest(q.ID)">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                    &nbsp;
+                                    <strong>{{$index + ((QcurrentPage-1)* QpageSize) +1}}.&nbsp;&nbsp;</strong>
+                                    <div ng-bind-html="q.FContent"></div>
+                                </div>
+                                <div class="row border-bottom pt-3">
+                                    <div ng-repeat="a in q.Answers" class="col-md-6 border-right" style="margin:0 0 10px">
+                                        <strong class="float-left">{{a.Char}}.&nbsp;&nbsp;</strong>
+                                        <div class="float-left" ng-bind-html="a.FContent"></div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="box-guide">
+                                    <p style="margin:0 0 10px">
+                                        Đáp án:
+                                        <strong>{{q.DapAn}}</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="other-controller">
+                        <div class="col-md-3 offset-md-9">
+                            <dir-pagination-controls boundary-links="true" pagination-id="ListQuestion"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/TestDetail.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>
+<style>
+    .View-question {
+        background-color: white;
+        padding: 15px;
+        border: 1px solid;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+</style>

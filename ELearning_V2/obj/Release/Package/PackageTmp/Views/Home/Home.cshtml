@@ -59,6 +59,7 @@
                     <ul class="nav-menu">
                         <li class="menu-active"><a href="#" onclick="location.href='@Url.Action("Home","Home")'">Trang Chủ</a></li>
                         <li><a>@Html.ActionLink("Đăng nhập", "Index", "Login")</a></li>
+                        <li><a>@Html.ActionLink("Đăng ký","Register","Login")</a></li>
                     </ul>
 
                 </nav><!-- #nav-menu-container -->
@@ -77,8 +78,9 @@
                     </p>
                     <br />
                     <div class="courses pt-20">
-                        <a href="#" onclick="location.href='@Url.Action("Index", "Login")'" data-wow-duration="1s" data-wow-delay=".6s" class="primary-btn transparent mr-10 mb-10 wow fadeInDown" style="font-size:20px;width:150px;height:65px">Get Start</a>
+                        <a href="#" onclick="location.href='@Url.Action("Index", "Login")'" data-wow-duration="1s" data-wow-delay=".6s" class="primary-btn transparent mr-10 mb-10 wow fadeInDown" style="font-size:20px; margin-left:auto; margin-right:auto; display:block;">Get Start</a>
                     </div>
+
 
                     @*<button class="btn btn-success" onclick="location.href='@Url.Action("Đăng nhập", "Index", "Login")'">Get Start</button>*@
                 </div>

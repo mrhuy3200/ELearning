@@ -1948,9 +1948,6 @@
     <Content Include="Content\img\ClassImage\32.jpg" />
     <Content Include="Content\img\ClassImage\33.jpg" />
     <Content Include="Content\img\ClassImage\ClassDefault.jpg" />
-    <Content Include="Content\img\ClassImage\course-1.jpg" />
-    <Content Include="Content\img\ClassImage\course-2.jpg" />
-    <Content Include="Content\img\ClassImage\course-3.jpg" />
     <Content Include="Content\img\ClassImage\course-4.jpg" />
     <Content Include="Content\img\ClassImage\course-5.jpg" />
     <Content Include="Content\img\ClassImage\course-details.jpg" />
