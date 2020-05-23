@@ -284,6 +284,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handle\SessionHeartbeatHttpHandler.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
@@ -2326,6 +2327,7 @@
     <Content Include="Content\vendors\popup\magnific-popup.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Handle\KeepAlive.js" />
     <Content Include="Models\ELearningDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ELearningDB.edmx</DependentUpon>

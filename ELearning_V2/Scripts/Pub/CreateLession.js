@@ -13,14 +13,16 @@ CreateLessionApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-CreateLessionApp.controller('CreateLessionController', function ($scope, $http, $window) {
+CreateLessionApp.controller('CreateLessionController', function ($scope, $sce, $http, $window) {
     $scope.InitUserID = function (UserID) {
         $scope.UserID = UserID;
         LoadTopic();
-
+        EditUrl();
+        $scope.UrlRegex = '(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?';
     }
     var formdata = new FormData();
     var file;
+
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
@@ -34,7 +36,12 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
         //var a = angular.element("#Content").val();
         var data = CKEDITOR.instances.Content.getData();
         console.log(data);
-        var url = $scope.URL.replace("watch?v=", "embed/");
+        if ($scope.URL != null && $scope.URL != '') {
+            var url = $scope.URL.replace("watch?v=", "embed/");
+        }
+        else {
+            var url = '';
+        }
         var Topics = [];
         var lstTopic = $("input[name='CheckTopic']:checked");
         console.log(lstTopic)
@@ -59,27 +66,31 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
             url: '/Lop/CreateLession',
             data: JSON.stringify(LessionDTO)
         }).then(function successCallback(response) {
-            ID = response.data;
-            console.log(ID);
-            console.log('filename ' + file.name);
-            var blob = file.slice(0, file.size, 'image/jpg');
-            newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
-            console.log('filename ' + newFile);
-            formdata.set(0, newFile);
-            console.log(formdata.get(0));
-            $http({
-                method: 'POST',
-                url: '/api/API/UploadLessionImage',
-                data: formdata,
-                headers: {
-                    'Content-Type': undefined
-                }
-            }).then(function successCallback(response) {
-                alert(response.data);
-                if (response.data == "OK") {
-                    $window.location.href = '/Lop/LessionDetail/' + ID;
-                }
-            });
+            if ($('#file').get(0).files.length > 0) {
+                ID = response.data;
+                console.log(ID);
+                console.log('filename ' + file.name);
+                var blob = file.slice(0, file.size, 'image/jpg');
+                newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
+                console.log('filename ' + newFile);
+                formdata.set(0, newFile);
+                console.log(formdata.get(0));
+                $http({
+                    method: 'POST',
+                    url: '/api/API/UploadLessionImage',
+                    data: formdata,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                }).then(function successCallback(response) {
+                    alert(response.data);
+                    if (response.data == "OK") {
+                        $window.location.href = '/Lop/LessionDetail/' + ID;
+                    }
+                });
+            }
+            $window.location.href = '/Lop/LessionDetail/' + response.data;
+
         });
     }
     var topicFlag = 0;
@@ -113,6 +124,17 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
         document.getElementById("TopicInput").value = $scope.Topics[Index].Name;
         topicFlag = Index;
     }
+    function EditUrl() {
+        document.getElementById('URL').onblur = function () {
+            if ($scope.form.input.$valid) {
+                var a = document.getElementById('URL').value;
+                var b = a.replace("watch?v=", "embed/");
+                console.log(b);
+                document.getElementById('Video').src = b;
+            }
+        }
+    }
+
     function EditTopic(Index) {
         var TopicDTO = $scope.Topics[Index];
         TopicDTO.Name = $scope.TopicName;
@@ -145,7 +167,6 @@ CreateLessionApp.controller('CreateLessionController', function ($scope, $http, 
                 alert("Fail");
             }
         });
-
     }
     function LoadTopic() {
         $http({

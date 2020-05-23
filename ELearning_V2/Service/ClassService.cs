@@ -723,12 +723,15 @@ namespace ELearning_V2.Service
                     db.Lessions.Add(data);
                     db.SaveChanges();
                     long id = db.Lessions.OrderByDescending(p => p.ID).FirstOrDefault().ID;
-                    foreach (var item in l.Topics)
+                    if (l.Topics != null)
                     {
-                        Lession_Topic t = new Lession_Topic();
-                        t.LessionID = id;
-                        t.TopicID = item.ID;
-                        db.Lession_Topic.Add(t);
+                        foreach (var item in l.Topics)
+                        {
+                            Lession_Topic t = new Lession_Topic();
+                            t.LessionID = id;
+                            t.TopicID = item.ID;
+                            db.Lession_Topic.Add(t);
+                        }
                     }
                     data.Image = id + ".jpg";
                     db.SaveChanges();
