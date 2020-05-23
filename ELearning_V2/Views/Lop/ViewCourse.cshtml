@@ -12,7 +12,7 @@
                 <div class="banner_content text-center">
                     <h2>Chi tiết lớp học</h2>
                     <div class="page_link">
-                        <a href="~/Home/TrangChu">Home</a>
+                        <a href="~/Home/GuessHomePage">Home</a>
                         <a ng-if="UserRole != 2" href="~/Lop/Courses">Courses</a>
                         <a ng-if="UserRole == 2" href="~/Course/MyCourse">My Course</a>
 
@@ -441,7 +441,7 @@
                     <div class="c_details_list">
                         <ul class="list">
                             <li><p class="Course-name text-uppercase" style="font-weight:bold">{{Lop.Name}}</p></li>
-                            <li><a href="#">Học phí <span>{{Lop.Price}}VND</span></a></li>
+                            <li><a href="#">Học phí <span>{{Lop.Price | currency:"$":0}}</span></a></li>
                             <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
                             <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
                         </ul>
@@ -466,12 +466,12 @@
                             <div class="col-md-6">
                                 <p><strong>Tên lớp</strong>: {{Lop.Name}}</p>
                                 <p><strong>Lịch học</strong>: {{Lop.Schedule}}</p>
-                                <p><strong>Học phí</strong>: {{Lop.Price}}</p>
+                                <p><strong>Học phí</strong>: {{Lop.Price | currency:"$":0}}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
-                                <p><strong>Số dư</strong>: {{User.Balance}}</p>
-                                <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-Lop.Price}}</p>
+                                <p><strong>Số dư</strong>: {{User.Balance | currency:"$":0}}</p>
+                                <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-Lop.Price | currency:"$":0}}</p>
                                 <div>
                                     <strong>Xác nhận đăng ký</strong>
                                     <div>

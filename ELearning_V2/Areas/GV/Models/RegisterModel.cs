@@ -25,5 +25,8 @@ namespace ELearning_V2.Areas.GV.Models
         [StringLength(20,MinimumLength =6,ErrorMessage ="Độ dài mật khẩu từ 9 đến 20 ký tự")]
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
         public string Password { get; set; }
+        [Display(Name = "Xác nhận mật khẩu")]
+        [Compare("Password", ErrorMessage ="Xác nhận mật khẩu không chính xác")]
+        public string ConfirmPassword { get; set; }
     }
 }

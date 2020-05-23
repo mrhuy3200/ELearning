@@ -11,26 +11,22 @@
                     <div class="banner_content text-center">
                         <h2>Bài giảng</h2>
                         <div class="page_link">
-                            <a href="~/Home/TrangChu">Home</a>
+                            <a href="~/Home/GuessHomePage">Home</a>
                             <a href="~/Lop/DayThem#QuanLyBaiGiang">Dạy thêm</a>
-                            @if (ViewBag.CourseID != null)
-                            {
-                                <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Dạy thêm</a>
-                            }
                             <a href="#">Lession</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="banner_area" ng-if="CourseID != '' && UserRole == 2">
+        <section class="banner_area" ng-if="CourseID != '' && UserRole != 1">
             <div class="banner_inner d-flex align-items-center">
                 <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
                 <div class="container">
                     <div class="banner_content text-center">
                         <h2>Bài giảng</h2>
                         <div class="page_link">
-                            <a href="~/Home/TrangChu">Home</a>
+                            <a href="~/Home/GuessHomePage">Home</a>
                             <a href="~/Lop/ViewCourse/@ViewBag.CourseID">Chi tiết lớp học</a>
                             <a href="#">Lession</a>
                         </div>
@@ -45,7 +41,7 @@
                     <div class="banner_content text-center">
                         <h2>Bài giảng</h2>
                         <div class="page_link">
-                            <a href="~/Home/TrangChu">Home</a>
+                            <a href="~/Home/GuessHomePage">Home</a>
                             <a href="~/Lop/CourseDetail/@ViewBag.CourseID">Chi tiết lớp học</a>
                             <a href="#">Lession</a>
                         </div>
@@ -90,70 +86,74 @@
                             <div class="tab-content">
                                 <div class="comments-area" ng-if="CourseID != ''">
                                     <h4>{{Lession.Comment}} Comments</h4>
-                                    <div class="comment-list" ng-repeat="cmt in Comments">
-                                        <div class="comment-list">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img ng-if="cmt.UserImage != null" height="60" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="">
-                                                        <img ng-if="cmt.UserImage == null" height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                    <div style="overflow:auto;height:400px">
+                                        <div class="comment-list" ng-repeat="cmt in Comments">
+                                            <div class="comment-list">
+                                                <div class="single-comment justify-content-between d-flex">
+                                                    <div class="user justify-content-between d-flex">
+                                                        <div class="thumb">
+                                                            <img ng-if="cmt.UserImage != null" height="60" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="">
+                                                            <img ng-if="cmt.UserImage == null" height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <h5><a href="#">{{cmt.Fullname}}</a></h5>
+                                                            <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                            <p class="comment">
+                                                                {{cmt.NoiDung}}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">{{cmt.Fullname}}</a></h5>
-                                                        <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
-                                                        <p class="comment">
-                                                            {{cmt.NoiDung}}
-                                                        </p>
+                                                    <div class="reply-btn dropdown">
+                                                        <a class="btn float-left dropdown-toggle" aria-expanded="false" data-toggle="dropdown" data-target="CommentDrop{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                                        <div class="dropdown-menu" id="CommentDrop{{$index}}">
+                                                            <button class="btn dropdown-item" ng-click="RemoveComment(cmt)" ng-disabled="cmt.CreateBy != UserID && UserRole != 1">Xóa</button>
+                                                            <button class="btn dropdown-item" ng-click="EditComment($index)" ng-disabled="cmt.CreateBy != UserID">Sửa</button>
+                                                        </div>
+                                                        <a id="RepBtn{{$index}}" href="" class="btn-reply text-uppercase float-right" data-toggle="collapse" data-target="#Rep{{$index}}" aria-expanded="false" ng-click="Rep($index)">reply</a>
                                                     </div>
                                                 </div>
-                                                <div class="reply-btn dropdown">
-                                                    <a class="btn float-left dropdown-toggle" aria-expanded="false" data-toggle="dropdown" data-target="CommentDrop{{$index}}"><i class="lnr lnr-cog"></i></a>
-                                                    <div class="dropdown-menu" id="CommentDrop{{$index}}">
-                                                        <button class="btn dropdown-item" ng-click="RemoveComment(cmt)" ng-disabled="cmt.CreateBy != UserID && UserRole != 1">Xóa</button>
-                                                        <button class="btn dropdown-item" ng-click="EditComment($index)" ng-disabled="cmt.CreateBy != UserID">Sửa</button>
+                                                <div class="collapse row" id="Rep{{$index}}">
+                                                    <textarea id="repArea{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
+                                                    <div class="col-md-2">
+                                                        <a id="EditComBtn{{$index}}" class="btn btn-light" ng-click="EditCom($index, cmt.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
+                                                        <a id="SendRepBtn{{$index}}" class="btn btn-light" ng-click="SendRep($index, cmt.ID)"><i class="fa fa-paper-plane-o"></i></a>
                                                     </div>
-                                                    <a id="RepBtn{{$index}}" href="" class="btn-reply text-uppercase float-right" data-toggle="collapse" data-target="#Rep{{$index}}" aria-expanded="false" ng-click="Rep($index)">reply</a>
                                                 </div>
                                             </div>
-                                            <div class="collapse row" id="Rep{{$index}}">
-                                                <textarea id="repArea{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
-                                                <div class="col-md-2">
-                                                    <a id="EditComBtn{{$index}}" class="btn btn-light" ng-click="EditCom($index, cmt.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
-                                                    <a id="SendRepBtn{{$index}}" class="btn btn-light" ng-click="SendRep($index, cmt.ID)"><i class="fa fa-paper-plane-o"></i></a>
+                                            <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
+                                                <div class="single-comment justify-content-between d-flex">
+                                                    <div class="user justify-content-between d-flex">
+                                                        <div class="thumb">
+                                                            <img ng-if="rep.UserImage != null" height="60" width="60" src="~/Content/img/UserImage/{{rep.UserImage}}" alt="">
+                                                            <img ng-if="rep.UserImage == null" height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <h5><a href="#">{{rep.Fullname}}</a></h5>
+                                                            <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                            <p class="comment">
+                                                                {{rep.NoiDung}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="reply-btn dropdown">
+                                                        <a class="btn float-left dropdown-toggle" aria-expanded="false" data-toggle="dropdown" data-target="ReplyDrop{{$parent.$index}}{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                                        <div class="dropdown-menu" id="ReplyDrop{{$parent.$index}}{{$index}}">
+                                                            <button class="btn dropdown-item" ng-click="RemoveReply(rep)" ng-disabled="rep.CreateBy != UserID && UserRole != 1">Xóa</button>
+                                                            <button class="btn dropdown-item" ng-click="EditReply($parent.$index,$index)" ng-disabled="rep.CreateBy != UserID">Sửa</button>
+                                                        </div>
+                                                        <a id="RRepBtn{{$parent.$index}}{{$index}}" href="" class="btn-reply text-uppercase float-right" data-toggle="collapse" data-target="#RRep{{$parent.$index}}{{$index}}" aria-expanded="false" ng-click="RepRep($parent.$index,$index)">reply</a>
+                                                    </div>
+                                                </div>
+                                                <div class="collapse row" id="RRep{{$parent.$index}}{{$index}}">
+                                                    <textarea id="RrepArea{{$parent.$index}}{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
+                                                    <div class="col-md-2">
+                                                        <a id="EditRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="EditRep($parent.$index, $index, rep.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
+                                                        <a id="SendRepRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="SendRepRep($parent.$index, $index, cmt.ID)"><i class="fa fa-paper-plane-o"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">{{rep.Fullname}}</a></h5>
-                                                        <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
-                                                        <p class="comment">
-                                                            {{rep.NoiDung}}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn dropdown">
-                                                    <a class="btn float-left dropdown-toggle" aria-expanded="false" data-toggle="dropdown" data-target="ReplyDrop{{$parent.$index}}{{$index}}"><i class="lnr lnr-cog"></i></a>
-                                                    <div class="dropdown-menu" id="ReplyDrop{{$parent.$index}}{{$index}}">
-                                                        <button class="btn dropdown-item" ng-click="RemoveReply(rep)" ng-disabled="rep.CreateBy != UserID && UserRole != 1">Xóa</button>
-                                                        <button class="btn dropdown-item" ng-click="EditReply($parent.$index,$index)" ng-disabled="rep.CreateBy != UserID">Sửa</button>
-                                                    </div>
-                                                    <a id="RRepBtn{{$parent.$index}}{{$index}}" href="" class="btn-reply text-uppercase float-right" data-toggle="collapse" data-target="#RRep{{$parent.$index}}{{$index}}" aria-expanded="false" ng-click="RepRep($parent.$index,$index)">reply</a>
-                                                </div>
-                                            </div>
-                                            <div class="collapse row" id="RRep{{$parent.$index}}{{$index}}">
-                                                <textarea id="RrepArea{{$parent.$index}}{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
-                                                <div class="col-md-2">
-                                                    <a id="EditRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="EditRep($parent.$index, $index, rep.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>
-                                                    <a id="SendRepRepBtn{{$parent.$index}}{{$index}}" class="btn btn-light" ng-click="SendRepRep($parent.$index, $index, cmt.ID)"><i class="fa fa-paper-plane-o"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="comment-form" ng-if="(UserRole == 1 || UserRole == 2 || Lession.Course_LessionStatus == 1) && UserID != 0">
@@ -219,6 +219,17 @@
     function textAreaAdjust(o) {
         o.style.height = "1px";
         o.style.height = (25 + o.scrollHeight) + "px";
+    }
+    var Session = @((Session["User"] as ELearning_V2.Models.TaiKhoan) == null ? 0: (Session["User"] as ELearning_V2.Models.TaiKhoan).ID);
+    if (Session != 0) {
+        $.ajax({
+            type: 'GET',
+            url: '/Course/CountLessionView/'+@ViewBag.LessionID,
+            data: {},
+            success: function (d) {
+                console.log(d);
+            }
+        });
     }
 </script>
 <style>

@@ -237,6 +237,15 @@ namespace ELearning_V2.Controllers
             return Json(ClassService.ExitCourse(ID, User.ID), JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult CountLessionView(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.CountLessionView(ID, User.ID), JsonRequestBehavior.AllowGet);
 
+        }
     }
 }

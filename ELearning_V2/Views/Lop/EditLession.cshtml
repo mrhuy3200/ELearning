@@ -5,21 +5,43 @@
 }
 
 @model ELearning_V2.DTO.LessionDTO
-<section class="banner_area">
-    <div class="banner_inner d-flex align-items-center">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
-        <div class="container">
-            <div class="banner_content text-center">
-                <h2>Bài giảng</h2>
-                <div class="page_link">
-                    <a href="~/Home/TrangChu">Home</a>
-                    <a href="~/Lop/DayThem#QuanLyBaiGiang">Dạy thêm</a>
-                    <a href="#">Tạo mới bài giảng</a>
+@if (Model.CourseID == null)
+{
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Bài giảng</h2>
+                    <div class="page_link">
+                        <a href="~/Home/GuessHomePage">Home</a>
+                        <a href="~/Lop/DayThem#QuanLyBaiGiang">Dạy thêm</a>
+                        <a href="#">Tạo mới bài giảng</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+else
+{
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Bài giảng</h2>
+                    <div class="page_link">
+                        <a href="~/Home/GuessHomePage">Home</a>
+                        <a href="~/Lop/CourseDetail/@Model.CourseID">Chi tiết lớp học</a>
+                        <a href="#">Tạo mới bài giảng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
 
 <section class="team_area p_120" ng-app="EditLessionApp" ng-controller="EditLessionController" ng-init="InitLessionID('@Model.ID','@Model.CourseID')">
     <div class="container">

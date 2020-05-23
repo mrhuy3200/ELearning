@@ -49,15 +49,15 @@
     <section class="team_area p_120">
         <div class="container">
             <div class="main_title">
-                <h2>Meet Our Faculty</h2>
-                <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
+                <h2>Giảng viên nổi bật</h2>
+                <p>Những giảng viên có các lớp học được đánh giá cao nhất</p>
             </div>
             <div class="row team_inner">
                 <div class="col-lg-3 col-sm-6" ng-repeat="t in TopTeachers">
                     <div class="team_item">
                         <div class="team_img">
-                            <img ng-if="t.Image != null" class="rounded-circle" src="~/Content/img/UserImage/{{t.Image}}" alt="{{t.Fullname}}">
-                            <img ng-if="t.Image == null" class="rounded-circle" src="~/Content/img/UserImage/Default.png" alt="{{t.Fullname}}">
+                            <img style="width:250px;height:250px" ng-if="t.Image != null" class="rounded-circle" src="~/Content/img/UserImage/{{t.Image}}" alt="{{t.Fullname}}">
+                            <img style="width:250px;height:250px" ng-if="t.Image == null" class="rounded-circle" src="~/Content/img/UserImage/Default.png" alt="{{t.Fullname}}">
 
                             <div class="hover">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -77,23 +77,22 @@
     <section class="latest_blog_area p_120">
         <div class="container">
             <div class="main_title">
-                <h2>Latest Posts From Blog</h2>
-                <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station.</p>
+                <h2>Bài giảng mở</h2>
+                <p>Những bài giảng mở, có lượt xem nhiều nhất</p>
             </div>
             <div class="row latest_blog_inner">
                 <div class="col-lg-3 col-md-6" ng-repeat="l in PubLessions">
                     <div class="l_blog_item">
-                        <img class="img-fluid" ng-if="l.Image != null" src="~/Content/img/LessionImage/{{l.Image}}" alt="">
-                        <img class="img-fluid" ng-if="l.Image == null" src="~/Content/img/LessionImage/Default.png" alt="">
-                        <a class="date" href="#">{{l.CreateDate | date:"dd/MM/yyyy"}}</a>
-                        <a href="/Lop/LessionDetail/{{l.ID}}"><h4>{{l.Name}}</h4></a>
-                        <div ng-bind-html="l.Content"></div>
+                        <img class="img-fluid" style="height:150px" ng-if="l.Image != null" src="~/Content/img/LessionImage/{{l.Image}}" alt="">
+                        <img class="img-fluid" style="height:150px" ng-if="l.Image == null" src="~/Content/img/LessionImage/Default.png" alt="">
+                        <a class="date" href="#">{{l.CreateDate | date:"dd/MM/yyyy HH:mm"}}</a>
+                        <a href="/Lop/LessionDetail/{{l.ID}}/?CourseID={{l.CourseID}}"><h4>{{l.Name}}</h4></a>
+                        <div ng-bind-html="l.Content" style="max-height:150px;overflow:hidden"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </div>
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/Home.js"></script>

@@ -11,7 +11,7 @@
             <div class="banner_content text-center">
                 <h2>Chi tiết lớp học</h2>
                 <div class="page_link">
-                    <a href="~/Home/TrangChu">Home</a>
+                    <a href="~/Home/GuessHomePage">Home</a>
                     <a href="~/Lop/DayThem#DanhSach">Lớp của tôi</a>
                     <a href="#">Chi tiết lớp học</a>
                 </div>
@@ -161,81 +161,84 @@
                                 </div>
                             </div>
                             <br />
-                            <div class="comment-list" ng-repeat="cmt in Comments">
-                                <div class="comment-list">
-                                    <div class="single-comment justify-content-between d-flex">
-                                        <div class="user justify-content-between d-flex">
-                                            <div class="thumb">
-                                                <img height="60" ng-if="cmt.UserImage == null" width="60" src="~/Content/img/UserImage/Default.png" alt="{{cmt.Fullname}}">
-                                                <img height="60" ng-if="cmt.UserImage != null" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="{{cmt.Fullname}}">
+                            <div style="overflow:auto;height:400px">
+                                <div class="comment-list" ng-repeat="cmt in Comments">
+                                    <div class="comment-list">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img height="60" ng-if="cmt.UserImage == null" width="60" src="~/Content/img/UserImage/Default.png" alt="{{cmt.Fullname}}">
+                                                    <img height="60" ng-if="cmt.UserImage != null" width="60" src="~/Content/img/UserImage/{{cmt.UserImage}}" alt="{{cmt.Fullname}}">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">{{cmt.Fullname}}</a></h5>
+                                                    <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                    <p class="comment" ng-if="cmt.Rate==1">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </p>
+                                                    <p class="comment" ng-if="cmt.Rate==2">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </p>
+                                                    <p class="comment" ng-if="cmt.Rate==3">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </p>
+                                                    <p class="comment" ng-if="cmt.Rate==4">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </p>
+                                                    <p class="comment" ng-if="cmt.Rate==5">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                    </p>
+                                                    <p class="comment">
+                                                        {{cmt.NoiDung}}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="desc">
-                                                <h5><a href="#">{{cmt.Fullname}}</a></h5>
-                                                <p class="date">{{cmt.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
-                                                <p class="comment" ng-if="cmt.Rate==1">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </p>
-                                                <p class="comment" ng-if="cmt.Rate==2">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </p>
-                                                <p class="comment" ng-if="cmt.Rate==3">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </p>
-                                                <p class="comment" ng-if="cmt.Rate==4">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </p>
-                                                <p class="comment" ng-if="cmt.Rate==5">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </p>
-                                                <p class="comment">
-                                                    {{cmt.NoiDung}}
-                                                </p>
+                                            <div class="reply-btn">
+                                                <a href="" class="btn-reply text-uppercase">reply</a>
                                             </div>
                                         </div>
-                                        <div class="reply-btn">
-                                            <a href="" class="btn-reply text-uppercase">reply</a>
+                                    </div>
+                                    <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">{{rep.Fullname}}</a></h5>
+                                                    <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
+                                                    <p class="comment">
+                                                        {{rep.NoiDung}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <a href="" class="btn-reply text-uppercase">reply</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="comment-list left-padding" ng-repeat="rep in cmt.Replies">
-                                    <div class="single-comment justify-content-between d-flex">
-                                        <div class="user justify-content-between d-flex">
-                                            <div class="thumb">
-                                                <img height="60" width="60" src="~/Content/img/UserImage/Default.png" alt="">
-                                            </div>
-                                            <div class="desc">
-                                                <h5><a href="#">{{rep.Fullname}}</a></h5>
-                                                <p class="date">{{rep.CreateDate | date:"dd/MM/yyyy HH:mm:ss"}} </p>
-                                                <p class="comment">
-                                                    {{rep.NoiDung}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="reply-btn">
-                                            <a href="" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -518,11 +521,11 @@
                 <div class="c_details_list">
                     <ul class="list">
                         <li><p class="Course-name text-uppercase" style="font-weight:bold">{{Lop.Name}}</p></li>
-                        <li><a href="#">Học phí <span>{{Lop.Price*1000}}VND</span></a></li>
+                        <li><a href="#">Học phí <span>{{Lop.Price | currency:"$":0}}</span></a></li>
                         <li><a href="#">Sĩ số <span>{{Lop.NumOfPeo}}/{{Lop.Capacity}}</span></a></li>
                         <li><a href="#">Lịch học <span>{{Lop.Schedule}}</span></a></li>
                     </ul>
-                    <a class="main_btn" href="#" data-toggle="modal" data-target="#Edit">Chỉnh sửa thông tin</a>
+                    <a class="main_btn" href="#" data-toggle="modal" data-target="#Edit" ng-click="SetUpEditCourse()">Chỉnh sửa thông tin</a>
                 </div>
 
             </div>
@@ -545,7 +548,9 @@
                             </div>
                             <div class="form-group" ng-if="type != 1">
                                 <label class="control-label"> Học phí </label>
-                                <input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
+                                <input class="form-control" ng-model="Lop.Price" type="text" name="Price" id="PriceInput" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+
+                                @*<input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />*@
                             </div>
                             <div class="form-group">
                                 <label class="control-label"> Lịch học </label>

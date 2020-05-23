@@ -11,7 +11,7 @@
             <div class="banner_content text-center">
                 <h2>Dạy thêm</h2>
                 <div class="page_link">
-                    <a href='@Url.Action("TrangChu","Home")'>Home</a>
+                    <a href='@Url.Action("GuessHomePage","Home")'>Home</a>
                     <a href="#">Dạy thêm</a>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                             </ul>
                         </div>
                         <div class="pack_footer">
-                            <h4>0VND</h4>
+                            <h4>FREE</h4>
                             <a class="main_btn" href="#" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(1)">Đăng ký</a>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                             </ul>
                         </div>
                         <div class="pack_footer">
-                            <h4>200.000VND</h4>
+                            <h4>$200.000</h4>
                             <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(2)">Đăng ký</button>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                             </ul>
                         </div>
                         <div class="pack_footer">
-                            <h4>500.000VND</h4>
+                            <h4>$500.000</h4>
                             <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(3)">Đăng ký</button>
                         </div>
                     </div>
@@ -155,12 +155,16 @@
                             <form class="form-horizontal row" name="AddNewForm">
                                 <div class="col col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label"> Tên Lớp </label>
+                                        <label class="control-label"> Tên Lớp <span class="small text-danger">(*)</span></label>
                                         <input class="form-control" name="Name" ng-model="lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
+                                        <span id="CourseNameError" style="display:none" class="small text-danger">Vui lòng nhập tên lớp</span>
                                     </div>
-                                    <div class="form-group" ng-if="type != 1">
-                                        <label class="control-label"> Học phí </label>
-                                        <input class="form-control" name="Price" ng-model="lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />
+                                    <div class="form-group">
+                                        <label class="control-label"> Học phí <span class="small text-danger">(*)</span></label>
+                                        <input class="form-control" ng-readonly="lop.Type == 1" type="text" name="Price" id="PriceInput" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+                                        <span id="CoursePriceError" style="display:none" class="small text-danger">Vui lòng nhập học phí</span>
+
+                                        @*<input class="form-control" name="Price" ng-model="lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />*@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label"> Lịch học </label>
@@ -179,6 +183,8 @@
                                         <textarea class="form-control" name="Condition" ng-model="lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
                                     </div>
                                     <div class="card-body">
+                                        <label class="control-label"> Ảnh lớp <span class="small text-danger">(*)</span></label>
+
                                         <div class="mx-auto d-block">
                                             <img id="output" ng-if="lop.Image == ''" class="" width="300" height="210" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
                                             <img id="output" ng-if="lop.Image != ''" class=""
@@ -187,6 +193,7 @@
                                         <hr>
                                         <div class="card-text text-sm-center">
                                             <input type="file" required name="file" id="file" accept="image/*" ng-files="getTheFiles($files)" onchange="loadFile(event);" class="btn btn-light" />
+                                            <span id="CourseImageError" style="display:none" class="small text-danger">Vui lòng chọn ảnh lớp</span>
 
                                         </div>
                                     </div>
@@ -194,7 +201,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="Save()">Đăng ký</button>
+                            <button type="button" class="btn btn-primary" id="btnSave" ng-click="Save()">Đăng ký</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="Clear()">Đóng</button>
                         </div>
                     </div>
@@ -204,7 +211,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="text-info">Đăng ký vào lớp</h3>
+                            <h3 class="text-info">Đăng ký mở lớp</h3>
                             <button type="button" class="close" data-dismiss="modal" style="text-align:left">x</button>
                         </div>
                         <div class="modal-body" style="margin-left:20px">
@@ -213,18 +220,17 @@
                                     <p><strong>Tên lớp</strong>: {{lop.Name}}</p>
                                     <p><strong>Loại</strong>: {{lop.Type}}</p>
                                     <p><strong>Số người tối đa</strong>: {{lop.Capacity}}</p>
-                                    <p><strong>Chi phí</strong>: {{lop.Pay}}</p>
+                                    <p><strong>Chi phí</strong>: {{lop.Pay | currency:"$":0}}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
-                                    <p><strong>Số dư</strong>: {{User.Balance}}</p>
-                                    <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-lop.Pay}}</p>
+                                    <p><strong>Số dư</strong>: {{User.Balance | currency:"$":0}}</p>
+                                    <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-lop.Pay | currency:"$":0}}</p>
 
                                     <span ng-if="lop.Pay>User.Balance" class="text-danger">Số dư không đủ để thanh toán</span>
                                     <div>
-                                        <strong>Xác nhận thanh toán</strong>
                                         <div>
-                                            <a class="btn btn-success text-light" ng-click="Pay()">Xác nhận</a>
+                                            <a class="btn btn-success text-light" ng-click="Pay()">Thanh Toán</a>
                                             <a class="btn btn-dark text-light">Hủy bỏ</a>
                                         </div>
                                     </div>
@@ -510,7 +516,6 @@
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
         output.onload = function () {
-            ay
             URL.revokeObjectURL(output.src)
         }
         //fileValidation()

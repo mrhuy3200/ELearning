@@ -169,8 +169,6 @@ PersonalApp.controller('PersonalController', function ($scope, $http, $window) {
         // format number 1000000 to 1,234,567
         return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
-
-
     function formatCurrency(input, blur) {
         // appends $ to value, validates decimal side
         // and puts cursor back in right position.

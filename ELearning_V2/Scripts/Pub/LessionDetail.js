@@ -24,10 +24,9 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
         //role = 1: Owner
         //role = 2: Member
         //role = 3: Guest
-        console.log("UserID"+UserID);
-        console.log(id);
-        console.log(CourseID);
-
+        console.log("UserID "+UserID);
+        console.log("lessionID " +id);
+        console.log("CourseID " + CourseID);
         LoadLession(id);
         if (CourseID != '') {
             CheckRole();
@@ -38,7 +37,11 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
             LoadListLession(CourseID);
         }
     };
+    function CountLessionView() {
+        console.log('Session');
 
+        console.log(Session);
+    }
     $scope.Rep = function (Index) {
         var RepBtnID = "#RepBtn" + Index;
         var RepCollapse = "#Rep" + Index;
@@ -214,14 +217,16 @@ LessionDetailApp.controller('LessionDetailController', function ($scope, $window
                     if ($scope.UserRole != 3 ) {
                         $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
                     }
-                    alert("Bài giảng chỉ dành cho thành viên trong lớp")
+                    else {
+                        alert("Bài giảng chỉ dành cho thành viên trong lớp");
+                    }
                 }
                 else {
                     if ($scope.UserRole == 1) {
                         $window.location.href = "/Lop/LessionDetail/" + Lession.ID + "?CourseID=" + $scope.CourseID;
                     }
                     else {
-                        alert("Bài giảng bị khóa")
+                        alert("Bài giảng bị khóa");
 
                     }
                 }
