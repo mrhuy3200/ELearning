@@ -34,6 +34,15 @@
     <!--===============================================================================================-->
 </head>
 <body>
+    @if (ViewBag.ActiveResult != null)
+    {
+        <script type="text/javascript">
+                window.onload = function () {
+                    alert("@Html.Raw(ViewBag.ActiveResult)");
+                }
+        </script>
+    }
+
     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
     {
 

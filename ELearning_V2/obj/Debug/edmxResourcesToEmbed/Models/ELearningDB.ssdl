@@ -62,7 +62,7 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NoiDung" Type="nvarchar(max)" />
-    <Property Name="CreateDate" Type="date" />
+    <Property Name="CreateDate" Type="datetime" />
     <Property Name="CreateBy" Type="bigint" />
     <Property Name="ClassID" Type="int" />
     <Property Name="CourseID" Type="bigint" />
@@ -207,7 +207,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="bigint" />
     <Property Name="LessionID" Type="bigint" />
   </EntityType>
@@ -985,7 +985,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TestDetail_NguoiDung">
-    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="TestDetail" Type="Self.TestDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NguoiDung">
@@ -1023,7 +1025,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TestResult_NguoiDung">
-    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="TestResult" Type="Self.TestResult" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NguoiDung">

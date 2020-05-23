@@ -422,8 +422,6 @@ namespace ELearning_V2.Service
                 using (ELearningDB db = new ELearningDB())
                 {
                     var l = db.Lessions.Find(LessionID);
-                    var lstCmtID = db.Comments.Where(x => x.LessionID == LessionID).Select(a => a.ID);
-                    var lstRep = db.Replies.Where(x => lstCmtID.Contains(x.CommentID)).ToList();
                     var lstTopic = db.Lession_Topic.Where(x => x.LessionID == LessionID).ToList();
                     List<TopicDTO> lstTopicDTO = new List<TopicDTO>();
                     foreach (var item in lstTopic)
@@ -441,7 +439,6 @@ namespace ELearning_V2.Service
                     data.Status = l.Status;
                     data.UserID = l.UserID;
                     data.View = l.LessionViews.Count();
-                    data.Comment = l.Comments.Count() + lstRep.Count();
                     data.CreateDate = (DateTime)l.CreateDate;
                     data.Image = l.Image;
                     data.Username = l.NguoiDung.HoVaTen;
@@ -450,6 +447,10 @@ namespace ELearning_V2.Service
                     data.Topics = lstTopicDTO;
                     if (CourseID != null)
                     {
+                        var lstCmtID = db.Comments.Where(x => x.LessionID == LessionID && x.CourseID == CourseID).Select(a => a.ID);
+                        var lstRep = db.Replies.Where(x => lstCmtID.Contains(x.CommentID)).ToList();
+                        data.Comment = lstCmtID.Count() + lstRep.Count();
+
                         data.CourseID = CourseID;
                         var course_lession = db.Course_Lession.Where(x => x.LessionID == LessionID && x.CourseID == CourseID).OrderByDescending(x => x.ID).FirstOrDefault();
                         data.Course_LessionStatus = course_lession.Status;
@@ -490,7 +491,7 @@ namespace ELearning_V2.Service
                         com.NoiDung = item.NoiDung;
                         com.CreateDate = item.CreateDate;
                         com.CreateBy = item.CreateBy;
-                        if (item.Rate != 0)
+                        if (item.Rate != null)
                         {
                             com.Rate = (int)item.Rate;
                         }
@@ -540,7 +541,7 @@ namespace ELearning_V2.Service
             }
             catch (Exception)
             {
-                return null;
+                //return null;
                 throw;
             }
         }
@@ -595,7 +596,14 @@ namespace ELearning_V2.Service
                     data.CreateBy = c.CreateBy;
                     data.CourseID = c.CourseID;
                     data.LessionID = c.LessionID;
-                    data.Rate = c.Rate;
+                    if (c.LessionID != null)
+                    {
+                        data.Rate = null;
+                    }
+                    else
+                    {
+                        data.Rate = c.Rate;
+                    }
                     db.Comments.Add(data);
                     db.SaveChanges();
                     //CommentDTO returnData = new CommentDTO();
@@ -1612,6 +1620,31 @@ namespace ELearning_V2.Service
                         return 1;
                     }
                     return 0;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static bool CountLessionView(long LessionID, long UserID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var check = db.LessionViews.Where(x => x.LessionID == LessionID && x.UserID == UserID).FirstOrDefault();
+                    if (check == null)
+                    {
+                        LessionView data = new LessionView();
+                        data.LessionID = LessionID;
+                        data.UserID = UserID;
+                        db.LessionViews.Add(data);
+                        db.SaveChanges();
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception)

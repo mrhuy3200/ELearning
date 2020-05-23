@@ -1,0 +1,26 @@
+﻿<div class="col-md-12">
+    <div class="row">
+        <strong class="col-md-12">Chủ đề</strong>
+
+        <div class="row" style="padding: 10px 0px 15px 30px;">
+            <input id="TopicInput" class="form-control col-md-10" type="text" ng-model="TopicName" />
+            <div class="col-md-2">
+                <a class="btn btn-dark text-success" ng-click="CreateTopic()"><i class="fa fa-plus"></i></a>
+            </div>
+        </div>
+    </div>
+    <ul style="padding-left:0px;padding-right:45px">
+        <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
+            <div class="confirm-checkbox">
+                <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
+                <label for="check{{$index}}"></label>
+                <p style="margin-left:30px">{{t.Name}}</p>
+            </div>
+            <p>
+                <a class="text-info" ng-click="SelectTopic($index)"><i class="fa fa-pencil-square-o"></i></a>
+                &nbsp;
+                <a class="text-danger" ng-click="DeleteTopic($index)"><i class="lnr lnr-trash"></i></a>
+            </p>
+        </li>
+    </ul>
+</div>

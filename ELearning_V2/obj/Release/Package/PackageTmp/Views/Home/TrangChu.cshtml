@@ -71,6 +71,7 @@
                         else
                         {
                             <li><a>@Html.ActionLink("Đăng nhập", "Index", "Login")</a></li>
+                            <li><a>@Html.ActionLink("Đăng ký","Register","Login")</a></li>
                         }
                     </ul>
 
@@ -127,6 +128,14 @@
     <!-- End Banner Area -->
     <!-- Start Courses Area -->
     <section >
+        @if (ViewBag.ActiveResult != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    alert("@Html.Raw(ViewBag.ActiveResult)");
+                }
+            </script>
+        }
             @{
 
                 var message = TempData["Error"] ?? string.Empty;

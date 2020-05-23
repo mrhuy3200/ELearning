@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "MyCourse";
+    Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Dạy thêm</h2>
+                <div class="page_link">
+                    <a href="/Home/TrangChu">Home</a>
+                    <a href="#">My Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="courses_area p_120" id="DanhSach" ng-app="MyCourseApp" ng-controller="MyCourseController">
+    <div class="container">
+        <div class="main_title">
+            <h2>Lớp của tôi</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="display:flex">
+                <div id="SearchQuestion" class="input-group col-md-6">
+                    <input class="form-control" ng-model="CSearchKey" type="text" placeholder="Tìm kiếm..." aria-label="SearchQuestion" aria-describedby="basic-addon2" />
+                </div>
+            </div>
+            <div class="col-md-2 offset-md-6" style="display:flex">
+                <div class="col-md-6">
+                    <label style="width:max-content">Page size:</label>
+                </div>
+                <div class="input-group col-md-6">
+                    <input class="form-control" type="number" ng-model="CpageSize" min="2" max="10" />
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">#</div>
+                    <div class="percentage">Tên lớp</div>
+                    <div class="visit">Sĩ số</div>
+                    <div class="country">Trạng thái</div>
+                </div>
+                @*<div class="huy" ng-repeat="Lop in Lops">*@
+                <div dir-paginate="Lop in Courses | filter:CSearchKey | itemsPerPage: CpageSize" current-page="CcurrentPage" pagination-id="ListCourse">
+                    <div class="table-row">
+                        <div class="serial">{{$index + (CcurrentPage-1)*CpageSize+1}}</div>
+                        <div class="percentage">{{Lop.Name}}</div>
+                        <div class="visit">{{Lop.NumOfPeo}}</div>
+                        <div class="country">
+                            <div style="width:50px">
+                                <label ng-if="Lop.Status == 1">Mở</label>
+                                <label ng-if="Lop.Status == 0">Đóng</label>
+
+                            </div>
+                            <div class="dropdown">
+                                <a class="btn dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown" data-target="Status{{$index}}"><i class="lnr lnr-cog"></i></a>
+                                <div class="dropdown-menu" id="Status{{$index}}">
+                                    <a class="btn dropdown-item" ng-click="View(Lop.ID)">View</a>
+                                    <a class="btn dropdown-item" ng-click="ExitCourse(Lop.ID)">Remove</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="other-controller">
+                    <div class="col-md-3 offset-md-9">
+                        <dir-pagination-controls boundary-links="true" pagination-id="ListCourse"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .huy:hover {
+                background-color: #c9ebba;
+            }
+
+            .dropdown-toggle::after {
+                display: none
+            }
+        </style>
+    </div>
+</section>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Pub/MyCourse.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>

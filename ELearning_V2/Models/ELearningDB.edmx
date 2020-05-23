@@ -67,7 +67,7 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar(max)" />
-          <Property Name="CreateDate" Type="date" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreateBy" Type="bigint" />
           <Property Name="ClassID" Type="int" />
           <Property Name="CourseID" Type="bigint" />
@@ -212,7 +212,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="bigint" />
           <Property Name="LessionID" Type="bigint" />
         </EntityType>
@@ -990,7 +990,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestDetail_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TestDetail" Type="Self.TestDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
@@ -1028,7 +1030,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestResult_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TestResult" Type="Self.TestResult" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
@@ -1659,7 +1663,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CreateBy" Type="Int64" />
           <Property Name="ClassID" Type="Int32" />
           <Property Name="CourseID" Type="Int64" />
@@ -1818,7 +1822,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int64" />
           <Property Name="LessionID" Type="Int64" />
           <NavigationProperty Name="Lession" Relationship="ELearningModel.FK_LessionView_Lession" FromRole="LessionView" ToRole="Lession" />
@@ -1960,11 +1964,11 @@
           <Property Name="Status" Type="Int32" />
           <Property Name="CourseID" Type="Int64" />
           <Property Name="AmountQuestion" Type="Int32" />
+          <Property Name="Time" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Test_Course" FromRole="Test" ToRole="Course" />
           <NavigationProperty Name="Test_Question" Relationship="ELearningModel.FK_Test_Question_Test" FromRole="Test" ToRole="Test_Question" />
           <NavigationProperty Name="TestDetails" Relationship="ELearningModel.FK_TestDetail_Test" FromRole="Test" ToRole="TestDetail" />
           <NavigationProperty Name="TestResults" Relationship="ELearningModel.FK_TestResult_Test" FromRole="Test" ToRole="TestResult" />
-          <Property Name="Time" Type="Int32" />
         </EntityType>
         <EntityType Name="Test_Question">
           <Key>
@@ -1998,9 +2002,9 @@
           <Property Name="UserID" Type="Int64" />
           <Property Name="TestResult1" Type="Double" />
           <Property Name="TestDate" Type="DateTime" Precision="3" />
+          <Property Name="RightAnswer" Type="Int32" />
           <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_TestResult_NguoiDung" FromRole="TestResult" ToRole="NguoiDung" />
           <NavigationProperty Name="Test" Relationship="ELearningModel.FK_TestResult_Test" FromRole="TestResult" ToRole="Test" />
-          <Property Name="RightAnswer" Type="Int32" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -2494,7 +2498,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestDetail_NguoiDung">
-          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ELearningModel.TestDetail" Role="TestDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
@@ -2506,7 +2512,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestResult_NguoiDung">
-          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ELearningModel.TestResult" Role="TestResult" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">

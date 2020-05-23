@@ -1,6 +1,4 @@
-﻿/// <reference path="D:\Học tập\Đồ án 2\ELearning_V2\ELearning_V2\Scripts/angular.js" />
-
-
+﻿
 myapp.controller('LopController', function ($scope, $filter, LopService, Upload, $timeout) {
     loadMonHoc();
     loadLop();

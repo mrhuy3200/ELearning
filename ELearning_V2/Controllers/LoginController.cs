@@ -119,7 +119,7 @@ namespace ELearning_V2.Controllers
             using (ELearningDB db = new ELearningDB())
             {
                 var res = db.TaiKhoans.Where(x => x.Username == model.UserName && x.Password == pass).FirstOrDefault();
-                if (res!=null)
+                if (res != null)
                 {
                     return Json(res.ID);
                 }
@@ -148,7 +148,7 @@ namespace ELearning_V2.Controllers
                     tk.TrangThai = false;
                     var res = db.TaiKhoans.Where(x => x.Username == model.UserName).Count();
                     var res1 = db.NguoiDungs.Where(x => x.Email == model.Email).Count();
-                    
+
                     if (res != 0)
                     {
                         ViewBag.UserNameError = "Tên người dùng đã tồn tại";
@@ -169,13 +169,13 @@ namespace ELearning_V2.Controllers
                     NguoiDung u = db.NguoiDungs.Find(ID.ID);
                     u.HoVaTen = model.FullName;
                     u.Email = model.Email;
-                    u.Image = ID.ID+".jpg";
+                    u.Image = ID.ID + ".jpg";
                     u.SoDu = 20000;
                     u.MaXacNhan = GenerateCode();
                     db.SaveChanges();
                     SendEmail(u);
-                    TempData["RegisterResult"] = "Đăng ký thành công"; 
-                    return RedirectToAction("Home","Home");
+                    TempData["RegisterResult"] = "Đăng ký thành công";
+                    return RedirectToAction("Login", "Login");
                 }
             }
             return View(model);
@@ -198,7 +198,7 @@ namespace ELearning_V2.Controllers
                     if (tk.TrangThai)
                     {
                         TempData["ActiveResult"] = "Tài khoản đã được kích hoạt trước đó";
-                        return RedirectToAction("TrangChu", "Home");
+                        return RedirectToAction("GuessHomePage", "Home");
                     }
                     if (res.MaXacNhan == AuthenticationCode)
                     {
@@ -232,29 +232,30 @@ namespace ELearning_V2.Controllers
 
         private void SendEmail(NguoiDung user)
         {
-                var senderEmail = new MailAddress("cloneelsword2@gmail.com", "ELearning");
-                var receiverEmail = new MailAddress(user.Email, user.HoVaTen);
-                var password = "huynhthanhhuy";
-                var sub = "Kích hoạt tài khoản";
-                var body = string.Format("Xin chào {0} <br/>Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn: http://localhost:49608/Login/ActiveAccount/{1}/{2} ", user.HoVaTen, user.ID, user.MaXacNhan);
-                var smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
-                }
-            
+            var domain = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+            var senderEmail = new MailAddress("cloneelsword2@gmail.com", "ELearning");
+            var receiverEmail = new MailAddress(user.Email, user.HoVaTen);
+            var password = "huynhthanhhuy";
+            var sub = "Kích hoạt tài khoản";
+            var body = string.Format("Xin chào {0} <br/>Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn: {1}/Login/ActiveAccount/{2}/{3} ", user.HoVaTen, domain, user.ID, user.MaXacNhan);
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, password)
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+            {
+                Subject = sub,
+                Body = body
+            })
+            {
+                smtp.Send(mess);
+            }
+
         }
     }
 }

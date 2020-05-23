@@ -3,82 +3,216 @@
     ViewBag.Title = "MyClass";
     Layout = "~/Areas/GV/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="container col-md-10" ng-app="LopModule" ng-controller="LopController">
+<div >
+    <div ng-app="LopModule" ng-controller="LopController">
         <div>
             <h2>My Class ({{Lops.length}}/5)</h2>
         </div>
-        <div>
+
+        <section id="pricing-table">
+            <div class="container">
+                <div class="row">
+                    <div class="pricing">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="pricing-table">
+                                <div class="pricing-header">
+                                    <p class="pricing-title">Free Plan</p>
+                                    <p class="pricing-rate"><sup>$</sup> 0 <span>/Mo.</span></p>
+                                    <a href="#" class="btn btn-custom">And Get Free Month</a>
+                                </div>
+
+                                <div class="pricing-list">
+                                    <ul>
+                                        <li><i class="fa fa-envelope"></i>1,000 messages</li>
+                                        <li><i class="fa fa-signal"></i><span>limited</span> data</li>
+                                        <li><i class="fa fa-user"></i><span>limited</span> users</li>
+                                        <li><i class="fa fa-smile-o"></i>first 10 day free</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="pricing-table">
+                                <div class="pricing-header">
+                                    <p class="pricing-title">Business Plan</p>
+                                    <p class="pricing-rate"><sup>$</sup> 20 <span>/Mo.</span></p>
+                                    <a href="#" class="btn btn-custom">And Get Free Month</a>
+                                </div>
+
+                                <div class="pricing-list">
+                                    <ul>
+                                        <li><i class="fa fa-envelope"></i>10,000 messages</li>
+                                        <li><i class="fa fa-signal"></i><span>unlimited</span> data</li>
+                                        <li><i class="fa fa-user"></i><span>unlimited</span> users</li>
+                                        <li><i class="fa fa-smile-o"></i>first 10 day free</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="pricing-table">
+                                <div class="pricing-header">
+                                    <p class="pricing-title">Extended Plan</p>
+                                    <p class="pricing-rate"><sup>$</sup> 80 <span>/Mo.</span></p>
+                                    <a href="#" class="btn btn-custom">And Get Free Month</a>
+                                </div>
+
+                                <div class="pricing-list">
+                                    <ul>
+                                        <li><i class="fa fa-envelope"></i>10,0000 messages</li>
+                                        <li><i class="fa fa-signal"></i><span>unlimited</span> data</li>
+                                        <li><i class="fa fa-user"></i><span>unlimited</span> users</li>
+                                        <li><i class="fa fa-smile-o"></i>first 10 day free</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        @*<div>
             <button type="button" class="btn btn-success"
                     data-target="#AddNew" data-toggle="modal">
                 +Thêm mới
             </button>
-        </div>
+        </div>*@
         <br />
-        <div>
-            <table class="table table-bordered">
-                <tr ng-repeat="l in Lops" style="border:2px solid;border-radius:8px;">
-                    <td>
-                        <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
-                            <img src="~/Assets/Image/{{l.Image}}" class="img-thumbnail" style="width:125px;height:152px" />
-                        </a>
-                    </td>
-                    <td>
-                        <div>
+        @*<div class="section-top-border">
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Danh sách khách hàng</div>
+            <div class="card-body">
+                <button type="button" class="btn btn-primary" data-target="#AddNew" data-toggle="modal" ng-click="AddCustomer()">
+                    Thêm mới
+                </button>
+                <label>Tổng: {{Lops.length}}</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Thao tác</th>
+                                <th>Tên môn học</th>
+                                <th>Mô tả</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="c in Customers | filter:SearchKey | itemsPerPage: 10" current-page="currentPage">
+                            <tr ng-repeat="l in Lops">
+                                <td width="5%">{{$index+1}}</td>
+                                <td width="10%">
+                                    <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{l.MaLop}}" title="Chi tiết khách hàng"><i class="fa fa-eye" style="color:black"></i></a>
+                                    <a ng-if="l.TrangThai==1" ng-click="LockUser(l.MaLop)" title="Khóa tài khoản"><i class="fa fa-lock" style="color:red"></i></a>
+                                    <a ng-if="l.TrangThai==-1" ng-click="UnLockUser(l.MaLop)" title="Mở khóa tài khoản"><i class="fa fa-unlock" style="color:black"></i></a>
+                                    <a ng-click="DeleteUser(l.MaLop)" title="Xóa tài khoản"><i class="fa fa-trash" style="color:black"></i></a>
+
+                                </td>
+                                <td width="15%">{{l.TenLop}}</td>
+                                <td width="20%">{{l.MoTa}}</td>
+                                <td width="20%" ng-if="l.TrangThai==false"><p style="color:red">Tạm khóa</p></td>
+                                <td width="20%" ng-if="l.TrangThai==true"><p style="color:green">Kích hoạt</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+            <div class="progress-table-wrap">
+                    <div class="progress-table">
+                        <div class="table-head">
+                            <div class="serial">#</div>
+                            <div class="country">Tên môn học</div>
+                            <div class="visit">Mô tả</div>
+                            <div class="percentage">Trạng thái</div>
+                            <div class="percentage">Thao tác</div>
+                        </div>
+                        <div class="table-row" ng-repeat="l in Lops">
+                            <div class="serial">{{$index+1}}</div>
+                            <div class="country">{{l.TenLop}}</div>
+                            <div class="country">{{l.MoTa}}</div>
+                            <div class="country" ng-if="l.TrangThai == true">Mở</div>
+                            <div class="country" ng-if="l.TrangThai == false">Đóng</div>
                             <div>
-                                <h3 style="display:inline-block">
-                                    <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
-                                        {{l.TenLop}}
-                                    </a>
-                                </h3>
-                                <div class="text-muted" style="font-size:12px;">
-                                    <ul class="list-unstyled list-inline">
-                                        <li style="display:inline-block;">
-                                            <em class="fa fa-clock-o">
-                                                &nbsp;
-                                            </em>
-                                            Ngày bắt đầu: {{l.NgayBatDau}}
-                                            &nbsp;&nbsp;&nbsp;
-                                        </li>
-                                        <li style="display:inline-block;">
-                                            <em class="fa fa-user">
-                                                &nbsp;
-                                            </em>
-                                            Sĩ số: {{l.SiSo}}
-                                            &nbsp;&nbsp;&nbsp;
-                                        </li>
-                                    </ul>
-                                </div>
+                                <a href="#" data-ng-href="@Url.Action("Detail", "Agency")/{{l.MaLop}}" title="Chi tiết khách hàng"><i class="fa fa-fa-user" style="color:black"></i></a>
+                                <a ng-if="l.TrangThai == true" ng-click="LockUser(l.MaLop)" title="Khóa tài khoản"><i class="fa fa-lock" style="color:red"></i></a>
+                                <a ng-if="l.TrangThai == false" ng-click="UnLockUser(l.MaLop)" title="Mở khóa tài khoản"><i class="fa fa-unlock" style="color:black"></i></a>
+                                <a ng-click="DeleteUser(l.MaLop)" title="Xóa tài khoản"><i class="fa fa-trash" style="color:black"></i></a>
                             </div>
-                            <p style="font-size:16px;height:100px;width:500px;overflow:hidden;">
-                                {{l.MoTa}}
-                            </p>
                         </div>
-                    </td>
-                    <td>
+                    </div>
+                </div>
+            <table class="table table-bordered">
+                    <tr ng-repeat="l in Lops" style="border:2px solid;border-radius:8px;">
+                        <td>
+                            <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
+                                <img src="~/Assets/Image/{{l.Image}}" class="img-thumbnail" style="width:125px;height:152px" />
+                            </a>
+                        </td>
+                        <td>
+                            <div>
+                                <div>
+                                    <h3 style="display:inline-block">
+                                        <a href="" data-ng-href="@Url.Action("ViewDetails", "Lop")/{{l.MaLop}}">
+                                            {{l.TenLop}}
+                                        </a>
+                                    </h3>
+                                    <div class="text-muted" style="font-size:12px;">
+                                        <ul class="list-unstyled list-inline">
+                                            <li style="display:inline-block;">
+                                                <em class="fa fa-clock-o">
+                                                    &nbsp;
+                                                </em>
+                                                Ngày bắt đầu: {{l.NgayBatDau}}
+                                                &nbsp;&nbsp;&nbsp;
+                                            </li>
+                                            <li style="display:inline-block;">
+                                                <em class="fa fa-user">
+                                                    &nbsp;
+                                                </em>
+                                                Sĩ số: {{l.SiSo}}
+                                                &nbsp;&nbsp;&nbsp;
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p style="font-size:16px;height:100px;width:500px;overflow:hidden;">
+                                    {{l.MoTa}}
+                                </p>
+                            </div>
+                        </td>
+                        <td>
 
-                        <div style="margin-top:0px;">
-                            <em class="fa fa-pencil">
-                                <a href="" data-toggle="modal" data-target="#Update" ng-click="getForUpdate(l)"><u>Chỉnh sửa</u></a>
-                            </em>
-                            |
-                            <em class="fa fa-trash">
-                                <a href="" data-toggle="modal" data-target="#deleteDialog" ng-click="getForDelete(l)"><u>Xóa</u></a>
-                            </em>
-                            <br />
-                            <em class="fa fa-lock">
-                                &nbsp;
-                                Trạng thái:
-                                <a ng-hide="l.TrangThai" href="" title="Nhấn để mở " ng-click="publish(l)"><u>Đóng</u></a>
-                                <a ng-show="l.TrangThai" href="" title="Nhấn để đóng " ng-click="private(l)"><u>Mở</u></a>
-                            </em>
-                        </div>
+                            <div style="margin-top:0px;">
+                                <em class="fa fa-pencil">
+                                    <a href="" data-toggle="modal" data-target="#Update" ng-click="getForUpdate(l)"><u>Chỉnh sửa</u></a>
+                                </em>
+                                |
+                                <em class="fa fa-trash">
+                                    <a href="" data-toggle="modal" data-target="#deleteDialog" ng-click="getForDelete(l)"><u>Xóa</u></a>
+                                </em>
+                                <br />
+                                <em class="fa fa-lock">
+                                    &nbsp;
+                                    Trạng thái:
+                                    <a ng-hide="l.TrangThai" href="" title="Nhấn để mở " ng-click="publish(l)"><u>Đóng</u></a>
+                                    <a ng-show="l.TrangThai" href="" title="Nhấn để đóng " ng-click="private(l)"><u>Mở</u></a>
+                                </em>
+                            </div>
 
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
             <br />
-        </div>
+        </div>*@
 
         @*insert*@
         <style>
@@ -146,7 +280,7 @@
         </div>
 
         @*Update*@
-        <div class="modal" id="Update" data-keyboard="false" data-backdrop="static" >
+        <div class="modal" id="Update" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -161,7 +295,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label"> Tên lớp </label>
-                                <input class="form-control" name="UpdateTenLop" ng-model="UpdateTenLop" type="text" placeholder="Tên lớp học" maxlength="50" required/>
+                                <input class="form-control" name="UpdateTenLop" ng-model="UpdateTenLop" type="text" placeholder="Tên lớp học" maxlength="50" required />
                                 <span ng-show="Updateform.UpdateTenLop.$error.required" class="error-msg">Vui lòng nhập tên lớp</span>
                                 <span ng-show="Updateform.UpdateTenLop.$error.maxlength" class="error-msg">Tối đa 50 ký tự</span>
 
@@ -234,3 +368,7 @@
     </div>
 
 </div>
+
+<style>
+
+</style>

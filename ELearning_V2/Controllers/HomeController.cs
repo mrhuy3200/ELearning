@@ -4,6 +4,7 @@ using ELearning_V2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,6 +40,7 @@ namespace ELearning_V2.Controllers
         }
         public ActionResult Chat()
         {
+            ViewBag.domainName = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
             return View();
         }
         public ActionResult GetFreeCourse()
@@ -76,16 +78,17 @@ namespace ELearning_V2.Controllers
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lstTopTeacher = db.NguoiDungs.OrderByDescending(x => x.Courses.Select(a => a.Comments.Select(c => c.Rate).Sum() / a.Comments.Select(c => c.Rate).Count()).Sum()).Take(4).ToList();
+                //var lstTopTeacher = db.NguoiDungs.OrderByDescending(x=>x.Courses.Select(c=>c.CourseDetails.Where(cd=>cd.CourseID == c.ID).Count())).Take(4).ToList();
+                var temp = db.Courses.OrderByDescending(x => x.CourseDetails.Count()).Take(4).ToList();
                 List<TaiKhoanDTO> data = new List<TaiKhoanDTO>();
-                foreach (var item in lstTopTeacher)
+                foreach (var item in temp)
                 {
                     TaiKhoanDTO t = new TaiKhoanDTO();
                     t.ID = item.ID;
-                    t.Fullname = item.HoVaTen;
-                    t.Email = item.Email;
-                    t.Image = item.Image;
-                    t.Info = item.Info;
+                    t.Fullname = item.NguoiDung.HoVaTen;
+                    t.Email = item.NguoiDung.Email;
+                    t.Image = item.NguoiDung.Image;
+                    t.Info = item.NguoiDung.Info;
                     data.Add(t);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -95,17 +98,20 @@ namespace ELearning_V2.Controllers
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.Course_Lession.Where(x => x.Status == 1).Select(a => a.LessionID).ToList();
-                var lstPublishLession = db.Lessions.Where(x => lst.Contains(x.ID)).OrderByDescending(o => o.LessionViews.Count()).Take(4).ToList();
-                List<LessionDTO> data = new List<LessionDTO>();
-                foreach (var item in lstPublishLession)
+                var lst = db.Course_Lession.Where(x => x.Status == 1).OrderByDescending(z => z.Lession.LessionViews.Count()).ThenByDescending(z=>z.Lession.Comments.Where(c=>c.CourseID == z.CourseID).Count()).Take(4).ToList();
+                //var lstPublishLession = db.Lessions.Where(x => lst.Contains(x.ID)).OrderByDescending(o => o.LessionViews.Count()).Take(4).ToList();
+                var temp = lst.GroupBy(x => x.LessionID).Select(grp => grp.OrderByDescending(x => x.Lession.Comments.Where(c => c.CourseID == x.CourseID).Count()).First()).ToList();
+                List < LessionDTO > data = new List<LessionDTO>();
+                foreach (var item in temp)
                 {
                     LessionDTO l = new LessionDTO();
-                    l.ID = item.ID;
-                    l.Name = item.Name;
-                    l.View = item.LessionViews.Count();
-                    l.Content = item.Content;
-                    l.CreateDate = (DateTime)item.CreateDate;
+                    l.ID = item.Lession.ID;
+                    l.Name = item.Lession.Name;
+                    l.View = item.Lession.LessionViews.Count();
+                    l.Content = item.Lession.Content;
+                    l.CreateDate = (DateTime)item.Lession.CreateDate;
+                    l.Image = item.Lession.Image;
+                    l.CourseID = item.CourseID;
                     data.Add(l);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
