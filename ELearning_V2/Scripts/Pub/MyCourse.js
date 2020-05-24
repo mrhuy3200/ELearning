@@ -5,7 +5,17 @@ MyCourseApp.controller('MyCourseController', function ($scope, $http, $window) {
     $scope.CcurrentPage = 1;
     LoadCourse();
     $scope.View = function (CourseID) {
-        $window.location.href = "/Lop/ViewCourse/" + CourseID;
+        $http({
+            method: 'GET',
+            url: '/Course/GetClassByID/' + CourseID
+        }).then(function (r) {
+            if (r.data.Status == 1) {
+                $window.location.href = "/Lop/ViewCourse/" + CourseID;
+            }
+            else {
+                alert("Lớp học hiện đang khóa");
+            }
+        })
     }
     $scope.ExitCourse = function (CourseID) {
         if (confirm("Xác nhận ròi khỏi lớp học??")) {

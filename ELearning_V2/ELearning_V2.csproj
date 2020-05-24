@@ -273,6 +273,7 @@
     <Compile Include="DTO\CourseDetailDTO.cs" />
     <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="DTO\LessionDTO.cs" />
+    <Compile Include="DTO\MonHocDTO.cs" />
     <Compile Include="DTO\NotificationDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\ReplyDTO.cs" />

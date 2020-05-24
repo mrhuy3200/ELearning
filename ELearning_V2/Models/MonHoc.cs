@@ -22,6 +22,7 @@ namespace ELearning_V2.Models
             this.GiangViens = new HashSet<GiangVien>();
             this.Lops = new HashSet<Lop>();
             this.LopKiemTras = new HashSet<LopKiemTra>();
+            this.Courses = new HashSet<Course>();
         }
     
         public int MaMonHoc { get; set; }
@@ -37,5 +38,7 @@ namespace ELearning_V2.Models
         public virtual ICollection<Lop> Lops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LopKiemTra> LopKiemTras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

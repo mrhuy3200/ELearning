@@ -77,6 +77,7 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="ELearningModel.Course">
         <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
           <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Condition" ColumnName="Condition" />

@@ -55,7 +55,8 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="Description" role="tabpanel" aria-labelledby="Description-tab">
                         <div class="objctive_text">
-                            <p>{{Lop.Description}}</p>
+                            <div ng-bind-html="Lop.FDescription"></div>
+                            @*<p>{{Lop.Description}}</p>*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="Comments" role="tabpanel" aria-labelledby="Comments-tab">

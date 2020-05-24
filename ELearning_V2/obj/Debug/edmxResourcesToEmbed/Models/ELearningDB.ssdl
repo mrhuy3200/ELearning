@@ -109,6 +109,7 @@
     <Property Name="Condition" Type="nvarchar" MaxLength="2000" />
     <Property Name="Type" Type="int" />
     <Property Name="Rate" Type="float" />
+    <Property Name="MaMonHoc" Type="int" />
   </EntityType>
   <EntityType Name="Course_Lession">
     <Key>
@@ -609,6 +610,18 @@
       </Principal>
       <Dependent Role="Course_Lession">
         <PropertyRef Name="LessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_MonHoc">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="MaMonHoc" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1216,6 +1229,10 @@
     <AssociationSet Name="FK_Course_Lession_Lession" Association="Self.FK_Course_Lession_Lession">
       <End Role="Lession" EntitySet="Lession" />
       <End Role="Course_Lession" EntitySet="Course_Lession" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_MonHoc" Association="Self.FK_Course_MonHoc">
+      <End Role="MonHoc" EntitySet="MonHoc" />
+      <End Role="Course" EntitySet="Course" />
     </AssociationSet>
     <AssociationSet Name="FK_Course_NguoiDung" Association="Self.FK_Course_NguoiDung">
       <End Role="NguoiDung" EntitySet="NguoiDung" />

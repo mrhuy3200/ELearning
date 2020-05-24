@@ -114,6 +114,7 @@
           <Property Name="Condition" Type="nvarchar" MaxLength="2000" />
           <Property Name="Type" Type="int" />
           <Property Name="Rate" Type="float" />
+          <Property Name="MaMonHoc" Type="int" />
         </EntityType>
         <EntityType Name="Course_Lession">
           <Key>
@@ -614,6 +615,18 @@
             </Principal>
             <Dependent Role="Course_Lession">
               <PropertyRef Name="LessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_MonHoc">
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MaMonHoc" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="MaMonHoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1222,6 +1235,10 @@
             <End Role="Lession" EntitySet="Lession" />
             <End Role="Course_Lession" EntitySet="Course_Lession" />
           </AssociationSet>
+          <AssociationSet Name="FK_Course_MonHoc" Association="Self.FK_Course_MonHoc">
+            <End Role="MonHoc" EntitySet="MonHoc" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
           <AssociationSet Name="FK_Course_NguoiDung" Association="Self.FK_Course_NguoiDung">
             <End Role="NguoiDung" EntitySet="NguoiDung" />
             <End Role="Course" EntitySet="Course" />
@@ -1624,6 +1641,10 @@
             <End Role="Course" EntitySet="Courses" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
+          <AssociationSet Name="FK_Course_MonHoc" Association="ELearningModel.FK_Course_MonHoc">
+            <End Role="MonHoc" EntitySet="MonHocs" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -1729,6 +1750,8 @@
           <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
           <NavigationProperty Name="Tests" Relationship="ELearningModel.FK_Test_Course" FromRole="Course" ToRole="Test" />
           <NavigationProperty Name="Notifications" Relationship="ELearningModel.FK_Notifications_Course" FromRole="Course" ToRole="Notification" />
+          <Property Name="MaMonHoc" Type="Int32" />
+          <NavigationProperty Name="MonHoc" Relationship="ELearningModel.FK_Course_MonHoc" FromRole="Course" ToRole="MonHoc" />
         </EntityType>
         <EntityType Name="Course_Lession">
           <Key>
@@ -1909,6 +1932,7 @@
           <NavigationProperty Name="GiangViens" Relationship="ELearningModel.FK_GiangVien_MonHoc" FromRole="MonHoc" ToRole="GiangVien" />
           <NavigationProperty Name="Lops" Relationship="ELearningModel.FK_Lop_MonHoc1" FromRole="MonHoc" ToRole="Lop" />
           <NavigationProperty Name="LopKiemTras" Relationship="ELearningModel.FK_LopKiemTra_MonHoc" FromRole="MonHoc" ToRole="LopKiemTra" />
+          <NavigationProperty Name="Courses" Relationship="ELearningModel.FK_Course_MonHoc" FromRole="MonHoc" ToRole="Course" />
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
@@ -2715,6 +2739,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Course_MonHoc">
+          <End Type="ELearningModel.MonHoc" Role="MonHoc" Multiplicity="0..1" />
+          <End Type="ELearningModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MaMonHoc" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="MaMonHoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2797,6 +2833,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="ELearningModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Condition" ColumnName="Condition" />

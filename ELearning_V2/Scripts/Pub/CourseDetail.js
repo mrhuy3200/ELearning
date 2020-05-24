@@ -13,7 +13,7 @@ CourseDetailApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }])
 
-CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $window, CourseDetailService) {
+CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $http, $window, CourseDetailService) {
     runWaiting();
     var formdata = new FormData();
     $scope.ID = function (id) {
@@ -57,6 +57,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
     function LoadClass(ID) {
         CourseDetailService.LoadClass(ID).then(function (d) {
             $scope.Lop = d.data;
+            $scope.Lop.FDescription = $sce.trustAsHtml($scope.Lop.Description);
             console.log(d.data);
             downWaiting();
         }, function () {

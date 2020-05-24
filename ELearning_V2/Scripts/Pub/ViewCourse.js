@@ -1,6 +1,6 @@
 ﻿var ViewCourseApp = angular.module("ViewCourseApp", ['angularUtils.directives.dirPagination']);
 
-ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $window, ViewCourseService) {
+ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, $window, ViewCourseService) {
     runWaiting();
     var formdata = new FormData();
     $scope.Init = function (CourseID, UserID) {
@@ -31,6 +31,8 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         //    console.log("DONE");
         //});
         LoadClass(CourseID, LoadComment);
+        LoadNotifi(CourseID);
+
         CheckJoinStatus();
         CheckRole();
         //downWaiting();
@@ -98,6 +100,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
         console.log("Load Class");
         ViewCourseService.LoadClass(ID).then(function (d) {
             $scope.Lop = d.data;
+            $scope.Lop.FDescription = $sce.trustAsHtml($scope.Lop.Description)
             console.log(d.data);
             if ($scope.Lop.NumOfPeo == $scope.Lop.Capacity) {
                 //FULL
@@ -225,7 +228,18 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             console.log("ROLE: " + r.data);
         })
     }
+    function LoadNotifi(CourseID) {
+        ViewCourseService.LoadNotifi(CourseID).then(function (d) {
+            for (var i = 0; i < d.data.length; i++) {
+                d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+            }
+            $scope.Notifis = d.data;
+            console.log("Notifi" + JSON.stringify(d.data));
+        }, function () {
+            alert('Failed !!!');
+        });
 
+    }
 
     function FindLession(LessionID) {
         for (var i = 0; i < $scope.Lessions.length; i++) {
@@ -249,6 +263,22 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $http, $windo
             console.log("TestResult: " + r.data);
         })
     }
+    $scope.ShowNotiContent = function (index) {
+        if ($('#Noti' + index).is(":visible")) {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-right");
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-down')
+            //$('#NotiIcon1' + index).addClass('fas fa-caret-right')
+        }
+        else {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-down");
+
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-right')
+            //$('#NotiIcon' + index).addClass('fas fa-caret-down')
+        }
+    }
+
     $scope.Info = function (User) {
         $scope.User = User;
     }
@@ -373,6 +403,9 @@ ViewCourseApp.factory('ViewCourseService', function ($http) {
     };
     fac.LoadTest = function (ID) {
         return $http.get('/Course/GetListTestByCourseID/' + ID);
+    };
+    fac.LoadNotifi = function (ID) {
+        return $http.get('/Lop/GetListNotification/' + ID);
     };
     fac.LoadComment = function (CommentDTO) {
         return $http({
