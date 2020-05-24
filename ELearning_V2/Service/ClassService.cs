@@ -1683,5 +1683,27 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static int AddNotification(string Name, string Content, long CourseID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    Notification data = new Notification();
+                    data.Name = Name;
+                    data.Content = Content;
+                    data.CourseID = CourseID;
+                    data.CreateDate = DateTime.Now;
+                    db.Notifications.Add(data);
+                    db.SaveChanges();
+                    return 1;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

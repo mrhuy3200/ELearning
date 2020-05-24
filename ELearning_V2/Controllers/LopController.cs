@@ -1355,5 +1355,15 @@ namespace ELearning_V2.Controllers
             return Json(ClassService.GetNotifications(ID), JsonRequestBehavior.AllowGet);
 
         }
+        [HttpPost]
+        public ActionResult AddNotification(NotificationDTO n)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.AddNotification(n.Name, n.Content, (long)n.CourseID));
+        }
     }
 }
