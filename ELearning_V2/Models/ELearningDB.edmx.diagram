@@ -87,6 +87,8 @@
         <AssociationConnector Association="ELearningModel.ChiTietLop" />
         <AssociationConnector Association="ELearningModel.HocVienKT" />
         <AssociationConnector Association="ELearningModel.LopBaiGiang" />
+        <EntityTypeShape EntityType="ELearningModel.Notification" Width="1.5" PointX="7.5" PointY="17.875" />
+        <AssociationConnector Association="ELearningModel.FK_Notifications_Course" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

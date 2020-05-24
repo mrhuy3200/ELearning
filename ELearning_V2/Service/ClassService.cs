@@ -723,12 +723,15 @@ namespace ELearning_V2.Service
                     db.Lessions.Add(data);
                     db.SaveChanges();
                     long id = db.Lessions.OrderByDescending(p => p.ID).FirstOrDefault().ID;
-                    foreach (var item in l.Topics)
+                    if (l.Topics != null)
                     {
-                        Lession_Topic t = new Lession_Topic();
-                        t.LessionID = id;
-                        t.TopicID = item.ID;
-                        db.Lession_Topic.Add(t);
+                        foreach (var item in l.Topics)
+                        {
+                            Lession_Topic t = new Lession_Topic();
+                            t.LessionID = id;
+                            t.TopicID = item.ID;
+                            db.Lession_Topic.Add(t);
+                        }
                     }
                     data.Image = id + ".jpg";
                     db.SaveChanges();
@@ -1645,6 +1648,33 @@ namespace ELearning_V2.Service
                         return true;
                     }
                     return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static List<NotificationDTO> GetNotifications(long CourseID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var lst = db.Notifications.Where(x => x.CourseID == CourseID).OrderByDescending(x => x.CreateDate).ToList();
+                    List<NotificationDTO> data = new List<NotificationDTO>();
+                    foreach (var item in lst)
+                    {
+                        NotificationDTO n = new NotificationDTO();
+                        n.ID = item.ID;
+                        n.Name = item.Name;
+                        n.Content = item.Content;
+                        n.CourseID = item.CourseID;
+                        n.CreateDate = item.CreateDate;
+                        data.Add(n);
+                    }
+                    return data;
                 }
             }
             catch (Exception)

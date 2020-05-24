@@ -12,7 +12,7 @@
                 <h2>Bài giảng</h2>
                 <div class="page_link">
                     <a href="~/Home/GuessHomePage">Home</a>
-                    <a href="~/Lop/DayThem#DanhSachBaiGiang">Quản lý bài giảng</a>
+                    <a href="~/Lop/DayThem#QuanLyBaiGiang">Quản lý bài giảng</a>
                     <a href="#">Tạo mới bài giảng</a>
                 </div>
             </div>
@@ -22,49 +22,46 @@
 
 <section class="team_area p_120" ng-app="CreateLessionApp" ng-controller="CreateLessionController" ng-init="InitUserID('@Model.UserID')">
     <div class="container">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
+        <form name="form">
             <div class="form-horizontal">
                 <h2>Tạo bài giảng mới</h2>
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="modal-body" style="margin-left:20px">
                     <div class="form-group">
-                        <label class="control-label"> Tên bài giảng </label>
-                        <input class="form-control" ng-model="Name" required placeholder="Nhập tên bài giảng..."/>
-                        @*@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập tên bài giảng" } })*@
+                        <strong class="control-label"> Tên bài giảng <span class="small text-danger">(*)</span></strong>
+                        <div style="padding: 10px 0px 15px 0px;">
+                            <input class="form-control" ng-model="Name" required placeholder="Nhập tên bài giảng..." />
+
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label class="control-label"> Image </label>
+                            <strong class="control-label"> Image </strong>
                             <br />
-                            <div>
+                            <div style="padding: 10px 0px 15px 0px;">
                                 <input class="btn btn-outline-dark" type="file" ng-files="getTheFiles($files)" id="file" accept="image/*" />
-                                @*@Html.TextBoxFor(model => model.Image, new { @class = "btn btn-outline-dark", @type = "file", @id = "file", @required = "required", @accept = "image/*" })*@
                             </div>
                             <br />
-                            <img id="output" width="330" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
+                            <img id="output" width="330" height="185" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="Card image cap">
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="control-label"> Liên kết video </label>
+                            <strong class="control-label"> Liên kết video </strong>
                             <br />
-                            <div>
-                                <input class="form-control" ng-model="URL" id="URL" placeholder="Liên kết..." />
-                                @*@Html.TextBoxFor(model => model.URL, new { @class = "form-control", @placeholder = "Liên kết...", @id = "URL" })*@
+                            <div style="padding: 10px 0px 15px 0px;">
+                                <input class="form-control" id="URL" type="text" ng-model="URL" name="input" ng-pattern="/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/" />
+                                <span class="small text-danger" ng-if="form.input.$valid == false">Không đúng định dạng Url Youtube</span>
                             </div>
                             <br />
-                            <iframe id="Video" width="330" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="Video" width="330" height="185" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="col-md-4">
                             @Html.Partial("_TopicManage")
                         </div>
+
                     </div>
                     <div class="form-group">
-                        <label>Nội dung</label>
-                        <div>
-                            @*@Html.TextAreaFor(model => model.Content, new { id = "Content" })*@
+                        <strong>Nội dung</strong>
+                        <div style="padding: 10px 0px 15px 0px;">
                             <textarea id="Content"></textarea>
                             <script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
                             <script>
@@ -74,19 +71,16 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <a class="btn btn-dark text-info" ng-click="save()">
+                            <button class="btn btn-dark text-info" ng-disabled="form.$valid == false" ng-click="save()">
                                 Save
-                            </a>
+                            </button>
                         </div>
                     </div>
 
                 </div>
             </div>
-        }
-
-        <div>
-            <a href="#" onclick="location.href='@Url.Action("QuanLyBaiGiang","BaiGiang")'">Quay lại</a>
-        </div>
+        </form>
+        
 
     </div>
 
@@ -116,12 +110,6 @@
             // them on the server until the user's session ends.
         }
     }
-    document.getElementById('URL').onblur = function () {
-        var a = document.getElementById('URL').value;
-        var b = a.replace("watch?v=", "embed/");
-        console.log(b);
-        document.getElementById('Video').src = b;
 
-    }
 
 </script>

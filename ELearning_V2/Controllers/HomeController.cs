@@ -79,7 +79,9 @@ namespace ELearning_V2.Controllers
             using (ELearningDB db = new ELearningDB())
             {
                 //var lstTopTeacher = db.NguoiDungs.OrderByDescending(x=>x.Courses.Select(c=>c.CourseDetails.Where(cd=>cd.CourseID == c.ID).Count())).Take(4).ToList();
-                var temp = db.Courses.OrderByDescending(x => x.CourseDetails.Count()).Take(4).ToList();
+                var lst = db.Courses.OrderByDescending(x => x.CourseDetails.Count()).Take(4).ToList();
+                var temp = lst.GroupBy(x => x.NguoiDung).Select(grp => grp.OrderByDescending(x => x.ID).First()).ToList();
+
                 List<TaiKhoanDTO> data = new List<TaiKhoanDTO>();
                 foreach (var item in temp)
                 {
@@ -116,6 +118,11 @@ namespace ELearning_V2.Controllers
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+        [HttpPost]
+        public JsonResult KeepSessionAlive()
+        {
+            return new JsonResult { Data = "Success" };
         }
     }
 }

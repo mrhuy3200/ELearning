@@ -40,6 +40,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         LoadLessionToAdd(id);
         LoadComment(id);
         LoadTest(id);
+        LoadNotifi(id);
         
     };
     function runWaiting() {
@@ -156,6 +157,18 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
+    function LoadNotifi(CourseID) {
+        CourseDetailService.LoadNotifi(CourseID).then(function (d) {
+            for (var i = 0; i < d.data.length; i++) {
+                d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+            }
+            $scope.Notifis = d.data;
+            console.log("Notifi" + JSON.stringify(d.data));
+        }, function () {
+            alert('Failed !!!');
+        });
+
+    }
     function AddMember(Username) {
         var CourseDetailDTO = {
             CourseID: $scope.CourseID,
@@ -259,6 +272,61 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         var updated_len = input_val.length;
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+    $scope.AddNoti = function () {
+        var name = $('#NotiName');
+        var content = $('#NotiContent');
+        var noti = $('#AddNoti');
+        if (noti.is(":visible")) {
+            if (name.val() == '' && content.val() == '') {
+                noti.collapse('toggle');
+                name.removeClass("border border-danger");
+                content.removeClass("border border-danger");
+
+            }
+            else {
+                if (name.val() == '') {
+                    name.addClass("border border-danger");
+                    console.log("name"+ name.val())
+                }
+                if (content.val() == '') {
+                    console.log("content"+content.val())
+
+                    content.addClass("border border-danger");
+                }
+                if (name.val() != '' && content.val() != '') {
+                    var NotificationDTO = {
+                        Name: $('#NotiName').val(),
+                        Content: $('#NotiContent').val()
+                    }
+                    CourseDetailService.AddNoti(NotificationDTO).then(function (r) {
+                        if (r.data == 1) {
+                            LoadNotifi($scope.CourseID);
+                        }
+                    })
+                    console.log("Noti" + JSON.stringify(NotificationDTO));
+                }
+
+            }
+        }
+        else {
+            noti.collapse('toggle');
+        }
+    }
+    $scope.ShowNotiContent = function (index) {
+        if ($('#Noti' + index).is(":visible")) {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-right");
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-down')
+            //$('#NotiIcon1' + index).addClass('fas fa-caret-right')
+        }
+        else {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-down");
+
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-right')
+            //$('#NotiIcon' + index).addClass('fas fa-caret-down')
+        }
     }
 
     $scope.SetUpEditCourse = function () {
@@ -686,6 +754,9 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
     fac.LoadTest = function (ID) {
         return $http.get('/Lop/GetListTestByCourseID/' + ID);
     };
+    fac.LoadNotifi = function (ID) {
+        return $http.get('/Lop/GetListNotification/' + ID);
+    };
     fac.AddMember = function (CourseDetailDTO) {
         return $http({
             method: 'POST',
@@ -712,6 +783,13 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
             method: 'POST',
             url: '/Lop/GetCommentByID',
             data: JSON.stringify(CommentDTO)
+        });
+    };
+    fac.AddNoti = function (NotificationDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/AddNotification',
+            data: JSON.stringify(NotificationDTO)
         });
     };
     return fac;

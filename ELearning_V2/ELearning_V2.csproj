@@ -273,6 +273,7 @@
     <Compile Include="DTO\CourseDetailDTO.cs" />
     <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="DTO\LessionDTO.cs" />
+    <Compile Include="DTO\NotificationDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\ReplyDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handle\SessionHeartbeatHttpHandler.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
@@ -357,6 +359,9 @@
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
@@ -2326,6 +2331,7 @@
     <Content Include="Content\vendors\popup\magnific-popup.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Handle\KeepAlive.js" />
     <Content Include="Models\ELearningDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ELearningDB.edmx</DependentUpon>
