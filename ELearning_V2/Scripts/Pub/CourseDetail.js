@@ -297,11 +297,21 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
                 if (name.val() != '' && content.val() != '') {
                     var NotificationDTO = {
                         Name: $('#NotiName').val(),
-                        Content: $('#NotiContent').val()
+                        Content: $('#NotiContent').val(),
+                        CourseID: $scope.CourseID
                     }
                     CourseDetailService.AddNoti(NotificationDTO).then(function (r) {
                         if (r.data == 1) {
                             LoadNotifi($scope.CourseID);
+                            name.val('');
+                            content.val('');
+                            name.removeClass("border border-danger");
+                            content.removeClass("border border-danger");
+                            noti.collapse('toggle');
+
+                        }
+                        else {
+                            alert("Failed")
                         }
                     })
                     console.log("Noti" + JSON.stringify(NotificationDTO));
