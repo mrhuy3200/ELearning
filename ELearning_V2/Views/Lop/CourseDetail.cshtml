@@ -529,13 +529,13 @@
                 </div>
                 <div class="p-2 mt-5">
                     <div class="mb-3">
-                        <a class="btn btn-dark text-success" data-toggle="collapse" data-target="#AddNoti"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-dark text-success" ng-click="AddNoti()"><i class="fa fa-plus"></i></a>
                         <strong>Thông báo</strong>
                     </div>
                     <div class="collapse" id="AddNoti">
-                        <div>
-                            <input class="form-control" placeholder="Tên thông báo..." />
-                            <textarea class="form-control" placeholder="Nội dung thông báo" style="resize:none"></textarea>
+                        <div class="p-2 mb-2">
+                            <input class="form-control mb-2" id="NotiName" placeholder="Tên thông báo..." />
+                            <textarea class="form-control" id="NotiContent" placeholder="Nội dung thông báo" onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
                         </div>
                     </div>
                     <div class="list-group" style="overflow:auto;max-height:300px">
@@ -692,7 +692,10 @@
             // them on the server until the user's session ends.
         }
     }
-
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
 </script>
 <style>
     #dataTable tr {

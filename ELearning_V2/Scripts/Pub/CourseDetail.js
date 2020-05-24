@@ -273,6 +273,46 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
     }
+    $scope.AddNoti = function () {
+        var name = $('#NotiName');
+        var content = $('#NotiContent');
+        var noti = $('#AddNoti');
+        if (noti.is(":visible")) {
+            if (name.val() == '' && content.val() == '') {
+                noti.collapse('toggle');
+                name.removeClass("border border-danger");
+                content.removeClass("border border-danger");
+
+            }
+            else {
+                if (name.val() == '') {
+                    name.addClass("border border-danger");
+                    console.log("name"+ name.val())
+                }
+                if (content.val() == '') {
+                    console.log("content"+content.val())
+
+                    content.addClass("border border-danger");
+                }
+                if (name.val() != '' && content.val() != '') {
+                    var NotificationDTO = {
+                        Name: $('#NotiName').val(),
+                        Content: $('#NotiContent').val()
+                    }
+                    CourseDetailService.AddNoti(NotificationDTO).then(function (r) {
+                        if (r.data == 1) {
+                            LoadNotifi($scope.CourseID);
+                        }
+                    })
+                    console.log("Noti" + JSON.stringify(NotificationDTO));
+                }
+
+            }
+        }
+        else {
+            noti.collapse('toggle');
+        }
+    }
     $scope.ShowNotiContent = function (index) {
         if ($('#Noti' + index).is(":visible")) {
             $('#Noti' + index).collapse("toggle");
@@ -743,6 +783,13 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
             method: 'POST',
             url: '/Lop/GetCommentByID',
             data: JSON.stringify(CommentDTO)
+        });
+    };
+    fac.AddNoti = function (NotificationDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/AddNotification',
+            data: JSON.stringify(NotificationDTO)
         });
     };
     return fac;
