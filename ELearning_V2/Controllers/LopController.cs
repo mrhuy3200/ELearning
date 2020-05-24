@@ -7,6 +7,7 @@ using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Vereyon.Web;
@@ -1343,6 +1344,16 @@ namespace ELearning_V2.Controllers
         public ActionResult CheckUserRole(CourseDetailDTO c)
         {
             return Json(ClassService.CheckUserRole(c.UserID, (long)c.CourseID), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetListNotification(long ID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.GetNotifications(ID), JsonRequestBehavior.AllowGet);
+
         }
     }
 }

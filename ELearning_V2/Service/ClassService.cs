@@ -1656,5 +1656,32 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static List<NotificationDTO> GetNotifications(long CourseID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var lst = db.Notifications.Where(x => x.CourseID == CourseID).OrderByDescending(x => x.CreateDate).ToList();
+                    List<NotificationDTO> data = new List<NotificationDTO>();
+                    foreach (var item in lst)
+                    {
+                        NotificationDTO n = new NotificationDTO();
+                        n.ID = item.ID;
+                        n.Name = item.Name;
+                        n.Content = item.Content;
+                        n.CourseID = item.CourseID;
+                        n.CreateDate = item.CreateDate;
+                        data.Add(n);
+                    }
+                    return data;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

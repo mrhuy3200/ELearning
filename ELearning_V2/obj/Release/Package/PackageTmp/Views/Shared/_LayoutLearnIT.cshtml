@@ -90,13 +90,14 @@
                                     </ul>
                                 }
                             </li>
-                            <li class="nav-item"><a class="nav-link" style="color:#4dbf1c;" href="~/Lop/DayThem">Dạy Thêm</a></li>
-
-                            @*<li class="nav-item">
-                                    <a href="~/Lop/DayThem" class="nav-link dropdown-toggle" style="color:#4dbf1c;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dạy Thêm</a>
-                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:#4dbf1c;" href="~/Lop/DayThem">Dạy Thêm</a>
+                            </li>
                         </ul>
+
                     </div>
+                    <div class="heartbeat">&hearts;</div>
+
                 </div>
             </nav>
         </div>
@@ -206,6 +207,18 @@
     <script src="~/Content/vendors/counter-up/jquery.counterup.js"></script>
     <script src="~/Content/js/mail-script.js"></script>
     <script src="~/Content/js/theme.js"></script>
+    <script src="~/Handle/KeepAlive.js"></script>
+    <script type="text/javascript">
+        var Session = @((Session["User"] as ELearning_V2.Models.TaiKhoan) == null ? 0 : (Session["User"] as ELearning_V2.Models.TaiKhoan).ID);
+        if (Session != 0) {
+            console.log("Session"+Session);
+            $(function () {
+                setInterval(function () { beatHeart(2); }, 3000);
+                SessionUpdater.Setup("/Home/KeepSessionAlive");
+            });
+        }
+        console.log("Session" + Session);
 
+    </script>
 </body>
 </html>

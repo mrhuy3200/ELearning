@@ -273,6 +273,7 @@
     <Compile Include="DTO\CourseDetailDTO.cs" />
     <Compile Include="DTO\CourseDTO.cs" />
     <Compile Include="DTO\LessionDTO.cs" />
+    <Compile Include="DTO\NotificationDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\ReplyDTO.cs" />
     <Compile Include="DTO\TaiKhoanDTO.cs" />
@@ -358,6 +359,9 @@
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">

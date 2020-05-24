@@ -405,5 +405,16 @@
         <ScalarProperty Name="MaBaiGiang" ColumnName="MaBaiGiang" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="ELearningModel.Notification">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

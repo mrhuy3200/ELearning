@@ -40,6 +40,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         LoadLessionToAdd(id);
         LoadComment(id);
         LoadTest(id);
+        LoadNotifi(id);
         
     };
     function runWaiting() {
@@ -156,6 +157,18 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
             alert('Không tìm thấy dữ liệu !!!');
         });
     }
+    function LoadNotifi(CourseID) {
+        CourseDetailService.LoadNotifi(CourseID).then(function (d) {
+            for (var i = 0; i < d.data.length; i++) {
+                d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+            }
+            $scope.Notifis = d.data;
+            console.log("Notifi" + JSON.stringify(d.data));
+        }, function () {
+            alert('Failed !!!');
+        });
+
+    }
     function AddMember(Username) {
         var CourseDetailDTO = {
             CourseID: $scope.CourseID,
@@ -259,6 +272,21 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $http, $w
         var updated_len = input_val.length;
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+    $scope.ShowNotiContent = function (index) {
+        if ($('#Noti' + index).is(":visible")) {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-right");
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-down')
+            //$('#NotiIcon1' + index).addClass('fas fa-caret-right')
+        }
+        else {
+            $('#Noti' + index).collapse("toggle");
+            $('#NotiIcon' + index).attr("class", "fas fa-caret-down");
+
+            //$('#NotiIcon' + index).removeClass('fas fa-caret-right')
+            //$('#NotiIcon' + index).addClass('fas fa-caret-down')
+        }
     }
 
     $scope.SetUpEditCourse = function () {
@@ -685,6 +713,9 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
     };
     fac.LoadTest = function (ID) {
         return $http.get('/Lop/GetListTestByCourseID/' + ID);
+    };
+    fac.LoadNotifi = function (ID) {
+        return $http.get('/Lop/GetListNotification/' + ID);
     };
     fac.AddMember = function (CourseDetailDTO) {
         return $http({
