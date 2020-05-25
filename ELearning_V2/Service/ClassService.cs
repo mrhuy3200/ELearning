@@ -56,7 +56,7 @@ namespace ELearning_V2.Service
                     List<CourseDTO> data = new List<CourseDTO>();
                     foreach (var item in lst)
                     {
-                        var lstCmtID = db.Comments.Where(x => x.CourseID == item.ID).Select(a => a.ID);
+                        var lstCmtID = db.Comments.Where(x => x.CourseID == item.ID && x.LessionID == null).Select(a => a.ID).ToList();
                         var lstRep = db.Replies.Where(x => lstCmtID.Contains(x.CommentID)).ToList();
 
                         CourseDTO l = new CourseDTO();
@@ -72,8 +72,10 @@ namespace ELearning_V2.Service
                         l.Condition = item.Condition;
                         l.Type = item.Type;
                         l.UserID = item.UserID;
-                        l.Comments = item.Comments.Count() + lstRep.Count();
+                        l.Comments = lstCmtID.Count() + lstRep.Count();
                         l.Username = item.NguoiDung.HoVaTen;
+                        l.MaMonHoc = (int)item.MaMonHoc;
+                        l.TenMonHoc = item.MonHoc.TenMonHoc;
                         data.Add(l);
                     }
                     return data;
@@ -378,7 +380,7 @@ namespace ELearning_V2.Service
                     var data = db.Course_Lession.Where(x => x.CourseID == CourseID && x.LessionID == LessionID).FirstOrDefault();
                     db.Course_Lession.Remove(data);
                     db.SaveChanges();
-                    return GetLessionByID(LessionID, CourseID);
+                    return GetLessionByID(LessionID, null);
                 }
             }
             catch (Exception)
@@ -1697,6 +1699,28 @@ namespace ELearning_V2.Service
                     db.Notifications.Add(data);
                     db.SaveChanges();
                     return 1;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static int RemoveNotification(long NotiID)
+        {
+            try
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var data = db.Notifications.Find(NotiID);
+                    if (data != null)
+                    {
+                        db.Notifications.Remove(data);
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    return -1;
                 }
             }
             catch (Exception)

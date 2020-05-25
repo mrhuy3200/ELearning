@@ -3,6 +3,7 @@
     ViewBag.Title = "Courses";
     Layout = "~/Views/Shared/_LayoutLearnIT.cshtml";
 }
+@Html.Partial("_Waiting")
 
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
@@ -18,10 +19,14 @@
         </div>
     </div>
 </section>
-<section class="courses_area p_120" ng-app="CoursesApp" ng-controller="CoursesController">
+<section class="courses_area p_120" ng-app="CoursesApp" ng-controller="CoursesController" ng-init="InitUserID('@((Session["User"] as ELearning_V2.Models.TaiKhoan) == null?0:(Session["User"] as ELearning_V2.Models.TaiKhoan).ID)')">
     <div class="container">
         <div class="main_title">
             <h2>Danh sách lớp học</h2>
+            <a class="btn btn-outline-success m-1 text-dark" id="btnMonHoc{{$index}}" ng-repeat="m in MonHocs" ng-click="LocMonHoc($index, m.ID, m.Name)">{{m.Name}}</a>
+
+        </div>
+        <div>
         </div>
         <div class="row" style="padding: 0px 10px 15px 10px;">
             <div class="col-md-4" style="display:flex">
@@ -40,13 +45,17 @@
         </div>
         <div class="row courses_inner">
             <div class="grid_inner col-md-12">
-                <div class="grid_item wd33" dir-paginate="c in Courses | filter:CSearchKey | itemsPerPage: CPageSize" pagination-id="Course" current-page="CcurrentPage">
+                <div class="grid_item wd33" ng-hide="c.Hide" dir-paginate="c in Courses | filter:CSearchKey | filter:TenMonHoc | itemsPerPage: CPageSize" pagination-id="Course" current-page="CcurrentPage">
+                @*<div class="grid_item wd33" dir-paginate="c in FilterCourses = (Courses|filter:CSearchKey|filter:MaMonHoc)| itemsPerPage: CPageSize" pagination-id="Course" current-page="CcurrentPage">*@
+
                     <div class="courses_item">
                         <img height="270" src="~/Content/img/ClassImage/{{c.Image}}" alt="">
                         <div class="hover_text">
-                            <a class="cat" >{{c.Price}}</a>
-                            <a href="/Lop/ViewCourse/{{c.ID}}"><h4>{{c.Name}}</h4></a>
-                            <ul class="list">
+                            <a class="cat" ng-if="c.Price != 0">{{c.Price | currency:"$":0}}</a>
+                            <a class="cat" ng-if="c.Price == 0">Miễn phí</a>
+
+                            <a ng-click="ViewCourse(c)"><h4 class="text-contrast" role='textbox' aria-multiline='true'>{{c.Name}}</h4></a>
+                            <ul class="text-contrast list">
                                 <li ng-if="c.Type != 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}/{{c.Capacity}}</a></li>
                                 <li ng-if="c.Type == 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}</a></li>
                                 <li><a href="#"><i class="lnr lnr-bubble"></i> {{c.Comments}}</a></li>
@@ -69,3 +78,11 @@
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/Courses.js"></script>
 <script src="~/Scripts/Pub/dirPagination.js"></script>
+<style>
+    .text-contrast {
+        color: white;
+        mix-blend-mode: difference;
+        font: 900 20px/20px cookie, cursive;
+        text-align: left;
+    }
+</style>

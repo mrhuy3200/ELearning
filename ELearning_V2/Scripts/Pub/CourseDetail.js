@@ -41,7 +41,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         LoadComment(id);
         LoadTest(id);
         LoadNotifi(id);
-        
+        InitCss();
     };
     function runWaiting() {
         console.log("Open");
@@ -274,6 +274,17 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
     }
+    function InitCss() {
+        var x = document.getElementsByClassName("cke_textarea_inline");
+        x[0].style.border = "1px solid #ced4da";
+        x[0].style.position = "relative";
+        x[0].style.height = "auto";
+        x[0].style.borderRadius = ".25rem";
+        x[0].style.backgroundColor = "white";
+        x[0].style.minHeight = "44px";
+        x[0].style.padding = "2px 10px";
+
+    }
     $scope.AddNoti = function () {
         var name = $('#NotiName');
         var content = $('#NotiContent');
@@ -288,10 +299,10 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
             else {
                 if (name.val() == '') {
                     name.addClass("border border-danger");
-                    console.log("name"+ name.val())
+                    console.log("name" + name.val())
                 }
                 if (content.val() == '') {
-                    console.log("content"+content.val())
+                    console.log("content" + content.val())
 
                     content.addClass("border border-danger");
                 }
@@ -339,7 +350,17 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
             //$('#NotiIcon' + index).addClass('fas fa-caret-down')
         }
     }
-
+    $scope.RemoveNoti = function (Notification, index) {
+        console.log(Notification);
+        CourseDetailService.RemoveNoti(Notification).then(function (r) {
+            if (r.data == 1) {
+                $scope.Notifis.splice(index, 1);
+            }
+            else {
+                console.log(r.data);
+            }
+        })
+    }
     $scope.SetUpEditCourse = function () {
         $("input[name='Price']").on({
             keyup: function () {
@@ -355,23 +376,48 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         });
         var input = $("input[name='Price']")
         formatCurrency($(input));
+        CKEDITOR.instances.DContent.setData($scope.Lop.Description);
 
     }
     $scope.EditCourse = function () {
-        $scope.Lop.Price = parseInt($('#PriceInput').val().replace(/\D/g, ""))
- 
-        console.log('i am inside update funcr ' +
-            JSON.stringify($scope.Lop));
-        $http({
-            method: 'POST',
-            url: '/Lop/EditCourse',
-            data: JSON.stringify($scope.Lop)
-        }).then(function successCallback(response) {
-            LoadClass($scope.Lop.ID);
-            alert(response.data);
-        }, function errorCallback(response) {
-            alert("Error : " + response.data.ExceptionMessage);
-        });
+        var val2, val3;
+
+        if ($scope.Lop.Name == null || $scope.Lop.Name == '') {
+            val2 = false;
+            $('#CourseNameError').css("display", "block");
+        }
+        else {
+            val2 = true;
+            $('#CourseNameError').css("display", "none");
+
+        }
+        if ($('#PriceInput').val() == null || $('#PriceInput').val() == '') {
+            val3 = false;
+            $('#CoursePriceError').css("display", "block");
+        }
+        else {
+            val3 = true;
+            $('#CoursePriceError').css("display", "none");
+
+        }
+        if (val2 && val3) {
+            $scope.Lop.Price = parseInt($('#PriceInput').val().replace(/\D/g, ""))
+            $scope.Lop.Description = CKEDITOR.instances.DContent.getData();
+            console.log('i am inside update funcr ' +
+                JSON.stringify($scope.Lop));
+            $http({
+                method: 'POST',
+                url: '/Lop/EditCourse',
+                data: JSON.stringify($scope.Lop)
+            }).then(function successCallback(response) {
+                LoadClass($scope.Lop.ID);
+                alert(response.data);
+                $('#Edit').modal('toggle');
+            }, function errorCallback(response) {
+                alert("Error : " + response.data.ExceptionMessage);
+            });
+
+        }
     };
     $scope.Add = function () {
         var isExpanded = $('#Add').hasClass('show');
@@ -640,6 +686,7 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
             }
         });
     }
+
     $scope.getTheFiles = function ($files) {
         console.log($files);
         file = $files[0];
@@ -800,6 +847,13 @@ CourseDetailApp.factory('CourseDetailService', function ($http) {
         return $http({
             method: 'POST',
             url: '/Lop/AddNotification',
+            data: JSON.stringify(NotificationDTO)
+        });
+    };
+    fac.RemoveNoti = function (NotificationDTO) {
+        return $http({
+            method: 'POST',
+            url: '/Lop/RemoveNotification',
             data: JSON.stringify(NotificationDTO)
         });
     };

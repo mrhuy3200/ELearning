@@ -259,11 +259,15 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
 
         }
         if ($scope.lop.MaMonHoc == null || $scope.lop.MaMonHoc == '') {
-            val3 = false;
+            val4 = false;
             $('#CourseMonHocError').css("display", "block");
+        }
+        else {
+            val4 = true;
+            $('#CourseMonHocError').css("display", "none");
 
         }
-        if (val1 && val2 && val3) {
+        if (val1 && val2 && val3 && val4) {
             $scope.lop.Price = parseInt($('#PriceInput').val().replace(/\D/g, ""))
             $scope.lop.Description = CKEDITOR.instances.DContent.getData();
             console.log('Save' + JSON.stringify($scope.lop));

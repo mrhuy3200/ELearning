@@ -213,7 +213,7 @@
         if (Session != 0) {
             console.log("Session"+Session);
             $(function () {
-                setInterval(function () { beatHeart(2); }, 3000);
+                beatHeart(2);
                 SessionUpdater.Setup("/Home/KeepSessionAlive");
             });
         }
