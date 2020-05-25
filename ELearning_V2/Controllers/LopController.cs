@@ -1363,13 +1363,23 @@ namespace ELearning_V2.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            return Json(ClassService.AddNotification(n.Name, n.Content, (long)n.CourseID));
+            return Json(ClassService.AddNotification(n.Name, n.Content, (long)n.CourseID), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult RemoveNotification(NotificationDTO n)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json(ClassService.RemoveNotification(n.ID), JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetListMonHoc()
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.MonHocs.ToList();
+                var lst = db.MonHocs.OrderBy(x=>x.MaMonHoc).ToList();
                 List<MonHocDTO> data = new List<MonHocDTO>();
                 foreach (var item in lst)
                 {

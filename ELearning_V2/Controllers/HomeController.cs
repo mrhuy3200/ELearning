@@ -47,7 +47,7 @@ namespace ELearning_V2.Controllers
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var freeCourse = db.Courses.Where(x => x.Price == 0).OrderByDescending(x => x.Comments.Select(c => c.Rate).Sum() / x.Comments.Select(c => c.Rate).Count()).ToList();
+                var freeCourse = db.Courses.Where(x => x.Price == 0).OrderByDescending(x => x.Comments.Select(c => c.Rate).Sum() / x.Comments.Select(c => c.Rate).Count()).ThenByDescending(x=>x.CourseDetails.Count()).Take(3).ToList();
                 List<CourseDTO> data = new List<CourseDTO>();
                 foreach (var item in freeCourse)
                 {
@@ -100,9 +100,9 @@ namespace ELearning_V2.Controllers
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lst = db.Course_Lession.Where(x => x.Status == 1).OrderByDescending(z => z.Lession.LessionViews.Count()).ThenByDescending(z=>z.Lession.Comments.Where(c=>c.CourseID == z.CourseID).Count()).Take(4).ToList();
+                var lst = db.Course_Lession.Where(x => x.Status == 1).OrderByDescending(z => z.Lession.LessionViews.Count()).ThenByDescending(z=>z.Lession.Comments.Where(c=>c.CourseID == z.CourseID).Count()).ToList();
                 //var lstPublishLession = db.Lessions.Where(x => lst.Contains(x.ID)).OrderByDescending(o => o.LessionViews.Count()).Take(4).ToList();
-                var temp = lst.GroupBy(x => x.LessionID).Select(grp => grp.OrderByDescending(x => x.Lession.Comments.Where(c => c.CourseID == x.CourseID).Count()).First()).ToList();
+                var temp = lst.GroupBy(x => x.LessionID).Select(grp => grp.OrderByDescending(x => x.Lession.Comments.Where(c => c.CourseID == x.CourseID).Count()).First()).Take(4).ToList();
                 List < LessionDTO > data = new List<LessionDTO>();
                 foreach (var item in temp)
                 {

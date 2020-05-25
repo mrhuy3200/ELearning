@@ -542,8 +542,12 @@
                     <div class="list-group" style="overflow:auto;max-height:300px">
                         <a href="" ng-click="ShowNotiContent($index)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="noti in Notifis">
                             <div class="d-flex w-100 justify-content-between">
-                                <strong class="mb-1"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
-                                <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                <strong class="mb-1" style="width:74%"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
+                                <div>
+                                    <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                    <i class="fa fa-trash-o" ng-click="RemoveNoti(noti, $index)"></i>
+                                </div>
+
                             </div>
                             <div class="collapse" id="Noti{{$index}}">
                                 <p class="mb-1">
@@ -569,35 +573,34 @@
                     <form class="form-horizontal row" name="AddNewForm">
                         <div class="col col-md-6">
                             <div class="form-group">
-                                <label class="control-label"> Tên Lớp </label>
+                                <label class="control-label"><strong>Tên Lớp</strong></label>
                                 <input class="form-control" name="Name" ng-model="Lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
+                                <span id="CourseNameError" style="display:none" class="small text-danger">Vui lòng nhập tên lớp</span>
                             </div>
                             <div class="form-group" ng-if="type != 1">
-                                <label class="control-label"> Học phí </label>
+                                <label class="control-label"><strong>Học phí</strong>  </label>
                                 <input class="form-control" ng-model="Lop.Price" type="text" name="Price" id="PriceInput" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+                                <span id="CoursePriceError" style="display:none" class="small text-danger">Vui lòng nhập học phí</span>
 
                                 @*<input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />*@
                             </div>
                             <div class="form-group">
-                                <label class="control-label"> Lịch học </label>
+                                <label class="control-label"><strong>Lịch học</strong>  </label>
                                 <input class="form-control" name="Schedule" ng-model="Lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
                                 @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
                             </div>
                         </div>
                         <div class="col col-md-6">
                             <div class="form-group">
-                                <label class="control-label"> Mô tả </label>
-                                <textarea class="form-control" name="Description" ng-model="Lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                                <label class="control-label"><strong>Mô tả</strong>  </label>
+                                <textarea id="DContent"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"> Điều kiện </label>
-                                <textarea class="form-control" name="Condition" ng-model="Lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
-                            </div>
+
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="EditCourse()">Save</button>
+                    <button type="button" class="btn btn-primary" id="btnSave" ng-click="EditCourse()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -666,8 +669,11 @@
 <script src="~/Scripts/angular.js"></script>
 
 <script src="~/Scripts/Pub/CourseDetail.js"></script>
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
 <script src="~/Scripts/Pub/dirPagination.js"></script>>
 <script>
+    var D = CKEDITOR.inline('DContent');
+
     function ShowBtn() {
         document.getElementById("EditCouseImage").style.display = "Block";
     }
@@ -789,6 +795,4 @@
         height: 18px;
         background-color: #f44336;
     }
-
-
 </style>

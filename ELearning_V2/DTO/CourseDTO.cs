@@ -21,6 +21,8 @@ namespace ELearning_V2.DTO
         public Nullable<int> Type { get; set; }
         public long Comments { get; set; }
         public string Username { get; set; }
+        public int MaMonHoc { get; set; }
+        public string TenMonHoc { get; set; }
 
     }
 }

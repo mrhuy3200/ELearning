@@ -6,7 +6,12 @@
 <div class="container">
     <label>@ViewBag.domainName</label>
     <input type="text" id="message" />
-    <input type="button" id="sendmessage" value="Send" />
+    <input type="button" id="JoinRoomA" value="Room A" />
+    <input type="button" id="JoinRoomB" value="Room B" />
+
+    <input type="button" id="sendmessageA" value="Send" />
+    <input type="button" id="sendmessageB" value="Send" />
+
     <input type="hidden" id="displayname" />
     <ul id="discussion">
     </ul>
@@ -21,29 +26,48 @@
 <script src="~/signalr/hubs"></script>
 <!--SignalR script to update the chat page and send messages.-->
 <script>
-    $(function () {
+    var UserID = @((Session["User"] as ELearning_V2.Models.TaiKhoan) != null ? (Session["User"] as ELearning_V2.Models.TaiKhoan).ID:0)
+        $(function () {
+            if (UserID != 0) {
+                var chat = $.connection.chatHub;
+                console.log(chat);
+                // Create a function that the hub can call back to display messages.
+                chat.client.addChatMessage = function (name, message) {
+                    // Add the message to the page.
+                    $('#discussion').append('<li><strong>' + htmlEncode(name)
+                        + '</strong>: ' + htmlEncode(message) + '</li>');
+                };
+                chat.client.CreateConnect = function () {
+                    // Add the message to the page.
+                    chat.server.SaveUser(UserID);
+                };
+                // Get the user name and store it to prepend to messages.
+                // Set initial focus to message input box.
+                $('#message').focus();
+                // Start the connection.
+                $.connection.hub.start().done(function () {
+                    $('#JoinRoomA').click(function () {
+                        chat.server.joinRoom("RoomA");
+                    });
+                    $('#JoinRoomB').click(function () {
+                        chat.server.joinRoom("RoomB");
+                    });
+                    $('#sendmessageA').click(function () {
+                        // Call the Send method on the hub.
+                        chat.server.send("RoomA", $('#displayname').val(), $('#message').val());
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    });
+                    $('#sendmessageB').click(function () {
+                        // Call the Send method on the hub.
+                        chat.server.send("RoomB", $('#displayname').val(), $('#message').val());
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    });
+                });
+
+            }
         // Reference the auto-generated proxy for the hub.
-        var chat = $.connection.chatHub;
-        console.log(chat);
-        // Create a function that the hub can call back to display messages.
-        chat.client.addNewMessageToPage = function (name, message) {
-            // Add the message to the page.
-            $('#discussion').append('<li><strong>' + htmlEncode(name)
-                + '</strong>: ' + htmlEncode(message) + '</li>');
-        };
-        // Get the user name and store it to prepend to messages.
-        $('#displayname').val(prompt('Enter your name:', ''));
-        // Set initial focus to message input box.
-        $('#message').focus();
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-            $('#sendmessage').click(function () {
-                // Call the Send method on the hub.
-                chat.server.send($('#displayname').val(), $('#message').val());
-                // Clear text box and reset focus for next comment.
-                $('#message').val('').focus();
-            });
-        });
     });
     // This optional function html-encodes messages for display in the page.
     function htmlEncode(value) {
