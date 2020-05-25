@@ -26,7 +26,7 @@ function beatHeart(times) {
 SessionUpdater = (function () {
     var clientMovedSinceLastTimeout = false;
     var keepSessionAliveUrl = null;
-    var timeout = 2 * 1000 * 60; // 5 minutes
+    var timeout = 3 * 1000 * 60; // 5 minutes
 
     function setupSessionUpdater(actionUrl) {
         // store local value

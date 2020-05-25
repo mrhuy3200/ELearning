@@ -90,7 +90,8 @@ TestDetailApp.controller('TestDetailController', function ($scope, $http, $windo
             var lstTopicID = $scope.Questions[i].Topics;
             for (var j = 0; j < lstTopicID.length; j++) {
                 $scope.Questions[i]["Hide"] = true;
-                if ($scope.lstTopic.indexOf(lstTopicID[j]) != -1) {
+                var res = $scope.lstTopic.indexOf(lstTopicID[j].ID)
+                if (res != -1) {
                     $scope.Questions[i]["Hide"] = false;
                     break;
                 }
@@ -112,7 +113,7 @@ TestDetailApp.controller('TestDetailController', function ($scope, $http, $windo
         }
     }
     $scope.CheckTopic = function (Index) {
-        var TopicID = $("#check" + Index).val();
+        var TopicID = parseInt($("#check" + Index).val());
         console.log($scope.lstTopic);
         if ($scope.lstTopic.indexOf(TopicID) == -1) {
             $scope.lstTopic.push(TopicID);
@@ -206,8 +207,8 @@ TestDetailApp.controller('TestDetailController', function ($scope, $http, $windo
             if (r.data == 0) {
                 alert("Không đủ quyền hạn");
             }
-            if (r.data == null) {
-                alert("Xảy ra lỗi");
+            if (r.data == -1) {
+                alert("Không đủ câu hỏi");
             }
         });
     }

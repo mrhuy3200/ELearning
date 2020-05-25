@@ -11,11 +11,15 @@
     </div>
     <ul style="padding-left:0px;padding-right:45px;overflow:auto;max-height:215px">
         <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
-            <div class="confirm-checkbox">
-                <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
-                <label for="check{{$index}}"></label>
-                <p style="margin-left:30px">{{t.Name}}</p>
+            <div class="col-md-1">
+                <div class="confirm-checkbox">
+                    <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
+                    <label for="check{{$index}}"></label>
+                </div>
             </div>
+
+            <p class="col-md-8">{{t.Name}}</p>
+
             <p>
                 <a class="text-info" ng-click="SelectTopic($index)"><i class="fa fa-pencil-square-o"></i></a>
                 &nbsp;

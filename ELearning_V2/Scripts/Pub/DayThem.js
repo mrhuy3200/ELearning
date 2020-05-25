@@ -18,6 +18,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
     LoadClass();
     LoadQuestion();
     LoadLession();
+    InitCss();
     $scope.QcurrentPage = 1;
     $scope.QpageSize = 5;
     $scope.CcurrentPage = 1;
@@ -146,7 +147,17 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
     }
+    function InitCss() {
+        var x = document.getElementsByClassName("cke_textarea_inline");
+        x[0].style.border = "1px solid #ced4da";
+        x[0].style.position = "relative";
+        x[0].style.height = "auto";
+        x[0].style.borderRadius = ".25rem";
+        x[0].style.backgroundColor = "snow";
+        x[0].style.minHeight = "44px";
+        x[0].style.padding = "2px 10px";
 
+    }
     $scope.getTheFiles = function ($files) {
         console.log($files);
         angular.forEach($files, function (value, key) {
@@ -168,6 +179,9 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         Type: null
     }
     $scope.DangKy = function (type) {
+        DayThemService.LoadMonHoc().then(function (r) {
+            $scope.MonHocs = r.data;
+        })
         if (type == 1) {
             $scope.lop.Type = 1;
             $scope.lop.Capacity = 15;
@@ -216,7 +230,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         $scope.type = type;
     }
     $scope.Save = function () {
-        var val1,val2,val3;
+        var val1,val2,val3,val4;
         if ($('#file').get(0).files.length === 0) {
             val1 = false;
             $('#CourseImageError').css("display", "block");
@@ -244,9 +258,14 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             $('#CoursePriceError').css("display", "none");
 
         }
+        if ($scope.lop.MaMonHoc == null || $scope.lop.MaMonHoc == '') {
+            val3 = false;
+            $('#CourseMonHocError').css("display", "block");
+
+        }
         if (val1 && val2 && val3) {
             $scope.lop.Price = parseInt($('#PriceInput').val().replace(/\D/g, ""))
-
+            $scope.lop.Description = CKEDITOR.instances.DContent.getData();
             console.log('Save' + JSON.stringify($scope.lop));
             $http({
                 method: 'GET',
@@ -254,6 +273,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             }).then(function (r) {
                 $scope.User = r.data;
                 console.log($scope.User);
+                console.log($scope.lop)
             })
 
             $('#PayConfirm').modal('show');
@@ -533,6 +553,9 @@ DayThemApp.factory('DayThemService', function ($http) {
     };
     fac.RemoveCourse = function (ID) {
         return $http.get('/Lop/RemoveCourse/' + ID);
+    };
+    fac.LoadMonHoc = function () {
+        return $http.get('/Lop/GetListMonHoc');
     };
     fac.RemoveLession = function (LessionDTO) {
         return $http({

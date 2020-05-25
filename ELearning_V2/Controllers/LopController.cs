@@ -410,18 +410,12 @@ namespace ELearning_V2.Controllers
                         co.Name = c.Name;
                         if (c.Type == 2)
                         {
-                            co.Capacity = 45;
+                            c.Capacity = 45;
                         }
                         else
                         {
-                            co.Capacity = null;
+                            c.Capacity = null;
                         }
-                        co.Description = c.Description;
-                        co.Price = c.Price;
-                        co.Schedule = c.Schedule;
-                        co.Condition = c.Condition;
-                        co.Type = c.Type;
-                        co.UserID = User.ID;
                         c.UserID = User.ID;
                         c.Status = 1;
                         db.Courses.Add(c);
@@ -994,7 +988,13 @@ namespace ELearning_V2.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            return Json(ClassService.RandomTestQuestion(c.DeThiID, User.ID, c.SoCauHoi, c.DoKho, c.ChuongID), JsonRequestBehavior.AllowGet);
+            var data = ClassService.RandomTestQuestion(c.DeThiID, User.ID, c.SoCauHoi, c.DoKho, c.ChuongID);
+            if (data != null)
+            {
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(-1, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ChangeQuestionStatus(QuestionDTO q)
@@ -1364,6 +1364,22 @@ namespace ELearning_V2.Controllers
                 return RedirectToAction("Login", "Login");
             }
             return Json(ClassService.AddNotification(n.Name, n.Content, (long)n.CourseID));
+        }
+        public ActionResult GetListMonHoc()
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var lst = db.MonHocs.ToList();
+                List<MonHocDTO> data = new List<MonHocDTO>();
+                foreach (var item in lst)
+                {
+                    MonHocDTO m = new MonHocDTO();
+                    m.ID = item.MaMonHoc;
+                    m.Name = item.TenMonHoc;
+                    data.Add(m);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

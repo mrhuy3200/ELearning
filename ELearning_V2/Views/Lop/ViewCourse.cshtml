@@ -29,6 +29,11 @@
         <div class="container">
             <div class="row course_details_inner">
                 <div class="col-lg-8">
+                    <div class="c_details_img">
+                        <img id="output" class="img-fluid" ng-if="Lop.Image == null" style="width:750px;height:250px;" src="~/Content/img/ClassImage/ClassDefault.jpg" alt="{{Lop.Name}}">
+                        <img id="output" class="img-fluid" ng-if="Lop.Image != null" style="width:750px;height:250px;" src="~/Content/img/ClassImage/{{Lop.Image}}" alt="{{Lop.Name}}">
+                    </div>
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="Description-tab" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Mô tả</a>
@@ -49,7 +54,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
                             <div class="objctive_text">
-                                <p>{{Lop.Description}}</p>
+                                <div ng-bind-html="Lop.FDescription"></div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="Comments" role="tabpanel" aria-labelledby="Comments-tab">
@@ -451,6 +456,26 @@
                             <a class="btn btn-success text-light">Đăng nhập</a>
                         </div>
                     </div>
+                    <div class="p-2 mt-5">
+                        <div class="mb-3">
+                            <strong>Thông báo</strong>
+                        </div>
+                        <div class="list-group" style="overflow:auto;max-height:300px">
+                            <a href="" ng-click="ShowNotiContent($index)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="noti in Notifis">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <strong class="mb-1"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
+                                    <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                </div>
+                                <div class="collapse" id="Noti{{$index}}">
+                                    <p class="mb-1">
+                                        {{noti.Content}}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

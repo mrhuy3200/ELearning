@@ -1,7 +1,7 @@
 ﻿var CoursesApp = angular.module("CoursesApp", ['angularUtils.directives.dirPagination']);
 
 CoursesApp.controller('CoursesController', function ($scope, $http, $window, ) {
-    $scope.CPageSize = 5;
+    $scope.CPageSize = 6;
     $scope.CcurrentPage = 1;
     LoadCourse();
     function LoadCourse() {
