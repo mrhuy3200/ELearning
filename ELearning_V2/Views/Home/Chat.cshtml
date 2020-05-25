@@ -4,14 +4,9 @@
 }
 <h2>Chat</h2>
 <div class="container">
-    <label>@ViewBag.domainName</label>
+    <label><strong id="ConnectID"></strong></label>
     <input type="text" id="message" />
-    <input type="button" id="JoinRoomA" value="Room A" />
-    <input type="button" id="JoinRoomB" value="Room B" />
-
     <input type="button" id="sendmessageA" value="Send" />
-    <input type="button" id="sendmessageB" value="Send" />
-
     <input type="hidden" id="displayname" />
     <ul id="discussion">
     </ul>
@@ -28,8 +23,10 @@
 <script>
     var UserID = @((Session["User"] as ELearning_V2.Models.TaiKhoan) != null ? (Session["User"] as ELearning_V2.Models.TaiKhoan).ID:0)
         $(function () {
+            console.log(UserID)
             if (UserID != 0) {
                 var chat = $.connection.chatHub;
+                $.connection.hub.qs = { 'UserID': UserID, 'CourseID': '38' };
                 console.log(chat);
                 // Create a function that the hub can call back to display messages.
                 chat.client.addChatMessage = function (name, message) {
@@ -46,21 +43,11 @@
                 $('#message').focus();
                 // Start the connection.
                 $.connection.hub.start().done(function () {
-                    $('#JoinRoomA').click(function () {
-                        chat.server.joinRoom("RoomA");
-                    });
-                    $('#JoinRoomB').click(function () {
-                        chat.server.joinRoom("RoomB");
-                    });
+                    $('#ConnectID').val($.connection.hub.id);
+                    console.log(UserID);
                     $('#sendmessageA').click(function () {
                         // Call the Send method on the hub.
-                        chat.server.send("RoomA", $('#displayname').val(), $('#message').val());
-                        // Clear text box and reset focus for next comment.
-                        $('#message').val('').focus();
-                    });
-                    $('#sendmessageB').click(function () {
-                        // Call the Send method on the hub.
-                        chat.server.send("RoomB", $('#displayname').val(), $('#message').val());
+                        chat.server.send($('#message').val());
                         // Clear text box and reset focus for next comment.
                         $('#message').val('').focus();
                     });

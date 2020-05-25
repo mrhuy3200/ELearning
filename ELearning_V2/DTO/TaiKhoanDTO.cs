@@ -18,5 +18,8 @@ namespace ELearning_V2.DTO
         public double Balance { get; set; }
         public string Info { get; set; }
         public string ConnectionID { get; set; }
+
+
+        public long CourseID { get; set; }
     }
 }
