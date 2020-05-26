@@ -173,14 +173,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label"> Mô tả </label>
-                                        <textarea class="form-control" name="Description" ng-model="lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                                        <textarea id="DContent"></textarea>
                                     </div>
 
                                 </div>
                                 <div class="col col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label"> Điều kiện </label>
-                                        <textarea class="form-control" name="Condition" ng-model="lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
+                                        <label class="control-label">Lĩnh vực <span class="small text-danger">(*)</span></label>
+                                        <div class="wrapper">
+                                            <select class="form-control" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' ng-model="lop.MaMonHoc">
+                                                <option value="">Chọn lĩnh vực</option>
+                                                <option value="{{m.ID}}" ng-repeat="m in MonHocs">{{m.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <span id="CourseMonHocError" style="display:none" class="small text-danger">Vui lòng chọn lĩnh vực</span>
                                     </div>
                                     <div class="card-body">
                                         <label class="control-label"> Ảnh lớp <span class="small text-danger">(*)</span></label>
@@ -508,7 +514,7 @@
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/DayThem.js"></script>
 <script src="~/Scripts/Pub/dirPagination.js"></script>
-
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
 
 
 <script>
@@ -520,6 +526,12 @@
         }
         //fileValidation()
     };
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+    var D = CKEDITOR.inline('DContent');
+
 </script>
 <style>
     .h:hover {

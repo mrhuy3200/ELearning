@@ -4,7 +4,17 @@ HomeApp.controller('HomeController', function ($scope, $http, $sce, $window) {
     LoadFreeCourse();
     LoadTopTeacher();
     LoadPublishLession();
-
+    $scope.InitUserID = function (UserID) {
+        $scope.UserID = UserID;
+    }
+    $scope.ViewCourse = function (Course) {
+        if (Course.UserID == $scope.UserID) {
+            $window.location.href = "/Lop/CourseDetail/" + Course.ID;
+        }
+        else {
+            $window.location.href = "/Lop/ViewCourse/" + Course.ID;
+        }
+    }
     function LoadFreeCourse() {
         $http({
             method: 'GET',

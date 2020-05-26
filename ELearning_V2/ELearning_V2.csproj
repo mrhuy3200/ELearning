@@ -1957,6 +1957,9 @@
     <Content Include="Content\img\ClassImage\30.jpg" />
     <Content Include="Content\img\ClassImage\32.jpg" />
     <Content Include="Content\img\ClassImage\33.jpg" />
+    <Content Include="Content\img\ClassImage\36.jpg" />
+    <Content Include="Content\img\ClassImage\37.jpg" />
+    <Content Include="Content\img\ClassImage\38.jpg" />
     <Content Include="Content\img\ClassImage\ClassDefault.jpg" />
     <Content Include="Content\img\ClassImage\course-4.jpg" />
     <Content Include="Content\img\ClassImage\course-5.jpg" />
@@ -2014,6 +2017,7 @@
     <Content Include="Content\img\LessionImage\10022.jpg" />
     <Content Include="Content\img\LessionImage\10023.jpg" />
     <Content Include="Content\img\LessionImage\10024.jpg" />
+    <Content Include="Content\img\LessionImage\10027.jpg" />
     <Content Include="Content\img\LessionImage\11.jpg" />
     <Content Include="Content\img\LessionImage\12.jpg" />
     <Content Include="Content\img\LessionImage\13.jpg" />
@@ -2038,6 +2042,9 @@
     <Content Include="Content\img\testimonials\testi-2.png" />
     <Content Include="Content\img\testimonials\testi-3.png" />
     <Content Include="Content\img\testimonials\testi-bg.jpg" />
+    <Content Include="Content\img\UserImage\100.jpg" />
+    <Content Include="Content\img\UserImage\101.jpg" />
+    <Content Include="Content\img\UserImage\104.jpg" />
     <Content Include="Content\img\UserImage\106.jpg" />
     <Content Include="Content\img\UserImage\98.jpg" />
     <Content Include="Content\img\UserImage\99.jpg" />

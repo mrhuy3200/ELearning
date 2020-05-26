@@ -55,11 +55,14 @@
                         <form class="mt-4">
                             <ul>
                                 <li ng-repeat="new in FAnswers" class="switch-wrap d-flex justify-content-between" onclick="changeInputRadio(this);">
-                                    <div class="confirm-radio">
-                                        <input type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
-                                        <label for="radio{{$index}}"></label>
-                                        <div style="margin-left:30px" ng-bind-html="new">
+                                    <div class="col-md-1">
+                                        <div class="confirm-radio">
+                                            <input type="radio" id="radio{{$index}}" name="RightAnswer" value="{{$index}}" />
+                                            <label for="radio{{$index}}"></label>
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-8" ng-bind-html="new">
                                     </div>
 
                                     <p>
@@ -68,13 +71,14 @@
                                         <a class="text-danger" ng-click="RemoveAnswer($index)"><i class="lnr lnr-trash"></i></a>
                                     </p>
                                 </li>
+
                             </ul>
                         </form>
                     </div>
                     <div class="Question-level col-lg-6" style="height:100px">
                         <div class="col-md-12" style="padding-bottom:60px">
                             <p class="font-weight-bold">Mức độ <span class="text-danger">(*)</span></p>
-                            <select class="float-left" id="Level" onchange="changeInputSelect(this)">
+                            <select class="NSelect float-left" id="Level" onchange="changeInputSelect(this)">
                                 <option value="0">Chọn độ khó</option>
                                 <option value="1">Nhận biết</option>
                                 <option value="2">Thông hiểu</option>
@@ -83,33 +87,7 @@
                             </select>
                             <p id="LevelVal" class="text-danger" style="display:none;">Vui lòng chọn mức độ</p>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <strong class="col-md-12">Chủ đề</strong>
-
-                                <div class="row" style="padding: 10px 0px 15px 30px;">
-                                    <input id="TopicInput" class="form-control col-md-10" type="text" ng-model="TopicName" />
-                                    <div class="col-md-2">
-                                        <a class="btn btn-dark text-success"  ng-click="CreateTopic()"><i class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul style="padding-left:0px;padding-right:45px">
-                                <li ng-repeat="t in Topics" class="switch-wrap d-flex justify-content-between">
-                                    <div class="confirm-checkbox">
-                                        <input type="checkbox" id="check{{$index}}" name="CheckTopic" value="{{t.ID}}" />
-                                        <label for="check{{$index}}"></label>
-                                        <p style="margin-left:30px">{{t.Name}}</p>
-                                    </div>
-                                    <p>
-                                        <a class="text-info" ng-click="SelectTopic($index)"><i class="fa fa-pencil-square-o"></i></a>
-                                        &nbsp;
-                                        <a class="text-danger" ng-click="DeleteTopic($index)"><i class="lnr lnr-trash"></i></a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-
+                        @Html.Partial("_TopicManage")
                     </div>
                 </div>
             </div>

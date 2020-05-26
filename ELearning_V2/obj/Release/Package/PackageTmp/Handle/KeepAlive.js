@@ -10,9 +10,9 @@
 //    );
 //}
 
-
+var intervalH;
 function beatHeart(times) {
-    var interval = setInterval(function () {
+    intervalH = setInterval(function () {
         $(".heartbeat").fadeIn(1000, function () {
             $(".heartbeat").fadeOut(1000);
         });
@@ -26,7 +26,7 @@ function beatHeart(times) {
 SessionUpdater = (function () {
     var clientMovedSinceLastTimeout = false;
     var keepSessionAliveUrl = null;
-    var timeout = 2 * 1000 * 60; // 5 minutes
+    var timeout = 4 * 1000 * 60 + 30000; // 5 minutes
 
     function setupSessionUpdater(actionUrl) {
         // store local value
@@ -70,6 +70,9 @@ SessionUpdater = (function () {
                     console.log("Error posting to " & keepSessionAliveUrl);
                 }
             });
+        }
+        else {
+            clearInterval(intervalH);
         }
     }
 
