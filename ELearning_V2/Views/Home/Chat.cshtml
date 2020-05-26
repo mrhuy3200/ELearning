@@ -29,11 +29,12 @@
                 $.connection.hub.qs = { 'UserID': UserID, 'CourseID': '38' };
                 console.log(chat);
                 // Create a function that the hub can call back to display messages.
-                chat.client.addChatMessage = function (name, message) {
+                chat.client.addChatMessage = function (name, message, time) {
                     // Add the message to the page.
                     $('#discussion').append('<li><strong>' + htmlEncode(name)
-                        + '</strong>: ' + htmlEncode(message) + '</li>');
+                        + '</strong>: ' + htmlEncode(message) + '<span class="small">' + htmlEncode(time) + '</span></li>');
                 };
+
                 chat.client.CreateConnect = function () {
                     // Add the message to the page.
                     chat.server.SaveUser(UserID);
@@ -44,12 +45,18 @@
                 // Start the connection.
                 $.connection.hub.start().done(function () {
                     $('#ConnectID').val($.connection.hub.id);
+                    $('#ChatContent').scrollTop($('#ChatContent').get(0).scrollHeight);
                     console.log(UserID);
                     $('#sendmessageA').click(function () {
                         // Call the Send method on the hub.
-                        chat.server.send($('#message').val());
+                        chat.server.send($('#message').val()).done(function (r) {
+                            if (r) {
+                                $('#discussion').append('<li>' + $('#message').val() + '</li>');
+                                $('#message').val('').focus();
+
+                            }
+                        });
                         // Clear text box and reset focus for next comment.
-                        $('#message').val('').focus();
                     });
                 });
 

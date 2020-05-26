@@ -57,5 +57,6 @@ namespace ELearning_V2.Models
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
         public virtual DbSet<TrangThaiHeThong> TrangThaiHeThongs { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
     }
 }

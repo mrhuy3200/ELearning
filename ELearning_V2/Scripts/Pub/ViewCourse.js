@@ -30,11 +30,11 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
         //$(load1(), load2(), load3(), load4()).done(() => {
         //    console.log("DONE");
         //});
+        CheckRole();
+
         LoadClass(CourseID, LoadComment);
-        LoadNotifi(CourseID);
 
         CheckJoinStatus();
-        CheckRole();
         //downWaiting();
     };
     function initRatinBar() {
@@ -226,18 +226,23 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
         }).then(function (r) {
             $scope.UserRole = r.data;
             console.log("ROLE: " + r.data);
+            LoadNotifi($scope.CourseID);
+
         })
     }
     function LoadNotifi(CourseID) {
-        ViewCourseService.LoadNotifi(CourseID).then(function (d) {
-            for (var i = 0; i < d.data.length; i++) {
-                d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
-            }
-            $scope.Notifis = d.data;
-            console.log("Notifi" + JSON.stringify(d.data));
-        }, function () {
-            alert('Failed !!!');
-        });
+        if ($scope.UserRole != 3) {
+            ViewCourseService.LoadNotifi(CourseID).then(function (d) {
+                for (var i = 0; i < d.data.length; i++) {
+                    d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+                }
+                $scope.Notifis = d.data;
+                console.log("Notifi" + JSON.stringify(d.data));
+            }, function () {
+                alert('Failed !!!');
+            });
+        }
+
 
     }
 

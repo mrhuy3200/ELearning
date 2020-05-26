@@ -357,6 +357,9 @@
     <Compile Include="Models\LopKiemTra.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MonHoc.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
@@ -3653,6 +3656,7 @@
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.min.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
+    <Content Include="Scripts\Pub\ChatRoom.js" />
     <Content Include="Scripts\Pub\CourseDetail.js" />
     <Content Include="Scripts\Pub\Courses.js" />
     <Content Include="Scripts\Pub\CreateLession.js" />
