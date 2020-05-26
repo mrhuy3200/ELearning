@@ -55,7 +55,8 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="Description" role="tabpanel" aria-labelledby="Description-tab">
                         <div class="objctive_text">
-                            <p>{{Lop.Description}}</p>
+                            <div ng-bind-html="Lop.FDescription"></div>
+                            @*<p>{{Lop.Description}}</p>*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="Comments" role="tabpanel" aria-labelledby="Comments-tab">
@@ -527,9 +528,51 @@
                     </ul>
                     <a class="main_btn" href="#" data-toggle="modal" data-target="#Edit" ng-click="SetUpEditCourse()">Chỉnh sửa thông tin</a>
                 </div>
+                <div class="p-2 mt-5">
+                    <div class="mb-3">
+                        <a class="btn btn-dark text-success" ng-click="AddNoti()"><i class="fa fa-plus"></i></a>
+                        <strong>Thông báo</strong>
+                    </div>
+                    <div class="collapse" id="AddNoti">
+                        <div class="p-2 mb-2">
+                            <input class="form-control mb-2" id="NotiName" placeholder="Tên thông báo..." />
+                            <textarea class="form-control" id="NotiContent" placeholder="Nội dung thông báo" onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="list-group" style="overflow:auto;max-height:300px">
+                        <a href="" ng-click="ShowNotiContent($index)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="noti in Notifis">
+                            <div class="d-flex w-100 justify-content-between">
+                                <strong class="mb-1" style="width:74%"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
+                                <div>
+                                    <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                    <i class="fa fa-trash-o" ng-click="RemoveNoti(noti, $index)"></i>
+                                </div>
 
+                            </div>
+                            <div class="collapse" id="Noti{{$index}}">
+                                <p class="mb-1">
+                                    {{noti.Content}}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse p-2" id="ChatArea" style="border:2px solid;border-radius:5px">
+                    <div class="d-flex justify-content-between ">
+                        <strong>Chat Room</strong>
+                        <div>
+                            <a class="btn btn-dark text-danger" id="CloseChatBtn"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div id="ChatContent" class="border mb-1 mt-1 p-2" style="height:300px;overflow:auto">
+                        @*Nội dung chat*@
+                    </div>
+                    <textarea type="text" class="form-control" id="ChatInput" placeholder="Nhập tin nhắn..." onkeyup="textAreaChatAdjust(this)" style="height:40px;overflow:hidden;resize: none;"></textarea>
+                </div>
             </div>
         </div>
+        <a id="StartChat" ><i class="far fa-comment-dots" style="font-size:50px"></i></a>
+
     </div>
 
     <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -543,35 +586,34 @@
                     <form class="form-horizontal row" name="AddNewForm">
                         <div class="col col-md-6">
                             <div class="form-group">
-                                <label class="control-label"> Tên Lớp </label>
+                                <label class="control-label"><strong>Tên Lớp</strong></label>
                                 <input class="form-control" name="Name" ng-model="Lop.Name" type="text" placeholder="Tên lớp ..." required maxlength="50" />
+                                <span id="CourseNameError" style="display:none" class="small text-danger">Vui lòng nhập tên lớp</span>
                             </div>
                             <div class="form-group" ng-if="type != 1">
-                                <label class="control-label"> Học phí </label>
+                                <label class="control-label"><strong>Học phí</strong>  </label>
                                 <input class="form-control" ng-model="Lop.Price" type="text" name="Price" id="PriceInput" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+                                <span id="CoursePriceError" style="display:none" class="small text-danger">Vui lòng nhập học phí</span>
 
                                 @*<input class="form-control" name="Price" ng-model="Lop.Price" type="number" placeholder="Học phí ..." required maxlength="50" />*@
                             </div>
                             <div class="form-group">
-                                <label class="control-label"> Lịch học </label>
+                                <label class="control-label"><strong>Lịch học</strong>  </label>
                                 <input class="form-control" name="Schedule" ng-model="Lop.Schedule" type="text" placeholder="Lịch học ..." required maxlength="50" />
                                 @*<input class="form-control" name="TypeShip" ng-model="Device.TypeShip" type="text" placeholder="Loại tàu ..." required maxlength="50" />*@
                             </div>
                         </div>
                         <div class="col col-md-6">
                             <div class="form-group">
-                                <label class="control-label"> Mô tả </label>
-                                <textarea class="form-control" name="Description" ng-model="Lop.Description" type="text" placeholder="Mô tả ..." required rows="3"></textarea>
+                                <label class="control-label"><strong>Mô tả</strong>  </label>
+                                <textarea id="DContent"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"> Điều kiện </label>
-                                <textarea class="form-control" name="Condition" ng-model="Lop.Condition" type="text" placeholder="Điều kiện ..." required rows="3"></textarea>
-                            </div>
+
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" ng-click="EditCourse()">Save</button>
+                    <button type="button" class="btn btn-primary" id="btnSave" ng-click="EditCourse()">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -636,12 +678,17 @@
 
 </section>
 <script src="~/Content/js/jquery-3.3.1.min.js"></script>
-
 <script src="~/Scripts/angular.js"></script>
-
 <script src="~/Scripts/Pub/CourseDetail.js"></script>
-<script src="~/Scripts/Pub/dirPagination.js"></script>>
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
+<script src="~/Scripts/Pub/dirPagination.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+<script src="~/signalr/hubs"></script>
 <script>
+    var UserID = '@((Session["User"] as ELearning_V2.Models.TaiKhoan).ID)'
+    var CourseID = '@Model.ID'
+    var D = CKEDITOR.inline('DContent');
+
     function ShowBtn() {
         document.getElementById("EditCouseImage").style.display = "Block";
     }
@@ -667,8 +714,30 @@
             // them on the server until the user's session ends.
         }
     }
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+    function textAreaChatAdjust(o) {
+        if ($('#ChatInput').height() < 95) {
+            o.style.height = "1px";
+            o.style.height = (25 + o.scrollHeight) + "px";
+        }
+        else {
+            $('#ChatInput').css('overflow', 'auto');
+        }
+    }
+    var btn = $('#StartChat');
 
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
 </script>
+<script src="~/Scripts/Pub/ChatRoom.js"></script>
 <style>
     #dataTable tr {
         line-height: 40px
@@ -760,10 +829,71 @@
         height: 18px;
         background-color: #f44336;
     }
+    #StartChat {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        border-radius: 4px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: background-color .3s, opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
 
+        #StartChat.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    /* Hide the right column on small screens */
-    .right {
-        display: none;
+    .chat {
+        border: 1px solid;
+        border-bottom-left-radius: 1.3em;
+        border-top-left-radius: 1.3em;
+        border-bottom-right-radius: 1.3em;
+        border-top-right-radius: 1.3em;
+        padding: 6px 12px 7px;
+        background-color: #f1f0f0;
+        float: left;
+        max-width: 200px;
+        overflow-wrap: break-word;
+    }
+
+    .chatWarp {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        border-bottom: 4px solid white;
+    }
+
+    .myChatWarp {
+        display: flex;
+        justify-content: flex-end;
+        border-bottom: 4px solid white;
+    }
+
+    .myChat {
+        border: 1px solid;
+        border-bottom-left-radius: 1.3em;
+        border-top-left-radius: 1.3em;
+        border-bottom-right-radius: 1.3em;
+        border-top-right-radius: 1.3em;
+        padding: 6px 12px 7px;
+        background-color: #0084ff;
+        float: right;
+        max-width: 200px;
+        overflow-wrap: break-word;
+        color: white;
+    }
+
+    .UserChat {
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .huyChat {
     }
 </style>

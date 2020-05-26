@@ -85,6 +85,7 @@
     <Property Name="Condition" Type="nvarchar" MaxLength="2000" />
     <Property Name="Type" Type="int" />
     <Property Name="Rate" Type="float" />
+    <Property Name="MaMonHoc" Type="int" />
   </EntityType>
   <EntityType Name="Course_Lession">
     <Key>
@@ -246,12 +247,32 @@
     <Property Name="MaDeThi" Type="int" />
     <Property Name="ThoiGianThi" Type="int" />
   </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="CourseID" Type="bigint" />
+    <Property Name="UserID" Type="bigint" />
+  </EntityType>
   <EntityType Name="MonHoc">
     <Key>
       <PropertyRef Name="MaMonHoc" />
     </Key>
     <Property Name="MaMonHoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenMonHoc" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" />
+    <Property Name="CourseID" Type="bigint" />
+    <Property Name="CreateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="NguoiDung">
     <Key>
@@ -293,7 +314,7 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NoiDung" Type="nvarchar(max)" />
-    <Property Name="CreateDate" Type="date" />
+    <Property Name="CreateDate" Type="datetime" />
     <Property Name="CreateBy" Type="bigint" Nullable="false" />
     <Property Name="CommentID" Type="bigint" Nullable="false" />
   </EntityType>
@@ -529,6 +550,18 @@
       </Principal>
       <Dependent Role="Course_Lession">
         <PropertyRef Name="LessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_MonHoc">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="MaMonHoc" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -870,6 +903,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Message_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notifications_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_NguoiDung_TaiKhoan">
     <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
     <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
@@ -1113,7 +1182,9 @@
     <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LopBaiGiang" EntityType="Self.LopBaiGiang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LopKiemTra" EntityType="Self.LopKiemTra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question_Topic" EntityType="Self.Question_Topic" Schema="dbo" store:Type="Tables" />
@@ -1173,6 +1244,10 @@
     <AssociationSet Name="FK_Course_Lession_Lession" Association="Self.FK_Course_Lession_Lession">
       <End Role="Lession" EntitySet="Lession" />
       <End Role="Course_Lession" EntitySet="Course_Lession" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_MonHoc" Association="Self.FK_Course_MonHoc">
+      <End Role="MonHoc" EntitySet="MonHoc" />
+      <End Role="Course" EntitySet="Course" />
     </AssociationSet>
     <AssociationSet Name="FK_Course_NguoiDung" Association="Self.FK_Course_NguoiDung">
       <End Role="NguoiDung" EntitySet="NguoiDung" />
@@ -1277,6 +1352,18 @@
     <AssociationSet Name="FK_LopKiemTra_MonHoc" Association="Self.FK_LopKiemTra_MonHoc">
       <End Role="MonHoc" EntitySet="MonHoc" />
       <End Role="LopKiemTra" EntitySet="LopKiemTra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Course" Association="Self.FK_Message_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_NguoiDung" Association="Self.FK_Message_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_Course" Association="Self.FK_Notifications_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Notifications" EntitySet="Notifications" />
     </AssociationSet>
     <AssociationSet Name="FK_NguoiDung_TaiKhoan" Association="Self.FK_NguoiDung_TaiKhoan">
       <End Role="TaiKhoan" EntitySet="TaiKhoan" />

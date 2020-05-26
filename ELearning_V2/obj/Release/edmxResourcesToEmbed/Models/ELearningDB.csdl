@@ -236,6 +236,24 @@
       <End Role="BaiGiang" EntitySet="BaiGiangs" />
       <End Role="Lop" EntitySet="Lops" />
     </AssociationSet>
+    <EntitySet Name="Notifications" EntityType="ELearningModel.Notification" />
+    <AssociationSet Name="FK_Notifications_Course" Association="ELearningModel.FK_Notifications_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_MonHoc" Association="ELearningModel.FK_Course_MonHoc">
+      <End Role="MonHoc" EntitySet="MonHocs" />
+      <End Role="Course" EntitySet="Courses" />
+    </AssociationSet>
+    <EntitySet Name="Messages" EntityType="ELearningModel.Message" />
+    <AssociationSet Name="FK_Message_Course" Association="ELearningModel.FK_Message_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_NguoiDung" Association="ELearningModel.FK_Message_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Answer">
     <Key>
@@ -340,6 +358,10 @@
     <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Course_NguoiDung" FromRole="Course" ToRole="NguoiDung" />
     <NavigationProperty Name="CourseDetails" Relationship="ELearningModel.FK_CourseDetail_Course" FromRole="Course" ToRole="CourseDetail" />
     <NavigationProperty Name="Tests" Relationship="ELearningModel.FK_Test_Course" FromRole="Course" ToRole="Test" />
+    <NavigationProperty Name="Notifications" Relationship="ELearningModel.FK_Notifications_Course" FromRole="Course" ToRole="Notification" />
+    <Property Name="MaMonHoc" Type="Int32" />
+    <NavigationProperty Name="MonHoc" Relationship="ELearningModel.FK_Course_MonHoc" FromRole="Course" ToRole="MonHoc" />
+    <NavigationProperty Name="Messages" Relationship="ELearningModel.FK_Message_Course" FromRole="Course" ToRole="Message" />
   </EntityType>
   <EntityType Name="Course_Lession">
     <Key>
@@ -520,6 +542,7 @@
     <NavigationProperty Name="GiangViens" Relationship="ELearningModel.FK_GiangVien_MonHoc" FromRole="MonHoc" ToRole="GiangVien" />
     <NavigationProperty Name="Lops" Relationship="ELearningModel.FK_Lop_MonHoc1" FromRole="MonHoc" ToRole="Lop" />
     <NavigationProperty Name="LopKiemTras" Relationship="ELearningModel.FK_LopKiemTra_MonHoc" FromRole="MonHoc" ToRole="LopKiemTra" />
+    <NavigationProperty Name="Courses" Relationship="ELearningModel.FK_Course_MonHoc" FromRole="MonHoc" ToRole="Course" />
   </EntityType>
   <EntityType Name="NguoiDung">
     <Key>
@@ -541,6 +564,7 @@
     <NavigationProperty Name="TestDetails" Relationship="ELearningModel.FK_TestDetail_NguoiDung" FromRole="NguoiDung" ToRole="TestDetail" />
     <NavigationProperty Name="TestResults" Relationship="ELearningModel.FK_TestResult_NguoiDung" FromRole="NguoiDung" ToRole="TestResult" />
     <NavigationProperty Name="Topics" Relationship="ELearningModel.FK_Topic_NguoiDung" FromRole="NguoiDung" ToRole="Topic" />
+    <NavigationProperty Name="Messages" Relationship="ELearningModel.FK_Message_NguoiDung" FromRole="NguoiDung" ToRole="Message" />
   </EntityType>
   <EntityType Name="Question">
     <Key>
@@ -577,7 +601,7 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CreateDate" Type="DateTime" Precision="0" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="CreateBy" Type="Int64" Nullable="false" />
     <Property Name="CommentID" Type="Int64" Nullable="false" />
     <NavigationProperty Name="Comment" Relationship="ELearningModel.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
@@ -1302,5 +1326,76 @@
   <Association Name="LopBaiGiang">
     <End Type="ELearningModel.BaiGiang" Role="BaiGiang" Multiplicity="*" />
     <End Type="ELearningModel.Lop" Role="Lop" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CourseID" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Notifications_Course" FromRole="Notification" ToRole="Course" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_Notifications_Course">
+    <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ELearningModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_MonHoc">
+    <End Type="ELearningModel.MonHoc" Role="MonHoc" Multiplicity="0..1" />
+    <End Type="ELearningModel.Course" Role="Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CourseID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <NavigationProperty Name="Course" Relationship="ELearningModel.FK_Message_Course" FromRole="Message" ToRole="Course" />
+    <NavigationProperty Name="NguoiDung" Relationship="ELearningModel.FK_Message_NguoiDung" FromRole="Message" ToRole="NguoiDung" />
+  </EntityType>
+  <Association Name="FK_Message_Course">
+    <End Type="ELearningModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="ELearningModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_NguoiDung">
+    <End Type="ELearningModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+    <End Type="ELearningModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

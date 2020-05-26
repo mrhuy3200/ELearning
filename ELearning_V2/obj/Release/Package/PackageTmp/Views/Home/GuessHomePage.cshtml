@@ -15,7 +15,7 @@
         </div>
     </div>
 </section>
-<div ng-app="HomeApp" ng-controller="HomeController">
+<div ng-app="HomeApp" ng-controller="HomeController" ng-init="InitUserID('@((Session["User"] as ELearning_V2.Models.TaiKhoan) == null?0:(Session["User"] as ELearning_V2.Models.TaiKhoan).ID)')">
     <section class="courses_area p_120">
         <div class="container">
             <div class="main_title">
@@ -29,8 +29,9 @@
                             <img height="270" src="~/Content/img/ClassImage/{{c.Image}}" alt="">
                             <div class="hover_text">
                                 <a class="cat">Free</a>
-                                <a href="/Lop/ViewCourse/{{c.ID}}"><h4>{{c.Name}}</h4></a>
-                                <ul class="list">
+
+                                <a ng-click="ViewCourse(c)"><h4 class="text-contrast" role='textbox' aria-multiline='true'>{{c.Name}}</h4></a>
+                                <ul class="text-contrast list">
                                     <li ng-if="c.Type != 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}/{{c.Capacity}}</a></li>
                                     <li ng-if="c.Type == 3"><a href="#"><i class="lnr lnr-users"></i> {{c.NumOfPeo}}</a></li>
                                     <li><a href="#"><i class="lnr lnr-bubble"></i> {{c.Comments}}</a></li>
@@ -96,3 +97,11 @@
 </div>
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Pub/Home.js"></script>
+<style>
+    .text-contrast {
+        color: white;
+        mix-blend-mode: difference;
+        font: 900 20px/20px cookie, cursive;
+        text-align: left;
+    }
+</style>

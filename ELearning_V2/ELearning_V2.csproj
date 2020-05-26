@@ -357,6 +357,9 @@
     <Compile Include="Models\LopKiemTra.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MonHoc.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
@@ -1954,6 +1957,9 @@
     <Content Include="Content\img\ClassImage\30.jpg" />
     <Content Include="Content\img\ClassImage\32.jpg" />
     <Content Include="Content\img\ClassImage\33.jpg" />
+    <Content Include="Content\img\ClassImage\36.jpg" />
+    <Content Include="Content\img\ClassImage\37.jpg" />
+    <Content Include="Content\img\ClassImage\38.jpg" />
     <Content Include="Content\img\ClassImage\ClassDefault.jpg" />
     <Content Include="Content\img\ClassImage\course-4.jpg" />
     <Content Include="Content\img\ClassImage\course-5.jpg" />
@@ -2011,6 +2017,7 @@
     <Content Include="Content\img\LessionImage\10022.jpg" />
     <Content Include="Content\img\LessionImage\10023.jpg" />
     <Content Include="Content\img\LessionImage\10024.jpg" />
+    <Content Include="Content\img\LessionImage\10027.jpg" />
     <Content Include="Content\img\LessionImage\11.jpg" />
     <Content Include="Content\img\LessionImage\12.jpg" />
     <Content Include="Content\img\LessionImage\13.jpg" />
@@ -2035,6 +2042,9 @@
     <Content Include="Content\img\testimonials\testi-2.png" />
     <Content Include="Content\img\testimonials\testi-3.png" />
     <Content Include="Content\img\testimonials\testi-bg.jpg" />
+    <Content Include="Content\img\UserImage\100.jpg" />
+    <Content Include="Content\img\UserImage\101.jpg" />
+    <Content Include="Content\img\UserImage\104.jpg" />
     <Content Include="Content\img\UserImage\106.jpg" />
     <Content Include="Content\img\UserImage\98.jpg" />
     <Content Include="Content\img\UserImage\99.jpg" />
@@ -3653,6 +3663,7 @@
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\ng-file-upload.min.js" />
     <Content Include="Scripts\ng-file-upload-bower-12.2.12\package.js" />
+    <Content Include="Scripts\Pub\ChatRoom.js" />
     <Content Include="Scripts\Pub\CourseDetail.js" />
     <Content Include="Scripts\Pub\Courses.js" />
     <Content Include="Scripts\Pub\CreateLession.js" />

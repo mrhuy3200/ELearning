@@ -22,6 +22,7 @@ namespace ELearning_V2.Models
             this.CourseDetails = new HashSet<CourseDetail>();
             this.Tests = new HashSet<Test>();
             this.Notifications = new HashSet<Notification>();
+            this.Messages = new HashSet<Message>();
         }
     
         public long ID { get; set; }
@@ -50,5 +51,7 @@ namespace ELearning_V2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual MonHoc MonHoc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }
