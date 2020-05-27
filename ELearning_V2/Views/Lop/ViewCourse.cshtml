@@ -484,6 +484,21 @@
                         </div>
                         <div id="ChatContent" class="border mb-1 mt-1 p-2" style="height:300px;overflow:auto">
                             @*Nội dung chat*@
+                            @*<div class="myChatWarp huyChat ">
+                                <div class="position-relative">
+                                    <div class="chat myChat" onmouseover="console.log(ShowInfo(1))" onmouseout="console.log(HideInfo(1))">aaaaaaaaaaaaaaaa</div>
+                                    <div id="chatTime1" class="text-left MychatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
+                                </div>
+                            </div>
+                            <div class="chatWarp huyChat position-relative" >
+                                <div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/101.jpg"></div>
+                                <div class="">
+                                    <div id="chatUser2" class="text-left"><span class="small">Phan Trọng Tấn</span></div>
+                                    <div class="chat" onmouseover="console.log(ShowInfo(2))" onmouseout="console.log(HideInfo(2))">1st chat nhé</div>
+                                    <div id="chatTime2" class="text-left chatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
+
+                                </div>
+                            </div>*@
                         </div>
                         <textarea type="text" class="form-control" id="ChatInput" placeholder="Nhập tin nhắn..." onkeyup="textAreaChatAdjust(this)" style="height:40px;overflow:hidden;resize: none;"></textarea>
                     </div>
@@ -766,7 +781,27 @@
         border-radius: 50%;
         overflow: hidden;
     }
-
+    .chatTime {
+        position: absolute;
+        display: none;
+        left: 140px;
+        top: 30px;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+        padding: 0px 5px 0px 5px;
+    }
+    .MychatTime {
+        position: absolute;
+        display: none;
+        right: 0;
+        top: 6px;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+        width: max-content;
+        padding: 0px 5px 0px 5px;
+    }
     .huyChat {
     }
 </style>

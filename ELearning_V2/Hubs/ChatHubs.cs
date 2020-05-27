@@ -27,8 +27,11 @@ namespace SignalRChat
                     data.UserID = connect.ID;
                     db.Messages.Add(data);
                     db.SaveChanges();
+                    var msgID = db.Messages.OrderByDescending(x => x.ID).FirstOrDefault().ID;
+                    Clients.Group(connect.CourseID.ToString(), Context.ConnectionId).addChatMessage(connect.Fullname, connect.ID, message, DateTime.Now.ToString("dd/MM HH:mm"), msgID);
+                    Clients.Client(Context.ConnectionId).addChatMessageToMe(message, DateTime.Now.ToString("dd/MM HH:mm"), msgID);
+
                 }
-                Clients.Group(connect.CourseID.ToString(), Context.ConnectionId).addChatMessage(connect.Fullname,connect.ID, message, DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                 return true;
             }
             return false;
@@ -64,11 +67,11 @@ namespace SignalRChat
                         {
                             if (item.UserID == UserID)
                             {
-                                Clients.Client(Context.ConnectionId).addChatMessageToMe(item.Content, item.CreateDate.ToString());
+                                Clients.Client(Context.ConnectionId).addChatMessageToMe(item.Content, item.CreateDate.Value.ToString("dd/MM HH:mm"), item.ID);
                             }
                             else
                             {
-                                Clients.Client(Context.ConnectionId).addChatMessage(item.NguoiDung.HoVaTen, item.NguoiDung.ID, item.Content, item.CreateDate.ToString());
+                                Clients.Client(Context.ConnectionId).addChatMessage(item.NguoiDung.HoVaTen, item.NguoiDung.ID, item.Content, item.CreateDate.Value.ToString("dd/MM HH:mm"), item.ID);
                             }
                         }
                     }
@@ -85,12 +88,12 @@ namespace SignalRChat
                     {
                         if (item.UserID == UserID)
                         {
-                            Clients.Client(Context.ConnectionId).addChatMessageToMe(item.Content, item.CreateDate.ToString());
+                            Clients.Client(Context.ConnectionId).addChatMessageToMe(item.Content, item.CreateDate.Value.ToString("dd/MM HH:mm"), item.ID);
 
                         }
                         else
                         {
-                            Clients.Client(Context.ConnectionId).addChatMessage(item.NguoiDung.HoVaTen, item.NguoiDung.ID, item.Content, item.CreateDate.ToString());
+                            Clients.Client(Context.ConnectionId).addChatMessage(item.NguoiDung.HoVaTen, item.NguoiDung.ID, item.Content, item.CreateDate.Value.ToString("dd/MM HH:mm"), item.ID);
 
                         }
                     }
