@@ -17,11 +17,17 @@ $('#StartChat').click(function () {
         if (UserID != 0) {
             var chat = $.connection.chatHub;
             $.connection.hub.qs = { 'UserID': UserID, 'CourseID': CourseID };
-            chat.client.addChatMessage = function (name, ID, message, time) {
-                $('#ChatContent').append('<div class="chatWarp huyChat"><div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/' + ID + '.jpg" /></div ><div><div><span class="small">' + name + '</span></div><div class="chat">' + message + '</div></div ></div>');
+            chat.client.addChatMessage = function (name, ID, message, time, msgID) {
+                $('#ChatContent').append('<div class="chatWarp huyChat position-relative"><div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/' + ID + '.jpg"></div><div><div id="chatUser' + msgID + '" class="text-left"><span class="small">' + name + '</span></div><div id="chatContent' + msgID + '" class="chat" onmouseover="console.log(ShowInfo(' + msgID + '))" onmouseout="console.log(HideInfo(' + msgID + '))">' + message + '</div><div id="chatTime' + msgID + '" class="text-left chatTime" style="display:none"><span class="small">' + time + '</span></div></div></div >');
+                $('#chatTime' + msgID).css('left', ($('#chatContent' + msgID).outerWidth() + 35) + 'px'); 
+
+                //$('#ChatContent').append('<div class="chatWarp huyChat"><div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/' + ID + '.jpg" /></div ><div><div><span class="small">' + name + '</span></div><div class="chat">' + message + '</div></div ></div>');
             };
-            chat.client.addChatMessageToMe = function (message, time) {
-                $('#ChatContent').append('<div class="myChatWarp huyChat"><div class="chat myChat">' + message + '</div></div>');
+            chat.client.addChatMessageToMe = function (message, time, msgID) {
+                $('#ChatContent').append('<div class="myChatWarp huyChat position-relative"><div><div id="chatContent' + msgID + '" class="chat myChat" onmouseover="ShowInfo(' + msgID + ')" onmouseout="HideInfo(' + msgID + ')">' + message + '</div><div id="chatTime' + msgID + '" class="text-left MychatTime" style="display:none"><span class="small">' + time + '</span></div></div ></div >');
+
+                $('#chatTime' + msgID).css('right', ($('#chatContent' + msgID).outerWidth()+5)+'px'); 
+                //$('#ChatContent').append('<div class="myChatWarp huyChat"><div class="chat myChat">' + message + '</div></div>');
             };
             $('#ChatInput').focus();
             $.connection.hub.start().done(function () {
@@ -35,7 +41,7 @@ $('#StartChat').click(function () {
                             console.log(msg.val());
                             chat.server.send(msg.val()).done(function (r) {
                                 if (r) {
-                                    $('#ChatContent').append('<div class="myChatWarp huyChat"><div class="chat myChat">' + msg.val() + '</div></div>');
+                                    //$('#ChatContent').append('<div class="myChatWarp huyChat"><div class="chat myChat">' + msg.val() + '</div></div>');
                                     msg.val('').focus();
                                     $('#ChatInput').height(26);
                                     $('#ChatContent').scrollTop($('#ChatContent').get(0).scrollHeight);
@@ -53,4 +59,11 @@ $('#StartChat').click(function () {
 function htmlEncode(value) {
     var encodedValue = $('<div />').text(value).html();
     return encodedValue;
+}
+function ShowInfo(id) {
+    $('#chatTime' + id).css('display', 'block');
+}
+function HideInfo(id) {
+    $('#chatTime' + id).css('display', 'none');
+
 }
