@@ -39,7 +39,18 @@ $('#StartChat').click(function () {
                         var msg = $('#ChatInput');
                         if (msg.val().length > 0) {
                             console.log(msg.val());
-                            chat.server.send(msg.val()).done(function (r) {
+                            var matches = msg.val().match(/\bhttps?:\/\/\S+/gi);
+                            if (matches != null) {
+                                for (var i = 0; i < matches.length; i++) {
+                                    console.log(matches[i]);
+
+                                    var url = '<a class="text-light" href="' + matches[i] + '">' + matches[i] + '</a>';
+                                    var str = msg.val().replace(matches[i], url);
+                                }
+
+                            }
+                            console.log(str);
+                            chat.server.send(str).done(function (r) {
                                 if (r) {
                                     //$('#ChatContent').append('<div class="myChatWarp huyChat"><div class="chat myChat">' + msg.val() + '</div></div>');
                                     msg.val('').focus();
