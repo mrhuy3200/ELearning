@@ -364,6 +364,9 @@
     <Compile Include="Models\Notification.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationFile.cs">
+      <DependentUpon>ELearningDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Question.cs">
       <DependentUpon>ELearningDB.tt</DependentUpon>
     </Compile>
@@ -2037,6 +2040,7 @@
     <Content Include="Content\img\testimonials\testi-2.png" />
     <Content Include="Content\img\testimonials\testi-3.png" />
     <Content Include="Content\img\testimonials\testi-bg.jpg" />
+    <Content Include="Content\img\UserImage\1.jpg" />
     <Content Include="Content\img\UserImage\100.jpg" />
     <Content Include="Content\img\UserImage\101.jpg" />
     <Content Include="Content\img\UserImage\104.jpg" />
@@ -2621,13 +2625,6 @@
     <Content Include="Assets\HomePage\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\HomePage\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\HomePage\fonts\glyphicons-halflings-regular.woff" />
-    <EntityDeploy Include="Models\ELearningDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ELearningDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ELearningDB.edmx.diagram">
-      <DependentUpon>ELearningDB.edmx</DependentUpon>
-    </Content>
     <Content Include="Assets\Plugin\MathJax-src-master\.github\FUNDING.yml" />
     <Content Include="Assets\Plugin\MathJax-src-master\.github\ISSUE_TEMPLATE\bug_report.md" />
     <Content Include="Assets\Plugin\MathJax-src-master\.github\ISSUE_TEMPLATE\feature_request.md" />
@@ -2821,6 +2818,13 @@
     <Content Include="Content\MDB-Free_4.17.0\scss\_custom-styles.scss" />
     <Content Include="Content\MDB-Free_4.17.0\scss\_custom-variables.scss" />
     <Content Include="Content\MDB-Free_4.17.0\Useful_Resources.pdf" />
+    <EntityDeploy Include="Models\ELearningDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ELearningDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ELearningDB.edmx.diagram">
+      <DependentUpon>ELearningDB.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Elearning.pubxml" />
     <None Include="Properties\PublishProfiles\ELearningV2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -3746,6 +3750,7 @@
     <Folder Include="Assets\Avatar\" />
     <Folder Include="Assets\LopIMG\" />
     <Folder Include="Assets\Upload\" />
+    <Folder Include="Content\Files\Notification\" />
     <Folder Include="Content\img\courses\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\asdasd\" />

@@ -235,8 +235,18 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
             ViewCourseService.LoadNotifi(CourseID).then(function (d) {
                 for (var i = 0; i < d.data.length; i++) {
                     d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+                    d.data[i].Content = $sce.trustAsHtml(d.data[i].Content);
+
                 }
                 $scope.Notifis = d.data;
+                setTimeout(function () {
+                    for (var i = 0; i < d.data.length; i++) {
+                        for (var j = 0; j < d.data[i].Files.length; j++) {
+                            document.getElementById("notifile" + d.data[i].ID + "_" + j).href = "../../Content/Files/Notification/" + d.data[i].ID + "/" + d.data[i].Files[j];
+                        }
+                    }
+                }, 500);
+
                 console.log("Notifi" + JSON.stringify(d.data));
             }, function () {
                 alert('Failed !!!');
@@ -344,7 +354,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
                 alert("Đăng ký thành công");
                 $window.location.reload(true);
             }
-            if (r.data == false) {
+            if (r.data == 3) {
                 alert("Số dư không đủ")
             }
             if (r.data == -1) {

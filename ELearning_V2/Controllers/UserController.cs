@@ -5,6 +5,7 @@ using ELearning_V2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 
@@ -243,6 +244,33 @@ namespace ELearning_V2.Controllers
                 db.SaveChanges();
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
+        }
+        [HttpGet]
+        public ActionResult CheckEmail(string Email)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (User == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            using (ELearningDB db = new ELearningDB())
+            {
+                var data = db.TaiKhoans.Where(x => x.NguoiDung.Email == Email).FirstOrDefault();
+                if (db.NguoiDungs.Find(User.ID).Email == Email)
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    if (data == null)
+                    {
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
         }
     }
 }

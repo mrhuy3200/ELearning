@@ -12,5 +12,6 @@ namespace ELearning_V2.DTO
         public string Content { get; set; }
         public Nullable<long> CourseID { get; set; }
         public DateTime? CreateDate { get; set; }
+        public List<string> Files { get; set; }
     }
 }

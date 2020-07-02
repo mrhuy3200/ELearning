@@ -453,7 +453,7 @@
                         <a id="JoinBtn" class="main_btn text-light" ng-if="JoinStatus != 1" ng-click="Join()">Đăng ký</a>
                         <div id="JoinAlert" class="alert alert-danger mt-3 text-center" style="display:none">
                             <p class="bold">Bạn cần đăng nhập để thực hiện việc này!!!</p>
-                            <a class="btn btn-success text-light">Đăng nhập</a>
+                            <a class="btn btn-success text-light" href="/Login/login">Đăng nhập</a>
                         </div>
                     </div>
                     <div class="p-2 mt-5">
@@ -466,10 +466,10 @@
                                     <strong class="mb-1"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
                                     <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
                                 </div>
-                                <div class="collapse" id="Noti{{$index}}">
-                                    <p class="mb-1">
+                                <div class="collapse" id="Noti{{$index}}" ng-bind-html="noti.Content">
+                                    @*<p class="mb-1">
                                         {{noti.Content}}
-                                    </p>
+                                    </p>*@
                                 </div>
                             </a>
                         </div>
@@ -527,7 +527,7 @@
                                     <strong>Xác nhận đăng ký</strong>
                                     <div>
                                         <a class="btn btn-success text-light" ng-click="Regist()">Xác nhận</a>
-                                        <a class="btn btn-dark text-light">Hủy bỏ</a>
+                                        <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
                                     </div>
                                 </div>
                             </div>
@@ -547,8 +547,8 @@
                         <form class="form-horizontal row" name="AddNewForm">
                             <div class="col-md-6">
                                 <p><strong>Tên bài test</strong>: {{TestInfo.Name}}</p>
-                                <p><strong>Số câu hỏi</strong>: {{TestInfo.AmountQuestion}}</p>
-                                <p><strong>Thời gian</strong>: {{TestInfo.Time}}</p>
+                                <p><strong>Số câu hỏi</strong>: {{TestInfo.AmountQuestion}} câu</p>
+                                <p><strong>Thời gian</strong>: {{TestInfo.Time}} phút</p>
                             </div>
                             <div class="col-md-6">
                                 <div>
@@ -585,7 +585,7 @@
 <script src="~/Scripts/Pub/dirPagination.js"></script>
 <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
 <script src="~/signalr/hubs"></script>
-
+<script src="~/Assets/Plugin/ckeditor_Mod/ckeditor.js"></script>
 <script>
     var UserID = '@ViewBag.UserID';
     var CourseID = '@ViewBag.CourseID';
@@ -803,5 +803,9 @@
         padding: 0px 5px 0px 5px;
     }
     .huyChat {
+    }
+    .link {
+        color: black;
+        text-decoration: underline;
     }
 </style>

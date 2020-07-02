@@ -16,6 +16,7 @@ CourseDetailApp.directive('ngFiles', ['$parse', function ($parse) {
 CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $http, $window, CourseDetailService) {
     runWaiting();
     var formdata = new FormData();
+    var Notifile;
     $scope.ID = function (id) {
         $scope.LcurrentPage = 1;
         $scope.LpageSize = 5;
@@ -162,8 +163,16 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         CourseDetailService.LoadNotifi(CourseID).then(function (d) {
             for (var i = 0; i < d.data.length; i++) {
                 d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+                d.data[i].Content = $sce.trustAsHtml(d.data[i].Content);
             }
             $scope.Notifis = d.data;
+            setTimeout(function () {
+                for (var i = 0; i < d.data.length; i++) {
+                    for (var j = 0; j < d.data[i].Files.length; j++) {
+                        document.getElementById("notifile" + d.data[i].ID + "_" + j).href = "~/Content/Files/Notification/" + d.data[i].ID + "/" + d.data[i].Files[j];
+                    }
+                }
+            }, 500);
             console.log("Notifi" + JSON.stringify(d.data));
         }, function () {
             alert('Failed !!!');
@@ -285,6 +294,13 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         x[0].style.padding = "2px 10px";
 
     }
+    $scope.getNotiFiles = function ($files) {
+        console.log($files);
+        Notifile = $files;
+        console.log('Notifile');
+        console.log(Notifile);
+    };
+
     $scope.AddNoti = function () {
         var name = $('#NotiName');
         var content = $('#NotiContent');
@@ -307,19 +323,72 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
                     content.addClass("border border-danger");
                 }
                 if (name.val() != '' && content.val() != '') {
+                    var msg = $('#NotiContent');
+                    var str = '<p>' + msg.val() + '</p>';
+                    var matches = msg.val().match(/\bhttps?:\/\/\S+/gi);
+                    if (matches != null) {
+                        for (var i = 0; i < matches.length; i++) {
+                            console.log(matches[i]);
+
+                            var url = '<a class="link" href="' + matches[i] + '">' + matches[i] + '</a>';
+                            var str = msg.val().replace(matches[i], url);
+                            console.log(str);
+                        }
+
+                    }
+
+                    const selectedFile = document.getElementById('Notifile').files;
+                    var FileName = [];
+                    for (var i = 0; i < selectedFile.length; i++) {
+                        FileName.push(selectedFile[i].name);
+                    }
                     var NotificationDTO = {
                         Name: $('#NotiName').val(),
-                        Content: $('#NotiContent').val(),
-                        CourseID: $scope.CourseID
+                        Content: str,
+                        CourseID: $scope.CourseID,
+                        Files: FileName
                     }
                     CourseDetailService.AddNoti(NotificationDTO).then(function (r) {
-                        if (r.data == 1) {
-                            LoadNotifi($scope.CourseID);
-                            name.val('');
-                            content.val('');
-                            name.removeClass("border border-danger");
-                            content.removeClass("border border-danger");
-                            noti.collapse('toggle');
+                        if (r.data > 0) {
+                            if (selectedFile.length > 0) {
+                                var Notidata = new FormData();
+                                for (var i = 0; i < Notifile.length; i++) {
+                                    Notidata.append(i, Notifile[i]);
+                                }
+                                Notidata.append('NotiID', r.data);
+                                $.ajax({
+                                    url: '/Lop/UploadNotiFiles',
+                                    type: "POST",
+                                    contentType: false, // Not to set any content header  
+                                    processData: false, // Not to process data  
+                                    data: Notidata,
+                                    async: false,
+                                    success: function (result) {
+                                        if (result != "") {
+                                            LoadNotifi($scope.CourseID);
+                                            name.val('');
+                                            content.val('');
+                                            document.getElementById("Notifile").value = "";
+                                            name.removeClass("border border-danger");
+                                            content.removeClass("border border-danger");
+                                            noti.collapse('toggle');
+                                        }
+                                    },
+                                    error: function (err) {
+                                        alert(err.statusText);
+                                    }
+                                });  
+                            }
+                            else {
+                                LoadNotifi($scope.CourseID);
+                                name.val('');
+                                content.val('');
+                                document.getElementById("Notifile").value = "";
+                                name.removeClass("border border-danger");
+                                content.removeClass("border border-danger");
+                                noti.collapse('toggle');
+
+                            }
 
                         }
                         else {
@@ -708,7 +777,6 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
             alert(response.data);
         });
     };
-
 
 
 

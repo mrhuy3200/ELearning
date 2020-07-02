@@ -235,6 +235,8 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
             ViewCourseService.LoadNotifi(CourseID).then(function (d) {
                 for (var i = 0; i < d.data.length; i++) {
                     d.data[i].CreateDate = new Date(parseInt((d.data[i].CreateDate).substr(6)));
+                    d.data[i].Content = $sce.trustAsHtml(d.data[i].Content);
+
                 }
                 $scope.Notifis = d.data;
                 console.log("Notifi" + JSON.stringify(d.data));
@@ -344,7 +346,7 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
                 alert("Đăng ký thành công");
                 $window.location.reload(true);
             }
-            if (r.data == false) {
+            if (r.data == 3) {
                 alert("Số dư không đủ")
             }
             if (r.data == -1) {

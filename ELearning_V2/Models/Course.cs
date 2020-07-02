@@ -20,9 +20,9 @@ namespace ELearning_V2.Models
             this.Comments = new HashSet<Comment>();
             this.Course_Lession = new HashSet<Course_Lession>();
             this.CourseDetails = new HashSet<CourseDetail>();
-            this.Tests = new HashSet<Test>();
-            this.Notifications = new HashSet<Notification>();
             this.Messages = new HashSet<Message>();
+            this.Notifications = new HashSet<Notification>();
+            this.Tests = new HashSet<Test>();
         }
     
         public long ID { get; set; }
@@ -43,15 +43,15 @@ namespace ELearning_V2.Models
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course_Lession> Course_Lession { get; set; }
+        public virtual MonHoc MonHoc { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseDetail> CourseDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Test> Tests { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual MonHoc MonHoc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }

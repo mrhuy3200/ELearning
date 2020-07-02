@@ -64,7 +64,9 @@ EditLessionApp.controller('EditLessionController', function ($scope, $http, $win
     $scope.save = function () {
         //var a = angular.element("#Content").val();
         var url = $scope.Lession.URL;
-        $scope.Lession.URL = url.replace("watch?v=", "embed/");
+        if (url != '' && url != null) {
+            $scope.Lession.URL = url.replace("watch?v=", "embed/");
+        }
         $scope.Lession.Content = CKEDITOR.instances.Content.getData();
         var Topics = [];
         var lstTopic = $("input[name='CheckTopic']:checked");

@@ -92,7 +92,7 @@ namespace ELearning_V2.Areas.Admin.Controllers
         {
             using (ELearningDB db = new ELearningDB())
             {
-                var lstAcc = db.TaiKhoans.OrderBy(x => x.TrangThai).ThenBy(a => a.Role).ThenBy(x => x.ID);
+                var lstAcc = db.TaiKhoans.OrderBy(x => x.Role).ThenBy(a => a.ID);
                 List<NguoiDungModel> Users = new List<NguoiDungModel>();
                 foreach (var item in lstAcc)
                 {
@@ -113,6 +113,15 @@ namespace ELearning_V2.Areas.Admin.Controllers
                             ng.HoVaTen = item.HocVien.HoVaTen;
                             ng.Email = item.HocVien.Email;
 
+                        }
+                        else
+                        {
+                            if (ng.Role == 4)
+                            {
+                                ng.HoVaTen = item.NguoiDung.HoVaTen;
+                                ng.Email = item.NguoiDung.Email;
+
+                            }
                         }
                     }
                     Users.Add(ng);

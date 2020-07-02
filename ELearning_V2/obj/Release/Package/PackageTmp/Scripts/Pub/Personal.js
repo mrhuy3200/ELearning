@@ -17,19 +17,45 @@ PersonalApp.controller('PersonalController', function ($scope, $http, $window) {
     var formdata = new FormData();
     var file;
 
-    $scope.update = function () {
+    $scope.update = async function () {
         console.log($scope.User)
-        $http({
-            method: 'POST',
-            url: '/User/EditUserInfo',
-            data: JSON.stringify($scope.User)
-        }).then(function (r) {
-            if (r.data == 1) {
-                alert("Đã thay đổi");
-                LoadUser();
-                console.log($scope.User)
+        if ($scope.User.Email != '' && $scope.User.Fullname != '' && $scope.User.Fullname != null && $scope.User.Email != null) {
+            $http({
+                method: 'GET',
+                url: '/User/CheckEmail/?Email=' + $scope.User.Email
+            }).then(function (r) {
+                if (r.data == 1) {
+                    $http({
+                        method: 'POST',
+                        url: '/User/EditUserInfo',
+                        data: JSON.stringify($scope.User)
+                    }).then(function (r) {
+                        if (r.data == 1) {
+                            alert("Đã thay đổi");
+                            $('#EmailErr1').css('display', 'none');
+                            $('#EmailErr2').css('display', 'none');
+                            $('#FullnameErr').css('display', 'none');
+
+                            LoadUser();
+                            console.log($scope.User)
+                        }
+                    })
+                }
+                else {
+                    $('#EmailErr2').css('display', 'block');
+                }
+            })
+        }
+        else {
+            if ($scope.User.Fullname == '' || $scope.User.Fullname == null) {
+                $('#FullnameErr').css('display', 'block');
             }
-        })
+            else {
+                $('#EmailErr1').css('display', 'block');
+
+            }
+        }
+
     }
     $scope.ChangePassword = function () {
         if ($scope.checkOld && $scope.NewPassword == $scope.ConfirmPassword) {
@@ -113,6 +139,14 @@ PersonalApp.controller('PersonalController', function ($scope, $http, $window) {
 
         })
 
+    }
+    function CheckEmail(email) {
+        $http({
+            method: 'GET',
+            url: '/User/CheckEmail/?Email=' + email
+        }).then(function (r) {
+            return r.data;
+        })
     }
     function SetHash() {
         $("#OldPassword").keyup(function () {

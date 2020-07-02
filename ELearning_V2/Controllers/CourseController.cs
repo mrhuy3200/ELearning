@@ -128,7 +128,7 @@ namespace ELearning_V2.Controllers
                 {
                     return Json(ClassService.AddMember(data), JsonRequestBehavior.AllowGet);
                 }
-                return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(3, JsonRequestBehavior.AllowGet);
 
             }
             return Json(-1, JsonRequestBehavior.AllowGet);

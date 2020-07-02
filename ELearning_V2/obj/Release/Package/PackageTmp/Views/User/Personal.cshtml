@@ -36,12 +36,15 @@
                             <div class="col col-md-3"><label for="text-input" class="form-control-label">Họ tên</label></div>
                             <div class="col-12 col-md-9">
                                 <input class="form-control" placeholder="Họ tên..." type="text" required maxlength="50" ng-model="User.Fullname" />
+                                <span id="FullnameErr" class="small text-danger" style="display:none">Không để trống họ tên</span>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class="form-control-label">Email</label></div>
                             <div class="col-12 col-md-9">
                                 <input class="form-control" placeholder="Email..." type="text" required maxlength="50" ng-model="User.Email" />
+                                <span id="EmailErr1" class="small text-danger" style="display:none">Không để trống email</span>
+                                <span id="EmailErr2" class="small text-danger" style="display:none">Email đã sử dụng</span>
                             </div>
                         </div>
                         <div class="row form-group">

@@ -168,17 +168,21 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         file = $files[0];
         console.log(formdata);
     };
-    $scope.lop = {
-        Name: '',
-        Capacity: null,
-        Description: '',
-        Image: '',
-        Price: null,
-        Schedule: '',
-        Condition: '',
-        Type: null
+    function initCourse() {
+        $scope.lop = {
+            Name: '',
+            Capacity: null,
+            Description: '',
+            Image: '',
+            Price: '',
+            Schedule: '',
+            Condition: '',
+            Type: null
+        }
+
     }
     $scope.DangKy = function (type) {
+        initCourse();
         DayThemService.LoadMonHoc().then(function (r) {
             $scope.MonHocs = r.data;
         })

@@ -760,12 +760,15 @@ namespace ELearning_V2.Service
                     db.SaveChanges();
                     var TopicDelete = db.Lession_Topic.Where(x => x.LessionID == l.ID).ToList();
                     db.Lession_Topic.RemoveRange(TopicDelete);
-                    foreach (var item in l.Topics)
+                    if (l.Topics != null)
                     {
-                        Lession_Topic t = new Lession_Topic();
-                        t.LessionID = l.ID;
-                        t.TopicID = item.ID;
-                        db.Lession_Topic.Add(t);
+                        foreach (var item in l.Topics)
+                        {
+                            Lession_Topic t = new Lession_Topic();
+                            t.LessionID = l.ID;
+                            t.TopicID = item.ID;
+                            db.Lession_Topic.Add(t);
+                        }
                     }
                     db.SaveChanges();
 
@@ -1674,6 +1677,7 @@ namespace ELearning_V2.Service
                         n.Content = item.Content;
                         n.CourseID = item.CourseID;
                         n.CreateDate = item.CreateDate;
+                        n.Files = item.NotificationFiles.Select(x=>x.FileName).ToList();
                         data.Add(n);
                     }
                     return data;
@@ -1685,20 +1689,32 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
-        public static int AddNotification(string Name, string Content, long CourseID)
+        public static long AddNotification(NotificationDTO n)
         {
             try
             {
                 using (ELearningDB db = new ELearningDB())
                 {
                     Notification data = new Notification();
-                    data.Name = Name;
-                    data.Content = Content;
-                    data.CourseID = CourseID;
+                    data.Name = n.Name;
+                    data.Content = n.Content;
+                    data.CourseID = n.CourseID;
                     data.CreateDate = DateTime.Now;
                     db.Notifications.Add(data);
                     db.SaveChanges();
-                    return 1;
+                    long NotiID = db.Notifications.OrderByDescending(x => x.ID).FirstOrDefault().ID;
+                    if (n.Files != null)
+                    {
+                        for (int i = 0; i < n.Files.Count; i++)
+                        {
+                            NotificationFile file = new NotificationFile();
+                            file.FileName = n.Files[i];
+                            file.NotiID = NotiID;
+                            db.NotificationFiles.Add(file);
+                        }
+                        db.SaveChanges();
+                    }
+                    return NotiID;
                 }
             }
             catch (Exception)

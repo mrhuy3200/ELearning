@@ -245,6 +245,12 @@ namespace ELearning_V2.Controllers
                 {
                     return Json("Không đủ quyền hạn", JsonRequestBehavior.AllowGet);
                 }
+                var NotiID = db.Notifications.Where(a=>a.CourseID == ID).Select(x => x.ID).ToList();
+                foreach (var item in NotiID)
+                {
+                    NotificationDTO n = new NotificationDTO() { ID=item};
+                    RemoveNotification(n);
+                }
                 int res = ClassService.RemoveCourse(check);
                 if (res == 1)
                 {
@@ -1363,7 +1369,7 @@ namespace ELearning_V2.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            return Json(ClassService.AddNotification(n.Name, n.Content, (long)n.CourseID), JsonRequestBehavior.AllowGet);
+            return Json(ClassService.AddNotification(n), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult RemoveNotification(NotificationDTO n)
@@ -1373,7 +1379,25 @@ namespace ELearning_V2.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            return Json(ClassService.RemoveNotification(n.ID), JsonRequestBehavior.AllowGet);
+            if (ClassService.RemoveNotification(n.ID) == 1)
+            {
+                string path = @"~/Content/Files/Notification/" + n.ID;
+
+                if (System.IO.Directory.Exists(Server.MapPath(path)))
+                {
+                    System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(Server.MapPath(path));
+                    foreach (System.IO.FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    System.IO.Directory.Delete(Server.MapPath(path));
+
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(-1, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult GetListMonHoc()
         {
@@ -1390,6 +1414,23 @@ namespace ELearning_V2.Controllers
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult UploadNotiFiles()
+        {
+            string NotiID = Request["NotiID"];
+            HttpFileCollectionBase files = Request.Files;
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                HttpPostedFileBase file = files[i];
+                //System.IO.FileInfo fi = new System.IO.FileInfo(file.FileName);
+                System.IO.Directory.CreateDirectory(Server.MapPath("~/Content/Files/Notification/" + NotiID));
+                string fname = System.IO.Path.Combine(Server.MapPath("~/Content/Files/Notification/" + NotiID), file.FileName);
+                file.SaveAs(fname);
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

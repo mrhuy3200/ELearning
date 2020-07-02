@@ -453,7 +453,7 @@
                         <a id="JoinBtn" class="main_btn text-light" ng-if="JoinStatus != 1" ng-click="Join()">Đăng ký</a>
                         <div id="JoinAlert" class="alert alert-danger mt-3 text-center" style="display:none">
                             <p class="bold">Bạn cần đăng nhập để thực hiện việc này!!!</p>
-                            <a class="btn btn-success text-light">Đăng nhập</a>
+                            <a class="btn btn-success text-light" href="/Login/login">Đăng nhập</a>
                         </div>
                     </div>
                     <div class="p-2 mt-5">
@@ -461,20 +461,25 @@
                             <strong>Thông báo</strong>
                         </div>
                         <div class="list-group" style="overflow:auto;max-height:300px">
-                            <a href="" ng-click="ShowNotiContent($index)" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="noti in Notifis">
+                            <div @*href=""*@ class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="noti in Notifis">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <strong class="mb-1"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i> &nbsp;{{noti.Name}}</strong>
-                                    <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                    <strong class="mb-1" style="width:74%"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i><a ng-click="ShowNotiContent($index)">&nbsp;{{noti.Name}}</a> </strong>
+                                    <div>
+                                        <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
+                                        <a><i class="fa fa-trash-o" ng-click="RemoveNoti(noti, $index)"></i></a>
+                                    </div>
+
                                 </div>
                                 <div class="collapse" id="Noti{{$index}}">
-                                    <p class="mb-1">
-                                        {{noti.Content}}
-                                    </p>
+                                    <div ng-bind-html="noti.Content"></div>
+                                    <div ng-repeat="fi in noti.Files">
+                                        <div><a href="" id="notifile{{noti.ID}}_{{$index}}" download><small>{{fi}}</small></a></div>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
 
-                    </div>
+                            </div>
+
+                        </div>
                     <div class="collapse p-2" id="ChatArea" style="border:2px solid;border-radius:5px">
                         <div class="d-flex justify-content-between ">
                             <strong>Chat Room</strong>
@@ -527,7 +532,7 @@
                                     <strong>Xác nhận đăng ký</strong>
                                     <div>
                                         <a class="btn btn-success text-light" ng-click="Regist()">Xác nhận</a>
-                                        <a class="btn btn-dark text-light">Hủy bỏ</a>
+                                        <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
                                     </div>
                                 </div>
                             </div>
@@ -547,8 +552,8 @@
                         <form class="form-horizontal row" name="AddNewForm">
                             <div class="col-md-6">
                                 <p><strong>Tên bài test</strong>: {{TestInfo.Name}}</p>
-                                <p><strong>Số câu hỏi</strong>: {{TestInfo.AmountQuestion}}</p>
-                                <p><strong>Thời gian</strong>: {{TestInfo.Time}}</p>
+                                <p><strong>Số câu hỏi</strong>: {{TestInfo.AmountQuestion}} câu</p>
+                                <p><strong>Thời gian</strong>: {{TestInfo.Time}} phút</p>
                             </div>
                             <div class="col-md-6">
                                 <div>
@@ -803,5 +808,9 @@
         padding: 0px 5px 0px 5px;
     }
     .huyChat {
+    }
+    .link {
+        color: black;
+        text-decoration: underline;
     }
 </style>

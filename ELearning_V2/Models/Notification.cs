@@ -14,6 +14,12 @@ namespace ELearning_V2.Models
     
     public partial class Notification
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Notification()
+        {
+            this.NotificationFiles = new HashSet<NotificationFile>();
+        }
+    
         public long ID { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
@@ -21,5 +27,7 @@ namespace ELearning_V2.Models
         public Nullable<System.DateTime> CreateDate { get; set; }
     
         public virtual Course Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NotificationFile> NotificationFiles { get; set; }
     }
 }
