@@ -234,7 +234,7 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         $scope.type = type;
     }
     $scope.Save = function () {
-        var val1,val2,val3,val4;
+        var val1, val2, val3, val4;
         if ($('#file').get(0).files.length === 0) {
             val1 = false;
             $('#CourseImageError').css("display", "block");
@@ -285,14 +285,104 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
             })
 
             $('#PayConfirm').modal('show');
-  
+
+        }
+    }
+    $scope.Pay = function () {
+        console.log($scope.lop)
+        if ($scope.lop.Pay == 0) {
+            $http({
+                method: 'POST',
+                url: '/Lop/CreateClass',
+                data: JSON.stringify($scope.lop)
+            }).then(function successCallback(response) {
+                ID = response.data;
+                console.log(ID);
+                //$scope.Clear();
+                console.log('filename ' + file.name);
+                var blob = file.slice(0, file.size, 'image/jpg');
+                newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
+                console.log('filename ' + newFile);
+                formdata.set(0, newFile);
+                console.log(formdata.get(0));
+                var request = {
+                    method: 'POST',
+                    url: '/api/API/UploadClassImage',
+                    data: formdata,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+                $http(request)
+                    .then(function (d) {
+                        alert("Đăng ký thành công");
+                        window.location.reload();
+                    })
+            }, function errorCallback(response) {
+                alert("Error : " + response.data.ExceptionMessage);
+            });
+        }
+        else {
+            const selectedFile = document.getElementById('file').files;
+            var CourseData = new FormData();
+            CourseData.append('Name', $scope.lop.Name);
+            CourseData.append('Capacity', $scope.lop.Capacity);
+            CourseData.append('Description', $scope.lop.Description);
+            CourseData.append('Price', $scope.lop.Price);
+            CourseData.append('Schedule', $scope.lop.Schedule);
+            CourseData.append('Condition', $scope.lop.Condition);
+            CourseData.append('Type', $scope.lop.Type);
+            CourseData.append('Image', selectedFile[0]);
+            CourseData.append('MaMonHoc', $scope.lop.MaMonHoc);
+            $.ajax({
+                url: '/Paypal/ReviceCourse',
+                type: "POST",
+                contentType: false, // Not to set any content header  
+                processData: false, // Not to process data  
+                data: CourseData,
+                async: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result == 1) {
+                        if ($scope.lop.Type == 2) {
+                            CourseData.append('ItemName', "Đăng ký lớp cao cấp");
+                            CourseData.append('ItemPrice', "200");
+                            CourseData.append('ItemSku', "CFPRE");
+                            $.ajax({
+                                url: '/Paypal/PaymentWithPaypal/?ItemSku=CFPRE',
+                                type: "GET",
+                                success: function (result) {
+                                    window.location.replace(result);
+                                }
+                            });
+                        }
+                        if ($scope.lop.Type == 3) {
+                            CourseData.append('ItemName', "Đăng ký lớp đặc quyền");
+                            CourseData.append('ItemPrice', "500");
+                            CourseData.append('ItemSku', "CFEXC");
+                            $.ajax({
+                                url: '/Paypal/PaymentWithPaypal/?ItemSku=CFEXC',
+                                type: "GET",
+                                success: function (result) {
+                                    window.location.replace(result);
+
+                                }
+                            });
+
+                        }
+
+                    }
+                }
+            });
+
         }
 
         //$http({
         //    method: 'POST',
-        //    url: '/Lop/CreateClass',
-        //    data: JSON.stringify($scope.lop)
+        //    url: '/Paypal/PaymentWithPaypal',
+        //    data: CourseData
         //}).then(function successCallback(response) {
+        //if (response.data != -1) {
         //    ID = response.data;
         //    console.log(ID);
         //    //$scope.Clear();
@@ -314,56 +404,18 @@ DayThemApp.controller('DayThemController', function ($scope, $http, $window, $sc
         //        .then(function (d) {
         //            alert("Đăng ký thành công");
         //            LoadClass();
+        //            $('.modal').modal('hide');
+
         //        })
+        //}
+        //else {
+        //    alert("Số dư không đủ để thanh toán");
+        //}
         //}, function errorCallback(response) {
         //    alert("Error : " + response.data.ExceptionMessage);
         //});
-    }
-    $scope.Pay = function () {
-        if ($scope.lop.Pay <= $scope.User.Balance) {
-            console.log("OK");
-            $http({
-                method: 'POST',
-                url: '/Lop/CreateClass',
-                data: JSON.stringify($scope.lop)
-            }).then(function successCallback(response) {
-                if (response.data != -1) {
-                    ID = response.data;
-                    console.log(ID);
-                    //$scope.Clear();
-                    console.log('filename ' + file.name);
-                    var blob = file.slice(0, file.size, 'image/jpg');
-                    newFile = new File([blob], ID + '.jpg', { type: 'image/jpg' });
-                    console.log('filename ' + newFile);
-                    formdata.set(0, newFile);
-                    console.log(formdata.get(0));
-                    var request = {
-                        method: 'POST',
-                        url: '/api/API/UploadClassImage',
-                        data: formdata,
-                        headers: {
-                            'Content-Type': undefined
-                        }
-                    };
-                    $http(request)
-                        .then(function (d) {
-                            alert("Đăng ký thành công");
-                            LoadClass();
-                            $('.modal').modal('hide');
 
-                        })
-                }
-                else {
-                    alert("Số dư không đủ để thanh toán");
-                }
-            }, function errorCallback(response) {
-                alert("Error : " + response.data.ExceptionMessage);
-            });
 
-        }
-        else {
-            alert("Số dư không đủ để thanh toán");
-        }
 
     }
     $scope.Clear = function () {

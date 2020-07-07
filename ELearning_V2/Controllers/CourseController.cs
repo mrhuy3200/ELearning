@@ -124,12 +124,7 @@ namespace ELearning_V2.Controllers
             var checkJoin = ClassService.CheckJoinStatus(course.ID, us.ID);
             if (checkJoin == false)
             {
-                if (ClassService.Pay(us.ID, (long)course.UserID, (double)course.Price))
-                {
-                    return Json(ClassService.AddMember(data), JsonRequestBehavior.AllowGet);
-                }
-                return Json(3, JsonRequestBehavior.AllowGet);
-
+                return Json(ClassService.AddMember(data), JsonRequestBehavior.AllowGet);
             }
             return Json(-1, JsonRequestBehavior.AllowGet);
         }

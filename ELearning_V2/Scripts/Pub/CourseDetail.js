@@ -21,9 +21,9 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
         $scope.LcurrentPage = 1;
         $scope.LpageSize = 5;
         $scope.McurrentPage = 1;
-        $scope.MpageSize = 5;
+        $scope.MPageSize = 5;
         $scope.LTAcurrentPage = 1;
-        $scope.LTApageSize = 5;
+        $scope.LTAPageSize = 5;
         $scope.TcurrentPage = 1;
         $scope.TPageSize = 5;
         $scope.CourseID = id;
@@ -496,6 +496,18 @@ CourseDetailApp.controller('CourseDetailController', function ($scope, $sce, $ht
     }
     $scope.Info = function (User) {
         $scope.User = User;
+        $http({
+            method: 'GET',
+            url: '/Lop/LoadTestResultByCourseID/' + $scope.CourseID + '?MemberID=' + User.ID
+        }).then(function (r) {
+            
+            for (var i = 0; i < r.data.length; i++) {
+                r.data[i].TestDate = new Date(parseInt(r.data[i].TestDate.substr(6)));
+            }
+            console.log('TestResult');
+            console.log(r.data);
+            $scope.TestResult = r.data;
+        })
     }
     $scope.RemoveMember = function (UserID) {
         var CourseDetailDTO = {

@@ -499,3 +499,7 @@ D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csproj.CopyComplete
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.dll
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.pdb
 D:\DOAN\ELearning\ELearning_V2\obj\Debug\ELearning_V2.csprojAssemblyReference.cache
+G:\Git\ELearning\ELearning_V2\bin\log4net.dll
+G:\Git\ELearning\ELearning_V2\bin\PayPal.dll
+G:\Git\ELearning\ELearning_V2\bin\log4net.xml
+G:\Git\ELearning\ELearning_V2\bin\PayPal.xml

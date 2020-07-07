@@ -1415,7 +1415,17 @@ namespace ELearning_V2.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult LoadTestResultByCourseID(long ID, long MemberID)
+        {
+            var User = (TaiKhoan)Session["User"];
+            if (ClassService.CheckUserRole(User.ID, ID) != 3)
+            {
+                var data = ClassService.GetListTestResultByCourseID(ID, MemberID);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
 
+        }
         [HttpPost]
         public ActionResult UploadNotiFiles()
         {

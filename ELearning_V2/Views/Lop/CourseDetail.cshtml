@@ -347,13 +347,12 @@
                                         <label style="width:max-content">Page size:</label>
                                     </div>
                                     <div class="input-group col-md-6">
-                                        <input class="form-control" type="number" ng-model="MpageSize" min="4" max="10" />
+                                        <input class="form-control" type="number" ng-model="MPageSize" min="4" max="10" />
                                     </div>
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-dark" id="dataTable" width="100%" cellspacing="0">
-
                                     <thead class="text-center">
                                         <tr>
                                             <th>#</th>
@@ -381,6 +380,7 @@
                                     <dir-pagination-controls boundary-links="true" pagination-id="ListMember"></dir-pagination-controls>
                                 </div>
                             </div>
+
                             <div class="modal fade" id="Info" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -422,6 +422,31 @@
                                                     </div>
                                                 </div>
                                                 <div class="col col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <strong>Kết quả kiểm tra </strong>
+                                                        </div>
+                                                        <div class="card-body card-block">
+                                                            <table class="table table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Test Name</th>
+                                                                        <th scope="col">Test Date</th>
+                                                                        <th scope="col">Kết quả</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="result in TestResult">
+                                                                        <th scope="row">{{$index+1}}</th>
+                                                                        <td>{{result.TestName}}</td>
+                                                                        <td>{{result.TestDate |date:"dd/MM/yyyy"}}</td>
+                                                                        <td>{{result.TestResult}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -431,9 +456,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                     <div class="tab-pane fade" id="Testing" role="tabpanel" aria-labelledby="Testing-tab">
                         <div class="comments-area">
@@ -659,19 +682,18 @@
                             <tbody>
                                 <tr dir-paginate="l in LessionToAdds | filter:LTASearchKey | itemsPerPage: LTAPageSize" pagination-id="LessionToAdds" current-page="LTAcurrentPage">
                                     <td width="5%">{{$index+1}}</td>
-                                    <td width="15%" class="text-center">
+                                    <td width="10%" class="text-center">
                                         <a ng-click="AddLessionToCourse(l.ID)" title="Thêm vào lớp" role="button" class="btn btn-light text-success"><i class="fa fa-plus"></i></a>
                                     </td>
-                                    <td width="15%">{{l.Name}}</td>
-                                    <td width="20%">{{l.View}}</td>
+                                    <td width="30%">{{l.Name}}</td>
+                                    <td width="10%">{{l.View}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="text-center">
-                            <dir-pagination-controls boundary-links="true" pagination-id="LessionToAdds"></dir-pagination-controls>
-                        </div>
                     </div>
-
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" pagination-id="LessionToAdds"></dir-pagination-controls>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

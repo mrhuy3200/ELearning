@@ -1,5 +1,6 @@
 ﻿using ELearning_V2.Areas.GV.Models;
 using ELearning_V2.common;
+using ELearning_V2.DTO;
 using ELearning_V2.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,11 @@ namespace ELearning_V2.Controllers
             if (TempData["ActiveResult"] != null)
             {
                 ViewBag.ActiveResult = TempData["ActiveResult"].ToString();
+            }
+            if (TempData["ResetPass"] != null)
+            {
+                ViewBag.ResetPass = TempData["ResetPass"].ToString();
+
             }
 
             return View();
@@ -112,7 +118,7 @@ namespace ELearning_V2.Controllers
             Session.Remove("User");
             return RedirectToAction("Index", "Login");
         }
-
+        
         public JsonResult APILogin(LoginModel model)
         {
             string pass = Encryptor.MD5Hash(model.PassWord);
@@ -173,7 +179,10 @@ namespace ELearning_V2.Controllers
                     u.SoDu = 20000;
                     u.MaXacNhan = GenerateCode();
                     db.SaveChanges();
-                    SendEmail(u);
+                    var domain = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+                    var sub = "Kích hoạt tài khoản";
+                    var emailBody = string.Format("Xin chào {0} <br />Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn<br /> {1}/Login/ActiveAccount/{2}/{3} ", u.HoVaTen, domain, u.ID, u.MaXacNhan);
+                    SendEmail(u, sub, emailBody);
                     TempData["RegisterResult"] = "Đăng ký thành công";
                     return RedirectToAction("Login", "Login");
                 }
@@ -214,6 +223,69 @@ namespace ELearning_V2.Controllers
             }
         }
 
+        public ActionResult ForgotPassword(string Email)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var user = db.TaiKhoans.Where(x => x.NguoiDung.Email == Email).FirstOrDefault();
+                if (user != null)
+                {
+                    user.NguoiDung.MaXacNhan = GenerateCode();
+                    db.SaveChanges();
+                    var domain = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+                    var sub = "Đặt lại mật khẩu";
+                    var emailBody = string.Format("Xác nhận yêu cầu cập nhật lại mật khẩu ELearning.net <br />Xin chào {0} <br /> Bạn đã yêu cầu cấp lại mật khẩu tại ELearning.net<br />Để hoàn tất công việc này, bạn vui lòng nhấp vào link sau:<br /> {1}/Login/ResetPassword/{2}/{3} ", user.NguoiDung.HoVaTen, domain, user.ID, user.NguoiDung.MaXacNhan);
+                    NguoiDung u = new NguoiDung()
+                    {
+                        Email = user.NguoiDung.Email,
+                        HoVaTen = user.NguoiDung.HoVaTen
+                    };
+                    SendEmail(u, sub, emailBody);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+
+                }
+                return Json(-1, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult ResetPassword(long ID, string AuthenticationCode)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var user = db.NguoiDungs.Where(x => x.ID == ID && x.MaXacNhan == AuthenticationCode).FirstOrDefault();
+                if (user != null)
+                {
+                    ResetPasswordModel model = new ResetPasswordModel()
+                    {
+                        ID = user.ID,
+                        AuthenticationCode = user.MaXacNhan
+                    };
+                    return View(model);
+                }
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ELearningDB db = new ELearningDB())
+                {
+                    var user = db.TaiKhoans.Find(model.ID);
+                    if (model.AuthenticationCode != user.NguoiDung.MaXacNhan)
+                    {
+                        ViewBag.ResetPass = "Tài khoản không hợp lệ";
+                        return View(model);
+                    }
+                    user.Password = Encryptor.MD5Hash(model.Password);
+                    user.NguoiDung.MaXacNhan = null;
+                    db.SaveChanges();
+                    TempData["ResetPass"] = "Cập nhật mật khẩu thành công!!!";
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
+        }
         private string GenerateCode()
         {
             int length = 32;
@@ -230,14 +302,11 @@ namespace ELearning_V2.Controllers
             return str_build.ToString();
         }
 
-        private void SendEmail(NguoiDung user)
+        private void SendEmail(NguoiDung user, string sub, string body)
         {
-            var domain = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
             var senderEmail = new MailAddress("cloneelsword2@gmail.com", "ELearning");
             var receiverEmail = new MailAddress(user.Email, user.HoVaTen);
             var password = "huynhthanhhuy";
-            var sub = "Kích hoạt tài khoản";
-            var body = string.Format("Xin chào {0} <br/>Cảm ơn vì đã đăng ký thành viên, vui lòng nhấn vào đường dẫn sau để kích hoạt tài khoản của bạn: {1}/Login/ActiveAccount/{2}/{3} ", user.HoVaTen, domain, user.ID, user.MaXacNhan);
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -249,6 +318,7 @@ namespace ELearning_V2.Controllers
             };
             using (var mess = new MailMessage(senderEmail, receiverEmail)
             {
+                IsBodyHtml = true,
                 Subject = sub,
                 Body = body
             })

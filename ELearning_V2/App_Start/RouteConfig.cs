@@ -16,14 +16,19 @@ namespace ELearning_V2
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {controller = "Home", action = "GuessHomePage", id = UrlParameter.Optional },
+                defaults: new { controller = "Home", action = "GuessHomePage", id = UrlParameter.Optional },
                 namespaces: new[] { "ELearning_V2.Controllers" }
             );
             routes.MapRoute(
                 "ActiveAccount",
                 "{controller}/{action}/{ID}/{AuthenticationCode}",
-                new { Controller = "Login", action = "ActiveAccount", ID = "", AuthenticationCode = "" });
-
+                new { Controller = "Login", action = "ActiveAccount", ID = "", AuthenticationCode = "" }
+            );
+            routes.MapRoute(
+                "ResetPassword",
+                "{controller}/{action}/{ID}/{AuthenticationCode}",
+                new { Controller = "Login", action = "ResetPassword", ID = "", AuthenticationCode = "" }
+            );
 
         }
     }

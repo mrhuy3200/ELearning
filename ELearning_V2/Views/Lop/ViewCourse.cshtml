@@ -377,6 +377,32 @@
                                                         </div>
                                                     </div>
                                                     <div class="col col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <strong>Kết quả kiểm tra </strong>
+                                                            </div>
+                                                            <div class="card-body card-block">
+                                                                <table class="table table-sm">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">#</th>
+                                                                            <th scope="col">Test Name</th>
+                                                                            <th scope="col">Test Date</th>
+                                                                            <th scope="col">Kết quả</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="result in TestResult">
+                                                                            <th scope="row">{{$index+1}}</th>
+                                                                            <td>{{result.TestName}}</td>
+                                                                            <td>{{result.TestDate |date:"dd/MM/yyyy"}}</td>
+                                                                            <td>{{result.TestResult}}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </form>
                                             </div>
@@ -466,7 +492,7 @@
                                     <strong class="mb-1" style="width:74%"><i class="fas fa-caret-right" id="NotiIcon{{$index}}"></i><a ng-click="ShowNotiContent($index)">&nbsp;{{noti.Name}}</a> </strong>
                                     <div>
                                         <small>{{noti.CreateDate | date:"dd/MM/yyyy"}}</small>
-                                        <a><i class="fa fa-trash-o" ng-click="RemoveNoti(noti, $index)"></i></a>
+                                        @*<a><i class="fa fa-trash-o" ng-click="RemoveNoti(noti, $index)"></i></a>*@
                                     </div>
 
                                 </div>
@@ -480,36 +506,38 @@
                             </div>
 
                         </div>
-                    <div class="collapse p-2" id="ChatArea" style="border:2px solid;border-radius:5px">
-                        <div class="d-flex justify-content-between ">
-                            <strong>Chat Room</strong>
-                            <div>
-                                <a class="btn btn-dark text-danger" id="CloseChatBtn"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                        <div id="ChatContent" class="border mb-1 mt-1 p-2" style="height:300px;overflow:auto">
-                            @*Nội dung chat*@
-                            @*<div class="myChatWarp huyChat ">
-                                <div class="position-relative">
-                                    <div class="chat myChat" onmouseover="console.log(ShowInfo(1))" onmouseout="console.log(HideInfo(1))">aaaaaaaaaaaaaaaa</div>
-                                    <div id="chatTime1" class="text-left MychatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
+                        <div class="collapse p-2" id="ChatArea" style="border:2px solid;border-radius:5px">
+                            <div class="d-flex justify-content-between ">
+                                <strong>Chat Room</strong>
+                                <div>
+                                    <a class="btn btn-dark text-danger" id="CloseChatBtn"><i class="fa fa-times" aria-hidden="true"></i></a>
                                 </div>
                             </div>
-                            <div class="chatWarp huyChat position-relative" >
-                                <div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/101.jpg"></div>
-                                <div class="">
-                                    <div id="chatUser2" class="text-left"><span class="small">Phan Trọng Tấn</span></div>
-                                    <div class="chat" onmouseover="console.log(ShowInfo(2))" onmouseout="console.log(HideInfo(2))">1st chat nhé</div>
-                                    <div id="chatTime2" class="text-left chatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
+                            <div id="ChatContent" class="border mb-1 mt-1 p-2" style="height:300px;overflow:auto">
+                                @*Nội dung chat*@
+                                @*<div class="myChatWarp huyChat ">
+                                    <div class="position-relative">
+                                        <div class="chat myChat" onmouseover="console.log(ShowInfo(1))" onmouseout="console.log(HideInfo(1))">aaaaaaaaaaaaaaaa</div>
+                                        <div id="chatTime1" class="text-left MychatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
+                                    </div>
+                                </div>
+                                <div class="chatWarp huyChat position-relative" >
+                                    <div class="UserChat mr-1"><img width="28" height="28" style="border:0" src="../../Content/img/UserImage/101.jpg"></div>
+                                    <div class="">
+                                        <div id="chatUser2" class="text-left"><span class="small">Phan Trọng Tấn</span></div>
+                                        <div class="chat" onmouseover="console.log(ShowInfo(2))" onmouseout="console.log(HideInfo(2))">1st chat nhé</div>
+                                        <div id="chatTime2" class="text-left chatTime" style="display:none"><span class="small">11/04/2020 08:29:12</span></div>
 
-                                </div>
-                            </div>*@
+                                    </div>
+                                </div>*@
+                            </div>
+                            <textarea type="text" class="form-control" id="ChatInput" placeholder="Nhập tin nhắn..." onkeyup="textAreaChatAdjust(this)" style="height:40px;overflow:hidden;resize: none;"></textarea>
                         </div>
-                        <textarea type="text" class="form-control" id="ChatInput" placeholder="Nhập tin nhắn..." onkeyup="textAreaChatAdjust(this)" style="height:40px;overflow:hidden;resize: none;"></textarea>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="JoinForm" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -519,23 +547,24 @@
                     </div>
                     <div class="modal-body" style="margin-left:20px">
                         <form class="form-horizontal row" name="AddNewForm">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <p><strong>Tên lớp</strong>: {{Lop.Name}}</p>
                                 <p><strong>Lịch học</strong>: {{Lop.Schedule}}</p>
                                 <p><strong>Học phí</strong>: {{Lop.Price | currency:"$":0}}</p>
                             </div>
-                            <div class="col-md-6">
+                            <div>
+                                <strong>Xác nhận đăng ký</strong>
+                                <div>
+                                    <a class="btn btn-success text-light" ng-click="Regist()">Xác nhận</a>
+                                    <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
+                                </div>
+                            </div>
+
+                            @*<div class="col-md-6">
                                 <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
                                 <p><strong>Số dư</strong>: {{User.Balance | currency:"$":0}}</p>
                                 <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-Lop.Price | currency:"$":0}}</p>
-                                <div>
-                                    <strong>Xác nhận đăng ký</strong>
-                                    <div>
-                                        <a class="btn btn-success text-light" ng-click="Regist()">Xác nhận</a>
-                                        <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>*@
                         </form>
                     </div>
                 </div>

@@ -112,7 +112,7 @@
                                                         <a id="RepBtn{{$index}}" href="" class="btn-reply text-uppercase float-right" data-toggle="collapse" data-target="#Rep{{$index}}" aria-expanded="false" ng-click="Rep($index)">reply</a>
                                                     </div>
                                                 </div>
-                                                <div class="collapse row" id="Rep{{$index}}">
+                                                <div class="collapse row" id="Rep{{$index}}" style="padding-left:15px">
                                                     <textarea id="repArea{{$index}}" class="form-control col-md-10" placeholder="Nhập phản hồi..." onkeyup="textAreaAdjust(this)" style="overflow:hidden;resize: none;"></textarea>
                                                     <div class="col-md-2">
                                                         <a id="EditComBtn{{$index}}" class="btn btn-light" ng-click="EditCom($index, cmt.ID)" style="display:none"><i class="fa fa-paper-plane-o"></i></a>

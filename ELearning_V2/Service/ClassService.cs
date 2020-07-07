@@ -1745,5 +1745,24 @@ namespace ELearning_V2.Service
                 throw;
             }
         }
+        public static List<TestResultDTO> GetListTestResultByCourseID(long CourseID, long MemberID)
+        {
+            using (ELearningDB db = new ELearningDB())
+            {
+                var lstTestResult = db.TestResults.Where(x => x.Test.CourseID == CourseID && x.UserID == MemberID).ToList();
+                List<TestResultDTO> data = new List<TestResultDTO>(); 
+                foreach (var item in lstTestResult)
+                {
+                    TestResultDTO tr = new TestResultDTO()
+                    {
+                        TestName = item.Test.Name,
+                        TestResult = item.TestResult1,
+                        TestDate = item.TestDate
+                    };
+                    data.Add(tr);
+                }
+                return data;
+            }
+        }
     }
 }

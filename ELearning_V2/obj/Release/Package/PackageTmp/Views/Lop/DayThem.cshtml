@@ -75,7 +75,7 @@
 </section>
 
 <div ng-app="DayThemApp" ng-controller="DayThemController">
-    <section class="packages_area p_120" id="Registration">
+    <section class="packages_area p_120 HSection" id="Registration">
         <div class="container">
             <div class="row packages_inner">
                 <div class="col-lg-3">
@@ -116,7 +116,7 @@
                             </ul>
                         </div>
                         <div class="pack_footer">
-                            <h4>$200.000</h4>
+                            <h4>$200</h4>
                             <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(2)">Đăng ký</button>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                             </ul>
                         </div>
                         <div class="pack_footer">
-                            <h4>$500.000</h4>
+                            <h4>$500</h4>
                             <button type="button" class="main_btn" data-toggle="modal" data-target="#DangKy" ng-click="DangKy(3)">Đăng ký</button>
                         </div>
                     </div>
@@ -222,24 +222,13 @@
                         </div>
                         <div class="modal-body" style="margin-left:20px">
                             <form class="form-horizontal row" name="AddNewForm">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <p><strong>Tên lớp</strong>: {{lop.Name}}</p>
                                     <p><strong>Loại</strong>: {{lop.Type}}</p>
                                     <p><strong>Số người tối đa</strong>: {{lop.Capacity}}</p>
                                     <p><strong>Chi phí</strong>: {{lop.Pay | currency:"$":0}}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Tên người dùng</strong>: {{User.Fullname}}</p>
-                                    <p><strong>Số dư</strong>: {{User.Balance | currency:"$":0}}</p>
-                                    <p><strong>Số dư sau khi thanh toán</strong>: {{User.Balance-lop.Pay | currency:"$":0}}</p>
-
-                                    <span ng-if="lop.Pay>User.Balance" class="text-danger">Số dư không đủ để thanh toán</span>
-                                    <div>
-                                        <div>
-                                            <a class="btn btn-success text-light" ng-click="Pay()">Thanh Toán</a>
-                                            <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
-                                        </div>
-                                    </div>
+                                    <a class="btn btn-success text-light" ng-click="Pay()">Thanh Toán</a>
+                                    <a class="btn btn-dark text-light" role="button" data-dismiss="modal">Hủy bỏ</a>
                                 </div>
                             </form>
                         </div>
@@ -250,7 +239,7 @@
         </div>
     </section>
 
-    <section class="courses_area p_120" id="DanhSach">
+    <section class="courses_area p_120 HSection" id="DanhSach">
         <div class="container">
             <div class="main_title">
                 <h2>Lớp của tôi</h2>
@@ -327,7 +316,7 @@
     </section>
     <hr />
 
-    <section class="courses_area p_120" id="NganHangCauHoi">
+    <section class="courses_area p_120 HSection" id="NganHangCauHoi">
         <div class="container">
             <div class="main_title">
                 <h2>Ngân hàng câu hỏi</h2>
@@ -426,7 +415,7 @@
     </section>
     <hr />
 
-    <section class="courses_area p_120" id="QuanLyBaiGiang">
+    <section class="courses_area p_120 HSection" id="QuanLyBaiGiang">
         <div class="container">
             <div class="main_title">
                 <h2>Quản lý bài giảng</h2>
@@ -536,6 +525,9 @@
 <style>
     .h:hover {
         background-color: #c9ebba;
+    }
+    .HSection {
+        padding-bottom: 0px;
     }
 </style>
 @*<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

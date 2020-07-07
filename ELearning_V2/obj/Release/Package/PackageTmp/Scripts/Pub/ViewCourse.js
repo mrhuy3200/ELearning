@@ -239,6 +239,14 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
 
                 }
                 $scope.Notifis = d.data;
+                setTimeout(function () {
+                    for (var i = 0; i < d.data.length; i++) {
+                        for (var j = 0; j < d.data[i].Files.length; j++) {
+                            document.getElementById("notifile" + d.data[i].ID + "_" + j).href = "../../Content/Files/Notification/" + d.data[i].ID + "/" + d.data[i].Files[j];
+                        }
+                    }
+                }, 500);
+
                 console.log("Notifi" + JSON.stringify(d.data));
             }, function () {
                 alert('Failed !!!');
@@ -288,7 +296,20 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
 
     $scope.Info = function (User) {
         $scope.User = User;
+        $http({
+            method: 'GET',
+            url: '/Lop/LoadTestResultByCourseID/' + $scope.CourseID + '?MemberID=' + User.ID
+        }).then(function (r) {
+
+            for (var i = 0; i < r.data.length; i++) {
+                r.data[i].TestDate = new Date(parseInt(r.data[i].TestDate.substr(6)));
+            }
+            console.log('TestResult');
+            console.log(r.data);
+            $scope.TestResult = r.data;
+        })
     }
+
     $scope.ViewLession = function (LessionID) {
         if ($scope.UserRole == 3) {
             if ($scope.Lessions[FindLession(LessionID)].Course_LessionStatus == 1) {
@@ -337,28 +358,46 @@ ViewCourseApp.controller('ViewCourseController', function ($scope, $sce, $http, 
             CourseID: $scope.CourseID
         };
         console.log(CourseDetailDTO)
-        $http({
-            method: 'POST',
-            url: '/Course/AddMember',
-            data: JSON.stringify(CourseDetailDTO)
-        }).then(function (r) {
-            if (r.data == 1) {
-                alert("Đăng ký thành công");
-                $window.location.reload(true);
-            }
-            if (r.data == 3) {
-                alert("Số dư không đủ")
-            }
-            if (r.data == -1) {
-                alert("Đã đăng ký trước đó")
-            }
-            if (r.data == 0) {
-                alert("Xảy ra lỗi")
-            }
-            if (r.data == 2) {
-                alert("Lớp đã đủ học viên")
-            }
-        })
+        if ($scope.Lop.Price == 0) {
+            $http({
+                method: 'POST',
+                url: '/Course/AddMember',
+                data: JSON.stringify(CourseDetailDTO)
+            }).then(function (r) {
+                if (r.data == 1) {
+                    console.log(r.data);
+                    window.location.reload();
+                }
+            })
+        }
+        else {
+            $http({
+                method: 'POST',
+                url: '/Paypal/ReviceCourseDetail',
+                data: JSON.stringify(CourseDetailDTO)
+            }).then(function (r) {
+                if (r.data == 1) {
+                    $.ajax({
+                        url: '/Paypal/PaymentWithPaypal/?CourseID=' + $scope.CourseID,
+                        type: "GET",
+                        success: function (result) {
+                            window.location.replace(result);
+                        }
+                    });
+                }
+                else {
+                    if (r.data == -1) {
+                        alert("Lớp học đã đủ thành viên")
+                    }
+                    if (r.data == -2) {
+                        alert("Không tìm thấy lớp học")
+                    }
+                    if (r.data == -3) {
+                        alert("Lớp học đang khóa")
+                    }
+                }
+            })
+        }
     }
     $scope.SendComment = function () {
         console.log($scope.JoinStatus)
